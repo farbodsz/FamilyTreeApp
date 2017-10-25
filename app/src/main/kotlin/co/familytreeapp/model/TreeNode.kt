@@ -23,10 +23,16 @@ class TreeNode<T>(val data: T) {
 
     fun getChildren() = children  // need this, otherwise mutable list property would be exposed
 
-    override fun toString(): String {
+    override fun toString() = data.toString()
+
+    /**
+     * @return  a string representation of the node (its data) and its children, recursively, to be
+     *          used for debugging purposes.
+     */
+    fun toStringRecursive(): String {
         var string = "$data -> ("
         for (child in children) {
-            string += "[$child]"
+            string += "[${child.toStringRecursive()}]"
         }
         string += ")"
         return string
