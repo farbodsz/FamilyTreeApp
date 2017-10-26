@@ -5,7 +5,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.widget.Toast
-import co.familytreeapp.model.TreeListItem
+import co.familytreeapp.model.TreeNode
 import co.familytreeapp.ui.FamilyTreeAdapter
 
 class MainActivity : AppCompatActivity() {
@@ -18,7 +18,9 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun displayTestTree() {
-        val items = getDummyItems()
+        val root = getDummyTree()
+
+        val items = root.asTreeList()
 
         val vertTreeAdapter = FamilyTreeAdapter(this, items)
         vertTreeAdapter.onItemClick { _, position ->
@@ -31,20 +33,23 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    private fun getDummyItems(): List<TreeListItem<String>> {
-        val list = ArrayList<TreeListItem<String>>()
-        with(list) {
-            add(TreeListItem("Grandparent", 0))
-            add(TreeListItem("Parent 1", 1))
-            add(TreeListItem("Child 1", 2))
-            add(TreeListItem("Child 2", 2))
-            add(TreeListItem("Grandchild 1", 3))
-            add(TreeListItem("Child 3", 2))
-            add(TreeListItem("Parent 2", 1))
-            add(TreeListItem("Child 4", 2))
-            add(TreeListItem("Parent 3", 1))
-        }
-        return list
+    private fun getDummyTree(): TreeNode<String> {  // returns root node
+        val root = TreeNode("Grandparent")
+
+        val parent1 = TreeNode("Parent 1")
+        val child1 = TreeNode("Child 1")
+        val child2 = TreeNode("Child 2")
+        child2.addChild(TreeNode("Grandchild 1"))
+        val child3 = TreeNode("Child 2")
+        parent1.addChildren(listOf(child1, child2, child3))
+
+        val parent2 = TreeNode("Parent 2")
+        parent2.addChild(TreeNode("Child 4"))
+
+        val parent3 = TreeNode("Parent 3")
+
+        root.addChildren(listOf(parent1, parent2, parent3))
+        return root
     }
 
 }

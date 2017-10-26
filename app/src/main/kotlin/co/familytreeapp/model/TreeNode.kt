@@ -23,6 +23,24 @@ class TreeNode<T>(val data: T) {
 
     fun getChildren() = children  // need this, otherwise mutable list property would be exposed
 
+    /**
+     * Returns this node with all child nodes (recursively) in an ordered list representation.
+     *
+     * @param depth the depth of the node in the tree currently being visited. This should initially
+     *              be 0 (when invoked by functions external to this class).
+     * @see TreeListItem
+     */
+    fun asTreeList(depth: Int = 0): List<TreeListItem<T>> {
+        val list = ArrayList<TreeListItem<T>>()
+        list.add(TreeListItem(data, depth))
+
+        for (child in children) {
+            list.addAll(child.asTreeList(depth + 1))
+        }
+
+        return list
+    }
+
     override fun toString() = data.toString()
 
     /**
