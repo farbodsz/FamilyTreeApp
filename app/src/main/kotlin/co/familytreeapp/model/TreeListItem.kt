@@ -7,7 +7,7 @@ package co.familytreeapp.model
  * @param depth to display a tree like a list, the [depth] of the node must be known so that the UI
  *              can be modified accordingly to show hierarchy.
  */
-class TreeListItem<T>(val data: T, val depth: Int) {
+data class TreeListItem<out T>(val data: T, val depth: Int) {
 
     init {
         if (depth < 0) {
