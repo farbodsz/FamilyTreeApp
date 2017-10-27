@@ -15,6 +15,10 @@ import org.threeten.bp.LocalDate
  *                      be null.
  * @param placeOfDeath  the place where the person died. This is optional and can be left blank (for
  *                      example, if the person is currently alive).
+ * @param spouseId      the integer identifier corresponding this person's spouse. If the person is
+ *                      unmarried, this should be null.
+ * @param dateOfMarriage the date when this person got married. If the person is unmarried, this
+ *                      should be null.
  */
 data class Person(
         val id: Int,
@@ -24,7 +28,9 @@ data class Person(
         val dateOfBirth: LocalDate,
         val placeOfBirth: String,
         val dateOfDeath: LocalDate?,
-        val placeOfDeath: String
+        val placeOfDeath: String,
+        val spouseId: Int?,
+        val dateOfMarriage: LocalDate?
 ) {
 
     init {
@@ -40,6 +46,8 @@ data class Person(
     val fullName = "$forename $surname"
 
     fun isAlive() = dateOfDeath == null
+
+    fun isMarried() = dateOfMarriage == null
 
     override fun toString() = "$id: $fullName"
 
