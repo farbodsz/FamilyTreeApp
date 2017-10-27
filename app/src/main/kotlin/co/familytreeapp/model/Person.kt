@@ -6,8 +6,8 @@ import org.threeten.bp.LocalDate
  * Represents a member of the family.
  *
  * @param id            a unique identifier of the person
- * @param forename      first name / forename
- * @param surname       last name / surname
+ * @param forename      first name / forename. This cannot be blank.
+ * @param surname       last name / surname. This cannot be blank.
  * @param gender        male or female
  * @param dateOfBirth   the date when the person was born
  * @param placeOfBirth  the place where the person was born. This is optional and can be left blank.
@@ -32,6 +32,10 @@ data class Person(
 
     init {
         require(id > 0) { "the id must be greater than 0" }
+
+        require(forename.isNotBlank() && surname.isNotBlank()) {
+            "the name (forename and surname) cannot be blank"
+        }
 
         dateOfDeath?.let {
             require(!it.isBefore(dateOfBirth)) {
