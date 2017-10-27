@@ -15,10 +15,8 @@ import org.threeten.bp.LocalDate
  *                      be null.
  * @param placeOfDeath  the place where the person died. This is optional and can be left blank (for
  *                      example, if the person is currently alive).
- * @param spouseId      the integer identifier corresponding this person's spouse. If the person is
- *                      unmarried, this should be null.
- * @param dateOfMarriage the date when this person got married. If the person is unmarried, this
- *                      should be null.
+ * @param marriages     a list of marriages involving this person. This list would be empty if this
+ *                      person has not been married.
  */
 data class Person(
         val id: Int,
@@ -29,8 +27,7 @@ data class Person(
         val placeOfBirth: String,
         val dateOfDeath: LocalDate?,
         val placeOfDeath: String,
-        val spouseId: Int?,
-        val dateOfMarriage: LocalDate?
+        val marriages: List<Marriage>
 ) {
 
     init {
@@ -41,14 +38,49 @@ data class Person(
                 "the date of death cannot be before the date of birth"
             }
         }
+
+        marriages.forEach {
+            require(it.person1Id == id || it.person2Id == id) {
+                "one or more marriages do not relate at all to this person"
+            }
+        }
     }
 
     val fullName = "$forename $surname"
 
     fun isAlive() = dateOfDeath == null
 
-    fun isMarried() = dateOfMarriage == null
-
     override fun toString() = "$id: $fullName"
+
+}
+
+/**
+ * Represents a marriage between two people.
+ *
+ * @param person1Id         the id of a person in this marriage
+ * @param person2Id         the id of another person in this marriage
+ * @param startDate         the date of marriage
+ * @param endDate           the date when the marriage ended. If the marriage has not ended, this
+ *                          should be null.
+ * @param placeOfMarriage   the name of the place where the marriage took place. This is optional
+ *                          and can be left blank.
+ */
+data class Marriage(
+        val person1Id: Int,
+        val person2Id: Int,
+        val startDate: LocalDate,
+        val endDate: LocalDate?,
+        val placeOfMarriage: String
+) {
+
+    init {
+        require(person1Id > 0) { "person1Id < 1: the id of a person must be greater than 0" }
+        require(person2Id > 0) { "person2Id < 1: the id of a person must be greater than 0" }
+        require(person1Id != person2Id) {
+            "person1Id = person2Id: a person cannot be married to themselves"
+        }
+    }
+
+    fun isOngoing() = endDate == null
 
 }
