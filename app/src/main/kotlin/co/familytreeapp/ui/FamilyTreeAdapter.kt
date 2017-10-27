@@ -6,8 +6,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout.LayoutParams
+import android.widget.LinearLayout
 import android.widget.TextView
 import co.familytreeapp.R
+import co.familytreeapp.model.Person
 import co.familytreeapp.model.TreeListItem
 
 /**
@@ -20,12 +22,12 @@ import co.familytreeapp.model.TreeListItem
 typealias OnItemClick = (view: View, position: Int) -> Unit
 
 /**
- * A [RecyclerView] adapter for displaying items in a vertical tree.
+ * A [RecyclerView] adapter for displaying [Person]s in a vertical tree.
  */
-class FamilyTreeAdapter<T>(
+class FamilyTreeAdapter(
         private val context: Context,
-        private val treeItems: List<TreeListItem<T>>
-) : RecyclerView.Adapter<FamilyTreeAdapter<T>.ViewHolder>() {
+        private val treeItems: List<TreeListItem<Person>>
+) : RecyclerView.Adapter<FamilyTreeAdapter.ViewHolder>() {
 
     private var onItemClickAction: OnItemClick? = null
 
@@ -41,20 +43,26 @@ class FamilyTreeAdapter<T>(
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         val treeItem = treeItems[position]
+        val person = treeItem.data
 
         val leftMargin = context.dpToPx(48) * treeItem.depth
         val newLayoutParams = LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT)
         newLayoutParams.setMargins(leftMargin, 0, 0, 0)
 
-        holder!!.textView.text = treeItem.data.toString()
-        holder.textView.layoutParams = newLayoutParams
+        with(holder!!) {
+            linearLayout.layoutParams = newLayoutParams
+            nameText.text = person.toString()
+            infoText.text = "Date of birth" // TODO
+        }
     }
 
     override fun getItemCount() = treeItems.size
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val textView: TextView = itemView.findViewById(R.id.textView)
+        val linearLayout: LinearLayout = itemView.findViewById(R.id.linearLayout)
+        val nameText: TextView = itemView.findViewById(R.id.text1)
+        val infoText: TextView = itemView.findViewById(R.id.text2)
 
         init {
             itemView.setOnClickListener { onItemClickAction?.invoke(it, layoutPosition) }
