@@ -18,4 +18,8 @@ data class Gender(val id: Int) {
         @JvmField val FEMALE = Gender(1)
     }
 
+    fun isMale() = this == MALE
+
+    fun isFemale() = this == FEMALE
+
 }
