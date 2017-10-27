@@ -55,6 +55,28 @@ data class Person(
 }
 
 /**
+ * Represents a gender.
+ *
+ * @param id    an integer identifier corresponding to a gender. 0 = male; 1 = female.
+ */
+data class Gender(val id: Int) {
+
+    init {
+        require(id in 0..1) { "the id for a Gender must be between 0 and 1" }
+    }
+
+    companion object {
+        @JvmField val MALE = Gender(0)
+        @JvmField val FEMALE = Gender(1)
+    }
+
+    fun isMale() = this == MALE
+
+    fun isFemale() = this == FEMALE
+
+}
+
+/**
  * Represents a marriage between two people.
  *
  * @param person1Id         the id of a person in this marriage
