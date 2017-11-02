@@ -41,6 +41,38 @@ class TreeNode<T>(val data: T) {
         return list
     }
 
+    /**
+     * Traverses the tree, starting from this node, to calculate the number of its leaf nodes.
+     *
+     * If a portion of the tree will be traversed, nodes at the [maxDepth] from this node will be
+     * considered leaf nodes.
+     *
+     * @param maxDepth  the depth of the tree being considered during counting of leaf nodes. This
+     *                  can be null to indicate that the whole tree should be traversed rather than
+     *                  a section of it.
+     */
+    fun countLeafNodes(maxDepth: Int? = null) = countLeafNodes(this, 0, maxDepth)
+
+    /**
+     * @param node      the node to start traversal from
+     * @param maxDepth  the depth of the tree being traversed. Null indicates the whole tree should
+     *                  be traversed.
+     * @param nodeDepth the depth of the node being visited
+     *
+     * @see countLeafNodes
+     */
+    private fun countLeafNodes(node: TreeNode<T>, nodeDepth: Int, maxDepth: Int?): Int {
+        var leaves = if (node.isLeaf() || nodeDepth == maxDepth) 1 else 0
+
+        if (maxDepth == null || nodeDepth < maxDepth) {
+            for (child in node.getChildren()) {
+                leaves += countLeafNodes(child, nodeDepth + 1, maxDepth)
+            }
+        }
+
+        return leaves
+    }
+
     override fun toString() = data.toString()
 
     /**

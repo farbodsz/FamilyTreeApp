@@ -99,4 +99,39 @@ class TreeNodeTest {
         assertEquals(dummyRootNode.asTreeList(), expectedList)
     }
 
+    @Test
+    fun correctCalculationOfNumberOfLeafNodes() {
+        val rootNode = TreeNode("Grandparent").apply { addChildren(listOf(
+                TreeNode("Parent 1").apply { addChildren(listOf(
+                        TreeNode("Child 1"),
+                        TreeNode("Child 2").apply { addChildren(listOf(
+                                TreeNode("Grandchild 1"),
+                                TreeNode("Grandchild 2")
+                        )) },
+                        TreeNode("Child 3")
+                )) },
+                TreeNode("Parent 2").apply { addChildren(listOf(
+                        TreeNode("Child 4").apply { addChildren(listOf(
+                                TreeNode("Grandchild 3"),
+                                TreeNode("Grandchild 4"),
+                                TreeNode("Grandchild 5"),
+                                TreeNode("Grandchild 6")
+                        )) }
+                )) },
+                TreeNode("Parent 3")
+        )) }
+
+        val expectedTotalLeaves = 9
+        assertEquals(expectedTotalLeaves, rootNode.countLeafNodes())
+
+        val expectedLeavesForDepthOf2 = 5
+        assertEquals(expectedLeavesForDepthOf2, rootNode.countLeafNodes(2))
+
+        val expectedLeavesForDepthOf1 = 3
+        assertEquals(expectedLeavesForDepthOf1, rootNode.countLeafNodes(1))
+
+        val expectedLeavesForDepthOf0 = 1
+        assertEquals(expectedLeavesForDepthOf0, rootNode.countLeafNodes(0))
+    }
+
 }
