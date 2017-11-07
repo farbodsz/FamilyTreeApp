@@ -2,7 +2,7 @@
 <resources>
 
     <declare-styleable name="TreeView">
-        <attr name="levelsToDisplay" format="integer" />
+        <attr name="visibleDepth" format="integer" />
     </declare-styleable>
 
 </resources>

@@ -1,13 +1,14 @@
 package co.familytreeapp.ui.widget
 
 import android.content.Context
+import android.content.res.Resources
 import android.graphics.Canvas
-import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
 import co.familytreeapp.R
 import co.familytreeapp.model.Person
 import co.familytreeapp.model.TreeNode
+import co.familytreeapp.ui.dpToPx
 
 /**
  * A custom view responsible for displaying a tree with [Person] data, horizontally.
@@ -21,14 +22,12 @@ class TreeView @JvmOverloads constructor(
         defStyle: Int = 0
 ) : View(context, attrs, defStyle) {
 
-    companion object {
-        private const val DEFAULT_LEVELS = 3
-    }
-
-    private lateinit var testPaint: Paint
-
-    var levelsToDisplay = DEFAULT_LEVELS
+    var visibleDepth = 0
+        /**
+         * The depth of the tree displayed. When [value] = 0, the whole tree is displayed.
+         */
         set(value) {
+            require(value >= 0) { "visible depth of tree must be at least 0" }
             field = value
             invalidate()
             requestLayout()
@@ -47,7 +46,7 @@ class TreeView @JvmOverloads constructor(
 
         // Assign attributes to fields in this class
         try {
-            levelsToDisplay = typedArray.getInt(R.styleable.TreeView_levelsToDisplay, DEFAULT_LEVELS)
+            visibleDepth = typedArray.getInt(R.styleable.TreeView_visibleDepth, 0)
         } finally {
             typedArray.recycle()
         }
@@ -56,15 +55,22 @@ class TreeView @JvmOverloads constructor(
     }
 
     private fun initialiseDrawing() {
-        testPaint = Paint(Paint.ANTI_ALIAS_FLAG).apply { // TODO
-            style = Paint.Style.FILL
+        if (rootNode == null) {
+            return
         }
+
+        val leafNodeCount = rootNode!!.countLeafNodes(if (visibleDepth == 0) null else visibleDepth)
+
+        // Get screen dimensions and use leaf node count to calculate appropriate box dimensions
+        val width = Resources.getSystem().displayMetrics.widthPixels
+        val boxSpacing = dpToPx(8)
+        val boxWidth = (width / leafNodeCount) - (boxSpacing * 2) // left and right spacing
     }
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
 
-        canvas!!.drawCircle(100f, 100f, 60f, testPaint) // TODO
+        // TODO
     }
 
 }
