@@ -21,7 +21,7 @@ class TreeNode<T>(val data: T) {
 
     fun isLeaf() = children.isEmpty()
 
-    fun getChildren() = children  // need this, otherwise mutable list property would be exposed
+    fun getChildren() = children  // need this, otherwise list property would be exposed
 
     /**
      * Returns this node with all child nodes (recursively) in an ordered list representation.
