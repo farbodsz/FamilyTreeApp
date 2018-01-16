@@ -24,6 +24,11 @@ class TreeNode<T>(val data: T) {
     fun getChildren() = children  // need this, otherwise list property would be exposed
 
     /**
+     * Removes references to child nodes, essentially making this node a leaf node.
+     */
+    private fun clearChildren() = children.clear()
+
+    /**
      * Returns this node with all child nodes (recursively) in an ordered list representation.
      *
      * @param depth the depth of the node in the tree currently being visited. This should initially
@@ -42,35 +47,33 @@ class TreeNode<T>(val data: T) {
     }
 
     /**
-     * Traverses the tree, starting from this node, to calculate the number of its leaf nodes.
+     * Trims the tree so that it is of the specified [depth].
      *
-     * If a portion of the tree will be traversed, nodes at the [maxDepth] from this node will be
-     * considered leaf nodes.
+     * @param depth nodes at this depth are cleared of references to their child nodes. This can be
+     *              null to indicate that the tree should not be trimmed (i.e. only traversed, with
+     *              the number of leaf nodes returned).
      *
-     * @param maxDepth  the depth of the tree being considered during counting of leaf nodes. This
-     *                  can be null to indicate that the whole tree should be traversed rather than
-     *                  a section of it.
+     * @return the number of leaf nodes in the trimmed tree
      */
-    fun countLeafNodes(maxDepth: Int? = null) = countLeafNodes(this, 0, maxDepth)
+    fun trimTree(depth: Int?) = trimTree(this, 0, depth)
 
-    /**
-     * @param node      the node to start traversal from
-     * @param maxDepth  the depth of the tree being traversed. Null indicates the whole tree should
-     *                  be traversed.
-     * @param nodeDepth the depth of the node being visited
-     *
-     * @see countLeafNodes
-     */
-    private fun countLeafNodes(node: TreeNode<T>, nodeDepth: Int, maxDepth: Int?): Int {
-        var leaves = if (node.isLeaf() || nodeDepth == maxDepth) 1 else 0
+    private fun trimTree(node: TreeNode<T>, nodeDepth: Int, maxDepth: Int?): Int {
+        var leafCount = when {
+            node.isLeaf() -> 1
+            nodeDepth == maxDepth -> {
+                node.clearChildren() // part of trimming the tree
+                1
+            }
+            else -> 0
+        }
 
         if (maxDepth == null || nodeDepth < maxDepth) {
             for (child in node.getChildren()) {
-                leaves += countLeafNodes(child, nodeDepth + 1, maxDepth)
+                leafCount += trimTree(child, nodeDepth + 1, maxDepth)
             }
         }
 
-        return leaves
+        return leafCount
     }
 
     override fun toString() = data.toString()
