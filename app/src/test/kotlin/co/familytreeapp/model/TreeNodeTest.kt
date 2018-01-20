@@ -122,16 +122,16 @@ class TreeNodeTest {
         )) }
 
         val expectedTotalLeaves = 9
-        assertEquals(expectedTotalLeaves, rootNode.countLeafNodes())
+        assertEquals(expectedTotalLeaves, rootNode.trimAndCountTree(null))
 
         val expectedLeavesForDepthOf2 = 5
-        assertEquals(expectedLeavesForDepthOf2, rootNode.countLeafNodes(2))
+        assertEquals(expectedLeavesForDepthOf2, rootNode.trimAndCountTree(2))
 
         val expectedLeavesForDepthOf1 = 3
-        assertEquals(expectedLeavesForDepthOf1, rootNode.countLeafNodes(1))
+        assertEquals(expectedLeavesForDepthOf1, rootNode.trimAndCountTree(1))
 
         val expectedLeavesForDepthOf0 = 1
-        assertEquals(expectedLeavesForDepthOf0, rootNode.countLeafNodes(0))
+        assertEquals(expectedLeavesForDepthOf0, rootNode.trimAndCountTree(0))
     }
 
 }
