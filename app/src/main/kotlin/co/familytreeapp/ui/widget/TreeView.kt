@@ -3,10 +3,9 @@ package co.familytreeapp.ui.widget
 import android.content.Context
 import android.graphics.Canvas
 import android.graphics.Paint
-import android.graphics.Rect
+import android.graphics.RectF
 import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
-import android.util.Log
 import android.view.View
 import android.widget.HorizontalScrollView
 import android.widget.ScrollView
@@ -31,7 +30,7 @@ class TreeView<T> @JvmOverloads constructor(
     }
 
     /** The default width (in pixels) allocated per node for drawing. */
-    private val NODE_WIDTH = dpToPx(48)
+    private val NODE_WIDTH = dpToPx(64)
 
     /** The default height (in pixels) allocated for drawing one level of the tree */
     private val LEVEL_MAX_HEIGHT = dpToPx(72)
@@ -60,6 +59,9 @@ class TreeView<T> @JvmOverloads constructor(
     /** The paint to be used when drawing the box representing the node */
     private lateinit var nodePaint: Paint
 
+    /** The paint to be used when drawing connections (lines) between nodes */
+    private lateinit var nodeLinePaint: Paint
+
     /**
      * Specifies the source data to use for displaying the tree.
      *
@@ -67,7 +69,6 @@ class TreeView<T> @JvmOverloads constructor(
      * @param displayedHeight   the height of the tree to display
      */
     fun setTreeSource(node: TreeNode<T>, displayedHeight: Int) {
-//        Log.d(LOG_TAG, "setTreeSource called")
         if (node == rootNode) {
             // Source has stayed the same - no need to change anything else
             return
@@ -95,16 +96,15 @@ class TreeView<T> @JvmOverloads constructor(
     }
 
     private fun initialiseDrawing() {
-//        Log.d(LOG_TAG, "initialiseDrawing called")
-
         // Cache the paint object used for drawing, so we don't create on every onDraw()
         nodePaint = Paint(Paint.ANTI_ALIAS_FLAG)
         nodePaint.color = ContextCompat.getColor(context, R.color.black)
+
+        nodeLinePaint = nodePaint
     }
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
-//        Log.d(LOG_TAG, "onDraw called")
 
         rootNode?.let {
             // Only draw if rootNode not null
@@ -115,38 +115,58 @@ class TreeView<T> @JvmOverloads constructor(
     /**
      * Draws a representation of a node and its children onto the canvas.
      *
-     * @param canvas    the canvas to draw to (parameter from [View.onDraw])
-     * @param node      the node to be drawn
-     * @param depth     the depth of the node being drawn (0 by default)
-     * @param parentX   X coordinate of the left of the space *allocated* for drawing this [node]'s
-     *                  parent (0 by default, indicating this node has no parent, i.e. is the root)
-     * @param childPos  a number representing this (child) node's position in relation to its
-     *                  siblings *starting from 0*. (0 is also used by default to indicate this node
-     *                  has no parent, i.e. is the root).
+     * @param canvas        the canvas to draw to (parameter from [View.onDraw])
+     * @param node          the node to be drawn
+     * @param depth         the depth of the node being drawn (0 by default)
+     * @param parentXLeft   X coordinate of the left of the space *allocated* for drawing this
+     *                      node's parent (0 by default, indicating this node has no parent)
+     * @param parentCentre  float pair of coordinates (X then Y) of the bottom centre of this node's
+     *                      parent's drawn area. It can be null, indicating no parent.
+     * @param childPos      a number representing this (child) node's position in relation to its
+     *                      siblings *starting from 0*. (0 is also used by default to indicate this
+     *                      node has no parent, i.e. is the root).
      *
      * @return the total width (in pixels) allocated for drawing this [node]
      */
     private fun drawNodeAndChildren(canvas: Canvas,
                                     node: TreeNode<T>,
                                     depth: Int = 0,
-                                    parentX: Int = 0,
+                                    parentXLeft: Int = 0,
+                                    parentCentre: Pair<Float, Float>? = null,
                                     childPos: Int = 0): Int { // TODO currently doesn't draw padding
-        Log.d(LOG_TAG, "drawNodeAndChildren called, with: depth=$depth; parentX=$parentX; childPos=$childPos")
-
         val totalAllocatedWidth = node.trimAndCountTree(null) * NODE_TOTAL_WIDTH
 
-        val top = LEVEL_MAX_HEIGHT * depth
-        val bottom = top + dpToPx(32) // TODO resize automatically based on contents of node
+        // Calculate allocated coordinates (i.e. total available space)
+        val top = (LEVEL_MAX_HEIGHT * depth).toFloat()
+        val bottom = top + dpToPx(48) // TODO resize automatically based on contents of node
+        val allocatedLeft = parentXLeft + (childPos * NODE_TOTAL_WIDTH)
+        val allocatedRight = allocatedLeft + totalAllocatedWidth
 
-        val left = parentX + (childPos * NODE_TOTAL_WIDTH)
-        val right = left + totalAllocatedWidth
+        // Calculate X coordinates for area to draw in
+        val centre = (allocatedLeft + 0.5 * (allocatedRight - allocatedLeft)).toFloat()
+        val left = centre - (NODE_TOTAL_WIDTH / 2) + NODE_LATERAL_SPACING
+        val right = centre + (NODE_TOTAL_WIDTH / 2) - NODE_LATERAL_SPACING
 
-        val rect = Rect(left + 10, top, right - 10, bottom)
+        // Draw node representation
+        val rect = RectF(left, top, right, bottom)
         canvas.drawRect(rect, nodePaint)
 
+        // Draw line connection if not root
+        parentCentre?.let {
+            canvas.drawLine(parentCentre.first, parentCentre.second, centre, top, nodeLinePaint)
+        }
+
+        // Repeat for children
         var childPositionCounter = 0
         for (child in node.getChildren()) {
-            drawNodeAndChildren(canvas, child, depth + 1, left, childPositionCounter)
+            drawNodeAndChildren(
+                    canvas,
+                    child,
+                    depth + 1,
+                    allocatedLeft,
+                    Pair(centre, bottom),
+                    childPositionCounter
+            )
 
             val leafNodes = child.trimAndCountTree(null)
             childPositionCounter += leafNodes
