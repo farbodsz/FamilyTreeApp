@@ -8,6 +8,7 @@ import android.view.View
 import android.widget.LinearLayout
 import android.widget.TextView
 import co.familytreeapp.R
+import co.familytreeapp.model.Person
 import de.hdodenhof.circleimageview.CircleImageView
 
 /**
@@ -22,19 +23,35 @@ class PersonView @JvmOverloads constructor(
     private val imageView: CircleImageView
     private val nameTextView: TextView
 
-    var name = ""
+    private var name = ""
         set(value) {
             field = value
             nameTextView.text = name
         }
 
-    @ColorRes var iconBorderColorRes = R.color.black
+    @ColorRes private var iconBorderColorRes = R.color.black
         set(value) {
             field = value
             imageView.borderColor = ContextCompat.getColor(context, iconBorderColorRes)
         }
 
     // TODO setting image resource
+
+    var person: Person? = null
+        set(value) {
+            if (value == null) {
+                throw IllegalArgumentException("person cannot be null")
+            }
+
+            field = value
+
+            name = value.fullName
+            iconBorderColorRes = if (value.gender.isMale()) {
+                R.color.image_border_male
+            } else {
+                R.color.image_border_female
+            }
+        }
 
     init {
         // Inflate XML resource for compound view with "this" as the parent
