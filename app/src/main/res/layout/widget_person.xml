@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:layout_width="96dp"
-    android:layout_height="wrap_content"
+    android:layout_height="112dp"
     android:gravity="center"
     android:padding="8dp">
 
