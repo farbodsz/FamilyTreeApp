@@ -26,11 +26,8 @@ class TreeView @JvmOverloads constructor(
         defStyle: Int = 0
 ) : FrameLayout(context, attrs, defStyle) {
 
-    /** The default width (in pixels) allocated per node for drawing. */
-    private val NODE_WIDTH = dpToPx(96)
-
-    /** The default height (in pixels) allocated for drawing one level of the tree */
-    private val LEVEL_MAX_HEIGHT = dpToPx(172)
+    /** Width (in pixels) allocated per node for drawing. */
+    private val NODE_WIDTH = dpToPx(96) // must match the width in widget_person.xml
 
     /**
      * The default lateral spacing (in pixels) on *each* side of the space allocated per node.
@@ -38,13 +35,14 @@ class TreeView @JvmOverloads constructor(
      */
     private val NODE_LATERAL_SPACING = dpToPx(8)
 
-    /**
-     * The total width (in pixels) allocated per node - the sum of its displayed width and spacing
-     */
+    /** Total width (in pixels) allocated per node - the sum of its displayed width and spacing */
     private val NODE_TOTAL_WIDTH = NODE_WIDTH + 2 * NODE_LATERAL_SPACING
 
+    /** Height (in pixels) allocated per node for drawing */
+    private val NODE_HEIGHT = dpToPx(112) // must match the height in widget_person.xml
 
-    private val NODE_HEIGHT = dpToPx(112)
+    /** Height (in pixels) allocated for drawing one level of the tree */
+    private val LEVEL_MAX_HEIGHT = dpToPx(172)
 
 
     /** The root node of the tree being displayed, initially null until set in [setTreeSource]. */
