@@ -164,7 +164,16 @@ class TreeNodeTest {
     }
 
     @Test
-    fun correctCalculationOfNumberOfLeafNodes() {
+    fun correctCalculationOfNumberOfLeafNodesSmall() {
+        val expectedTotalLeaves = 4
+        assertEquals(expectedTotalLeaves, DUMMY_NODE_SMALL.trimAndCountTree(null))
+
+        val expectedLeavesForDepthOf2 = 4
+        assertEquals(expectedLeavesForDepthOf2, DUMMY_NODE_SMALL.trimAndCountTree(2))
+    }
+
+    @Test
+    fun correctCalculationOfNumberOfLeafNodesLarge() {
         val expectedTotalLeaves = 9
         assertEquals(expectedTotalLeaves, DUMMY_NODE_LARGE.trimAndCountTree(null))
 
