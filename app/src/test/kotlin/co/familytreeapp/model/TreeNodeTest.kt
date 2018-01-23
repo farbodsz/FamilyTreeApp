@@ -8,6 +8,58 @@ import org.junit.Test
  */
 class TreeNodeTest {
 
+    companion object {
+
+        /**
+         * A dummy (root) node with few children/grandchildren/etc. for testing purposes.
+         */
+        private val DUMMY_NODE_SMALL = TreeNode(535).apply {
+            addChildren(listOf(
+                    TreeNode(245),
+                    TreeNode(900).apply {
+                        addChild(TreeNode(96))
+                    },
+                    TreeNode(14),
+                    TreeNode(2).apply {
+                        addChild(TreeNode(35))
+                    }
+            ))
+        }
+
+        /**
+         * A dummy (root) node with several children/grandchildren/etc. for testing purposes.
+         */
+        private val DUMMY_NODE_LARGE = TreeNode("Grandparent").apply {
+            addChildren(listOf(
+                    TreeNode("Parent 1").apply {
+                        addChildren(listOf(
+                                TreeNode("Child 1"),
+                                TreeNode("Child 2").apply {
+                                    addChildren(listOf(
+                                            TreeNode("Grandchild 1"),
+                                            TreeNode("Grandchild 2")
+                                    ))
+                                },
+                                TreeNode("Child 3")
+                        ))
+                    },
+                    TreeNode("Parent 2").apply {
+                        addChildren(listOf(
+                                TreeNode("Child 4").apply {
+                                    addChildren(listOf(
+                                            TreeNode("Grandchild 3"),
+                                            TreeNode("Grandchild 4"),
+                                            TreeNode("Grandchild 5"),
+                                            TreeNode("Grandchild 6")
+                                    ))
+                                }
+                        ))
+                    },
+                    TreeNode("Parent 3")
+            ))
+        }
+    }
+
     @Test
     fun multipleChildrenAddedOk() {
         val node = TreeNode("Parent")
@@ -100,38 +152,30 @@ class TreeNodeTest {
     }
 
     @Test
-    fun correctCalculationOfNumberOfLeafNodes() {
-        val rootNode = TreeNode("Grandparent").apply { addChildren(listOf(
-                TreeNode("Parent 1").apply { addChildren(listOf(
-                        TreeNode("Child 1"),
-                        TreeNode("Child 2").apply { addChildren(listOf(
-                                TreeNode("Grandchild 1"),
-                                TreeNode("Grandchild 2")
-                        )) },
-                        TreeNode("Child 3")
-                )) },
-                TreeNode("Parent 2").apply { addChildren(listOf(
-                        TreeNode("Child 4").apply { addChildren(listOf(
-                                TreeNode("Grandchild 3"),
-                                TreeNode("Grandchild 4"),
-                                TreeNode("Grandchild 5"),
-                                TreeNode("Grandchild 6")
-                        )) }
-                )) },
-                TreeNode("Parent 3")
-        )) }
+    fun correctHeightCalculationSmall() {
+        val expectedHeight = 3
+        assertEquals(expectedHeight, DUMMY_NODE_SMALL.height())
+    }
 
+    @Test
+    fun correctHeightCalculationLarge() {
+        val expectedHeight = 4
+        assertEquals(expectedHeight, DUMMY_NODE_LARGE.height())
+    }
+
+    @Test
+    fun correctCalculationOfNumberOfLeafNodes() {
         val expectedTotalLeaves = 9
-        assertEquals(expectedTotalLeaves, rootNode.trimAndCountTree(null))
+        assertEquals(expectedTotalLeaves, DUMMY_NODE_LARGE.trimAndCountTree(null))
 
         val expectedLeavesForDepthOf2 = 5
-        assertEquals(expectedLeavesForDepthOf2, rootNode.trimAndCountTree(2))
+        assertEquals(expectedLeavesForDepthOf2, DUMMY_NODE_LARGE.trimAndCountTree(2))
 
         val expectedLeavesForDepthOf1 = 3
-        assertEquals(expectedLeavesForDepthOf1, rootNode.trimAndCountTree(1))
+        assertEquals(expectedLeavesForDepthOf1, DUMMY_NODE_LARGE.trimAndCountTree(1))
 
         val expectedLeavesForDepthOf0 = 1
-        assertEquals(expectedLeavesForDepthOf0, rootNode.trimAndCountTree(0))
+        assertEquals(expectedLeavesForDepthOf0, DUMMY_NODE_LARGE.trimAndCountTree(0))
     }
 
 }

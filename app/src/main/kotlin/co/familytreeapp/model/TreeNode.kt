@@ -47,6 +47,22 @@ class TreeNode<T>(val data: T) {
     }
 
     /**
+     * Calculates the height of the tree (from this node to the leaf node with greatest depth).
+     * @return the height of the tree
+     */
+    fun height(): Int {
+        var greatestChildHeight = 0
+        for (child in children) {
+            val childHeight = child.height()
+            if (childHeight > greatestChildHeight) {
+                greatestChildHeight = childHeight
+            }
+        }
+
+        return greatestChildHeight + 1
+    }
+
+    /**
      * Trims the tree so that it is of the specified [depth], whilst counting its leaf nodes.
      *
      * @param depth nodes at this depth are cleared of references to their child nodes. This can be
