@@ -66,9 +66,10 @@ class TreeView @JvmOverloads constructor(
      * Specifies the source data to use for displaying the tree.
      *
      * @param node              the root node of the tree
-     * @param displayedHeight   the height of the tree to display
+     * @param displayedHeight   the height of the tree to display. This can be null to display the
+     *                          whole tree. (optional parameter with null as default).
      */
-    fun setTreeSource(node: TreeNode<Person>, displayedHeight: Int) {
+    fun setTreeSource(node: TreeNode<Person>, displayedHeight: Int? = null) {
         if (node == rootNode) {
             // Source has stayed the same - no need to change anything else
             return
@@ -77,7 +78,7 @@ class TreeView @JvmOverloads constructor(
         setWillNotDraw(false)
 
         rootNode = node
-        this.displayedHeight = displayedHeight
+        this.displayedHeight = displayedHeight ?: node.height()
 
         numberOfLeafNodes = node.trimAndCountTree(displayedHeight) // trim the tree to the specified height
 
