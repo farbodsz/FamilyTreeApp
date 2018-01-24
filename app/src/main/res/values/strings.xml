@@ -1,3 +1,22 @@
 <resources>
-    <string name="app_name">FamilyTreeApp</string>
+
+    <!-- Name of the app -->
+    <string name="app_name">Family Tree</string>
+
+    <!-- Activity titles -->
+    <string name="title_home">@string/app_name</string>
+    <string name="title_tree">Family Tree</string>
+    <string name="title_tree_list">@string/title_tree</string>
+    <string name="title_settings">Settings</string>
+
+    <!-- Navigation item texts -->
+    <string name="nav_item_home">@string/title_home</string>
+    <string name="nav_item_tree">View Tree</string>
+    <string name="nav_item_tree_list">View Tree (list)</string>
+    <string name="nav_item_settings">@string/title_settings</string>
+
+    <!-- Nav drawer content description texts -->
+    <string name="drawer_open">Drawer open</string>
+    <string name="drawer_close">Drawer close</string>
+
 </resources>
