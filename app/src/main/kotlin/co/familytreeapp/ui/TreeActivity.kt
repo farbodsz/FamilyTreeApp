@@ -1,7 +1,6 @@
 package co.familytreeapp.ui
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import co.familytreeapp.R
 import co.familytreeapp.model.Gender
 import co.familytreeapp.model.Person
@@ -12,11 +11,11 @@ import org.threeten.bp.LocalDate
 /**
  * Activity to display a [TreeView].
  */
-class TreeActivity : AppCompatActivity() {
+class TreeActivity : NavigationDrawerActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_tree)
+        setContentView(withNavigation(R.layout.activity_tree))
 
         val dummyTree = getDummyTree()
 
@@ -70,5 +69,8 @@ class TreeActivity : AppCompatActivity() {
                 )) }
         )) }
     }
+
+    override fun getSelfNavigationParams() =
+            standardNavigationParams(NAVDRAWER_ITEM_TREE, findViewById(R.id.toolbar))
 
 }

@@ -1,19 +1,21 @@
 package co.familytreeapp.ui
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
 import co.familytreeapp.R
 
 /**
  * Activity for displaying the tree as a vertical list with indents.
  */
-class TreeListActivity : AppCompatActivity() {
+class TreeListActivity : NavigationDrawerActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_tree_list)
+        setContentView(withNavigation(R.layout.activity_tree_list))
 
         // TODO
     }
+
+    override fun getSelfNavigationParams() =
+            standardNavigationParams(NAVDRAWER_ITEM_TREE_LIST, findViewById(R.id.toolbar))
 
 }
