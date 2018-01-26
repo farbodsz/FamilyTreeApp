@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Navigation drawer -->
+    <dimen name="navdrawer_width">@dimen/match_parent</dimen>
+    <dimen name="navdrawer_header_height">135dp</dimen>
+
+    <!-- Padding and spacing -->
+    <dimen name="spacing_micro">4dp</dimen>
+    <dimen name="spacing_normal">8dp</dimen>
+    <dimen name="padding_normal">16dp</dimen>
+
+    <!--
+      Match parent,
+      as per https://developer.android.com/reference/android/view/ViewGroup.LayoutParams.html#MATCH_PARENT
+      -->
+    <item name="match_parent" format="integer" type="dimen">-1</item>
+
+</resources>
