@@ -9,6 +9,9 @@
     <string name="title_tree_list">@string/title_tree</string>
     <string name="title_settings">Settings</string>
 
+    <!-- Action texts for menus -->
+    <string name="action_add_person">Add person</string>
+
     <!-- Navigation item texts -->
     <string name="nav_item_home">@string/title_home</string>
     <string name="nav_item_tree">View Tree</string>

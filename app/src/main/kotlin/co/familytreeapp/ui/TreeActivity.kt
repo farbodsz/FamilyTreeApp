@@ -1,6 +1,9 @@
 package co.familytreeapp.ui
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import android.widget.Toast
 import co.familytreeapp.R
 import co.familytreeapp.model.Gender
 import co.familytreeapp.model.Person
@@ -72,5 +75,20 @@ class TreeActivity : NavigationDrawerActivity() {
 
     override fun getSelfNavigationParams() =
             standardNavigationParams(NAVDRAWER_ITEM_TREE, findViewById(R.id.toolbar))
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        super.onCreateOptionsMenu(menu)
+
+        menuInflater.inflate(R.menu.menu_tree, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            R.id.action_add -> Toast.makeText(this, "Not implemented", Toast.LENGTH_SHORT).show()
+        }
+
+        return super.onOptionsItemSelected(item)
+    }
 
 }
