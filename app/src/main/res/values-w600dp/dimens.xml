@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <!-- Navigation drawer -->
+    <dimen name="navdrawer_width">280dp</dimen>
+
+</resources>

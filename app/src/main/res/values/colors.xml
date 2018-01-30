@@ -1,12 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <!-- Theme colors -->
     <color name="colorPrimary">#3F51B5</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
+    <!-- PersonView image borders -->
     <color name="image_border_male">@color/blue_500</color>
     <color name="image_border_female">@color/pink_500</color>
+
+
+    <!-- Color values from the Material Design spec -->
 
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>
@@ -16,5 +21,7 @@
 
     <color name="text_black">#DE000000</color>
     <color name="text_black_secondary">#8A000000</color>
+    <color name="text_white">#FFFFFFFF</color>
+    <color name="text_white_secondary">#B3FFFFFF</color>
 
 </resources>
