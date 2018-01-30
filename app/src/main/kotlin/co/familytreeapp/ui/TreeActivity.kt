@@ -1,9 +1,9 @@
 package co.familytreeapp.ui
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import android.widget.Toast
 import co.familytreeapp.R
 import co.familytreeapp.model.Gender
 import co.familytreeapp.model.Person
@@ -85,7 +85,7 @@ class TreeActivity : NavigationDrawerActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_add -> Toast.makeText(this, "Not implemented", Toast.LENGTH_SHORT).show()
+            R.id.action_add -> startActivity(Intent(this, AddPersonActivity::class.java))
         }
 
         return super.onOptionsItemSelected(item)

@@ -17,4 +17,21 @@
         <item name="popupTheme">@style/ThemeOverlay.AppCompat.Light</item>
     </style>
 
+    <style name="Widget.AppTheme.CardView" parent="CardView.Light">
+        <item name="cardUseCompatPadding">true</item>
+    </style>
+
+    <style name="Widget.AppTheme.CardLateralPadding">
+        <item name="android:paddingLeft">@dimen/card_padding</item>
+        <item name="android:paddingRight">@dimen/card_padding</item>
+    </style>
+
+    <style name="Widget.AppTheme.TextView" parent="TextAppearance.AppCompat" />
+
+    <style name="Widget.AppTheme.TextView.CardTitle">
+        <item name="android:textSize">@dimen/card_text_primary_title_medium</item>
+        <item name="android:textColor">@color/text_black</item>
+        <item name="android:padding">16dp</item>
+    </style>
+
 </resources>

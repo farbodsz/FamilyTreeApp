@@ -10,6 +10,11 @@
     <dimen name="spacing_normal">8dp</dimen>
     <dimen name="padding_normal">16dp</dimen>
 
+    <!-- Card dimensions -->
+    <dimen name="card_text_primary_title_medium">19sp</dimen>
+    <dimen name="card_padding">16dp</dimen>
+    <dimen name="card_padding_vertical_large">24dp</dimen>
+
     <!--
       Match parent,
       as per https://developer.android.com/reference/android/view/ViewGroup.LayoutParams.html#MATCH_PARENT
