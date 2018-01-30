@@ -85,7 +85,7 @@ class TreeActivity : NavigationDrawerActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            R.id.action_add -> startActivity(Intent(this, AddPersonActivity::class.java))
+            R.id.action_add -> startActivity(Intent(this, EditPersonActivity::class.java))
         }
 
         return super.onOptionsItemSelected(item)

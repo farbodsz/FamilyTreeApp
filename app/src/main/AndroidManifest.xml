@@ -23,7 +23,7 @@
         <activity android:name=".ui.TreeListActivity" />
 
         <activity
-            android:name=".ui.AddPersonActivity"
+            android:name=".ui.EditPersonActivity"
             android:label="@string/title_add_person" />
     </application>
 

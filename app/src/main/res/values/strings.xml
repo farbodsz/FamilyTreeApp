@@ -8,6 +8,7 @@
     <string name="title_tree">Family Tree</string>
     <string name="title_tree_list">@string/title_tree</string>
     <string name="title_add_person">New Person</string>
+    <string name="title_edit_person">Edit Person</string>
     <string name="title_settings">Settings</string>
 
     <!-- Action texts for menus -->

@@ -8,13 +8,13 @@ import co.familytreeapp.R
 import co.familytreeapp.model.Person
 
 /**
- * This activity provides the UI for adding a new person to the database.
+ * This activity provides the UI for adding or editing a new person from the database.
  *
  * When the user adds all the information and confirms, the data for the new person will be written
  * to the database, and the newly created [Person] will be sent back to the activity from which this
  * was started as a result.
  */
-class AddPersonActivity : AppCompatActivity() {
+class EditPersonActivity : AppCompatActivity() {
 
     companion object {
 
@@ -29,7 +29,7 @@ class AddPersonActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_add_person)
+        setContentView(R.layout.activity_edit_person)
 
         setSupportActionBar(findViewById(R.id.toolbar))
 
