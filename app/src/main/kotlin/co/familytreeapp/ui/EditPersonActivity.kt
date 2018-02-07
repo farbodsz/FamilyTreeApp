@@ -13,6 +13,7 @@ import android.widget.RadioButton
 import co.familytreeapp.R
 import co.familytreeapp.model.Gender
 import co.familytreeapp.model.Person
+import co.familytreeapp.ui.widget.DateViewHelper
 import org.threeten.bp.LocalDate
 
 /**
@@ -41,10 +42,10 @@ class EditPersonActivity : AppCompatActivity() {
     private lateinit var maleRadioBtn: RadioButton
     private lateinit var femaleRadioBtn: RadioButton
 
-    private lateinit var dateOfBirthSelector: EditText // TODO
+    private lateinit var dateOfBirthHelper: DateViewHelper
     private lateinit var placeOfBirthInput: EditText
     private lateinit var isAliveCheckBox: CheckBox
-    private lateinit var dateOfDeathSelector: EditText // TODO
+    private lateinit var dateOfDeathHelper: DateViewHelper
     private lateinit var placeOfDeathInput: EditText
 
     private var person: Person? = null
@@ -74,13 +75,13 @@ class EditPersonActivity : AppCompatActivity() {
         maleRadioBtn = findViewById(R.id.rBtn_male)
         femaleRadioBtn = findViewById(R.id.rBtn_female)
 
-        dateOfBirthSelector = findViewById(R.id.editText_dateOfBirth)
+        dateOfBirthHelper = DateViewHelper(this, findViewById(R.id.editText_dateOfBirth))
         placeOfBirthInput = findViewById(R.id.editText_placeOfBirth)
 
         isAliveCheckBox = findViewById(R.id.checkbox_alive)
         isAliveCheckBox.setOnCheckedChangeListener { _, isChecked -> setPersonAlive(isChecked) }
 
-        dateOfDeathSelector = findViewById(R.id.editText_dateOfDeath)
+        dateOfDeathHelper = DateViewHelper(this, findViewById(R.id.editText_dateOfDeath))
         placeOfDeathInput = findViewById(R.id.editText_placeOfDeath)
     }
 
@@ -99,6 +100,9 @@ class EditPersonActivity : AppCompatActivity() {
             femaleRadioBtn.isChecked = it.gender.isFemale()
 
             setPersonAlive(it.isAlive())
+
+            dateOfBirthHelper.date = it.dateOfBirth
+            dateOfDeathHelper.date = it.dateOfDeath
         }
     }
 
@@ -127,18 +131,18 @@ class EditPersonActivity : AppCompatActivity() {
 
         val gender = if (maleRadioBtn.isChecked) Gender.MALE else Gender.FEMALE
 
-        val dateOfBirth = LocalDate.now() // TODO
-
-        val dateOfDeath = if (isAliveCheckBox.isChecked) LocalDate.now() else null // TODO
+        val dateOfBirth = dateOfBirthHelper.date
+        val dateOfDeath = if (isAliveCheckBox.isChecked) dateOfDeathHelper.date else null
+        if (!validateDates(dateOfBirth, dateOfDeath)) return
 
         val person = Person(
                 chooseId(),
                 forename,
                 surname,
                 gender,
-                dateOfBirth,
+                dateOfBirth!!,
                 placeOfBirthInput.text.toString().trim(), // TODO "title()" function?
-                null,
+                dateOfDeath,
                 placeOfDeathInput.text.toString().trim(), // TODO sim.
                 emptyList() // TODO
         )
@@ -153,15 +157,47 @@ class EditPersonActivity : AppCompatActivity() {
     private fun chooseId() = person?.id ?: 1 // TODO 1 should be
 
     /**
-     * Validates the forename and surname, showing a message in the UI if invalid.
+     * Checks that the forename and surname are not blank, showing a message in the UI if so.
      *
      * @return true if valid
      */
     private fun validateNames(forename: String, surname: String): Boolean {
         if (forename.isBlank() || surname.isBlank()) {
-            Snackbar.make(coordinatorLayout, R.string.validate_name_empty, Snackbar.LENGTH_SHORT)
+            Snackbar.make(
+                    coordinatorLayout,
+                    R.string.validate_name_empty,
+                    Snackbar.LENGTH_SHORT
+            ).show()
             return false
         }
+        return true
+    }
+
+    /**
+     * Checks that the date of birth is not null, not in the future, and before the date of death
+     * if applicable.
+     *
+     * @return true if valid
+     */
+    private fun validateDates(dateOfBirth: LocalDate?, dateOfDeath: LocalDate?): Boolean {
+        val conditions = arrayOf(
+                dateOfBirth == null,
+                dateOfBirth!!.isAfter(LocalDate.now()),
+                dateOfDeath != null && dateOfDeath.isBefore(dateOfBirth)
+        )
+        val messages = arrayOf(
+                R.string.validate_dateOfBirth_empty,
+                R.string.validate_dateOfBirth_future,
+                R.string.validate_dateOfDeath_beforeBirth
+        )
+
+        conditions.forEachIndexed { i, condition ->
+            if (condition) {
+                Snackbar.make(coordinatorLayout, messages[i], Snackbar.LENGTH_SHORT).show()
+                return false
+            }
+        }
+
         return true
     }
 

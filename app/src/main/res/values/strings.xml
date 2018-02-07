@@ -45,5 +45,7 @@
     <!-- Prompts to user after incorrect user input -->
     <string name="validate_name_empty">You must enter a forename and surname</string>
     <string name="validate_dateOfBirth_empty">You must enter a date of birth</string>
+    <string name="validate_dateOfBirth_future">The date of birth cannot be in the future</string>
+    <string name="validate_dateOfDeath_beforeBirth">The date of death cannot be before the date of birth</string>
 
 </resources>
