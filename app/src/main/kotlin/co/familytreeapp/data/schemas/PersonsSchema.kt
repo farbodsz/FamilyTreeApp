@@ -20,7 +20,7 @@ object PersonsSchema {
 
     const val COL_FORENAME = "forename"
     const val COL_SURNAME = "surname"
-    const val COL_GENDER = "gender"
+    const val COL_GENDER_ID = "gender_id"
 
     const val COL_BIRTH_DATE_DAY = "dateOfBirth_dayOfMonth"
     const val COL_BIRTH_DATE_MONTH = "dateOfBirth_month"
@@ -39,9 +39,9 @@ object PersonsSchema {
     const val SQL_CREATE =
             "CREATE TABLE $TABLE_NAME($COL_ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +
             "$COL_FORENAME TEXT NOT NULL, $COL_SURNAME TEXT NOT NULL, " +
-            "$COL_GENDER INTEGER NOT NULL, $COL_BIRTH_DATE_DAY INTEGER NOT NULL, " +
+            "$COL_GENDER_ID INTEGER NOT NULL, $COL_BIRTH_DATE_DAY INTEGER NOT NULL, " +
             "$COL_BIRTH_DATE_MONTH INTEGER NOT NULL, $COL_BIRTH_DATE_YEAR INTEGER NOT NULL, " +
-            "$COL_PLACE_OF_BIRTH INTEGER, $COL_DEATH_DATE_DAY INTEGER, $COL_DEATH_DATE_MONTH INTEGER " +
-            "$COL_DEATH_DATE_YEAR INTEGER, $COL_PLACE_OF_DEATH INTEGER)"
+            "$COL_PLACE_OF_BIRTH TEXT, $COL_DEATH_DATE_DAY INTEGER, $COL_DEATH_DATE_MONTH INTEGER " +
+            "$COL_DEATH_DATE_YEAR INTEGER, $COL_PLACE_OF_DEATH TEXT)"
 
 }
