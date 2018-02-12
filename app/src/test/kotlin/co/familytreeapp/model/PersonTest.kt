@@ -21,8 +21,7 @@ class PersonTest {
             LocalDate.of(2000, 5, 7),
             "Oxford",
             null,
-            "",
-            emptyList()
+            ""
     )
 
     @Test(expected = IllegalArgumentException::class)
@@ -48,21 +47,6 @@ class PersonTest {
         )
         fail("Expected an IllegalArgumentException to be thrown since date of death is before " +
                 "date of birth")
-    }
-
-    @Test(expected = IllegalArgumentException::class)
-    fun requirePersonsMarriagesMustRelateToPerson() {
-        val testPersonId = 4
-        val testMarriageDate = LocalDate.of(2003, 7, 2)
-        val testMarriages = listOf(
-                Marriage(testPersonId, 5, testMarriageDate, null, ""),
-                Marriage(8, testPersonId, testMarriageDate, null, ""),
-                Marriage(10, 8, testMarriageDate, null, "") // does not relate to testPersonId
-        )
-
-        testPerson.copy(marriages = testMarriages)
-        fail("Expected an IllegalArgumentException to be thrown since the 3rd marriage does not " +
-                "relate to testPersonId")
     }
 
 }

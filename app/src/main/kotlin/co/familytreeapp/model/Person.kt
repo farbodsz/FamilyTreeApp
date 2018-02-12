@@ -17,8 +17,6 @@ import org.threeten.bp.LocalDate
  *                      be null.
  * @param placeOfDeath  the place where the person died. This is optional and can be left blank (for
  *                      example, if the person is currently alive).
- * @param marriages     a list of marriages involving this person. This list would be empty if this
- *                      person has not been married.
  */
 data class Person(
         val id: Int,
@@ -28,8 +26,7 @@ data class Person(
         val dateOfBirth: LocalDate,
         val placeOfBirth: String,
         val dateOfDeath: LocalDate?,
-        val placeOfDeath: String,
-        val marriages: List<Marriage>
+        val placeOfDeath: String
 ) : Parcelable {
 
     init {
@@ -44,15 +41,14 @@ data class Person(
                 "the date of death cannot be before the date of birth"
             }
         }
-
-        marriages.forEach {
-            require(it.person1Id == id || it.person2Id == id) {
-                "one or more marriages do not relate at all to this person"
-            }
-        }
     }
 
     val fullName = "$forename $surname"
+
+    val marriages: List<Marriage>
+        get() {
+            TODO()
+        }
 
     fun isAlive() = dateOfDeath == null
 
@@ -66,8 +62,7 @@ data class Person(
             source.readSerializable() as LocalDate,
             source.readString(),
             source.readSerializable() as LocalDate?,
-            source.readString(),
-            source.createTypedArrayList(Marriage.CREATOR)
+            source.readString()
     )
 
     override fun describeContents() = 0
@@ -81,7 +76,6 @@ data class Person(
         writeString(placeOfBirth)
         writeSerializable(dateOfDeath)
         writeString(placeOfDeath)
-        writeTypedList(marriages)
     }
 
     companion object {
@@ -125,61 +119,6 @@ data class Gender(val id: Int) : Parcelable {
         val CREATOR: Parcelable.Creator<Gender> = object : Parcelable.Creator<Gender> {
             override fun createFromParcel(source: Parcel): Gender = Gender(source)
             override fun newArray(size: Int): Array<Gender?> = arrayOfNulls(size)
-        }
-    }
-}
-
-/**
- * Represents a marriage between two people.
- *
- * @param person1Id         the id of a person in this marriage
- * @param person2Id         the id of another person in this marriage
- * @param startDate         the date of marriage
- * @param endDate           the date when the marriage ended. If the marriage has not ended, this
- *                          should be null.
- * @param placeOfMarriage   the name of the place where the marriage took place. This is optional
- *                          and can be left blank.
- */
-data class Marriage(
-        val person1Id: Int,
-        val person2Id: Int,
-        val startDate: LocalDate,
-        val endDate: LocalDate?,
-        val placeOfMarriage: String
-) : Parcelable {
-
-    init {
-        require(person1Id > 0) { "person1Id < 1: the id of a person must be greater than 0" }
-        require(person2Id > 0) { "person2Id < 1: the id of a person must be greater than 0" }
-        require(person1Id != person2Id) {
-            "person1Id = person2Id: a person cannot be married to themselves"
-        }
-    }
-
-    fun isOngoing() = endDate == null
-
-    constructor(source: Parcel) : this(
-            source.readInt(),
-            source.readInt(),
-            source.readSerializable() as LocalDate,
-            source.readSerializable() as LocalDate?,
-            source.readString()
-    )
-
-    override fun describeContents() = 0
-
-    override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
-        writeInt(person1Id)
-        writeInt(person2Id)
-        writeSerializable(startDate)
-        writeSerializable(endDate)
-        writeString(placeOfMarriage)
-    }
-
-    companion object {
-        @JvmField val CREATOR: Parcelable.Creator<Marriage> = object : Parcelable.Creator<Marriage> {
-            override fun createFromParcel(source: Parcel): Marriage = Marriage(source)
-            override fun newArray(size: Int): Array<Marriage?> = arrayOfNulls(size)
         }
     }
 }
