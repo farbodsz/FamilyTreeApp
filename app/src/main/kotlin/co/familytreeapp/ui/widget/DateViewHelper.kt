@@ -53,9 +53,9 @@ class DateViewHelper(
             onDateSet?.invoke(view, newDate)
         }
 
-        val initialDate = date ?: LocalDate.now()
-
         textInputEditText.setOnClickListener {
+            val initialDate = date ?: LocalDate.now()
+
             DatePickerDialog(
                     context,
                     listener,
