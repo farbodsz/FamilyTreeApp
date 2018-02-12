@@ -1,10 +1,13 @@
 package co.familytreeapp.ui
 
 import android.os.Bundle
+import android.support.annotation.StringRes
 import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import android.widget.CheckBox
 import android.widget.EditText
@@ -132,7 +135,7 @@ class EditPersonActivity : AppCompatActivity() {
         val gender = if (maleRadioBtn.isChecked) Gender.MALE else Gender.FEMALE
 
         val dateOfBirth = dateOfBirthHelper.date
-        val dateOfDeath = if (isAliveCheckBox.isChecked) dateOfDeathHelper.date else null
+        val dateOfDeath = if (isAliveCheckBox.isChecked) null else dateOfDeathHelper.date
         if (!validateDates(dateOfBirth, dateOfDeath)) return
 
         val person = Person(
@@ -180,25 +183,38 @@ class EditPersonActivity : AppCompatActivity() {
      * @return true if valid
      */
     private fun validateDates(dateOfBirth: LocalDate?, dateOfDeath: LocalDate?): Boolean {
-        val conditions = arrayOf(
-                dateOfBirth == null,
-                dateOfBirth!!.isAfter(LocalDate.now()),
-                dateOfDeath != null && dateOfDeath.isBefore(dateOfBirth)
-        )
-        val messages = arrayOf(
-                R.string.validate_dateOfBirth_empty,
-                R.string.validate_dateOfBirth_future,
-                R.string.validate_dateOfDeath_beforeBirth
-        )
+        fun showMessage(@StringRes stringRes: Int) =
+                Snackbar.make(coordinatorLayout, stringRes, Snackbar.LENGTH_SHORT).show()
 
-        conditions.forEachIndexed { i, condition ->
-            if (condition) {
-                Snackbar.make(coordinatorLayout, messages[i], Snackbar.LENGTH_SHORT).show()
-                return false
-            }
+        if (dateOfBirth == null) {
+            showMessage(R.string.validate_dateOfBirth_empty)
+            return false
+        }
+
+        if (dateOfBirth.isAfter(LocalDate.now())) {
+            showMessage(R.string.validate_dateOfBirth_future)
+            return false
+        }
+
+        if (dateOfDeath != null && dateOfDeath.isBefore(dateOfBirth)) {
+            showMessage(R.string.validate_dateOfDeath_beforeBirth)
+            return false
         }
 
         return true
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        super.onCreateOptionsMenu(menu)
+        menuInflater.inflate(R.menu.menu_edit, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
+        when (item!!.itemId) {
+            R.id.action_done -> saveData()
+        }
+        return super.onOptionsItemSelected(item)
     }
 
 }
