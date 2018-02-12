@@ -1,5 +1,7 @@
 package co.familytreeapp.model
 
+import android.os.Parcel
+import android.os.Parcelable
 import org.threeten.bp.LocalDate
 
 /**
@@ -28,7 +30,7 @@ data class Person(
         val dateOfDeath: LocalDate?,
         val placeOfDeath: String,
         val marriages: List<Marriage>
-) {
+) : Parcelable {
 
     init {
         require(id > 0) { "the id must be greater than 0" }
@@ -56,6 +58,38 @@ data class Person(
 
     override fun toString() = "$id: $fullName"
 
+    constructor(source: Parcel) : this(
+            source.readInt(),
+            source.readString(),
+            source.readString(),
+            source.readParcelable<Gender>(Gender::class.java.classLoader),
+            source.readSerializable() as LocalDate,
+            source.readString(),
+            source.readSerializable() as LocalDate?,
+            source.readString(),
+            source.createTypedArrayList(Marriage.CREATOR)
+    )
+
+    override fun describeContents() = 0
+
+    override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
+        writeInt(id)
+        writeString(forename)
+        writeString(surname)
+        writeParcelable(gender, 0)
+        writeSerializable(dateOfBirth)
+        writeString(placeOfBirth)
+        writeSerializable(dateOfDeath)
+        writeString(placeOfDeath)
+        writeTypedList(marriages)
+    }
+
+    companion object {
+        @JvmField val CREATOR: Parcelable.Creator<Person> = object : Parcelable.Creator<Person> {
+            override fun createFromParcel(source: Parcel): Person = Person(source)
+            override fun newArray(size: Int): Array<Person?> = arrayOfNulls(size)
+        }
+    }
 }
 
 /**
@@ -63,21 +97,36 @@ data class Person(
  *
  * @param id    an integer identifier corresponding to a gender. 0 = male; 1 = female.
  */
-data class Gender(val id: Int) {
+data class Gender(val id: Int) : Parcelable {
 
     init {
         require(id in 0..1) { "the id for a Gender must be between 0 and 1" }
-    }
-
-    companion object {
-        @JvmField val MALE = Gender(0)
-        @JvmField val FEMALE = Gender(1)
     }
 
     fun isMale() = this == MALE
 
     fun isFemale() = this == FEMALE
 
+    constructor(source: Parcel) : this(source.readInt())
+
+    override fun describeContents() = 0
+
+    override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
+        writeInt(id)
+    }
+
+    companion object {
+
+        @JvmField val MALE = Gender(0)
+
+        @JvmField val FEMALE = Gender(1)
+
+        @JvmField
+        val CREATOR: Parcelable.Creator<Gender> = object : Parcelable.Creator<Gender> {
+            override fun createFromParcel(source: Parcel): Gender = Gender(source)
+            override fun newArray(size: Int): Array<Gender?> = arrayOfNulls(size)
+        }
+    }
 }
 
 /**
@@ -97,7 +146,7 @@ data class Marriage(
         val startDate: LocalDate,
         val endDate: LocalDate?,
         val placeOfMarriage: String
-) {
+) : Parcelable {
 
     init {
         require(person1Id > 0) { "person1Id < 1: the id of a person must be greater than 0" }
@@ -109,4 +158,28 @@ data class Marriage(
 
     fun isOngoing() = endDate == null
 
+    constructor(source: Parcel) : this(
+            source.readInt(),
+            source.readInt(),
+            source.readSerializable() as LocalDate,
+            source.readSerializable() as LocalDate?,
+            source.readString()
+    )
+
+    override fun describeContents() = 0
+
+    override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
+        writeInt(person1Id)
+        writeInt(person2Id)
+        writeSerializable(startDate)
+        writeSerializable(endDate)
+        writeString(placeOfMarriage)
+    }
+
+    companion object {
+        @JvmField val CREATOR: Parcelable.Creator<Marriage> = object : Parcelable.Creator<Marriage> {
+            override fun createFromParcel(source: Parcel): Marriage = Marriage(source)
+            override fun newArray(size: Int): Array<Marriage?> = arrayOfNulls(size)
+        }
+    }
 }
