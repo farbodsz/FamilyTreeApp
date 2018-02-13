@@ -1,7 +1,9 @@
 package co.familytreeapp.model
 
+import android.database.Cursor
 import android.os.Parcel
 import android.os.Parcelable
+import co.familytreeapp.database.schemas.PersonsSchema
 import org.threeten.bp.LocalDate
 
 /**
@@ -27,7 +29,7 @@ data class Person(
         val placeOfBirth: String,
         val dateOfDeath: LocalDate?,
         val placeOfDeath: String
-) : Parcelable {
+) : BaseItem, Parcelable {
 
     init {
         require(id > 0) { "the id must be greater than 0" }
@@ -45,14 +47,44 @@ data class Person(
 
     val fullName = "$forename $surname"
 
-    val marriages: List<Marriage>
-        get() {
-            TODO()
-        }
-
     fun isAlive() = dateOfDeath == null
 
     override fun toString() = "$id: $fullName"
+
+    companion object {
+
+        @JvmField val CREATOR: Parcelable.Creator<Person> = object : Parcelable.Creator<Person> {
+            override fun createFromParcel(source: Parcel): Person = Person(source)
+            override fun newArray(size: Int): Array<Person?> = arrayOfNulls(size)
+        }
+
+        /**
+         * Instantiates a [Person] by getting values in columns from a [cursor].
+         */
+        @JvmStatic fun from(cursor: Cursor): Person {
+            val dateOfBirth = LocalDate.of(
+                    cursor.getInt(cursor.getColumnIndex(PersonsSchema.COL_BIRTH_DATE_YEAR)),
+                    cursor.getInt(cursor.getColumnIndex(PersonsSchema.COL_BIRTH_DATE_MONTH)),
+                    cursor.getInt(cursor.getColumnIndex(PersonsSchema.COL_BIRTH_DATE_DAY))
+            )
+            val dateOfDeath = LocalDate.of(
+                    cursor.getInt(cursor.getColumnIndex(PersonsSchema.COL_DEATH_DATE_YEAR)),
+                    cursor.getInt(cursor.getColumnIndex(PersonsSchema.COL_DEATH_DATE_MONTH)),
+                    cursor.getInt(cursor.getColumnIndex(PersonsSchema.COL_DEATH_DATE_DAY))
+            )
+
+            return Person(
+                    cursor.getInt(cursor.getColumnIndex(PersonsSchema.COL_ID)),
+                    cursor.getString(cursor.getColumnIndex(PersonsSchema.COL_FORENAME)),
+                    cursor.getString(cursor.getColumnIndex(PersonsSchema.COL_SURNAME)),
+                    Gender(cursor.getInt(cursor.getColumnIndex(PersonsSchema.COL_GENDER_ID))),
+                    dateOfBirth,
+                    cursor.getString(cursor.getColumnIndex(PersonsSchema.COL_PLACE_OF_BIRTH)),
+                    dateOfDeath,
+                    cursor.getString(cursor.getColumnIndex(PersonsSchema.COL_PLACE_OF_DEATH))
+            )
+        }
+    }
 
     constructor(source: Parcel) : this(
             source.readInt(),
@@ -76,13 +108,6 @@ data class Person(
         writeString(placeOfBirth)
         writeSerializable(dateOfDeath)
         writeString(placeOfDeath)
-    }
-
-    companion object {
-        @JvmField val CREATOR: Parcelable.Creator<Person> = object : Parcelable.Creator<Person> {
-            override fun createFromParcel(source: Parcel): Person = Person(source)
-            override fun newArray(size: Int): Array<Person?> = arrayOfNulls(size)
-        }
     }
 }
 
