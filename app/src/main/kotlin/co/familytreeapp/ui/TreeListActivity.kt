@@ -1,6 +1,8 @@
 package co.familytreeapp.ui
 
+import android.content.Intent
 import android.os.Bundle
+import android.support.design.widget.FloatingActionButton
 import co.familytreeapp.R
 import co.familytreeapp.util.standardNavigationParams
 import co.familytreeapp.util.withNavigation
@@ -12,9 +14,19 @@ class TreeListActivity : NavigationDrawerActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(withNavigation(R.layout.activity_tree_list))
+        setContentView(withNavigation(R.layout.activity_list))
 
-        // TODO
+        setupFab()
+
+        // TODO show list
+    }
+
+    private fun setupFab() {
+        val addPersonButton = findViewById<FloatingActionButton>(R.id.fab)
+        addPersonButton.setOnClickListener {
+            val intent = Intent(this@TreeListActivity, EditPersonActivity::class.java)
+            startActivity(intent)
+        }
     }
 
     override fun getSelfNavigationParams() =
