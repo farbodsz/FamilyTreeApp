@@ -146,8 +146,7 @@ class EditPersonActivity : AppCompatActivity() {
                 dateOfBirth!!,
                 placeOfBirthInput.text.toString().trim(), // TODO "title()" function?
                 dateOfDeath,
-                placeOfDeathInput.text.toString().trim(), // TODO sim.
-                emptyList() // TODO
+                placeOfDeathInput.text.toString().trim() // TODO sim.
         )
 
         // TODO write to db
