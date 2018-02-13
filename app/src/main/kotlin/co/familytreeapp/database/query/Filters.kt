@@ -1,4 +1,4 @@
-package co.familytreeapp.data.query
+package co.familytreeapp.database.query
 
 /**
  * A collection of static helper functions for creating or combining filters.

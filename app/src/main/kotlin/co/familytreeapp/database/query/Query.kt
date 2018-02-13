@@ -1,4 +1,4 @@
-package co.familytreeapp.data.query
+package co.familytreeapp.database.query
 
 import android.util.Log
 

@@ -1,4 +1,4 @@
-package co.familytreeapp.data.schemas
+package co.familytreeapp.database.schemas
 
 import android.provider.BaseColumns
 import co.familytreeapp.model.Person
@@ -34,7 +34,7 @@ object PersonsSchema {
 
     /**
      * SQLite statement which creates the "persons" table upon execution.
-     * @see co.familytreeapp.data.DatabaseHelper
+     * @see co.familytreeapp.database.DatabaseHelper
      */
     const val SQL_CREATE =
             "CREATE TABLE $TABLE_NAME($COL_ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +

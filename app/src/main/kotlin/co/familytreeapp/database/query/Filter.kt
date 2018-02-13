@@ -1,4 +1,4 @@
-package co.familytreeapp.data.query
+package co.familytreeapp.database.query
 
 /**
  * Stores part of a SQL selection statement, used to filter results in database queries.
