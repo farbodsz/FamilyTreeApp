@@ -14,6 +14,7 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.RadioButton
 import co.familytreeapp.R
+import co.familytreeapp.database.manager.PersonManager
 import co.familytreeapp.model.Gender
 import co.familytreeapp.model.Person
 import co.familytreeapp.ui.widget.DateViewHelper
@@ -39,6 +40,8 @@ class EditPersonActivity : AppCompatActivity() {
         private const val EXTRA_PERSON = "extra_person"
     }
 
+    private val personManager = PersonManager(this)
+
     private lateinit var coordinatorLayout: CoordinatorLayout
 
     private lateinit var forenameInput: EditText
@@ -52,6 +55,12 @@ class EditPersonActivity : AppCompatActivity() {
     private lateinit var dateOfDeathHelper: DateViewHelper
     private lateinit var placeOfDeathInput: EditText
 
+    /**
+     * The [Person] received via intent extra from the previous activity. If a new person is being
+     * created (hence no intent extra), then this will be null.
+     *
+     * This [Person] will not be affected by changes made in this activity.
+     */
     private var person: Person? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -139,25 +148,29 @@ class EditPersonActivity : AppCompatActivity() {
         val dateOfDeath = if (isAliveCheckBox.isChecked) null else dateOfDeathHelper.date
         if (!validateDates(dateOfBirth, dateOfDeath)) return
 
-        val person = Person(
+        val newPerson = Person(
                 chooseId(),
-                forename,
-                surname,
+                forename.trim().toTitleCase('-'),
+                surname.trim().toTitleCase('-'),
                 gender,
                 dateOfBirth!!,
-                placeOfBirthInput.text.toString().trim().toTitleCase('-'),
+                placeOfBirthInput.text.toString().trim().toTitleCase(),
                 dateOfDeath,
-                placeOfDeathInput.text.toString().trim().toTitleCase('-')
+                placeOfDeathInput.text.toString().trim().toTitleCase()
         )
 
-        // TODO write to db
+        if (person == null) {
+            personManager.add(newPerson)
+        } else {
+            personManager.update(person!!.id, newPerson)
+        }
     }
 
     /**
      * Returns the id to be used for the [Person] being written to the database.
      * If the [Person] is being modified, the id will remain the same, otherwise it will be a new id.
      */
-    private fun chooseId() = person?.id ?: 1 // TODO 1 should be
+    private fun chooseId() = person?.id ?: personManager.nextAvailableId()
 
     /**
      * Checks that the forename and surname are not blank, showing a message in the UI if so.
