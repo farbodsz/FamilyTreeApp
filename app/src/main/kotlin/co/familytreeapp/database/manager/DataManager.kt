@@ -64,7 +64,7 @@ abstract class DataManager<T : BaseItem>(private val context: Context) {
      */
     fun delete(id: Int) {
         val db = DatabaseHelper.getInstance(context).writableDatabase
-        db.delete(tableName, idColumn, arrayOf(id.toString()))
+        db.delete(tableName, "$idColumn=?", arrayOf(id.toString()))
         Log.d(LOG_TAG, "Deleted item (id: $id)")
     }
 
