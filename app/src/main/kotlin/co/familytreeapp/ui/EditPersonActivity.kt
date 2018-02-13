@@ -1,9 +1,7 @@
 package co.familytreeapp.ui
 
 import android.os.Bundle
-import android.support.annotation.StringRes
 import android.support.design.widget.CoordinatorLayout
-import android.support.design.widget.Snackbar
 import android.support.v7.app.AppCompatActivity
 import android.util.Log
 import android.view.Menu
@@ -19,7 +17,6 @@ import co.familytreeapp.model.Gender
 import co.familytreeapp.model.Person
 import co.familytreeapp.ui.widget.DateViewHelper
 import co.familytreeapp.util.toTitleCase
-import org.threeten.bp.LocalDate
 
 /**
  * This activity provides the UI for adding or editing a new person from the database.
@@ -138,15 +135,17 @@ class EditPersonActivity : AppCompatActivity() {
      * Validates the user input and writes it to the database.
      */
     private fun saveData() {
+        val validator = Validator(coordinatorLayout)
+
         val forename = forenameInput.text.toString().trim()
         val surname = surnameInput.text.toString().trim()
-        if (!validateNames(forename, surname)) return
+        if (!validator.checkNames(forename, surname)) return
 
         val gender = if (maleRadioBtn.isChecked) Gender.MALE else Gender.FEMALE
 
         val dateOfBirth = dateOfBirthHelper.date
         val dateOfDeath = if (isAliveCheckBox.isChecked) null else dateOfDeathHelper.date
-        if (!validateDates(dateOfBirth, dateOfDeath)) return
+        if (!validator.checkDates(dateOfBirth, dateOfDeath)) return
 
         val newPerson = Person(
                 chooseId(),
@@ -171,51 +170,6 @@ class EditPersonActivity : AppCompatActivity() {
      * If the [Person] is being modified, the id will remain the same, otherwise it will be a new id.
      */
     private fun chooseId() = person?.id ?: personManager.nextAvailableId()
-
-    /**
-     * Checks that the forename and surname are not blank, showing a message in the UI if so.
-     *
-     * @return true if valid
-     */
-    private fun validateNames(forename: String, surname: String): Boolean {
-        if (forename.isBlank() || surname.isBlank()) {
-            Snackbar.make(
-                    coordinatorLayout,
-                    R.string.validate_name_empty,
-                    Snackbar.LENGTH_SHORT
-            ).show()
-            return false
-        }
-        return true
-    }
-
-    /**
-     * Checks that the date of birth is not null, not in the future, and before the date of death
-     * if applicable.
-     *
-     * @return true if valid
-     */
-    private fun validateDates(dateOfBirth: LocalDate?, dateOfDeath: LocalDate?): Boolean {
-        fun showMessage(@StringRes stringRes: Int) =
-                Snackbar.make(coordinatorLayout, stringRes, Snackbar.LENGTH_SHORT).show()
-
-        if (dateOfBirth == null) {
-            showMessage(R.string.validate_dateOfBirth_empty)
-            return false
-        }
-
-        if (dateOfBirth.isAfter(LocalDate.now())) {
-            showMessage(R.string.validate_dateOfBirth_future)
-            return false
-        }
-
-        if (dateOfDeath != null && dateOfDeath.isBefore(dateOfBirth)) {
-            showMessage(R.string.validate_dateOfDeath_beforeBirth)
-            return false
-        }
-
-        return true
-    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         super.onCreateOptionsMenu(menu)
