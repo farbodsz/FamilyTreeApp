@@ -4,7 +4,7 @@ import android.app.DatePickerDialog
 import android.content.Context
 import android.support.design.widget.TextInputEditText
 import android.widget.DatePicker
-import co.familytreeapp.DATE_FORMATTER_BIRTH
+import co.familytreeapp.util.DATE_FORMATTER_BIRTH
 import org.threeten.bp.LocalDate
 
 /**

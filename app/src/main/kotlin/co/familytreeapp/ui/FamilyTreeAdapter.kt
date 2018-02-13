@@ -12,6 +12,7 @@ import android.widget.TextView
 import co.familytreeapp.R
 import co.familytreeapp.model.Person
 import co.familytreeapp.model.TreeListItem
+import co.familytreeapp.util.dpToPx
 import de.hdodenhof.circleimageview.CircleImageView
 
 /**
