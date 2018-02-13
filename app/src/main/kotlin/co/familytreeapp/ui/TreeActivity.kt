@@ -9,6 +9,8 @@ import co.familytreeapp.model.Gender
 import co.familytreeapp.model.Person
 import co.familytreeapp.model.TreeNode
 import co.familytreeapp.ui.widget.TreeView
+import co.familytreeapp.util.standardNavigationParams
+import co.familytreeapp.util.withNavigation
 import org.threeten.bp.LocalDate
 
 /**

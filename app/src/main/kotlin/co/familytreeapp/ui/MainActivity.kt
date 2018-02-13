@@ -2,6 +2,8 @@ package co.familytreeapp.ui
 
 import android.os.Bundle
 import co.familytreeapp.R
+import co.familytreeapp.util.standardNavigationParams
+import co.familytreeapp.util.withNavigation
 
 /**
  * The main screen of the app.

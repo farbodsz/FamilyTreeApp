@@ -1,4 +1,4 @@
-package co.familytreeapp
+package co.familytreeapp.util
 
 import org.threeten.bp.format.DateTimeFormatter
 

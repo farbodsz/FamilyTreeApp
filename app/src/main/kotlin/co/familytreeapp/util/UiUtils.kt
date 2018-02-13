@@ -1,4 +1,4 @@
-package co.familytreeapp.ui
+package co.familytreeapp.util
 
 import android.app.Activity
 import android.content.Context
@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import co.familytreeapp.R
+import co.familytreeapp.ui.NavigationParameters
 
 /**
  * Converts a dip value into pixels.

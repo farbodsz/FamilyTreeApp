@@ -2,6 +2,8 @@ package co.familytreeapp.ui
 
 import android.os.Bundle
 import co.familytreeapp.R
+import co.familytreeapp.util.standardNavigationParams
+import co.familytreeapp.util.withNavigation
 
 /**
  * Activity for displaying the tree as a vertical list with indents.

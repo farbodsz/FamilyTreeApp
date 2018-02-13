@@ -12,7 +12,7 @@ import android.widget.ScrollView
 import co.familytreeapp.R
 import co.familytreeapp.model.Person
 import co.familytreeapp.model.TreeNode
-import co.familytreeapp.ui.dpToPx
+import co.familytreeapp.util.dpToPx
 
 /**
  * A custom view responsible for displaying a tree with [Person] data, horizontally.
