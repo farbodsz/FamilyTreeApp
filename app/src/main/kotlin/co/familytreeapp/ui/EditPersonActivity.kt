@@ -17,6 +17,7 @@ import co.familytreeapp.R
 import co.familytreeapp.model.Gender
 import co.familytreeapp.model.Person
 import co.familytreeapp.ui.widget.DateViewHelper
+import co.familytreeapp.util.toTitleCase
 import org.threeten.bp.LocalDate
 
 /**
@@ -144,9 +145,9 @@ class EditPersonActivity : AppCompatActivity() {
                 surname,
                 gender,
                 dateOfBirth!!,
-                placeOfBirthInput.text.toString().trim(), // TODO "title()" function?
+                placeOfBirthInput.text.toString().trim().toTitleCase('-'),
                 dateOfDeath,
-                placeOfDeathInput.text.toString().trim() // TODO sim.
+                placeOfDeathInput.text.toString().trim().toTitleCase('-')
         )
 
         // TODO write to db
