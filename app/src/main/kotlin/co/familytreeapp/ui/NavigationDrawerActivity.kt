@@ -41,6 +41,7 @@ abstract class NavigationDrawerActivity : AppCompatActivity() {
         const val NAVDRAWER_ITEM_MAIN = R.id.nav_item_home
         const val NAVDRAWER_ITEM_TREE = R.id.nav_item_tree
         const val NAVDRAWER_ITEM_TREE_LIST = R.id.nav_item_tree_list
+        const val NAVDRAWER_ITEM_PERSON_LIST = R.id.nav_item_person_list
 
         const val NAVDRAWER_ITEM_INVALID = -1
 
@@ -114,6 +115,7 @@ abstract class NavigationDrawerActivity : AppCompatActivity() {
             NAVDRAWER_ITEM_MAIN -> Intent(this, MainActivity::class.java)
             NAVDRAWER_ITEM_TREE -> Intent(this, TreeActivity::class.java)
             NAVDRAWER_ITEM_TREE_LIST -> Intent(this, TreeListActivity::class.java)
+            NAVDRAWER_ITEM_PERSON_LIST -> Intent(this, PersonListActivity::class.java)
             else -> throw IllegalArgumentException("unrecognised menu item: $menuItem")
         }
 

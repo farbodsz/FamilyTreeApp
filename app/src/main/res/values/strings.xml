@@ -7,6 +7,7 @@
     <string name="title_home">@string/app_name</string>
     <string name="title_tree">Family Tree</string>
     <string name="title_tree_list">@string/title_tree</string>
+    <string name="title_person_list">People</string>
     <string name="title_add_person">New Person</string>
     <string name="title_edit_person">Edit Person</string>
     <string name="title_settings">Settings</string>
@@ -19,6 +20,7 @@
     <string name="nav_item_home">@string/title_home</string>
     <string name="nav_item_tree">View Tree</string>
     <string name="nav_item_tree_list">View Tree (list)</string>
+    <string name="nav_item_person_list">@string/title_person_list</string>
     <string name="nav_item_settings">@string/title_settings</string>
 
     <!-- Nav drawer content description texts -->

@@ -10,8 +10,15 @@ import android.widget.TextView
 import co.familytreeapp.R
 import co.familytreeapp.model.Person
 import co.familytreeapp.util.DATE_FORMATTER_BIRTH
-import co.familytreeapp.util.OnItemClick
 import de.hdodenhof.circleimageview.CircleImageView
+
+/**
+ * Type definition for an action to be preformed when a view in the [Person] list has been clicked.
+ *
+ * This is a function type with its parameters as the view  and [Person] that was clicked.
+ * The function does not return anything.
+ */
+typealias OnPersonClick = (view: View, person: Person) -> Unit
 
 /**
  * A [RecyclerView] adapter for displaying [people][Person] in a standard list layout.
@@ -21,9 +28,9 @@ class PersonAdapter(
         private val people: List<Person>
 ) : RecyclerView.Adapter<PersonAdapter.ViewHolder>() {
 
-    private var onItemClickAction: OnItemClick? = null
+    private var onItemClickAction: OnPersonClick? = null
 
-    fun onItemClick(action: OnItemClick) {
+    fun onItemClick(action: OnPersonClick) {
         onItemClickAction = action
     }
 
@@ -57,7 +64,10 @@ class PersonAdapter(
         val infoText: TextView = itemView.findViewById(R.id.text2)
 
         init {
-            itemView.setOnClickListener { onItemClickAction?.invoke(it, layoutPosition) }
+            itemView.setOnClickListener {
+                val position = layoutPosition
+                onItemClickAction?.invoke(it, people[position])
+            }
         }
 
     }

@@ -34,7 +34,7 @@ class EditPersonActivity : AppCompatActivity() {
         /**
          * Intent extra key for supplying a [Person] to this activity.
          */
-        private const val EXTRA_PERSON = "extra_person"
+        const val EXTRA_PERSON = "extra_person"
     }
 
     private val personManager = PersonManager(this)
