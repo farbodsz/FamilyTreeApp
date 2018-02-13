@@ -67,11 +67,15 @@ data class Person(
                     cursor.getInt(cursor.getColumnIndex(PersonsSchema.COL_BIRTH_DATE_MONTH)),
                     cursor.getInt(cursor.getColumnIndex(PersonsSchema.COL_BIRTH_DATE_DAY))
             )
-            val dateOfDeath = LocalDate.of(
-                    cursor.getInt(cursor.getColumnIndex(PersonsSchema.COL_DEATH_DATE_YEAR)),
-                    cursor.getInt(cursor.getColumnIndex(PersonsSchema.COL_DEATH_DATE_MONTH)),
-                    cursor.getInt(cursor.getColumnIndex(PersonsSchema.COL_DEATH_DATE_DAY))
-            )
+            val dateOfDeath = if (cursor.isNull(cursor.getColumnIndex(PersonsSchema.COL_DEATH_DATE_YEAR))) {
+                null
+            } else {
+                LocalDate.of(
+                        cursor.getInt(cursor.getColumnIndex(PersonsSchema.COL_DEATH_DATE_YEAR)),
+                        cursor.getInt(cursor.getColumnIndex(PersonsSchema.COL_DEATH_DATE_MONTH)),
+                        cursor.getInt(cursor.getColumnIndex(PersonsSchema.COL_DEATH_DATE_DAY))
+                )
+            }
 
             return Person(
                     cursor.getInt(cursor.getColumnIndex(PersonsSchema.COL_ID)),
