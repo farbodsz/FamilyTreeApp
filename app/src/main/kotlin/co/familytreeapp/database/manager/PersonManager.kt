@@ -14,7 +14,7 @@ import co.familytreeapp.model.Person
 /**
  * Contains some methods to perform CRUD operations for the *persons* table.
  */
-class PersonManager(private val context: Context) : DataManager<Person>(context) {
+class PersonManager(private val context: Context) : StandardDataManager<Person>(context) {
 
     companion object {
         private const val LOG_TAG = "PersonManager"
