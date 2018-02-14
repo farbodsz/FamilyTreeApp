@@ -2,6 +2,7 @@ package co.familytreeapp.database.manager
 
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.util.Log
 import co.familytreeapp.database.DatabaseHelper
 import co.familytreeapp.database.query.Query
@@ -31,11 +32,31 @@ abstract class DataManager<T : BaseItem>(private val context: Context) {
      *
      * @return a list of items that satisfy the table [query]
      */
-    abstract fun query(query: Query?): List<T>
+    fun query(query: Query?): List<T> {
+        val list = ArrayList<T>()
+
+        val cursor = DatabaseHelper.getInstance(context).readableDatabase.query(
+                tableName,
+                null,
+                query?.filter?.sqlStatement,
+                null, null, null, null
+        )
+        cursor.moveToFirst()
+        while (!cursor.isAfterLast) {
+            list.add(createFromCursor(cursor))
+            cursor.moveToNext()
+        }
+        cursor.close()
+
+        return list
+    }
+
+    /**
+     * Constructs the data model class of type [T] using column values from the [cursor] provided.
+     */
+    abstract fun createFromCursor(cursor: Cursor): T
 
     fun getAll() = query(null)
-
-    abstract fun propertiesAsContentValues(item: T): ContentValues
 
     /**
      * Adds an item of type [T] to the table named [tableName].
@@ -45,6 +66,13 @@ abstract class DataManager<T : BaseItem>(private val context: Context) {
         db.insert(tableName, null, propertiesAsContentValues(item))
         Log.d(LOG_TAG, "Added item $item")
     }
+
+    /**
+     * Puts properties of the data model type into [ContentValues], returning this.
+     *
+     * @see add
+     */
+    abstract fun propertiesAsContentValues(item: T): ContentValues
 
     /**
      * Updates an item of type [T] with [oldItemId], replacing it with the new [item].
