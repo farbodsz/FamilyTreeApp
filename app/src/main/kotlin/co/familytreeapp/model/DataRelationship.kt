@@ -5,4 +5,11 @@ package co.familytreeapp.model
  *
  * @see co.familytreeapp.database.manager.RelationshipManager
  */
-interface DataRelationship : DataModel
+interface DataRelationship : DataModel {
+
+    /**
+     * Returns the pair of the IDs used to define the relationship.
+     */
+    fun getIds(): Pair<Int, Int>
+
+}
