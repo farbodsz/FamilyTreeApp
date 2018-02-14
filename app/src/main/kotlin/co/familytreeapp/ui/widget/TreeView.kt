@@ -11,7 +11,7 @@ import android.widget.HorizontalScrollView
 import android.widget.ScrollView
 import co.familytreeapp.R
 import co.familytreeapp.model.Person
-import co.familytreeapp.model.TreeNode
+import co.familytreeapp.model.tree.TreeNode
 import co.familytreeapp.util.dpToPx
 
 /**

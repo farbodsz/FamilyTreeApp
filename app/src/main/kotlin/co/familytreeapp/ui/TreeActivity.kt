@@ -7,7 +7,7 @@ import android.view.MenuItem
 import co.familytreeapp.R
 import co.familytreeapp.model.Gender
 import co.familytreeapp.model.Person
-import co.familytreeapp.model.TreeNode
+import co.familytreeapp.model.tree.TreeNode
 import co.familytreeapp.ui.widget.TreeView
 import co.familytreeapp.util.standardNavigationParams
 import co.familytreeapp.util.withNavigation
