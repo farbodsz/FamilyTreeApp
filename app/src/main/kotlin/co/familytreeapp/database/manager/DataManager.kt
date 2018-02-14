@@ -6,7 +6,7 @@ import android.database.Cursor
 import android.util.Log
 import co.familytreeapp.database.DatabaseHelper
 import co.familytreeapp.database.query.Query
-import co.familytreeapp.model.BaseItem
+import co.familytreeapp.model.DataModel
 
 /**
  * The base data manager class, defining/implementing methods that *all* data managers should
@@ -22,7 +22,7 @@ import co.familytreeapp.model.BaseItem
  * @see StandardDataManager
  * @see RelationshipManager
  */
-abstract class DataManager<T : BaseItem>(private val context: Context) {
+abstract class DataManager<T : DataModel>(private val context: Context) {
 
     companion object {
         private const val LOG_TAG = "DataManager"

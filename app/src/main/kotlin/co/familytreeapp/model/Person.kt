@@ -29,7 +29,7 @@ data class Person(
         val placeOfBirth: String,
         val dateOfDeath: LocalDate?,
         val placeOfDeath: String
-) : BaseItem, Comparable<Person>, Parcelable {
+) : DataModel, Comparable<Person>, Parcelable {
 
     init {
         require(id > 0) { "the id must be greater than 0" }

@@ -3,7 +3,7 @@ package co.familytreeapp.database.manager
 import android.content.Context
 import android.util.Log
 import co.familytreeapp.database.DatabaseHelper
-import co.familytreeapp.model.BaseItem
+import co.familytreeapp.model.DataModel
 
 /**
  * An abstract data manager class which includes methods that all "standard" data managers should
@@ -11,7 +11,7 @@ import co.familytreeapp.model.BaseItem
  *
  * @see DataManager
  */
-abstract class StandardDataManager<T : BaseItem>(
+abstract class StandardDataManager<T : DataModel>(
         private val context: Context
 ): DataManager<T>(context) {
 
