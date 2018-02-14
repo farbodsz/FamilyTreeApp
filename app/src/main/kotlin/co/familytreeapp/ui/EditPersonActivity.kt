@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.CoordinatorLayout
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -66,7 +67,11 @@ class EditPersonActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_person)
 
-        setSupportActionBar(findViewById(R.id.toolbar))
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        toolbar.setNavigationIcon(R.drawable.ic_close_white_24dp)
+        toolbar.setNavigationOnClickListener { sendCancelledResult() }
 
         person = intent.extras?.getParcelable(EXTRA_PERSON)
 
@@ -166,7 +171,7 @@ class EditPersonActivity : AppCompatActivity() {
             personManager.update(person!!.id, newPerson)
         }
 
-        sendActivityResult(newPerson)
+        sendSuccessfulResult(newPerson)
     }
 
     /**
@@ -176,23 +181,27 @@ class EditPersonActivity : AppCompatActivity() {
     private fun chooseId() = person?.id ?: personManager.nextAvailableId()
 
     /**
-     * Sends a result back to where this activity was invoked from.
+     * Sends an "ok" result back to where this activity was invoked from.
      *
-     * @param result    the new/updated [Person] for an "ok" result. This can be null to indicate a
-     *                  "cancelled" result.
+     * @param result        the new/updated/deleted [Person]. If deleted this must be null.
      *
      * @see android.app.Activity.RESULT_OK
+     */
+    private fun sendSuccessfulResult(result: Person?) {
+        Log.d(LOG_TAG, "Sending successful result: $result")
+        val returnIntent = Intent().putExtra(EXTRA_PERSON, result)
+        setResult(Activity.RESULT_OK, returnIntent)
+        finish()
+    }
+
+    /**
+     * Sends a "cancelled" result back to where this activity was invoked from.
+     *
      * @see android.app.Activity.RESULT_CANCELED
      */
-    private fun sendActivityResult(result: Person? = null) {
-        val returnIntent = Intent()
-        val resultCode = if (result == null) {
-            Activity.RESULT_CANCELED
-        } else {
-            returnIntent.putExtra(EXTRA_PERSON, result)
-            Activity.RESULT_OK
-        }
-        setResult(resultCode, returnIntent)
+    private fun sendCancelledResult() {
+        Log.d(LOG_TAG, "Sending cancelled result")
+        setResult(Activity.RESULT_CANCELED)
         finish()
     }
 
@@ -208,5 +217,7 @@ class EditPersonActivity : AppCompatActivity() {
         }
         return super.onOptionsItemSelected(item)
     }
+
+    override fun onBackPressed() = sendCancelledResult()
 
 }
