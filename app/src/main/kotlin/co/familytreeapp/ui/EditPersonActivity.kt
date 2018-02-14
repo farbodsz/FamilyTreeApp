@@ -1,5 +1,7 @@
 package co.familytreeapp.ui
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.CoordinatorLayout
 import android.support.v7.app.AppCompatActivity
@@ -34,7 +36,7 @@ class EditPersonActivity : AppCompatActivity() {
         /**
          * Intent extra key for supplying a [Person] to this activity.
          */
-        private const val EXTRA_PERSON = "extra_person"
+        const val EXTRA_PERSON = "extra_person"
     }
 
     private val personManager = PersonManager(this)
@@ -163,6 +165,8 @@ class EditPersonActivity : AppCompatActivity() {
         } else {
             personManager.update(person!!.id, newPerson)
         }
+
+        sendActivityResult(newPerson)
     }
 
     /**
@@ -170,6 +174,27 @@ class EditPersonActivity : AppCompatActivity() {
      * If the [Person] is being modified, the id will remain the same, otherwise it will be a new id.
      */
     private fun chooseId() = person?.id ?: personManager.nextAvailableId()
+
+    /**
+     * Sends a result back to where this activity was invoked from.
+     *
+     * @param result    the new/updated [Person] for an "ok" result. This can be null to indicate a
+     *                  "cancelled" result.
+     *
+     * @see android.app.Activity.RESULT_OK
+     * @see android.app.Activity.RESULT_CANCELED
+     */
+    private fun sendActivityResult(result: Person? = null) {
+        val returnIntent = Intent()
+        val resultCode = if (result == null) {
+            Activity.RESULT_CANCELED
+        } else {
+            returnIntent.putExtra(EXTRA_PERSON, result)
+            Activity.RESULT_OK
+        }
+        setResult(resultCode, returnIntent)
+        finish()
+    }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         super.onCreateOptionsMenu(menu)

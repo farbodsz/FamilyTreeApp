@@ -16,6 +16,10 @@
             android:id="@+id/nav_item_tree_list"
             android:title="@string/nav_item_tree_list"
             android:icon="@drawable/ic_view_list_black_24dp" />
+        <item
+            android:id="@+id/nav_item_person_list"
+            android:title="@string/nav_item_person_list"
+            android:icon="@drawable/ic_people_black_24dp" />
     </group>
 
     <group android:id="@+id/navigation_group_3" android:checkableBehavior="single">

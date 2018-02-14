@@ -29,7 +29,7 @@ data class Person(
         val placeOfBirth: String,
         val dateOfDeath: LocalDate?,
         val placeOfDeath: String
-) : BaseItem, Parcelable {
+) : BaseItem, Comparable<Person>, Parcelable {
 
     init {
         require(id > 0) { "the id must be greater than 0" }
@@ -49,6 +49,8 @@ data class Person(
 
     fun isAlive() = dateOfDeath == null
 
+    override fun compareTo(other: Person) = fullName.compareTo(other.fullName)
+
     override fun toString() = "$id: $fullName"
 
     companion object {
@@ -67,11 +69,15 @@ data class Person(
                     cursor.getInt(cursor.getColumnIndex(PersonsSchema.COL_BIRTH_DATE_MONTH)),
                     cursor.getInt(cursor.getColumnIndex(PersonsSchema.COL_BIRTH_DATE_DAY))
             )
-            val dateOfDeath = LocalDate.of(
-                    cursor.getInt(cursor.getColumnIndex(PersonsSchema.COL_DEATH_DATE_YEAR)),
-                    cursor.getInt(cursor.getColumnIndex(PersonsSchema.COL_DEATH_DATE_MONTH)),
-                    cursor.getInt(cursor.getColumnIndex(PersonsSchema.COL_DEATH_DATE_DAY))
-            )
+            val dateOfDeath = if (cursor.isNull(cursor.getColumnIndex(PersonsSchema.COL_DEATH_DATE_YEAR))) {
+                null
+            } else {
+                LocalDate.of(
+                        cursor.getInt(cursor.getColumnIndex(PersonsSchema.COL_DEATH_DATE_YEAR)),
+                        cursor.getInt(cursor.getColumnIndex(PersonsSchema.COL_DEATH_DATE_MONTH)),
+                        cursor.getInt(cursor.getColumnIndex(PersonsSchema.COL_DEATH_DATE_DAY))
+                )
+            }
 
             return Person(
                     cursor.getInt(cursor.getColumnIndex(PersonsSchema.COL_ID)),

@@ -2,6 +2,7 @@ package co.familytreeapp.database.manager
 
 import android.content.ContentValues
 import android.content.Context
+import android.database.Cursor
 import android.util.Log
 import co.familytreeapp.database.DatabaseHelper
 import co.familytreeapp.database.query.Filters
@@ -23,21 +24,7 @@ class PersonManager(private val context: Context) : DataManager<Person>(context)
 
     override val idColumn = PersonsSchema.COL_ID
 
-    override fun query(query: Query?): List<Person> {
-        val list = ArrayList<Person>()
-
-        val cursor = DatabaseHelper.getInstance(context).readableDatabase.query(
-                PersonsSchema.TABLE_NAME,
-                null,
-                query?.filter?.sqlStatement,
-                null, null, null, null
-        )
-        cursor.moveToFirst()
-        list.add(Person.from(cursor))
-        cursor.close()
-
-        return list
-    }
+    override fun createFromCursor(cursor: Cursor) = Person.from(cursor)
 
     /**
      * Returns the [Person] with the specified [id] from the database.

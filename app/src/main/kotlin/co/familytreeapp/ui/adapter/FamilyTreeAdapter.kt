@@ -1,4 +1,4 @@
-package co.familytreeapp.ui
+package co.familytreeapp.ui.adapter
 
 import android.content.Context
 import android.support.v4.content.ContextCompat
@@ -12,17 +12,9 @@ import android.widget.TextView
 import co.familytreeapp.R
 import co.familytreeapp.model.Person
 import co.familytreeapp.model.TreeListItem
+import co.familytreeapp.util.OnItemClick
 import co.familytreeapp.util.dpToPx
 import de.hdodenhof.circleimageview.CircleImageView
-
-/**
- * Type definition for an action to be preformed when a view in the list has been clicked.
- *
- * This is a function type with its parameters as the view that was clicked and the
- * [layout position][RecyclerView.ViewHolder.getLayoutPosition] of the ViewHolder. The function does
- * not return anything.
- */
-typealias OnItemClick = (view: View, position: Int) -> Unit
 
 /**
  * A [RecyclerView] adapter for displaying [Person]s in a vertical tree.
@@ -40,7 +32,7 @@ class FamilyTreeAdapter(
 
     override fun onCreateViewHolder(parent: ViewGroup?, viewType: Int): ViewHolder {
         val itemView = LayoutInflater.from(parent!!.context)
-                .inflate(R.layout.item_tree_list, parent, false)
+                .inflate(R.layout.item_list_person, parent, false)
         return ViewHolder(itemView)
     }
 
