@@ -167,11 +167,17 @@ class EditPersonActivity : AppCompatActivity() {
 
         if (person == null) {
             personManager.add(newPerson)
-        } else {
-            personManager.update(person!!.id, newPerson)
+            sendSuccessfulResult(newPerson)
+            return
         }
 
-        sendSuccessfulResult(newPerson)
+        if (person!! == newPerson) {
+            // Nothing changed, so avoid db write, and nothing will change in result activity
+            sendCancelledResult()
+        } else {
+            personManager.update(person!!.id, newPerson)
+            sendSuccessfulResult(newPerson)
+        }
     }
 
     /**
