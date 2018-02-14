@@ -1,5 +1,6 @@
 package co.familytreeapp.ui
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
@@ -17,6 +18,19 @@ import co.familytreeapp.util.withNavigation
  */
 class PersonListActivity : NavigationDrawerActivity() {
 
+    companion object {
+
+        /**
+         * Request code for starting [EditPersonActivity] for result.
+         */
+        private const val REQUEST_PERSON_EDIT = 1
+    }
+
+    private val personManager = PersonManager(this)
+    private lateinit var people: ArrayList<Person>
+
+    private lateinit var personAdapter: PersonAdapter
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(withNavigation(R.layout.activity_list))
@@ -33,21 +47,31 @@ class PersonListActivity : NavigationDrawerActivity() {
     }
 
     private fun populateList() {
-        val people = PersonManager(this).getAll()
-        // people.sort() TODO
+        people = personManager.getAll() as ArrayList<Person>
+        people.sort()
 
-        val adapter = PersonAdapter(this, people)
-        adapter.onItemClick { _, person -> editPerson(person) }
+        personAdapter = PersonAdapter(this, people)
+        personAdapter.onItemClick { _, person -> editPerson(person) }
 
         findViewById<RecyclerView>(R.id.recyclerView).apply {
             layoutManager = LinearLayoutManager(context)
             setHasFixedSize(true)
-            setAdapter(adapter)
+            adapter = personAdapter
         }
     }
 
     /**
-     * Starts [EditPersonActivity] to create/edit a [Person].
+     * Refreshes the list by fetching the data (list) from the database and displaying it in the UI
+     */
+    private fun refreshList() {
+        people.clear()
+        people.addAll(personManager.getAll())
+        people.sort()
+        personAdapter.notifyDataSetChanged()
+    }
+
+    /**
+     * Starts [EditPersonActivity] to create/edit a [Person], for result.
      *
      * @param person    the person to be passed to [EditPersonActivity]. This would be null if a new
      *                  person is being created.
@@ -55,7 +79,18 @@ class PersonListActivity : NavigationDrawerActivity() {
     private fun editPerson(person: Person?) {
         val intent = Intent(this, EditPersonActivity::class.java)
         person?.let { intent.putExtra(EditPersonActivity.EXTRA_PERSON, it) }
-        startActivity(intent)
+        startActivityForResult(intent, REQUEST_PERSON_EDIT)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == REQUEST_PERSON_EDIT) {
+            if (resultCode == Activity.RESULT_OK) {
+                // Refresh the list
+                refreshList()
+            }
+        }
     }
 
     override fun getSelfNavigationParams() =
