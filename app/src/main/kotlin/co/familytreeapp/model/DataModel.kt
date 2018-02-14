@@ -1,6 +1,9 @@
 package co.familytreeapp.model
 
 /**
- * Interface for classes that are data models.
+ * Base interface for data models.
+ *
+ * @see StandardData
+ * @see DataRelationship
  */
 interface DataModel
