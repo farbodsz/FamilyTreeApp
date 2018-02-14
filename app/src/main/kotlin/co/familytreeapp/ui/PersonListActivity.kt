@@ -94,6 +94,6 @@ class PersonListActivity : NavigationDrawerActivity() {
     }
 
     override fun getSelfNavigationParams() =
-            standardNavigationParams(NAVDRAWER_ITEM_TREE_LIST, findViewById(R.id.toolbar))
+            standardNavigationParams(NAVDRAWER_ITEM_PERSON_LIST, findViewById(R.id.toolbar))
 
 }
