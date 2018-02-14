@@ -13,6 +13,12 @@ import co.familytreeapp.database.schemas.ChildrenSchema
  */
 data class ChildRelationship(val parentId: Int, val childId: Int): DataRelationship {
 
+    init {
+        require(parentId > 0 && childId > 0) {
+            "the ids must be greater than 0 (currently: parentId=$parentId, childId=$childId"
+        }
+    }
+
     companion object {
 
         /**
