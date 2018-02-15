@@ -220,10 +220,7 @@ class EditPersonActivity : AppCompatActivity() {
         lateinit var dialog: AlertDialog
         val builder = AlertDialog.Builder(this)
 
-        val people = personManager.getAll() as ArrayList<Person>
-        people.sort()
-
-        val personAdapter = PersonAdapter(this, people)
+        val personAdapter = PersonAdapter(this, getPotentialChildren())
         personAdapter.onItemClick { _, person ->
             addChildToUi(person)
             dialog.dismiss()
@@ -237,10 +234,30 @@ class EditPersonActivity : AppCompatActivity() {
         }
 
         builder.setView(recyclerView)
+                .setTitle(R.string.add_child)
                 .setNegativeButton(android.R.string.cancel) { _, _ ->  }
 
         dialog = builder.create()
         dialog.show()
+    }
+
+    /**
+     * Returns a list of people that could be the child of this [person].
+     *
+     * This is people younger than this [person], and not already considered a child of him/her.
+     */
+    private fun getPotentialChildren(): List<Person> {
+        val potentialChildren = ArrayList<Person>()
+
+        // Ok to use this DOB as there were constraints/validation on the dialog picker
+        val parentDob = dateOfBirthHelper.date
+
+        for (person in personManager.getAll()) {
+            if (person.dateOfBirth.isAfter(parentDob) && person !in children) {
+                potentialChildren.add(person)
+            }
+        }
+        return potentialChildren
     }
 
     /**
