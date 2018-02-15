@@ -39,14 +39,14 @@ abstract class RelationshipManager<T : DataRelationship>(
     }
 
     /**
-     * Deletes a relationship ([T]) with specified [idPair] from the table named [tableName].
+     * Deletes relationships ([T]) with specified [idPair] from the table named [tableName].
      * The order of this pair must correspond to that of [idColumnNames].
      */
     fun delete(idPair: Pair<Int, Int>) {
         val db = DatabaseHelper.getInstance(context).writableDatabase
         db.delete(
                 tableName,
-                "${idColumnNames.first}=? AND ${idColumnNames.second}",
+                "${idColumnNames.first}=? AND ${idColumnNames.second}=?",
                 arrayOf(idPair.first.toString(), idPair.second.toString())
         )
         Log.d(LOG_TAG, "Deleted item (id1: ${idPair.first}, id2: ${idPair.second})")
