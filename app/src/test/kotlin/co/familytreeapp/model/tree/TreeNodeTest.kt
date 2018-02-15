@@ -1,4 +1,4 @@
-package co.familytreeapp.model
+package co.familytreeapp.model.tree
 
 import org.junit.Assert.*
 import org.junit.Test

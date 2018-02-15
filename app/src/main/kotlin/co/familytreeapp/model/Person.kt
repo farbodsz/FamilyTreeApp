@@ -29,7 +29,7 @@ data class Person(
         val placeOfBirth: String,
         val dateOfDeath: LocalDate?,
         val placeOfDeath: String
-) : BaseItem, Comparable<Person>, Parcelable {
+) : StandardData, Comparable<Person>, Parcelable {
 
     init {
         require(id > 0) { "the id must be greater than 0" }
@@ -50,8 +50,6 @@ data class Person(
     fun isAlive() = dateOfDeath == null
 
     override fun compareTo(other: Person) = fullName.compareTo(other.fullName)
-
-    override fun toString() = "$id: $fullName"
 
     companion object {
 

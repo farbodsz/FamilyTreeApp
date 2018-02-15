@@ -1,4 +1,4 @@
-package co.familytreeapp.model
+package co.familytreeapp.model.tree
 
 /**
  * This class can be used when representing items in a tree in a list.

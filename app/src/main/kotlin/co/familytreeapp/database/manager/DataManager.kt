@@ -6,12 +6,23 @@ import android.database.Cursor
 import android.util.Log
 import co.familytreeapp.database.DatabaseHelper
 import co.familytreeapp.database.query.Query
-import co.familytreeapp.model.BaseItem
+import co.familytreeapp.model.DataModel
 
 /**
- * A base data manager class, defining/implementing common methods.
+ * The base data manager class, defining/implementing methods that *all* data managers should
+ * inherit or implement.
+ *
+ * There are two main types of data managers in this app: "standard" and "relationship".
+ *  - Standard data managers manage tables with a unique (primary key) integer ID column and extra
+ *    columns of any type to store additional details of that object.
+ *  - Relationship data managers manage tables with two integer ID columns that are not necessarily
+ *    unique. These two columns each represent the unique ID of an object (with its details stored
+ *    in a "standard" table); so overall, a row stores the relationship between two objects.
+ *
+ * @see StandardDataManager
+ * @see RelationshipManager
  */
-abstract class DataManager<T : BaseItem>(private val context: Context) {
+abstract class DataManager<T : DataModel>(private val context: Context) {
 
     companion object {
         private const val LOG_TAG = "DataManager"
@@ -21,11 +32,6 @@ abstract class DataManager<T : BaseItem>(private val context: Context) {
      * The name of the table the subclass is managing.
      */
     abstract val tableName: String
-
-    /**
-     * The name of the ID column of the table the subclass is managing.
-     */
-    abstract val idColumn: String
 
     /**
      * Query the table corresponding to the data manager subclass.
@@ -73,38 +79,5 @@ abstract class DataManager<T : BaseItem>(private val context: Context) {
      * @see add
      */
     abstract fun propertiesAsContentValues(item: T): ContentValues
-
-    /**
-     * Updates an item of type [T] with [oldItemId], replacing it with the new [item].
-     *
-     * @see add
-     * @see delete
-     */
-    fun update(oldItemId: Int, item: T) {
-        delete(oldItemId)
-        add(item)
-    }
-
-    /**
-     * Deletes an item of type [T] with specified [id] from the table named [tableName].
-     *
-     * @see deleteWithReferences
-     */
-    fun delete(id: Int) {
-        val db = DatabaseHelper.getInstance(context).writableDatabase
-        db.delete(tableName, "$idColumn=?", arrayOf(id.toString()))
-        Log.d(LOG_TAG, "Deleted item (id: $id)")
-    }
-
-    /**
-     * Deletes an item of type [T] with specified [id] and any other references to it.
-     * This function should be overridden by subclasses of [DataManager] to specify which references
-     * should be deleted.
-     *
-     * @see delete
-     */
-    open fun deleteWithReferences(id: Int) {
-        delete(id)
-    }
 
 }

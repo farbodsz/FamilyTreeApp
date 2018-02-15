@@ -1,4 +1,4 @@
-package co.familytreeapp.model
+package co.familytreeapp.model.tree
 
 /**
  * Represents a node in the tree, holding data type [T].

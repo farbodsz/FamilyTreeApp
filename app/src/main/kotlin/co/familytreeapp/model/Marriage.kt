@@ -21,7 +21,7 @@ data class Marriage(
         val startDate: LocalDate,
         val endDate: LocalDate?,
         val placeOfMarriage: String
-) : BaseItem, Parcelable {
+) : DataRelationship, Parcelable {
 
     init {
         require(person1Id > 0) { "person1Id < 1: the id of a person must be greater than 0" }
@@ -40,6 +40,8 @@ data class Marriage(
             source.readSerializable() as LocalDate?,
             source.readString()
     )
+
+    override fun getIds() = Pair(person1Id, person2Id)
 
     override fun describeContents() = 0
 

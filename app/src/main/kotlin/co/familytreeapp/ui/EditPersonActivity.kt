@@ -4,22 +4,25 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.CoordinatorLayout
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.CheckBox
-import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.RadioButton
+import android.widget.*
 import co.familytreeapp.R
+import co.familytreeapp.database.manager.ChildrenManager
 import co.familytreeapp.database.manager.PersonManager
 import co.familytreeapp.model.Gender
 import co.familytreeapp.model.Person
+import co.familytreeapp.ui.adapter.PersonAdapter
 import co.familytreeapp.ui.widget.DateViewHelper
 import co.familytreeapp.util.toTitleCase
+import org.threeten.bp.LocalDate
 
 /**
  * This activity provides the UI for adding or editing a new person from the database.
@@ -55,6 +58,9 @@ class EditPersonActivity : AppCompatActivity() {
     private lateinit var dateOfDeathHelper: DateViewHelper
     private lateinit var placeOfDeathInput: EditText
 
+    private lateinit var childrenText: TextView
+    private lateinit var childrenRecyclerView: RecyclerView
+
     /**
      * The [Person] received via intent extra from the previous activity. If a new person is being
      * created (hence no intent extra), then this will be null.
@@ -62,6 +68,12 @@ class EditPersonActivity : AppCompatActivity() {
      * This [Person] will not be affected by changes made in this activity.
      */
     private var person: Person? = null
+
+    /**
+     * The list of this [person]'s children that are displayed in the UI.
+     * When the "Done" action is selected, these will be added to the database.
+     */
+    private lateinit var children: ArrayList<Person>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -74,6 +86,12 @@ class EditPersonActivity : AppCompatActivity() {
         toolbar.setNavigationOnClickListener { sendCancelledResult() }
 
         person = intent.extras?.getParcelable(EXTRA_PERSON)
+
+        if (person == null) {
+            Log.v(LOG_TAG, "Editing a new person")
+        } else {
+            Log.v(LOG_TAG, "Editing an existing person: $person")
+        }
 
         assignUiComponents()
 
@@ -100,9 +118,24 @@ class EditPersonActivity : AppCompatActivity() {
 
         dateOfDeathHelper = DateViewHelper(this, findViewById(R.id.editText_dateOfDeath))
         placeOfDeathInput = findViewById(R.id.editText_placeOfDeath)
+
+        childrenText = findViewById(R.id.text_childrenNum)
+        childrenText.text = resources.getQuantityText(R.plurals.children_count_subtitle, 0)
+
+        childrenRecyclerView = findViewById(R.id.recyclerView)
+        childrenRecyclerView.layoutManager = LinearLayoutManager(this@EditPersonActivity)
+
+        val addChildButton = findViewById<Button>(R.id.button_addChild)
+        addChildButton.setOnClickListener {
+            chooseChildDialog()
+        }
     }
 
     private fun setupLayout() {
+        setDatePickerConstraints()
+
+        setupChildrenList()
+
         if (person == null) {
             Log.i(LOG_TAG, "Person is null - setting up the default layout")
             setupDefaultLayout()
@@ -118,8 +151,35 @@ class EditPersonActivity : AppCompatActivity() {
 
             setPersonAlive(it.isAlive())
 
-            dateOfBirthHelper.date = it.dateOfBirth
-            dateOfDeathHelper.date = it.dateOfDeath
+            with(dateOfBirthHelper) {
+                date = it.dateOfBirth
+                if (it.dateOfDeath != null) maxDate = it.dateOfDeath
+            }
+
+            with(dateOfDeathHelper) {
+                date = it.dateOfDeath
+                minDate = it.dateOfBirth
+            }
+        }
+    }
+
+    /**
+     * Sets the default date picker minimum/maximum dates.
+     * This is based on the current date, and selections made in other date pickers.
+     */
+    private fun setDatePickerConstraints() {
+        with(dateOfBirthHelper) {
+            maxDate = LocalDate.now()
+            onDateSet = { _, newDate ->
+                dateOfDeathHelper.minDate = newDate
+            }
+        }
+
+        with(dateOfDeathHelper) {
+            maxDate = LocalDate.now()
+            onDateSet = { _, newDate ->
+                dateOfBirthHelper.maxDate = newDate
+            }
         }
     }
 
@@ -139,31 +199,125 @@ class EditPersonActivity : AppCompatActivity() {
     }
 
     /**
+     * Sets up [childrenRecyclerView] to display the children of the [Person] being edited.
+     *
+     * This should be invoked regardless of whether a new person is being added or an existing
+     * person is being edited.
+     */
+    private fun setupChildrenList() {
+        val childrenManager = ChildrenManager(this)
+        children = childrenManager.getChildren(editedPersonId()) as ArrayList<Person>
+
+        childrenText.text = resources.getQuantityString(
+                R.plurals.children_count_subtitle,
+                children.count(),
+                children.count()
+        )
+
+        val personAdapter = PersonAdapter(this, children)
+        personAdapter.onItemClick { _, person ->
+            // Show dialog with option to delete
+            val options = arrayOf(getString(R.string.action_delete))
+
+            AlertDialog.Builder(this).setTitle(person.fullName)
+                    .setItems(options) { _, which -> deleteChildFromUi(person) }
+                    .setNegativeButton(android.R.string.cancel) { _, _ ->  }
+                    .show()
+        }
+
+        childrenRecyclerView.adapter = personAdapter
+    }
+
+    private fun chooseChildDialog() {
+        lateinit var dialog: AlertDialog
+        val builder = AlertDialog.Builder(this)
+
+        val personAdapter = PersonAdapter(this, getPotentialChildren())
+        personAdapter.onItemClick { _, person ->
+            addChildToUi(person)
+            dialog.dismiss()
+        }
+
+        val recyclerView = RecyclerView(this)
+        with(recyclerView) {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(this@EditPersonActivity)
+            adapter = personAdapter
+        }
+
+        val titleView = layoutInflater.inflate(R.layout.dialog_title_subtitle, null).apply {
+            findViewById<TextView>(R.id.title).setText(R.string.dialog_add_child_title)
+            findViewById<TextView>(R.id.subtitle).setText(R.string.dialog_add_child_subtitle)
+        }
+
+        builder.setView(recyclerView)
+                .setCustomTitle(titleView)
+                .setNegativeButton(android.R.string.cancel) { _, _ ->  }
+
+        dialog = builder.create()
+        dialog.show()
+    }
+
+    /**
+     * Returns a list of people that could be the child of this [person].
+     *
+     * This is people younger than this [person], and not already considered a child of him/her.
+     */
+    private fun getPotentialChildren(): List<Person> {
+        val potentialChildren = ArrayList<Person>()
+
+        // Ok to use this DOB as there were constraints/validation on the dialog picker
+        val parentDob = dateOfBirthHelper.date
+
+        for (person in personManager.getAll()) {
+            if (person.dateOfBirth.isAfter(parentDob) && person !in children) {
+                potentialChildren.add(person)
+            }
+        }
+        return potentialChildren
+    }
+
+    /**
+     * Updates the UI to add a [child] to the [Person] being edited.
+     * Nothing is written to the database at this stage.
+     *
+     * @see deleteChildFromUi
+     */
+    private fun addChildToUi(child: Person) {
+        children.add(child)
+        childrenRecyclerView.adapter.notifyDataSetChanged()
+        childrenText.text = resources.getQuantityString(
+                R.plurals.children_count_subtitle,
+                children.count(),
+                children.count()
+        )
+    }
+
+    /**
+     * Updates the UI to delete a [child] from the [Person] being edited.
+     * Nothing is deleted from the database at this stage.
+     *
+     * @see addChildToUi
+     */
+    private fun deleteChildFromUi(child: Person) {
+        children.remove(child)
+        childrenRecyclerView.adapter.notifyDataSetChanged()
+        childrenText.text = resources.getQuantityString(
+                R.plurals.children_count_subtitle,
+                children.count(),
+                children.count()
+        )
+    }
+
+    /**
      * Validates the user input and writes it to the database.
      */
     private fun saveData() {
-        val validator = Validator(coordinatorLayout)
+        // Don't continue with db write if inputs invalid
+        val newPerson = validatePerson() ?: return
 
-        val forename = forenameInput.text.toString().trim()
-        val surname = surnameInput.text.toString().trim()
-        if (!validator.checkNames(forename, surname)) return
-
-        val gender = if (maleRadioBtn.isChecked) Gender.MALE else Gender.FEMALE
-
-        val dateOfBirth = dateOfBirthHelper.date
-        val dateOfDeath = if (isAliveCheckBox.isChecked) null else dateOfDeathHelper.date
-        if (!validator.checkDates(dateOfBirth, dateOfDeath)) return
-
-        val newPerson = Person(
-                chooseId(),
-                forename.trim().toTitleCase('-'),
-                surname.trim().toTitleCase('-'),
-                gender,
-                dateOfBirth!!,
-                placeOfBirthInput.text.toString().trim().toTitleCase(),
-                dateOfDeath,
-                placeOfDeathInput.text.toString().trim().toTitleCase()
-        )
+        val childrenManager = ChildrenManager(this)
+        childrenManager.updateChildren(editedPersonId(), children)
 
         if (person == null) {
             personManager.add(newPerson)
@@ -181,16 +335,48 @@ class EditPersonActivity : AppCompatActivity() {
     }
 
     /**
-     * Returns the id to be used for the [Person] being written to the database.
-     * If the [Person] is being modified, the id will remain the same, otherwise it will be a new id.
+     * Validates the user inputs and constructs a [Person] object from it.
+     *
+     * @return  the constructed [Person] object if user inputs are valid. If one or more user inputs
+     *          are invalid, then this will return null.
      */
-    private fun chooseId() = person?.id ?: personManager.nextAvailableId()
+    private fun validatePerson(): Person? {
+        val validator = Validator(coordinatorLayout)
+
+        val forename = forenameInput.text.toString().trim()
+        val surname = surnameInput.text.toString().trim()
+        if (!validator.checkNames(forename, surname)) return null
+
+        val gender = if (maleRadioBtn.isChecked) Gender.MALE else Gender.FEMALE
+
+        // Dates should be ok from dialog constraint, but best to double-check before db write
+        val dateOfBirth = dateOfBirthHelper.date
+        val dateOfDeath = if (isAliveCheckBox.isChecked) null else dateOfDeathHelper.date
+        if (!validator.checkDates(dateOfBirth, dateOfDeath)) return null
+
+        return Person(
+                editedPersonId(),
+                forename.trim().toTitleCase('-'),
+                surname.trim().toTitleCase('-'),
+                gender,
+                dateOfBirth!!,
+                placeOfBirthInput.text.toString().trim().toTitleCase(),
+                dateOfDeath,
+                placeOfDeathInput.text.toString().trim().toTitleCase()
+        )
+    }
+
+    /**
+     * Returns the ID to be used for the [Person] being edited in this activity.
+     * If the [Person] is being updated, this ID will remain the same as the original [Person]; if
+     * it's a new [Person], it will be assigned a new ID.
+     */
+    private fun editedPersonId() = person?.id ?: personManager.nextAvailableId()
 
     /**
      * Sends an "ok" result back to where this activity was invoked from.
      *
-     * @param result        the new/updated/deleted [Person]. If deleted this must be null.
-     *
+     * @param result    the new/updated/deleted [Person]. If deleted this must be null.
      * @see android.app.Activity.RESULT_OK
      */
     private fun sendSuccessfulResult(result: Person?) {
