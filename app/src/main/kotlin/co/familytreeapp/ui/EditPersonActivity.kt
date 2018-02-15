@@ -213,7 +213,19 @@ class EditPersonActivity : AppCompatActivity() {
                 children.count(),
                 children.count()
         )
-        childrenRecyclerView.adapter = PersonAdapter(this, children)
+
+        val personAdapter = PersonAdapter(this, children)
+        personAdapter.onItemClick { _, person ->
+            // Show dialog with option to delete
+            val options = arrayOf(getString(R.string.action_delete))
+
+            AlertDialog.Builder(this).setTitle(person.fullName)
+                    .setItems(options) { _, which -> deleteChildFromUi(person) }
+                    .setNegativeButton(android.R.string.cancel) { _, _ ->  }
+                    .show()
+        }
+
+        childrenRecyclerView.adapter = personAdapter
     }
 
     private fun chooseChildDialog() {
@@ -268,9 +280,27 @@ class EditPersonActivity : AppCompatActivity() {
     /**
      * Updates the UI to add a [child] to the [Person] being edited.
      * Nothing is written to the database at this stage.
+     *
+     * @see deleteChildFromUi
      */
     private fun addChildToUi(child: Person) {
         children.add(child)
+        childrenRecyclerView.adapter.notifyDataSetChanged()
+        childrenText.text = resources.getQuantityString(
+                R.plurals.children_count_subtitle,
+                children.count(),
+                children.count()
+        )
+    }
+
+    /**
+     * Updates the UI to delete a [child] from the [Person] being edited.
+     * Nothing is deleted from the database at this stage.
+     *
+     * @see addChildToUi
+     */
+    private fun deleteChildFromUi(child: Person) {
+        children.remove(child)
         childrenRecyclerView.adapter.notifyDataSetChanged()
         childrenText.text = resources.getQuantityString(
                 R.plurals.children_count_subtitle,
