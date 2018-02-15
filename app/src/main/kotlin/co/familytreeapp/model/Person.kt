@@ -51,8 +51,6 @@ data class Person(
 
     override fun compareTo(other: Person) = fullName.compareTo(other.fullName)
 
-    override fun toString() = "$id: $fullName"
-
     companion object {
 
         @JvmField val CREATOR: Parcelable.Creator<Person> = object : Parcelable.Creator<Person> {

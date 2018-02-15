@@ -22,6 +22,7 @@ import co.familytreeapp.model.Person
 import co.familytreeapp.ui.adapter.PersonAdapter
 import co.familytreeapp.ui.widget.DateViewHelper
 import co.familytreeapp.util.toTitleCase
+import org.threeten.bp.LocalDate
 
 /**
  * This activity provides the UI for adding or editing a new person from the database.
@@ -43,7 +44,6 @@ class EditPersonActivity : AppCompatActivity() {
     }
 
     private val personManager = PersonManager(this)
-    private val childrenManager = ChildrenManager(this)
 
     private lateinit var coordinatorLayout: CoordinatorLayout
 
@@ -87,6 +87,12 @@ class EditPersonActivity : AppCompatActivity() {
 
         person = intent.extras?.getParcelable(EXTRA_PERSON)
 
+        if (person == null) {
+            Log.v(LOG_TAG, "Editing a new person")
+        } else {
+            Log.v(LOG_TAG, "Editing an existing person: $person")
+        }
+
         assignUiComponents()
 
         setupLayout()
@@ -126,6 +132,8 @@ class EditPersonActivity : AppCompatActivity() {
     }
 
     private fun setupLayout() {
+        setDatePickerConstraints()
+
         setupChildrenList()
 
         if (person == null) {
@@ -143,8 +151,35 @@ class EditPersonActivity : AppCompatActivity() {
 
             setPersonAlive(it.isAlive())
 
-            dateOfBirthHelper.date = it.dateOfBirth
-            dateOfDeathHelper.date = it.dateOfDeath
+            with(dateOfBirthHelper) {
+                date = it.dateOfBirth
+                if (it.dateOfDeath != null) maxDate = it.dateOfDeath
+            }
+
+            with(dateOfDeathHelper) {
+                date = it.dateOfDeath
+                minDate = it.dateOfBirth
+            }
+        }
+    }
+
+    /**
+     * Sets the default date picker minimum/maximum dates.
+     * This is based on the current date, and selections made in other date pickers.
+     */
+    private fun setDatePickerConstraints() {
+        with(dateOfBirthHelper) {
+            maxDate = LocalDate.now()
+            onDateSet = { _, newDate ->
+                dateOfDeathHelper.minDate = newDate
+            }
+        }
+
+        with(dateOfDeathHelper) {
+            maxDate = LocalDate.now()
+            onDateSet = { _, newDate ->
+                dateOfBirthHelper.maxDate = newDate
+            }
         }
     }
 
@@ -262,6 +297,7 @@ class EditPersonActivity : AppCompatActivity() {
 
         val gender = if (maleRadioBtn.isChecked) Gender.MALE else Gender.FEMALE
 
+        // Dates should be ok from dialog constraint, but best to double-check before db write
         val dateOfBirth = dateOfBirthHelper.date
         val dateOfDeath = if (isAliveCheckBox.isChecked) null else dateOfDeathHelper.date
         if (!validator.checkDates(dateOfBirth, dateOfDeath)) return null
