@@ -53,7 +53,7 @@ class ChildrenManager(
      * @param children  the list of children that will replace the old list in the database
      */
     fun updateChildren(parentId: Int, children: List<Person>) {
-        Log.d(LOG_TAG, "Adding children")
+        Log.d(LOG_TAG, "Updating children")
 
         // Delete the current children then add the new list
         // (This is easier than comparing the db version with the list given in the parameter to see
