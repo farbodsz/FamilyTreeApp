@@ -4,6 +4,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 import android.util.Log
+import co.familytreeapp.database.schemas.ChildrenSchema
 import co.familytreeapp.database.schemas.MarriagesSchema
 import co.familytreeapp.database.schemas.PersonsSchema
 
@@ -39,6 +40,7 @@ class DatabaseHelper private constructor(context: Context): SQLiteOpenHelper(
 
         with(db!!) {
             execSQL(PersonsSchema.SQL_CREATE)
+            execSQL(ChildrenSchema.SQL_CREATE)
             execSQL(MarriagesSchema.SQL_CREATE)
         }
     }

@@ -44,6 +44,12 @@
     <string name="start_date">Start date</string>
     <string name="end_date">End date</string>
     <string name="place_of_marriage">Place of marriage</string>
+    <string name="children">Children</string>
+    <plurals name="children_count_subtitle">
+        <item quantity="one">%1$d child</item>
+        <item quantity="other">%1$d children</item>
+    </plurals>
+    <string name="add_child">Add child</string>
 
     <!-- Prompts to user after incorrect user input -->
     <string name="validate_name_empty">You must enter a forename and surname</string>

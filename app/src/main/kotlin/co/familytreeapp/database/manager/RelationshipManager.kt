@@ -40,6 +40,7 @@ abstract class RelationshipManager<T : DataRelationship>(
 
     /**
      * Deletes relationships ([T]) with specified [idPair] from the table named [tableName].
+     *
      * The order of this pair must correspond to that of [idColumnNames].
      */
     fun delete(idPair: Pair<Int, Int>) {
@@ -50,6 +51,21 @@ abstract class RelationshipManager<T : DataRelationship>(
                 arrayOf(idPair.first.toString(), idPair.second.toString())
         )
         Log.d(LOG_TAG, "Deleted item (id1: ${idPair.first}, id2: ${idPair.second})")
+    }
+
+    /**
+     * Deletes relationships ([T]) with the specified *first* ID from the table named [tableName].
+     *
+     * This is the first ID from [DataRelationship.getIds] corresponding to that of [idColumnNames].
+     */
+    fun deleteFirstIds(firstId: Int) {
+        val db = DatabaseHelper.getInstance(context).writableDatabase
+        db.delete(
+                tableName,
+                "${idColumnNames.first}=?",
+                arrayOf(firstId.toString())
+        )
+        Log.d(LOG_TAG, "Deleted item (id1: $firstId)")
     }
 
 }

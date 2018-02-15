@@ -29,9 +29,23 @@
     <style name="Widget.AppTheme.TextView" parent="TextAppearance.AppCompat" />
 
     <style name="Widget.AppTheme.TextView.CardTitle">
-        <item name="android:textSize">@dimen/card_text_primary_title_medium</item>
+        <item name="android:textSize">@dimen/card_text_title_medium</item>
         <item name="android:textColor">@color/text_black</item>
-        <item name="android:padding">16dp</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+    </style>
+
+    <style name="Widget.AppTheme.TextView.CardTitle.BottomPadding">
+        <item name="android:paddingBottom">16dp</item>
+    </style>
+
+    <style name="Widget.AppTheme.TextView.CardSubtitle">
+        <item name="android:textSize">@dimen/card_text_subtitle</item>
+        <item name="android:textColor">@color/text_black_secondary</item>
+        <item name="android:paddingLeft">16dp</item>
+        <item name="android:paddingRight">16dp</item>
+        <item name="android:paddingBottom">16dp</item>
     </style>
 
 </resources>

@@ -4,20 +4,22 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.CoordinatorLayout
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
+import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.CheckBox
-import android.widget.EditText
-import android.widget.LinearLayout
-import android.widget.RadioButton
+import android.widget.*
 import co.familytreeapp.R
+import co.familytreeapp.database.manager.ChildrenManager
 import co.familytreeapp.database.manager.PersonManager
 import co.familytreeapp.model.Gender
 import co.familytreeapp.model.Person
+import co.familytreeapp.ui.adapter.PersonAdapter
 import co.familytreeapp.ui.widget.DateViewHelper
 import co.familytreeapp.util.toTitleCase
 
@@ -41,6 +43,7 @@ class EditPersonActivity : AppCompatActivity() {
     }
 
     private val personManager = PersonManager(this)
+    private val childrenManager = ChildrenManager(this)
 
     private lateinit var coordinatorLayout: CoordinatorLayout
 
@@ -55,6 +58,9 @@ class EditPersonActivity : AppCompatActivity() {
     private lateinit var dateOfDeathHelper: DateViewHelper
     private lateinit var placeOfDeathInput: EditText
 
+    private lateinit var childrenText: TextView
+    private lateinit var childrenRecyclerView: RecyclerView
+
     /**
      * The [Person] received via intent extra from the previous activity. If a new person is being
      * created (hence no intent extra), then this will be null.
@@ -62,6 +68,12 @@ class EditPersonActivity : AppCompatActivity() {
      * This [Person] will not be affected by changes made in this activity.
      */
     private var person: Person? = null
+
+    /**
+     * The list of this [person]'s children that are displayed in the UI.
+     * When the "Done" action is selected, these will be added to the database.
+     */
+    private lateinit var children: ArrayList<Person>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -100,6 +112,17 @@ class EditPersonActivity : AppCompatActivity() {
 
         dateOfDeathHelper = DateViewHelper(this, findViewById(R.id.editText_dateOfDeath))
         placeOfDeathInput = findViewById(R.id.editText_placeOfDeath)
+
+        childrenText = findViewById(R.id.text_childrenNum)
+        childrenText.text = resources.getQuantityText(R.plurals.children_count_subtitle, 0)
+
+        childrenRecyclerView = findViewById(R.id.recyclerView)
+        childrenRecyclerView.layoutManager = LinearLayoutManager(this@EditPersonActivity)
+
+        val addChildButton = findViewById<Button>(R.id.button_addChild)
+        addChildButton.setOnClickListener {
+            chooseChildDialog()
+        }
     }
 
     private fun setupLayout() {
@@ -120,6 +143,8 @@ class EditPersonActivity : AppCompatActivity() {
 
             dateOfBirthHelper.date = it.dateOfBirth
             dateOfDeathHelper.date = it.dateOfDeath
+
+            setupChildrenList()
         }
     }
 
@@ -139,6 +164,63 @@ class EditPersonActivity : AppCompatActivity() {
     }
 
     /**
+     * Sets up [childrenRecyclerView] to display the children of the [Person] being edited.
+     * This method can also be invoked to refresh the children list.
+     */
+    private fun setupChildrenList() {
+        val childrenManager = ChildrenManager(this)
+        children = childrenManager.getChildren(editedPersonId()) as ArrayList<Person>
+
+        childrenText.text = resources.getQuantityString(
+                R.plurals.children_count_subtitle,
+                children.count(),
+                children.count()
+        )
+        childrenRecyclerView.adapter = PersonAdapter(this, children)
+    }
+
+    private fun chooseChildDialog() {
+        lateinit var dialog: AlertDialog
+        val builder = AlertDialog.Builder(this)
+
+        val people = personManager.getAll() as ArrayList<Person>
+        people.sort()
+
+        val personAdapter = PersonAdapter(this, people)
+        personAdapter.onItemClick { _, person ->
+            addChildToUi(person)
+            dialog.dismiss()
+        }
+
+        val recyclerView = RecyclerView(this)
+        with(recyclerView) {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(this@EditPersonActivity)
+            adapter = personAdapter
+        }
+
+        builder.setView(recyclerView)
+                .setNegativeButton(android.R.string.cancel) { _, _ ->  }
+
+        dialog = builder.create()
+        dialog.show()
+    }
+
+    /**
+     * Updates the UI to add a [child] to the [Person] being edited.
+     * Nothing is written to the database at this stage.
+     */
+    private fun addChildToUi(child: Person) {
+        children.add(child)
+        childrenRecyclerView.adapter.notifyDataSetChanged()
+        childrenText.text = resources.getQuantityString(
+                R.plurals.children_count_subtitle,
+                children.count(),
+                children.count()
+        )
+    }
+
+    /**
      * Validates the user input and writes it to the database.
      */
     private fun saveData() {
@@ -155,7 +237,7 @@ class EditPersonActivity : AppCompatActivity() {
         if (!validator.checkDates(dateOfBirth, dateOfDeath)) return
 
         val newPerson = Person(
-                chooseId(),
+                editedPersonId(),
                 forename.trim().toTitleCase('-'),
                 surname.trim().toTitleCase('-'),
                 gender,
@@ -165,8 +247,11 @@ class EditPersonActivity : AppCompatActivity() {
                 placeOfDeathInput.text.toString().trim().toTitleCase()
         )
 
+        val childrenManager = ChildrenManager(this)
+
         if (person == null) {
             personManager.add(newPerson)
+            childrenManager.addChildren(editedPersonId(), children)
             sendSuccessfulResult(newPerson)
             return
         }
@@ -178,19 +263,20 @@ class EditPersonActivity : AppCompatActivity() {
             personManager.update(person!!.id, newPerson)
             sendSuccessfulResult(newPerson)
         }
+        childrenManager.updateChildren(editedPersonId(), children)
     }
 
     /**
-     * Returns the id to be used for the [Person] being written to the database.
-     * If the [Person] is being modified, the id will remain the same, otherwise it will be a new id.
+     * Returns the ID to be used for the [Person] being edited in this activity.
+     * If the [Person] is being updated, this ID will remain the same as the original [Person]; if
+     * it's a new [Person], it will be assigned a new ID.
      */
-    private fun chooseId() = person?.id ?: personManager.nextAvailableId()
+    private fun editedPersonId() = person?.id ?: personManager.nextAvailableId()
 
     /**
      * Sends an "ok" result back to where this activity was invoked from.
      *
-     * @param result        the new/updated/deleted [Person]. If deleted this must be null.
-     *
+     * @param result    the new/updated/deleted [Person]. If deleted this must be null.
      * @see android.app.Activity.RESULT_OK
      */
     private fun sendSuccessfulResult(result: Person?) {
