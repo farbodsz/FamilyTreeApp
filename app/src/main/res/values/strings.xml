@@ -53,6 +53,7 @@
     <string name="add_child">Add child</string>
 
     <!-- Prompts to user after incorrect user input -->
+    <string name="error_name_empty">Name cannot be empty</string>
     <string name="validate_name_empty">You must enter a forename and surname</string>
     <string name="validate_dateOfBirth_empty">You must enter a date of birth</string>
     <string name="validate_dateOfBirth_future">The date of birth cannot be in the future</string>

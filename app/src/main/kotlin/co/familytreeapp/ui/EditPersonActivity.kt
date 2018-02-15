@@ -4,11 +4,15 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.CoordinatorLayout
+import android.support.design.widget.TextInputEditText
+import android.support.design.widget.TextInputLayout
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
+import android.text.Editable
+import android.text.TextWatcher
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -47,8 +51,8 @@ class EditPersonActivity : AppCompatActivity() {
 
     private lateinit var coordinatorLayout: CoordinatorLayout
 
-    private lateinit var forenameInput: EditText
-    private lateinit var surnameInput: EditText
+    private lateinit var forenameInput: TextInputEditText
+    private lateinit var surnameInput: TextInputEditText
     private lateinit var maleRadioBtn: RadioButton
     private lateinit var femaleRadioBtn: RadioButton
 
@@ -132,6 +136,9 @@ class EditPersonActivity : AppCompatActivity() {
     }
 
     private fun setupLayout() {
+        setupNameInputError(findViewById(R.id.textInputLayout_forename), forenameInput)
+        setupNameInputError(findViewById(R.id.textInputLayout_surname), surnameInput)
+
         setDatePickerConstraints()
 
         setupChildrenList()
@@ -159,6 +166,33 @@ class EditPersonActivity : AppCompatActivity() {
             with(dateOfDeathHelper) {
                 date = it.dateOfDeath
                 minDate = it.dateOfBirth
+            }
+        }
+    }
+
+    private fun setupNameInputError(textInputLayout: TextInputLayout, editText: TextInputEditText) {
+        editText.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                if (s!!.isBlank()) {
+                    textInputLayout.error = getString(R.string.error_name_empty)
+                } else {
+                    textInputLayout.isErrorEnabled = false
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+        })
+        editText.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) {
+                if (editText.text.isBlank()) {
+                    textInputLayout.error = getString(R.string.error_name_empty)
+                } else {
+                    textInputLayout.isErrorEnabled = false
+                }
             }
         }
     }
