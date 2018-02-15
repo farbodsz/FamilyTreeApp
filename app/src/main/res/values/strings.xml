@@ -57,4 +57,10 @@
     <string name="validate_dateOfBirth_future">The date of birth cannot be in the future</string>
     <string name="validate_dateOfDeath_beforeBirth">The date of death cannot be before the date of birth</string>
 
+    <!-- Dialog texts -->
+    <string name="dialog_add_child_title">@string/add_child</string>
+    <string name="dialog_add_child_subtitle">
+        Can\'t see the right child? Make sure the date of birth of this person and the child is correct!
+    </string>
+
 </resources>

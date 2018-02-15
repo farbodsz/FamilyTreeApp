@@ -233,8 +233,13 @@ class EditPersonActivity : AppCompatActivity() {
             adapter = personAdapter
         }
 
+        val titleView = layoutInflater.inflate(R.layout.dialog_title_subtitle, null).apply {
+            findViewById<TextView>(R.id.title).setText(R.string.dialog_add_child_title)
+            findViewById<TextView>(R.id.subtitle).setText(R.string.dialog_add_child_subtitle)
+        }
+
         builder.setView(recyclerView)
-                .setTitle(R.string.add_child)
+                .setCustomTitle(titleView)
                 .setNegativeButton(android.R.string.cancel) { _, _ ->  }
 
         dialog = builder.create()
