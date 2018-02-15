@@ -126,6 +126,8 @@ class EditPersonActivity : AppCompatActivity() {
     }
 
     private fun setupLayout() {
+        setupChildrenList()
+
         if (person == null) {
             Log.i(LOG_TAG, "Person is null - setting up the default layout")
             setupDefaultLayout()
@@ -143,8 +145,6 @@ class EditPersonActivity : AppCompatActivity() {
 
             dateOfBirthHelper.date = it.dateOfBirth
             dateOfDeathHelper.date = it.dateOfDeath
-
-            setupChildrenList()
         }
     }
 
@@ -165,7 +165,9 @@ class EditPersonActivity : AppCompatActivity() {
 
     /**
      * Sets up [childrenRecyclerView] to display the children of the [Person] being edited.
-     * This method can also be invoked to refresh the children list.
+     *
+     * This should be invoked regardless of whether a new person is being added or an existing
+     * person is being edited.
      */
     private fun setupChildrenList() {
         val childrenManager = ChildrenManager(this)
