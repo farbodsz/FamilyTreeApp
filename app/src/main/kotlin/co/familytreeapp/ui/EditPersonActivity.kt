@@ -224,34 +224,14 @@ class EditPersonActivity : AppCompatActivity() {
      * Validates the user input and writes it to the database.
      */
     private fun saveData() {
-        val validator = Validator(coordinatorLayout)
-
-        val forename = forenameInput.text.toString().trim()
-        val surname = surnameInput.text.toString().trim()
-        if (!validator.checkNames(forename, surname)) return
-
-        val gender = if (maleRadioBtn.isChecked) Gender.MALE else Gender.FEMALE
-
-        val dateOfBirth = dateOfBirthHelper.date
-        val dateOfDeath = if (isAliveCheckBox.isChecked) null else dateOfDeathHelper.date
-        if (!validator.checkDates(dateOfBirth, dateOfDeath)) return
-
-        val newPerson = Person(
-                editedPersonId(),
-                forename.trim().toTitleCase('-'),
-                surname.trim().toTitleCase('-'),
-                gender,
-                dateOfBirth!!,
-                placeOfBirthInput.text.toString().trim().toTitleCase(),
-                dateOfDeath,
-                placeOfDeathInput.text.toString().trim().toTitleCase()
-        )
+        // Don't continue with db write if inputs invalid
+        val newPerson = validatePerson() ?: return
 
         val childrenManager = ChildrenManager(this)
+        childrenManager.updateChildren(editedPersonId(), children)
 
         if (person == null) {
             personManager.add(newPerson)
-            childrenManager.addChildren(editedPersonId(), children)
             sendSuccessfulResult(newPerson)
             return
         }
@@ -263,7 +243,37 @@ class EditPersonActivity : AppCompatActivity() {
             personManager.update(person!!.id, newPerson)
             sendSuccessfulResult(newPerson)
         }
-        childrenManager.updateChildren(editedPersonId(), children)
+    }
+
+    /**
+     * Validates the user inputs and constructs a [Person] object from it.
+     *
+     * @return  the constructed [Person] object if user inputs are valid. If one or more user inputs
+     *          are invalid, then this will return null.
+     */
+    private fun validatePerson(): Person? {
+        val validator = Validator(coordinatorLayout)
+
+        val forename = forenameInput.text.toString().trim()
+        val surname = surnameInput.text.toString().trim()
+        if (!validator.checkNames(forename, surname)) return null
+
+        val gender = if (maleRadioBtn.isChecked) Gender.MALE else Gender.FEMALE
+
+        val dateOfBirth = dateOfBirthHelper.date
+        val dateOfDeath = if (isAliveCheckBox.isChecked) null else dateOfDeathHelper.date
+        if (!validator.checkDates(dateOfBirth, dateOfDeath)) return null
+
+        return Person(
+                editedPersonId(),
+                forename.trim().toTitleCase('-'),
+                surname.trim().toTitleCase('-'),
+                gender,
+                dateOfBirth!!,
+                placeOfBirthInput.text.toString().trim().toTitleCase(),
+                dateOfDeath,
+                placeOfDeathInput.text.toString().trim().toTitleCase()
+        )
     }
 
     /**
