@@ -56,6 +56,7 @@
     <string name="born">Born</string>
     <string name="died">Died</string>
     <string name="parents">Parents</string>
+    <string name="view_tree">View %1$s\'s tree</string>
 
     <!-- Prompts to user after incorrect user input -->
     <string name="error_name_empty">Name cannot be empty</string>

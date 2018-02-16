@@ -12,6 +12,7 @@ import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
 import co.familytreeapp.R
@@ -95,6 +96,14 @@ class ViewPersonActivity : AppCompatActivity() {
         }
 
         setupChildrenList()
+
+        val button = findViewById<Button>(R.id.button_viewTree)
+        button.text = getString(R.string.view_tree, person.forename)
+        button.setOnClickListener {
+            val intent = Intent(this, TreeActivity::class.java)
+                    .putExtra(TreeActivity.EXTRA_PERSON, person)
+            startActivity(intent)
+        }
     }
 
     private fun setupChildrenList() {
