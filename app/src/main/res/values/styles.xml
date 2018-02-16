@@ -48,4 +48,14 @@
         <item name="android:paddingBottom">16dp</item>
     </style>
 
+    <style name="Widget.AppTheme.TextView.FloatingLabel">
+        <item name="android:textSize">12sp</item>
+        <item name="android:textColor">@color/text_black_secondary</item>
+    </style>
+
+    <style name="Widget.AppTheme.TextView.InputText">
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/text_black</item>
+    </style>
+
 </resources>

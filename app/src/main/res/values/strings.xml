@@ -8,7 +8,6 @@
     <string name="title_tree">Family Tree</string>
     <string name="title_tree_list">@string/title_tree</string>
     <string name="title_person_list">People</string>
-    <string name="title_add_person">New Person</string>
     <string name="title_edit_person">Edit Person</string>
     <string name="title_settings">Settings</string>
 
@@ -51,6 +50,11 @@
         <item quantity="other">%1$d children</item>
     </plurals>
     <string name="add_child">Add child</string>
+
+    <!-- Person properties -->
+    <string name="born">Born</string>
+    <string name="died">Died</string>
+    <string name="parents">Parents</string>
 
     <!-- Prompts to user after incorrect user input -->
     <string name="error_name_empty">Name cannot be empty</string>

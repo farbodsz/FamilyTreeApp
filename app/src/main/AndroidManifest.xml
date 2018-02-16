@@ -27,8 +27,11 @@
             android:label="@string/title_person_list" />
 
         <activity
+            android:name=".ui.ViewPersonActivity" />
+
+        <activity
             android:name=".ui.EditPersonActivity"
-            android:label="@string/title_add_person" />
+            android:label="@string/title_edit_person" />
     </application>
 
 </manifest>
