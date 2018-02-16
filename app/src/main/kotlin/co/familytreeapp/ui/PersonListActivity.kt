@@ -21,9 +21,14 @@ class PersonListActivity : NavigationDrawerActivity() {
     companion object {
 
         /**
+         * Request code for starting [ViewPersonActivity] for result.
+         */
+        private const val REQUEST_PERSON_VIEW = 1
+
+        /**
          * Request code for starting [EditPersonActivity] for result.
          */
-        private const val REQUEST_PERSON_EDIT = 1
+        private const val REQUEST_PERSON_EDIT = 2
     }
 
     private val personManager = PersonManager(this)
@@ -43,7 +48,7 @@ class PersonListActivity : NavigationDrawerActivity() {
 
     private fun setupFab() {
         val addPersonButton = findViewById<FloatingActionButton>(R.id.fab)
-        addPersonButton.setOnClickListener { editPerson(null) }
+        addPersonButton.setOnClickListener { addPerson() }
     }
 
     private fun populateList() {
@@ -51,7 +56,7 @@ class PersonListActivity : NavigationDrawerActivity() {
         people.sort()
 
         personAdapter = PersonAdapter(this, people)
-        personAdapter.onItemClick { _, person -> editPerson(person) }
+        personAdapter.onItemClick { _, person -> viewPerson(person) }
 
         findViewById<RecyclerView>(R.id.recyclerView).apply {
             layoutManager = LinearLayoutManager(context)
@@ -71,21 +76,29 @@ class PersonListActivity : NavigationDrawerActivity() {
     }
 
     /**
-     * Starts [EditPersonActivity] to create/edit a [Person], for result.
-     *
-     * @param person    the person to be passed to [EditPersonActivity]. This would be null if a new
-     *                  person is being created.
+     * Starts [ViewPersonActivity] to view a [Person], for result.
+     * @param person    the person to be passed to [ViewPersonActivity]
      */
-    private fun editPerson(person: Person?) {
+    private fun viewPerson(person: Person) {
+        val intent = Intent(this, ViewPersonActivity::class.java)
+                .putExtra(ViewPersonActivity.EXTRA_PERSON, person)
+        startActivityForResult(intent, REQUEST_PERSON_VIEW)
+    }
+
+    /**
+     * Starts [EditPersonActivity] to create a [Person], for result.
+     */
+    private fun addPerson() {
         val intent = Intent(this, EditPersonActivity::class.java)
-        person?.let { intent.putExtra(EditPersonActivity.EXTRA_PERSON, it) }
         startActivityForResult(intent, REQUEST_PERSON_EDIT)
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == REQUEST_PERSON_EDIT) {
+        if (requestCode in arrayOf(REQUEST_PERSON_VIEW, REQUEST_PERSON_EDIT)) {
+            // A person could be modified by starting EditPersonActivity from ViewPersonActivity
+
             if (resultCode == Activity.RESULT_OK) {
                 // Refresh the list
                 refreshList()
