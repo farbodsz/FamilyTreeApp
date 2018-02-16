@@ -27,7 +27,8 @@
             android:label="@string/title_person_list" />
 
         <activity
-            android:name=".ui.ViewPersonActivity" />
+            android:name=".ui.ViewPersonActivity"
+            android:label="@string/title_view_person" />
 
         <activity
             android:name=".ui.EditPersonActivity"

@@ -76,6 +76,8 @@ class ViewPersonActivity : AppCompatActivity() {
     }
 
     private fun setupLayout() {
+        findViewById<TextView>(R.id.text_name).text = person.fullName
+
         val genderText = findViewById<TextView>(R.id.text_gender)
         if (person.gender.isMale()) {
             genderText.setText(R.string.male)
@@ -108,6 +110,16 @@ class ViewPersonActivity : AppCompatActivity() {
 
     private fun setupChildrenList() {
         val children = ChildrenManager(this).getChildren(person.id)
+
+        if (children.isEmpty()) {
+            findViewById<LinearLayout>(R.id.group_children).visibility = View.GONE
+            with(findViewById<TextView>(R.id.text_noChildren)) {
+                visibility = View.VISIBLE
+                text = getString(R.string.no_children, person.forename)
+            }
+            return
+        }
+
         val personAdapter = PersonAdapter(this, children)
         findViewById<RecyclerView>(R.id.recyclerView_children).apply {
             setHasFixedSize(true)

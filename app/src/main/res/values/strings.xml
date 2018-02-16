@@ -8,6 +8,7 @@
     <string name="title_tree">Family Tree</string>
     <string name="title_tree_list">@string/title_tree</string>
     <string name="title_person_list">People</string>
+    <string name="title_view_person" />
     <string name="title_edit_person">Edit Person</string>
     <string name="title_settings">Settings</string>
 
@@ -53,8 +54,10 @@
     <string name="add_child">Add child</string>
 
     <!-- Person properties -->
+    <string name="full_name">Full name</string>
     <string name="born">Born</string>
     <string name="died">Died</string>
+    <string name="no_children">%1$s does not have children</string>
     <string name="parents">Parents</string>
     <string name="view_tree">View %1$s\'s tree</string>
 
