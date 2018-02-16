@@ -9,6 +9,7 @@ import co.familytreeapp.database.query.Query
 import co.familytreeapp.database.schemas.ChildrenSchema
 import co.familytreeapp.model.ChildRelationship
 import co.familytreeapp.model.Person
+import co.familytreeapp.model.tree.TreeNode
 
 /**
  * Responsible for performing CRUD operations for the "children" table.
@@ -77,6 +78,24 @@ class ChildrenManager(
         }
 
         return children
+    }
+
+    /**
+     * Returns the tree of the root [Person] and its children recursively.
+     *
+     * @param rootId    the person ID of the root of the tree
+     * @return  the root node of the tree which contains its children, its children's children, etc.
+     */
+    fun getTree(rootId: Int): TreeNode<Person> {
+        val personManager = PersonManager(context)
+        val rootNode = TreeNode(personManager.get(rootId))
+
+        for (child in getChildren(rootId)) {
+            val childNode = getTree(child.id)
+            rootNode.addChild(childNode)
+        }
+
+        return rootNode
     }
 
 }

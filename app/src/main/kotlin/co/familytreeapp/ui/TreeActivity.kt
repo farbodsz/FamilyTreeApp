@@ -2,9 +2,11 @@ package co.familytreeapp.ui
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import co.familytreeapp.R
+import co.familytreeapp.database.manager.ChildrenManager
 import co.familytreeapp.model.Gender
 import co.familytreeapp.model.Person
 import co.familytreeapp.model.tree.TreeNode
@@ -18,17 +20,37 @@ import org.threeten.bp.LocalDate
  */
 class TreeActivity : NavigationDrawerActivity() {
 
+    companion object {
+
+        private const val LOG_TAG = "TreeActivity"
+
+        /**
+         * Intent extra key for supplying a [Person] to this activity.
+         */
+        const val EXTRA_PERSON = "extra_person"
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(withNavigation(R.layout.activity_tree))
 
-        val dummyTree = getDummyTree()
+        val person = intent.extras?.getParcelable<Person>(EXTRA_PERSON)
+
+        val tree = if (person == null) {
+            Log.v(LOG_TAG, "Displaying dummy tree")
+            getDummyTree()
+
+        } else {
+            Log.v(LOG_TAG, "Displaying tree for: $person")
+
+            val childrenManager = ChildrenManager(this)
+            childrenManager.getTree(person.id)
+        }
 
         val treeView = findViewById<TreeView>(R.id.treeView)
-        treeView.setTreeSource(dummyTree)
+        treeView.setTreeSource(tree)
     }
 
-    // TODO: temporary data
     private fun getDummyTree(): TreeNode<Person> {
         val dummyDate = LocalDate.now()
 
