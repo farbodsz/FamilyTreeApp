@@ -1,11 +1,15 @@
 package co.familytreeapp.ui
 
+import android.app.Activity
+import android.content.Intent
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
+import android.util.Log
+import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.LinearLayout
@@ -31,6 +35,13 @@ class ViewPersonActivity : AppCompatActivity() {
 
     companion object {
 
+        private const val LOG_TAG = "ViewPersonActivity"
+
+        /**
+         * Request code for starting [EditPersonActivity] for result.
+         */
+        private const val REQUEST_PERSON_EDIT = 3
+
         /**
          * Intent extra key for supplying a [Person] to this activity.
          */
@@ -44,6 +55,8 @@ class ViewPersonActivity : AppCompatActivity() {
      * this activity is only for displaying existing [Person]s.
      */
     private lateinit var person: Person
+
+    private var hasBeenModified = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -94,47 +107,57 @@ class ViewPersonActivity : AppCompatActivity() {
         }
     }
 
-    /* TODO
-
     /**
-     * Sends an "ok" result back to where this activity was invoked from.
+     * Sends the correct result back to where this activity was invoked from, and finishes the
+     * activity.
      *
-     * @param result    the new/updated/deleted [Person]. If deleted this must be null.
+     * An "ok" result will be used if the [person] has been modified, otherwise a "cancelled" result.
+     *
      * @see android.app.Activity.RESULT_OK
-     */
-    private fun sendSuccessfulResult(result: Person?) {
-        Log.d(LOG_TAG, "Sending successful result: $result")
-        val returnIntent = Intent().putExtra(EXTRA_PERSON, result)
-        setResult(Activity.RESULT_OK, returnIntent)
-        finish()
-    }
-
-    /**
-     * Sends a "cancelled" result back to where this activity was invoked from.
-     *
      * @see android.app.Activity.RESULT_CANCELED
      */
-    private fun sendCancelledResult() {
-        Log.d(LOG_TAG, "Sending cancelled result")
-        setResult(Activity.RESULT_CANCELED)
+    private fun sendResult() {
+        if (hasBeenModified) {
+            Log.d(LOG_TAG, "Sending successful result: $person")
+            val returnIntent = Intent().putExtra(EXTRA_PERSON, person)
+            setResult(Activity.RESULT_OK, returnIntent)
+        } else {
+            Log.d(LOG_TAG, "Sending cancelled result")
+            setResult(Activity.RESULT_CANCELED)
+        }
         finish()
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         super.onCreateOptionsMenu(menu)
-        menuInflater.inflate(R.menu.menu_edit, menu)
+        menuInflater.inflate(R.menu.menu_view_detail, menu)
         return true
     }
-
-    */
 
     override fun onOptionsItemSelected(item: MenuItem?): Boolean {
         when (item!!.itemId) {
             android.R.id.home -> onBackPressed()
+            R.id.action_edit -> {
+                val intent = Intent(this, EditPersonActivity::class.java)
+                        .putExtra(EditPersonActivity.EXTRA_PERSON, person)
+                startActivityForResult(intent, REQUEST_PERSON_EDIT)
+            }
         }
         return super.onOptionsItemSelected(item)
     }
 
-    //override fun onBackPressed() = sendCancelledResult() */
+    override fun onBackPressed() = sendResult()
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == REQUEST_PERSON_EDIT) {
+            if (resultCode == Activity.RESULT_OK) {
+                hasBeenModified = true
+                person = data!!.getParcelableExtra(EditPersonActivity.EXTRA_PERSON)
+                setupLayout() // update UI
+            }
+        }
+    }
 
 }

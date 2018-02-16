@@ -79,6 +79,11 @@ class EditPersonActivity : AppCompatActivity() {
      */
     private lateinit var children: ArrayList<Person>
 
+    /**
+     * True if the user has added or deleted the [person]'s [children].
+     */
+    private var hasModifiedChildren = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_person)
@@ -318,6 +323,7 @@ class EditPersonActivity : AppCompatActivity() {
      * @see deleteChildFromUi
      */
     private fun addChildToUi(child: Person) {
+        hasModifiedChildren = true
         children.add(child)
         childrenRecyclerView.adapter.notifyDataSetChanged()
         childrenText.text = resources.getQuantityString(
@@ -334,6 +340,7 @@ class EditPersonActivity : AppCompatActivity() {
      * @see addChildToUi
      */
     private fun deleteChildFromUi(child: Person) {
+        hasModifiedChildren = true
         children.remove(child)
         childrenRecyclerView.adapter.notifyDataSetChanged()
         childrenText.text = resources.getQuantityString(
@@ -360,8 +367,13 @@ class EditPersonActivity : AppCompatActivity() {
         }
 
         if (person!! == newPerson) {
-            // Nothing changed, so avoid db write, and nothing will change in result activity
-            sendCancelledResult()
+            // Person hasn't changed - no need to update it
+            if (!hasModifiedChildren) {
+                // Nothing changed, so avoid all db write (nothing will change in result activity)
+                sendCancelledResult()
+            } else {
+                sendSuccessfulResult(newPerson)
+            }
         } else {
             personManager.update(person!!.id, newPerson)
             sendSuccessfulResult(newPerson)

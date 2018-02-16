@@ -15,6 +15,7 @@
     <string name="action_add_person">Add person</string>
     <string name="action_done">Done</string>
     <string name="action_delete">Delete</string>
+    <string name="action_edit">Edit</string>
 
     <!-- Navigation item texts -->
     <string name="nav_item_home">@string/title_home</string>
