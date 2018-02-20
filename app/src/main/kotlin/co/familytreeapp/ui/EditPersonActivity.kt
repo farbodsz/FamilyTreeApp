@@ -20,9 +20,12 @@ import android.view.View
 import android.widget.*
 import co.familytreeapp.R
 import co.familytreeapp.database.manager.ChildrenManager
+import co.familytreeapp.database.manager.MarriagesManager
 import co.familytreeapp.database.manager.PersonManager
 import co.familytreeapp.model.Gender
+import co.familytreeapp.model.Marriage
 import co.familytreeapp.model.Person
+import co.familytreeapp.ui.adapter.MarriageAdapter
 import co.familytreeapp.ui.adapter.PersonAdapter
 import co.familytreeapp.ui.widget.DateViewHelper
 import co.familytreeapp.util.toTitleCase
@@ -62,6 +65,8 @@ class EditPersonActivity : AppCompatActivity() {
     private lateinit var dateOfDeathHelper: DateViewHelper
     private lateinit var placeOfDeathInput: EditText
 
+    private lateinit var marriageRecyclerView: RecyclerView
+
     private lateinit var childrenText: TextView
     private lateinit var childrenRecyclerView: RecyclerView
 
@@ -74,13 +79,24 @@ class EditPersonActivity : AppCompatActivity() {
     private var person: Person? = null
 
     /**
+     * The list of this [person]'s marriages that are displayed in the UI.
+     * When the "Done" action is selected, these will be added to the database.
+     */
+    private lateinit var marriages: ArrayList<Marriage>
+
+    /**
      * The list of this [person]'s children that are displayed in the UI.
      * When the "Done" action is selected, these will be added to the database.
      */
     private lateinit var children: ArrayList<Person>
 
     /**
-     * True if the user has added or deleted the [person]'s [children].
+     * True if the user has added or deleted any of the [person]'s [marriages].
+     */
+    private var hasModifiedMarriages = false
+
+    /**
+     * True if the user has added or deleted any of the [person]'s [children].
      */
     private var hasModifiedChildren = false
 
@@ -131,7 +147,7 @@ class EditPersonActivity : AppCompatActivity() {
         childrenText = findViewById(R.id.text_childrenNum)
         childrenText.text = resources.getQuantityText(R.plurals.children_count_subtitle, 0)
 
-        childrenRecyclerView = findViewById(R.id.recyclerView)
+        childrenRecyclerView = findViewById(R.id.recyclerView_children)
         childrenRecyclerView.layoutManager = LinearLayoutManager(this@EditPersonActivity)
 
         val addChildButton = findViewById<Button>(R.id.button_addChild)
@@ -146,6 +162,7 @@ class EditPersonActivity : AppCompatActivity() {
 
         setDatePickerConstraints()
 
+        setupMarriageList()
         setupChildrenList()
 
         if (person == null) {
@@ -235,6 +252,53 @@ class EditPersonActivity : AppCompatActivity() {
         isAliveCheckBox.isChecked = isAlive
         findViewById<LinearLayout>(R.id.group_deathInfo).visibility =
                 if (isAlive) View.GONE else View.VISIBLE
+    }
+
+    /**
+     * Sets up [marriageRecyclerView] to display the marriages of the [Person] being edited.
+     *
+     * This should be invoked regardless of whether a new person is being added or an existing
+     * person is being edited.
+     */
+    private fun setupMarriageList() {
+        marriages = MarriagesManager(this).getMarriages(editedPersonId()) as ArrayList<Marriage>
+
+        val marriageAdapter = MarriageAdapter(this, editedPersonId(), marriages)
+        marriageAdapter.onItemClick { _, marriage ->
+            // Show dialog with option to delete
+            val options = arrayOf(getString(R.string.action_delete))
+
+            AlertDialog.Builder(this).setTitle(getString(R.string.marriage_with, person?.forename ?: "null"))
+                    .setItems(options) { _, which -> deleteMarriageFromUi(marriage) }
+                    .setNegativeButton(android.R.string.cancel) { _, _ ->  }
+                    .show()
+        }
+
+        marriageRecyclerView.adapter = marriageAdapter
+    }
+
+    /**
+     * Updates the UI to add a [marriage] to the [Person] being edited.
+     * Nothing is written to the database at this stage.
+     *
+     * @see deleteMarriageFromUi
+     */
+    private fun addMarriageToUi(marriage: Marriage) {
+        hasModifiedMarriages = true
+        marriages.add(marriage)
+        marriageRecyclerView.adapter.notifyDataSetChanged()
+    }
+
+    /**
+     * Updates the UI to delete a [marriage] from the [Person] being edited.
+     * Nothing is deleted from the database at this stage.
+     *
+     * @see addMarriageToUi
+     */
+    private fun deleteMarriageFromUi(marriage: Marriage) {
+        hasModifiedMarriages = true
+        marriages.remove(marriage)
+        marriageRecyclerView.adapter.notifyDataSetChanged()
     }
 
     /**
