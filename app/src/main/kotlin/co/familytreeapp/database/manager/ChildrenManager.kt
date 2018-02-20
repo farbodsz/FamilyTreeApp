@@ -65,6 +65,8 @@ class ChildrenManager(
 
     /**
      * Returns the list of children of a parent with the given [parentId]
+     *
+     * @see getParents
      */
     fun getChildren(parentId: Int): List<Person> {
         val childrenQuery = Query(Filters.equal(ChildrenSchema.COL_PARENT_ID, parentId.toString()))
@@ -78,6 +80,25 @@ class ChildrenManager(
         }
 
         return children
+    }
+
+    /**
+     * Returns the list of parents of a child with the given [childId]
+     *
+     * @see getChildren
+     */
+    fun getParents(childId: Int): List<Person> {
+        val parentQuery = Query(Filters.equal(ChildrenSchema.COL_CHILD_ID, childId.toString()))
+        val relationships = query(parentQuery)
+
+        val personManager = PersonManager(context)
+        val parents = ArrayList<Person>()
+        for (r in relationships) {
+            val person = personManager.get(r.parentId)
+            parents.add(person)
+        }
+
+        return parents
     }
 
     /**
