@@ -1,7 +1,9 @@
 package co.familytreeapp.model
 
+import android.database.Cursor
 import android.os.Parcel
 import android.os.Parcelable
+import co.familytreeapp.database.schemas.MarriagesSchema
 import org.threeten.bp.LocalDate
 
 /**
@@ -54,9 +56,45 @@ data class Marriage(
     }
 
     companion object {
+
         @JvmField val CREATOR: Parcelable.Creator<Marriage> = object : Parcelable.Creator<Marriage> {
             override fun createFromParcel(source: Parcel): Marriage = Marriage(source)
             override fun newArray(size: Int): Array<Marriage?> = arrayOfNulls(size)
         }
+
+        /**
+         * Instantiates a [Marriage] object by getting values in columns from a [cursor].
+         */
+        @JvmStatic
+        fun from(cursor: Cursor): Marriage {
+            val startDate = if (cursor.isNull(cursor.getColumnIndex(MarriagesSchema.COL_START_DATE_DAY))) {
+                null
+            } else {
+                LocalDate.of(
+                        cursor.getInt(cursor.getColumnIndex(MarriagesSchema.COL_START_DATE_YEAR)),
+                        cursor.getInt(cursor.getColumnIndex(MarriagesSchema.COL_START_DATE_MONTH)),
+                        cursor.getInt(cursor.getColumnIndex(MarriagesSchema.COL_START_DATE_DAY))
+                )
+            }
+
+            val endDate = if (cursor.isNull(cursor.getColumnIndex(MarriagesSchema.COL_START_DATE_DAY))) {
+                null
+            } else {
+                LocalDate.of(
+                        cursor.getInt(cursor.getColumnIndex(MarriagesSchema.COL_START_DATE_YEAR)),
+                        cursor.getInt(cursor.getColumnIndex(MarriagesSchema.COL_START_DATE_MONTH)),
+                        cursor.getInt(cursor.getColumnIndex(MarriagesSchema.COL_START_DATE_DAY))
+                )
+            }
+
+            return Marriage(
+                    cursor.getInt(cursor.getColumnIndex(MarriagesSchema.COL_ID_1)),
+                    cursor.getInt(cursor.getColumnIndex(MarriagesSchema.COL_ID_2)),
+                    startDate!!, // TODO
+                    endDate,
+                    cursor.getString(cursor.getColumnIndex(MarriagesSchema.COL_PLACE_OF_MARRIAGE))
+            )
+        }
+
     }
 }
