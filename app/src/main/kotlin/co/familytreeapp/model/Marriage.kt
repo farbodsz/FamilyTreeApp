@@ -67,15 +67,11 @@ data class Marriage(
          */
         @JvmStatic
         fun from(cursor: Cursor): Marriage {
-            val startDate = if (cursor.isNull(cursor.getColumnIndex(MarriagesSchema.COL_START_DATE_DAY))) {
-                null
-            } else {
-                LocalDate.of(
-                        cursor.getInt(cursor.getColumnIndex(MarriagesSchema.COL_START_DATE_YEAR)),
-                        cursor.getInt(cursor.getColumnIndex(MarriagesSchema.COL_START_DATE_MONTH)),
-                        cursor.getInt(cursor.getColumnIndex(MarriagesSchema.COL_START_DATE_DAY))
-                )
-            }
+            val startDate = LocalDate.of(
+                    cursor.getInt(cursor.getColumnIndex(MarriagesSchema.COL_START_DATE_YEAR)),
+                    cursor.getInt(cursor.getColumnIndex(MarriagesSchema.COL_START_DATE_MONTH)),
+                    cursor.getInt(cursor.getColumnIndex(MarriagesSchema.COL_START_DATE_DAY))
+            ) // TODO should marriages dates be optional?
 
             val endDate = if (cursor.isNull(cursor.getColumnIndex(MarriagesSchema.COL_START_DATE_DAY))) {
                 null
@@ -90,7 +86,7 @@ data class Marriage(
             return Marriage(
                     cursor.getInt(cursor.getColumnIndex(MarriagesSchema.COL_ID_1)),
                     cursor.getInt(cursor.getColumnIndex(MarriagesSchema.COL_ID_2)),
-                    startDate!!, // TODO
+                    startDate,
                     endDate,
                     cursor.getString(cursor.getColumnIndex(MarriagesSchema.COL_PLACE_OF_MARRIAGE))
             )
