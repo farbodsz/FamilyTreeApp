@@ -3,6 +3,8 @@ package co.familytreeapp.database.manager
 import android.content.Context
 import android.util.Log
 import co.familytreeapp.database.DatabaseHelper
+import co.familytreeapp.database.query.Filters
+import co.familytreeapp.database.query.Query
 import co.familytreeapp.model.DataRelationship
 
 /**
@@ -26,6 +28,24 @@ abstract class RelationshipManager<T : DataRelationship>(
      * [DataRelationship.getIds].
      */
     abstract val idColumnNames: Pair<String, String>
+
+    /**
+     * Returns the item of type [T] with the specified [idPair] from the table named [tableName].
+     *
+     * @see getWithFirstId
+     * @see getWithSecondId
+     */
+    fun get(idPair: Pair<Int, Int>): T {
+        val idQuery = Query.Builder()
+                .addFilter(Filters.equal(idColumnNames.first, idPair.first.toString()))
+                .addFilter(Filters.equal(idColumnNames.second, idPair.second.toString()))
+                .build()
+        val results = query(idQuery)
+        if (results.size != 1) {
+            Log.e(LOG_TAG, "Query using ids: $idPair returned ${results.size} results instead of 1")
+        }
+        return results[0]
+    }
 
     /**
      * Updates an item of type [T] with [oldItemIdPair], replacing it with the new [item].

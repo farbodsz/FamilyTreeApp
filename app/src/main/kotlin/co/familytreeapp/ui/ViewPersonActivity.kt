@@ -17,7 +17,9 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import co.familytreeapp.R
 import co.familytreeapp.database.manager.ChildrenManager
+import co.familytreeapp.database.manager.MarriagesManager
 import co.familytreeapp.model.Person
+import co.familytreeapp.ui.adapter.MarriageAdapter
 import co.familytreeapp.ui.adapter.PersonAdapter
 import co.familytreeapp.util.DATE_FORMATTER_BIRTH
 
@@ -98,6 +100,7 @@ class ViewPersonActivity : AppCompatActivity() {
         }
 
         setupParentsList()
+        setupMarriagesList()
         setupChildrenList()
 
         val button = findViewById<Button>(R.id.button_viewTree)
@@ -123,6 +126,26 @@ class ViewPersonActivity : AppCompatActivity() {
 
         val personAdapter = PersonAdapter(this, parents)
         findViewById<RecyclerView>(R.id.recyclerView_parents).apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(context)
+            adapter = personAdapter
+        }
+    }
+
+    private fun setupMarriagesList() {
+        val marriages = MarriagesManager(this).getMarriages(person.id)
+
+        if (marriages.isEmpty()) {
+            findViewById<LinearLayout>(R.id.group_marriages).visibility = View.GONE
+            with(findViewById<TextView>(R.id.text_noMarriages)) {
+                visibility = View.VISIBLE
+                text = getString(R.string.no_marriages, person.forename)
+            }
+            return
+        }
+
+        val personAdapter = MarriageAdapter(this, person.id, marriages)
+        findViewById<RecyclerView>(R.id.recyclerView_marriages).apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
             adapter = personAdapter

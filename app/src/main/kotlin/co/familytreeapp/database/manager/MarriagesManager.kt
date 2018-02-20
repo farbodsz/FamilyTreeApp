@@ -3,6 +3,8 @@ package co.familytreeapp.database.manager
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
+import co.familytreeapp.database.query.Filters
+import co.familytreeapp.database.query.Query
 import co.familytreeapp.database.schemas.MarriagesSchema
 import co.familytreeapp.model.Marriage
 
@@ -31,6 +33,17 @@ class MarriagesManager(context: Context) : RelationshipManager<Marriage>(context
         put(MarriagesSchema.COL_END_DATE_MONTH, item.endDate?.monthValue)
         put(MarriagesSchema.COL_END_DATE_YEAR, item.endDate?.year)
         put(MarriagesSchema.COL_PLACE_OF_MARRIAGE, item.placeOfMarriage)
+    }
+
+    /**
+     * Returns the list of marriages (former and current) of a person with the given [personId]
+     */
+    fun getMarriages(personId: Int): List<Marriage> {
+        val marriagesQuery = Query(Filters.or(
+                Filters.equal(MarriagesSchema.COL_ID_1, personId.toString()),
+                Filters.equal(MarriagesSchema.COL_ID_2, personId.toString())
+        ))
+        return query(marriagesQuery)
     }
 
 }
