@@ -58,6 +58,7 @@
     <string name="born">Born</string>
     <string name="died">Died</string>
     <string name="no_children">%1$s does not have children</string>
+    <string name="no_parents">No parents have been entered for %1$s</string>
     <string name="parents">Parents</string>
     <string name="view_tree">View %1$s\'s tree</string>
 

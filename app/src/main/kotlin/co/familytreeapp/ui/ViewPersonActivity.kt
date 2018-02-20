@@ -97,6 +97,7 @@ class ViewPersonActivity : AppCompatActivity() {
                     person.dateOfDeath!!.format(DATE_FORMATTER_BIRTH)
         }
 
+        setupParentsList()
         setupChildrenList()
 
         val button = findViewById<Button>(R.id.button_viewTree)
@@ -105,6 +106,26 @@ class ViewPersonActivity : AppCompatActivity() {
             val intent = Intent(this, TreeActivity::class.java)
                     .putExtra(TreeActivity.EXTRA_PERSON, person)
             startActivity(intent)
+        }
+    }
+
+    private fun setupParentsList() {
+        val parents = ChildrenManager(this).getParents(person.id)
+
+        if (parents.isEmpty()) {
+            findViewById<LinearLayout>(R.id.group_parents).visibility = View.GONE
+            with(findViewById<TextView>(R.id.text_noParents)) {
+                visibility = View.VISIBLE
+                text = getString(R.string.no_parents, person.forename)
+            }
+            return
+        }
+
+        val personAdapter = PersonAdapter(this, parents)
+        findViewById<RecyclerView>(R.id.recyclerView_parents).apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(context)
+            adapter = personAdapter
         }
     }
 
