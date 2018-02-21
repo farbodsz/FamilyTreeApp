@@ -4,6 +4,7 @@ import android.support.annotation.StringRes
 import android.support.design.widget.Snackbar
 import android.view.View
 import co.familytreeapp.R
+import co.familytreeapp.model.Person
 import org.threeten.bp.LocalDate
 
 /**
@@ -37,9 +38,6 @@ class Validator(private val rootView: View) {
      * @return true if valid
      */
     fun checkDates(dateOfBirth: LocalDate?, dateOfDeath: LocalDate?): Boolean {
-        fun showMessage(@StringRes stringRes: Int) =
-                Snackbar.make(rootView, stringRes, Snackbar.LENGTH_SHORT).show()
-
         if (dateOfBirth == null) {
             showMessage(R.string.validate_dateOfBirth_empty)
             return false
@@ -57,5 +55,31 @@ class Validator(private val rootView: View) {
 
         return true
     }
+
+    /**
+     * Checks that there are two different people specified for the marriage.
+     *
+     * @return true if valid
+     */
+    fun checkMarriagePeople(person1: Person?, person2: Person?): Boolean {
+        if (person1 == null || person2 == null) {
+            showMessage(R.string.validate_marriage_people_empty)
+            return false
+        }
+
+        if (person1 == person2) {
+            showMessage(R.string.validate_marriage_people_same)
+            return false
+        }
+
+        return true
+    }
+
+    /**
+     * Displays a [Snackbar] message using the string resource ([stringRes]) for the short duration
+     * of time.
+     */
+    private fun showMessage(@StringRes stringRes: Int) =
+            Snackbar.make(rootView, stringRes, Snackbar.LENGTH_SHORT).show()
 
 }

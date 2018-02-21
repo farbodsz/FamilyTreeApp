@@ -10,6 +10,7 @@
     <string name="title_person_list">People</string>
     <string name="title_view_person" />
     <string name="title_edit_person">Edit Person</string>
+    <string name="title_edit_marriage">Edit Marriage</string>
     <string name="title_settings">Settings</string>
 
     <!-- Action texts for menus -->
@@ -29,7 +30,7 @@
     <string name="drawer_open">Drawer open</string>
     <string name="drawer_close">Drawer close</string>
 
-    <!-- User input labels -->
+    <!-- User input labels for person -->
     <string name="person">Person</string>
     <string name="forename">Forename</string>
     <string name="surname">Surname</string>
@@ -43,15 +44,24 @@
     <string name="date_of_death">Date of death</string>
     <string name="place_of_death">Place of death</string>
     <string name="marriages">Marriages</string>
-    <string name="start_date">Start date</string>
-    <string name="end_date">End date</string>
-    <string name="place_of_marriage">Place of marriage</string>
     <string name="children">Children</string>
     <plurals name="children_count_subtitle">
         <item quantity="one">%1$d child</item>
         <item quantity="other">%1$d children</item>
     </plurals>
     <string name="add_child">Add child</string>
+
+    <!-- User input labels for marriage -->
+    <string name="people">People</string>
+    <string name="person_1">Person 1</string>
+    <string name="married_to">married to</string>
+    <string name="person_2">Person 2</string>
+    <string name="details">Details</string>
+    <string name="currently_married">Currently married?</string>
+    <string name="start_date">Start date</string>
+    <string name="end_date">End date</string>
+    <string name="place_of_marriage">Place of marriage</string>
+    <string name="add_marriage">Add marriage</string>
 
     <!-- Person properties -->
     <string name="full_name">Full name</string>
@@ -70,11 +80,14 @@
     <string name="validate_dateOfBirth_empty">You must enter a date of birth</string>
     <string name="validate_dateOfBirth_future">The date of birth cannot be in the future</string>
     <string name="validate_dateOfDeath_beforeBirth">The date of death cannot be before the date of birth</string>
+    <string name="validate_marriage_people_empty">You must specify two people</string>
+    <string name="validate_marriage_people_same">A person cannot be married to themselves</string>
 
     <!-- Dialog texts -->
     <string name="dialog_add_child_title">@string/add_child</string>
     <string name="dialog_add_child_subtitle">
         Can\'t see the right child? Make sure the date of birth of this person and the child is correct!
     </string>
+    <string name="dialog_choose_person_title">Choose person</string>
 
 </resources>
