@@ -3,7 +3,7 @@ package co.familytreeapp.database.query
 import android.util.Log
 
 /**
- * Helps for producing SQL queries on the database/
+ * Convenience class for producing SQL queries.
  */
 class Query(val filter: Filter) {
 
@@ -16,8 +16,8 @@ class Query(val filter: Filter) {
         private val filters: ArrayList<Filter> = ArrayList()
 
         /**
-         * Add a filter to the SQL queryTable
-         * @return the queryTable builder, so methods can be chained
+         * Adds a filter to the SQL query builder to be joined with AND
+         * @return the query builder, so methods can be chained
          */
         fun addFilter(filter: Filter): Builder {
             filters.add(filter)
@@ -25,17 +25,18 @@ class Query(val filter: Filter) {
             return this
         }
 
-        private fun combineFilters(): Filter {
-            when (filters.size) {
-                0 -> throw IllegalStateException("you must add at least one filter to the queryTable builder")
-                1 -> return filters[0]
-                2 -> return Filters.and(filters[0], filters[1])
-                else -> {
-                    // We need to make an array excluding the first two elements for the vararg
-                    val moreFilters = filters.slice(IntRange(2, filters.size - 1)).toTypedArray()
+        /**
+         * Combines the list of filters together using the AND keyword.
+         */
+        private fun combineFilters() = when (filters.size) {
+            0 -> throw IllegalStateException("you must add at least one filter to the Builder")
+            1 -> filters[0]
+            2 -> Filters.and(filters[0], filters[1])
+            else -> {
+                // We need to make an array excluding the first two elements for the vararg
+                val moreFilters = filters.slice(IntRange(2, filters.size - 1)).toTypedArray()
 
-                    return Filters.and(filters[0], filters[1], *moreFilters)
-                }
+                Filters.and(filters[0], filters[1], *moreFilters)
             }
         }
 
