@@ -26,6 +26,22 @@
         <item name="android:paddingRight">@dimen/card_padding</item>
     </style>
 
+    <style name="Widget.AppTheme.EditText" parent="Widget.AppCompat.EditText" />
+
+    <style name="Widget.AppTheme.EditText.SingleLine">
+        <item name="android:singleLine">true</item>
+    </style>
+
+    <style name="Widget.AppTheme.EditText.SingleLine.Input">
+        <item name="android:inputType">textCapWords</item>
+    </style>
+
+    <style name="Widget.AppTheme.EditText.SingleLine.Selector">
+        <item name="android:editable">false</item>
+        <item name="android:ellipsize">end</item>
+        <item name="android:scrollHorizontally">false</item>
+    </style>
+
     <style name="Widget.AppTheme.TextView" parent="TextAppearance.AppCompat" />
 
     <style name="Widget.AppTheme.TextView.CardTitle">
