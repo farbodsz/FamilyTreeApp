@@ -15,6 +15,7 @@
 
     <!-- Action texts for menus -->
     <string name="action_add_person">Add person</string>
+    <string name="action_create_new">Create new</string>
     <string name="action_done">Done</string>
     <string name="action_delete">Delete</string>
     <string name="action_edit">Edit</string>
@@ -74,6 +75,9 @@
     <string name="no_marriages">%1$s does not have spouses</string>
     <string name="view_tree">View %1$s\'s tree</string>
 
+    <!-- Placeholder texts -->
+    <string name="db_marriages_empty">No marriages have been entered yet</string>
+
     <!-- Prompts to user after incorrect user input -->
     <string name="error_name_empty">Name cannot be empty</string>
     <string name="validate_name_empty">You must enter a forename and surname</string>
@@ -88,6 +92,7 @@
     <string name="dialog_add_child_subtitle">
         Can\'t see the right child? Make sure the date of birth of this person and the child is correct!
     </string>
+    <string name="dialog_add_marriage_title">Add marriage</string>
     <string name="dialog_choose_person_title">Choose person</string>
 
 </resources>

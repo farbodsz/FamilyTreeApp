@@ -5,6 +5,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.CoordinatorLayout
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
@@ -56,6 +57,12 @@ class EditMarriageActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_marriage)
+
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        toolbar.setNavigationIcon(R.drawable.ic_close_white_24dp)
+        toolbar.setNavigationOnClickListener { sendCancelledResult() }
 
         marriage = intent.extras?.getParcelable(EXTRA_MARRIAGE)
 

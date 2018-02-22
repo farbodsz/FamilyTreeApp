@@ -49,9 +49,9 @@ class PersonSelectorHelper(
     private fun setupOnClickListener() {
         val dialog = AlertDialog.Builder(context)
                 .setTitle(R.string.dialog_choose_person_title)
-                .setView(createPersonSelector())
                 .setNegativeButton(android.R.string.cancel) { _, _ ->  }
                 .create()
+        dialog.setView(createPersonSelector(dialog))
 
         textInputEditText.setOnClickListener { dialog.show() }
     }
@@ -59,11 +59,13 @@ class PersonSelectorHelper(
     /**
      * Returns the [View] used for the displaying a list of all [people][Person].
      */
-    private fun createPersonSelector(): RecyclerView {
+    private fun createPersonSelector(dialog: AlertDialog): RecyclerView {
         val personAdapter = PersonAdapter(context, PersonManager(context).getAll())
         personAdapter.onItemClick { view, newPerson ->
             person = newPerson
             onPersonSet?.invoke(view, newPerson)
+
+            dialog.dismiss()
         }
 
         return RecyclerView(context).apply {
