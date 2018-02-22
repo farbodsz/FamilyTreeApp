@@ -26,20 +26,23 @@ class Query(val filter: Filter) {
         }
 
         /**
-         * Combines the list of filters together using the AND keyword.
+         * @see build
          */
-        private fun combineFilters() = when (filters.size) {
+        private fun combineFilters(joinType: Filters.JoinType) = when (filters.size) {
             0 -> throw IllegalStateException("you must add at least one filter to the Builder")
             1 -> filters[0]
-            2 -> Filters.and(filters[0], filters[1])
+            2 -> Filters.joinFilters(joinType.sqlKeyword, filters[0], filters[1])
             else -> {
                 // We need to make an array excluding the first two elements for the vararg
                 val moreFilters = filters.slice(IntRange(2, filters.size - 1)).toTypedArray()
 
-                Filters.and(filters[0], filters[1], *moreFilters)
+                Filters.joinFilters(joinType.sqlKeyword, filters[0], filters[1], *moreFilters)
             }
         }
 
-        fun build() = Query(combineFilters())
+        /**
+         * Combines the added filters together using the [joinType] specified.
+         */
+        fun build(joinType: Filters.JoinType) = Query(combineFilters(joinType))
     }
 }
