@@ -2,7 +2,6 @@ package co.familytreeapp.database.manager
 
 import android.content.Context
 import android.util.Log
-import co.familytreeapp.database.DatabaseHelper
 import co.familytreeapp.database.query.Filters
 import co.familytreeapp.database.query.Query
 import co.familytreeapp.model.DataRelationship
@@ -31,9 +30,6 @@ abstract class RelationshipManager<T : DataRelationship>(
 
     /**
      * Returns the item of type [T] with the specified [idPair] from the table named [tableName].
-     *
-     * @see getWithFirstId
-     * @see getWithSecondId
      */
     fun get(idPair: Pair<Int, Int>): T {
         val idQuery = Query.Builder()
@@ -64,28 +60,12 @@ abstract class RelationshipManager<T : DataRelationship>(
      * The order of this pair must correspond to that of [idColumnNames].
      */
     fun delete(idPair: Pair<Int, Int>) {
-        val db = DatabaseHelper.getInstance(context).writableDatabase
-        db.delete(
-                tableName,
-                "${idColumnNames.first}=? AND ${idColumnNames.second}=?",
-                arrayOf(idPair.first.toString(), idPair.second.toString())
-        )
-        Log.d(LOG_TAG, "Deleted item (id1: ${idPair.first}, id2: ${idPair.second})")
-    }
-
-    /**
-     * Deletes relationships ([T]) with the specified *first* ID from the table named [tableName].
-     *
-     * This is the first ID from [DataRelationship.getIds] corresponding to that of [idColumnNames].
-     */
-    fun deleteFirstIds(firstId: Int) {
-        val db = DatabaseHelper.getInstance(context).writableDatabase
-        db.delete(
-                tableName,
-                "${idColumnNames.first}=?",
-                arrayOf(firstId.toString())
-        )
-        Log.d(LOG_TAG, "Deleted item (id1: $firstId)")
+        val query = Query.Builder()
+                .addFilter(Filters.equal(idColumnNames.first, idPair.first.toString()))
+                .addFilter(Filters.equal(idColumnNames.second, idPair.second.toString()))
+                .build()
+        Log.d(LOG_TAG, "Deleting using id pair: (${idPair.first}, ${idPair.second})...")
+        delete(query)
     }
 
 }
