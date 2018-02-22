@@ -33,6 +33,10 @@
         <activity
             android:name=".ui.EditPersonActivity"
             android:label="@string/title_edit_person" />
+
+        <activity
+            android:name=".ui.marriage.EditMarriageActivity"
+            android:label="@string/title_edit_marriage" />
     </application>
 
 </manifest>
