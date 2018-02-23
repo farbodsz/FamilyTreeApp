@@ -303,12 +303,6 @@ class EditPersonActivity : AppCompatActivity() {
      * @see deleteMarriageFromUi
      */
     private fun addMarriageToUi(marriage: Marriage) {
-        if (marriages.isEmpty()) {
-            // We will be adding one, so remove placeholder
-            findViewById<TextView>(R.id.text_noMarriages).visibility = View.GONE
-            marriageRecyclerView.visibility = View.VISIBLE
-        }
-
         hasModifiedMarriages = true
         marriages.add(marriage)
         marriageRecyclerView.adapter.notifyDataSetChanged()
@@ -321,12 +315,6 @@ class EditPersonActivity : AppCompatActivity() {
      * @see addMarriageToUi
      */
     private fun deleteMarriageFromUi(marriage: Marriage) {
-        if (marriages.count() == 1) {
-            // We need to display the placeholder if removing the only one
-            findViewById<TextView>(R.id.text_noMarriages).visibility = View.VISIBLE
-            marriageRecyclerView.visibility = View.GONE
-        }
-
         hasModifiedMarriages = true
         marriages.remove(marriage)
         marriageRecyclerView.adapter.notifyDataSetChanged()
@@ -369,12 +357,6 @@ class EditPersonActivity : AppCompatActivity() {
      * @see deleteChildFromUi
      */
     private fun addChildToUi(child: Person) {
-        if (children.isEmpty()) {
-            // We will be adding one, so remove placeholder
-            findViewById<TextView>(R.id.text_noChildren).visibility = View.GONE
-            childrenRecyclerView.visibility = View.VISIBLE
-        }
-
         hasModifiedChildren = true
         children.add(child)
         childrenRecyclerView.adapter.notifyDataSetChanged()
@@ -392,12 +374,6 @@ class EditPersonActivity : AppCompatActivity() {
      * @see addChildToUi
      */
     private fun deleteChildFromUi(child: Person) {
-        if (children.count() == 1) {
-            // We need to display the placeholder if removing the only one
-            findViewById<TextView>(R.id.text_noChildren).visibility = View.VISIBLE
-            childrenRecyclerView.visibility = View.GONE
-        }
-
         hasModifiedChildren = true
         children.remove(child)
         childrenRecyclerView.adapter.notifyDataSetChanged()
