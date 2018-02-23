@@ -417,7 +417,8 @@ class EditPersonActivity : AppCompatActivity() {
     /**
      * Returns a list of people that could be the child of this [person].
      *
-     * This is people younger than this [person], and not already considered a child of him/her.
+     * This is people younger than this [person], not already considered a child of him/her, and not
+     * the [parent][person] itself.
      */
     private fun getPotentialChildren(): List<Person> {
         val potentialChildren = ArrayList<Person>()
@@ -425,9 +426,11 @@ class EditPersonActivity : AppCompatActivity() {
         // Ok to use this DOB as there were constraints/validation on the dialog picker
         val parentDob = dateOfBirthHelper.date
 
-        for (person in personManager.getAll()) {
-            if (person.dateOfBirth.isAfter(parentDob) && person !in children) {
-                potentialChildren.add(person)
+        for (child in personManager.getAll()) {
+            if (child.id != editedPersonId()
+                    && child !in children
+                    && child.dateOfBirth.isAfter(parentDob)) {
+                potentialChildren.add(child)
             }
         }
         return potentialChildren

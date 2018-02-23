@@ -20,6 +20,9 @@ object Filters {
     fun equal(property: String, value: String)= Filter("$property = $value")
 
     @JvmStatic
+    fun notEqual(property: String, value: String)= Filter("$property != $value")
+
+    @JvmStatic
     fun and(filter1: Filter, filter2: Filter, vararg moreFilters: Filter) =
             joinFilters("AND", filter1, filter2, *moreFilters)
 
