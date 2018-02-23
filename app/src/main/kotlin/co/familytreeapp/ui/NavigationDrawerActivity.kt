@@ -12,6 +12,7 @@ import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.view.MenuItem
 import co.familytreeapp.R
+import co.familytreeapp.ui.person.PersonListActivity
 
 /**
  * Data class to contain details about navigation in a subclass of [NavigationDrawerActivity].

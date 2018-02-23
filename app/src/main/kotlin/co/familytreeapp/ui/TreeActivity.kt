@@ -10,6 +10,7 @@ import co.familytreeapp.database.manager.ChildrenManager
 import co.familytreeapp.model.Gender
 import co.familytreeapp.model.Person
 import co.familytreeapp.model.tree.TreeNode
+import co.familytreeapp.ui.person.EditPersonActivity
 import co.familytreeapp.ui.widget.TreeView
 import co.familytreeapp.util.standardNavigationParams
 import co.familytreeapp.util.withNavigation

@@ -1,4 +1,4 @@
-package co.familytreeapp.ui
+package co.familytreeapp.ui.person
 
 import android.app.Activity
 import android.content.Intent
@@ -25,6 +25,7 @@ import co.familytreeapp.database.manager.PersonManager
 import co.familytreeapp.model.Gender
 import co.familytreeapp.model.Marriage
 import co.familytreeapp.model.Person
+import co.familytreeapp.ui.Validator
 import co.familytreeapp.ui.adapter.MarriageAdapter
 import co.familytreeapp.ui.adapter.PersonAdapter
 import co.familytreeapp.ui.marriage.EditMarriageActivity

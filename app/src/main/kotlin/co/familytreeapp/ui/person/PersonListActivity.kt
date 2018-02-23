@@ -1,4 +1,4 @@
-package co.familytreeapp.ui
+package co.familytreeapp.ui.person
 
 import android.app.Activity
 import android.content.Intent
@@ -9,6 +9,7 @@ import android.support.v7.widget.RecyclerView
 import co.familytreeapp.R
 import co.familytreeapp.database.manager.PersonManager
 import co.familytreeapp.model.Person
+import co.familytreeapp.ui.NavigationDrawerActivity
 import co.familytreeapp.ui.adapter.PersonAdapter
 import co.familytreeapp.util.standardNavigationParams
 import co.familytreeapp.util.withNavigation

@@ -23,15 +23,15 @@
         <activity android:name=".ui.TreeListActivity" />
 
         <activity
-            android:name=".ui.PersonListActivity"
+            android:name=".ui.person.PersonListActivity"
             android:label="@string/title_person_list" />
 
         <activity
-            android:name=".ui.ViewPersonActivity"
+            android:name=".ui.person.ViewPersonActivity"
             android:label="@string/title_view_person" />
 
         <activity
-            android:name=".ui.EditPersonActivity"
+            android:name=".ui.person.EditPersonActivity"
             android:label="@string/title_edit_person" />
 
         <activity
