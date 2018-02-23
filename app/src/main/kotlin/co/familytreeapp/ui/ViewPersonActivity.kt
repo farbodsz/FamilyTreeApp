@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v4.content.ContextCompat
+import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
@@ -18,6 +19,7 @@ import android.widget.TextView
 import co.familytreeapp.R
 import co.familytreeapp.database.manager.ChildrenManager
 import co.familytreeapp.database.manager.MarriagesManager
+import co.familytreeapp.database.manager.PersonManager
 import co.familytreeapp.model.Person
 import co.familytreeapp.ui.adapter.MarriageAdapter
 import co.familytreeapp.ui.adapter.PersonAdapter
@@ -177,6 +179,8 @@ class ViewPersonActivity : AppCompatActivity() {
      * activity.
      *
      * An "ok" result will be used if the [person] has been modified, otherwise a "cancelled" result.
+     * This function is not concerned with "successful" results that indicate the deletion of a
+     * [person]. Those are handled in [showDeleteDialog].
      *
      * @see android.app.Activity.RESULT_OK
      * @see android.app.Activity.RESULT_CANCELED
@@ -207,6 +211,9 @@ class ViewPersonActivity : AppCompatActivity() {
                         .putExtra(EditPersonActivity.EXTRA_PERSON, person)
                 startActivityForResult(intent, REQUEST_PERSON_EDIT)
             }
+            R.id.action_delete -> {
+                showDeleteDialog()
+            }
         }
         return super.onOptionsItemSelected(item)
     }
@@ -223,6 +230,27 @@ class ViewPersonActivity : AppCompatActivity() {
                 setupLayout() // update UI
             }
         }
+    }
+
+    /**
+     * Displays a confirmation dialog for deleting this [person], with positive and negative
+     * actions.
+     */
+    private fun showDeleteDialog() {
+        lateinit var dialog: AlertDialog
+        val builder = AlertDialog.Builder(this)
+                .setTitle(R.string.dialog_confirm_delete_title)
+                .setMessage(R.string.dialog_confirm_delete_message)
+                .setPositiveButton(R.string.action_delete) { _, _ ->
+                    PersonManager(this).delete(person.id)
+
+                    Log.d(LOG_TAG, "Sending successful result: person has been deleted")
+                    val returnIntent = Intent() // no "extra" to indicate deletion
+                    setResult(Activity.RESULT_OK, returnIntent)
+                    finish()
+                }
+                .setNegativeButton(android.R.string.cancel) { _, _ -> dialog.dismiss() }
+        dialog = builder.show()
     }
 
 }

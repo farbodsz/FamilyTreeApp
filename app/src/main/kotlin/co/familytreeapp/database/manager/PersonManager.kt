@@ -7,6 +7,7 @@ import android.util.Log
 import co.familytreeapp.database.DatabaseHelper
 import co.familytreeapp.database.query.Filters
 import co.familytreeapp.database.query.Query
+import co.familytreeapp.database.schemas.MarriagesSchema
 import co.familytreeapp.database.schemas.PersonsSchema
 import co.familytreeapp.database.schemas.SQLiteSeqSchema
 import co.familytreeapp.model.Person
@@ -70,6 +71,20 @@ class PersonManager(private val context: Context) : StandardDataManager<Person>(
         Log.v(LOG_TAG, "Next available id found is $nextAvailId")
 
         return nextAvailId
+    }
+
+    override fun deleteWithReferences(id: Int) {
+        super.deleteWithReferences(id)
+
+        Log.d(LOG_TAG, "Deleting person (id: $id) and references to it")
+
+        // Delete associated marriages as they must have two people to be valid, but parents and
+        // children should not be deleted since their validity doesn't depend on this person
+        MarriagesManager(context).delete(Query.Builder()
+                .addFilter(Filters.equal(MarriagesSchema.COL_ID_1, id.toString()))
+                .addFilter(Filters.equal(MarriagesSchema.COL_ID_2, id.toString()))
+                .build(Filters.JoinType.OR)
+        )
     }
 
 }
