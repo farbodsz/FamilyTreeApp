@@ -43,6 +43,7 @@ class Query(val filter: Filter) {
         /**
          * Combines the added filters together using the [joinType] specified.
          */
-        fun build(joinType: Filters.JoinType) = Query(combineFilters(joinType))
+        fun build(joinType: Filters.JoinType = Filters.JoinType.AND) =
+                Query(combineFilters(joinType))
     }
 }
