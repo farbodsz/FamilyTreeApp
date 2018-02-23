@@ -80,4 +80,17 @@ abstract class DataManager<T : DataModel>(private val context: Context) {
      */
     abstract fun propertiesAsContentValues(item: T): ContentValues
 
+    /**
+     * Deletes items returned by the [query] from the table named [tableName].
+     */
+    fun delete(query: Query) {
+        val db = DatabaseHelper.getInstance(context).writableDatabase
+        val deletedRows = db.delete(
+                tableName,
+                query.filter.sqlStatement,
+                null
+        )
+        Log.d(LOG_TAG, "Deleted $deletedRows items from $tableName")
+    }
+
 }

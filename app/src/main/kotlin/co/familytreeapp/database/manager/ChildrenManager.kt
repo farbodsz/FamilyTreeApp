@@ -59,7 +59,8 @@ class ChildrenManager(
         // Delete the current children then add the new list
         // (This is easier than comparing the db version with the list given in the parameter to see
         // which need to be deleted/added/kept the same)
-        deleteFirstIds(parentId)
+        val query = Query(Filters.equal(ChildrenSchema.COL_PARENT_ID, parentId.toString()))
+        delete(query)
         addChildren(parentId, children)
     }
 

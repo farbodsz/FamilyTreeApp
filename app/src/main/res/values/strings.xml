@@ -94,5 +94,9 @@
     </string>
     <string name="dialog_add_marriage_title">Add marriage</string>
     <string name="dialog_choose_person_title">Choose person</string>
+    <string name="dialog_confirm_delete_title">Confirm delete</string>
+    <string name="dialog_confirm_delete_message">
+        Are you sure you want to delete this person? This cannot be undone.
+    </string>
 
 </resources>

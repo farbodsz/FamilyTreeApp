@@ -2,7 +2,8 @@ package co.familytreeapp.database.manager
 
 import android.content.Context
 import android.util.Log
-import co.familytreeapp.database.DatabaseHelper
+import co.familytreeapp.database.query.Filters
+import co.familytreeapp.database.query.Query
 import co.familytreeapp.model.StandardData
 
 /**
@@ -41,9 +42,9 @@ abstract class StandardDataManager<T : StandardData>(
      * @see deleteWithReferences
      */
     fun delete(id: Int) {
-        val db = DatabaseHelper.getInstance(context).writableDatabase
-        db.delete(tableName, "$idColumn=?", arrayOf(id.toString()))
-        Log.d(LOG_TAG, "Deleted item (id: $id)")
+        val query = Query(Filters.equal(idColumn, id.toString()))
+        Log.d(LOG_TAG, "Deleting items with id: $id...")
+        delete(query)
     }
 
     /**

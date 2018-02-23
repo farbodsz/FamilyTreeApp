@@ -39,10 +39,10 @@ class MarriagesManager(context: Context) : RelationshipManager<Marriage>(context
      * Returns the list of marriages (former and current) of a person with the given [personId]
      */
     fun getMarriages(personId: Int): List<Marriage> {
-        val marriagesQuery = Query(Filters.or(
-                Filters.equal(MarriagesSchema.COL_ID_1, personId.toString()),
-                Filters.equal(MarriagesSchema.COL_ID_2, personId.toString())
-        ))
+        val marriagesQuery = Query.Builder()
+                .addFilter(Filters.equal(MarriagesSchema.COL_ID_1, personId.toString()))
+                .addFilter(Filters.equal(MarriagesSchema.COL_ID_2, personId.toString()))
+                .build(Filters.JoinType.OR)
         return query(marriagesQuery)
     }
 

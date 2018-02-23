@@ -8,6 +8,14 @@ package co.familytreeapp.database.query
  */
 object Filters {
 
+    /**
+     * Keywords that can be used to specify how filters can be combined together.
+     */
+    enum class JoinType(val sqlKeyword: String) {
+        AND("AND"),
+        OR("AND")
+    }
+
     @JvmStatic
     fun equal(property: String, value: String)= Filter("$property = $value")
 
@@ -20,12 +28,12 @@ object Filters {
             joinFilters("OR", filter1, filter2, *moreFilters)
 
     @JvmStatic
-    private fun joinFilters(sqlKeyword: String, filter1: Filter, filter2: Filter,
+    internal fun joinFilters(sqlKeyword: String, filter1: Filter, filter2: Filter,
                             vararg moreFilters: Filter): Filter {
-        var sql: String = "${filter1.sqlStatement} $sqlKeyword ${filter2.sqlStatement}"
+        var sql = "${filter1.sqlStatement} $sqlKeyword ${filter2.sqlStatement}"
 
-        for ((sqlStatement) in moreFilters) {
-            sql = "$sql $sqlKeyword $sqlStatement"
+        for ((sqlToAdd) in moreFilters) {
+            sql = "$sql $sqlKeyword $sqlToAdd"
         }
 
         return Filter(sql)
