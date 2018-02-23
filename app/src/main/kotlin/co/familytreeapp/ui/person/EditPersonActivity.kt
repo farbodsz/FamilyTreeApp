@@ -52,9 +52,15 @@ class EditPersonActivity : AppCompatActivity() {
         const val EXTRA_PERSON = "extra_person"
 
         /**
+         * Request code for starting [EditPersonActivity] for result, to create a new [Person] which
+         * would be the child of this [person].
+         */
+        private const val REQUEST_CREATE_CHILD = 4
+
+        /**
          * Request code for starting [EditMarriageActivity] for result, to create a new [Marriage]
          */
-        private const val REQUEST_CREATE_MARRIAGE = 4
+        private const val REQUEST_CREATE_MARRIAGE = 5
     }
 
     private val personManager = PersonManager(this)
@@ -408,10 +414,14 @@ class EditPersonActivity : AppCompatActivity() {
 
         builder.setView(recyclerView)
                 .setCustomTitle(titleView)
+                .setPositiveButton(R.string.action_create_new) { _, _ ->
+                    val intent = Intent(this, EditPersonActivity::class.java)
+                    startActivityForResult(intent, REQUEST_CREATE_CHILD)
+                    dialog.dismiss()
+                }
                 .setNegativeButton(android.R.string.cancel) { _, _ ->  }
 
-        dialog = builder.create()
-        dialog.show()
+        dialog = builder.show()
     }
 
     /**
@@ -570,8 +580,13 @@ class EditPersonActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == REQUEST_CREATE_MARRIAGE) {
-            if (resultCode == Activity.RESULT_OK) {
+        when (requestCode) {
+            REQUEST_CREATE_CHILD -> if (resultCode == Activity.RESULT_OK) {
+                // User has successfully created a new child from the dialog
+                val child = data!!.getParcelableExtra<Person>(EditPersonActivity.EXTRA_PERSON)
+                addChildToUi(child)
+            }
+            REQUEST_CREATE_MARRIAGE -> if (resultCode == Activity.RESULT_OK) {
                 // User has successfully created a new marriage from the dialog
                 val marriage = data!!.getParcelableExtra<Marriage>(EditMarriageActivity.EXTRA_MARRIAGE)
                 addMarriageToUi(marriage)
