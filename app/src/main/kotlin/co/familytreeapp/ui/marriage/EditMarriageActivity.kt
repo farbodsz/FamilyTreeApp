@@ -17,8 +17,10 @@ import co.familytreeapp.R
 import co.familytreeapp.database.manager.MarriagesManager
 import co.familytreeapp.database.manager.PersonManager
 import co.familytreeapp.model.Marriage
+import co.familytreeapp.model.Person
 import co.familytreeapp.ui.UiHelper
 import co.familytreeapp.ui.Validator
+import co.familytreeapp.ui.person.EditPersonActivity
 import co.familytreeapp.ui.widget.DateViewHelper
 import co.familytreeapp.ui.widget.PersonSelectorHelper
 import co.familytreeapp.util.toTitleCase
@@ -36,6 +38,18 @@ class EditMarriageActivity : AppCompatActivity() {
          * Intent extra key for supplying a [Marriage] to this activity.
          */
         const val EXTRA_MARRIAGE = "extra_marriage"
+
+        /**
+         * Request code for starting [EditPersonActivity] for result, to create a new [Person] to be
+         * used as the first person of the marriage.
+         */
+        private const val REQUEST_CREATE_PERSON_1 = 6
+
+        /**
+         * Request code for starting [EditPersonActivity] for result, to create a new [Person] to be
+         * used as the second person of the marriage.
+         */
+        private const val REQUEST_CREATE_PERSON_2 = 7
     }
 
     private lateinit var person1Selector: PersonSelectorHelper
@@ -80,8 +94,18 @@ class EditMarriageActivity : AppCompatActivity() {
      * Assigns the variables for our UI components in the layout.
      */
     private fun assignUiComponents() {
-        person1Selector = PersonSelectorHelper(this, findViewById(R.id.editText_person1))
-        person2Selector = PersonSelectorHelper(this, findViewById(R.id.editText_person2))
+        person1Selector = PersonSelectorHelper(this, findViewById(R.id.editText_person1)).apply {
+            setOnCreateNewPerson { _, _ ->
+                val intent = Intent(this@EditMarriageActivity, EditPersonActivity::class.java)
+                startActivityForResult(intent, REQUEST_CREATE_PERSON_1)
+            }
+        }
+        person2Selector = PersonSelectorHelper(this, findViewById(R.id.editText_person2)).apply {
+            setOnCreateNewPerson { _, _ ->
+                val intent = Intent(this@EditMarriageActivity, EditPersonActivity::class.java)
+                startActivityForResult(intent, REQUEST_CREATE_PERSON_2)
+            }
+        }
 
         startDateHelper = DateViewHelper(this, findViewById(R.id.editText_startDate))
         placeInput = findViewById(R.id.editText_placeOfMarriage)
@@ -161,14 +185,14 @@ class EditMarriageActivity : AppCompatActivity() {
         if (!validator.checkMarriagePeople(person1, person2)) return null
 
         // Dates should be ok from dialog constraint, but best to double-check before db write
-        val startDate = startDateHelper.date!!
+        val startDate = startDateHelper.date
         val endDate = if (isMarriedCheckBox.isChecked) endDateHelper.date else null
         if (!validator.checkDates(startDate, endDate)) return null
 
         return Marriage(
                 person1!!.id,
                 person2!!.id,
-                startDate,
+                startDate!!,
                 endDate,
                 placeInput.text.toString().trim().toTitleCase()
         )
@@ -212,5 +236,20 @@ class EditMarriageActivity : AppCompatActivity() {
     }
 
     override fun onBackPressed() = sendCancelledResult()
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        when (requestCode) {
+            REQUEST_CREATE_PERSON_1 -> if (resultCode == Activity.RESULT_OK) {
+                val newPerson1 = data!!.getParcelableExtra<Person>(EditPersonActivity.EXTRA_PERSON)
+                person1Selector.person = newPerson1
+            }
+            REQUEST_CREATE_PERSON_2 -> if (resultCode == Activity.RESULT_OK) {
+                val newPerson2 = data!!.getParcelableExtra<Person>(EditPersonActivity.EXTRA_PERSON)
+                person2Selector.person = newPerson2
+            }
+        }
+    }
 
 }

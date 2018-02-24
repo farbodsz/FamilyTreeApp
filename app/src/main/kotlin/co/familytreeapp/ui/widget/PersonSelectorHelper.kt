@@ -1,6 +1,7 @@
 package co.familytreeapp.ui.widget
 
 import android.content.Context
+import android.content.DialogInterface
 import android.support.design.widget.TextInputEditText
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
@@ -46,11 +47,24 @@ class PersonSelectorHelper(
         setupOnClickListener()
     }
 
-    private fun setupOnClickListener() {
-        val dialog = AlertDialog.Builder(context)
+    /**
+     * Sets a function to be invoked when the user clicks the "Create new" button in the dialog.
+     */
+    fun setOnCreateNewPerson(action: (dialog: DialogInterface, which: Int) -> Unit)
+            = setupOnClickListener(action)
+
+    private fun setupOnClickListener(createNewAction: ((DialogInterface, Int) -> Unit)? = null) {
+        val builder = AlertDialog.Builder(context)
                 .setTitle(R.string.dialog_choose_person_title)
                 .setNegativeButton(android.R.string.cancel) { _, _ ->  }
-                .create()
+
+        createNewAction?.let {
+            builder.setPositiveButton(R.string.action_create_new) { dialog, which ->
+                it.invoke(dialog, which)
+            }
+        }
+
+        val dialog = builder.create()
         dialog.setView(createPersonSelector(dialog))
 
         textInputEditText.setOnClickListener { dialog.show() }
