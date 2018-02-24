@@ -482,11 +482,11 @@ class EditPersonActivity : AppCompatActivity() {
 
         if (person!! == newPerson) {
             // Person hasn't changed - no need to update it
-            if (!hasModifiedChildren) {
+            if (hasModifiedChildren || hasModifiedMarriages) {
+                sendSuccessfulResult(newPerson)
+            } else {
                 // Nothing changed, so avoid all db write (nothing will change in result activity)
                 sendCancelledResult()
-            } else {
-                sendSuccessfulResult(newPerson)
             }
         } else {
             personManager.update(person!!.id, newPerson)
