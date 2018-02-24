@@ -2,6 +2,8 @@ package co.familytreeapp.database.manager
 
 import android.content.Context
 import android.util.Log
+import co.familytreeapp.DataNotFoundException
+import co.familytreeapp.MultipleIdResultsException
 import co.familytreeapp.database.query.Filters
 import co.familytreeapp.database.query.Query
 import co.familytreeapp.model.DataRelationship
@@ -37,10 +39,11 @@ abstract class RelationshipManager<T : DataRelationship>(
                 .addFilter(Filters.equal(idColumnNames.second, idPair.second.toString()))
                 .build()
         val results = query(idQuery)
-        if (results.size != 1) {
-            Log.e(LOG_TAG, "Query using ids: $idPair returned ${results.size} results instead of 1")
+        return when (results.count()) {
+            0 -> throw DataNotFoundException("DataRelationship", idPair)
+            1 -> results[0]
+            else -> throw MultipleIdResultsException("DataRelationship", idPair, results.count())
         }
-        return results[0]
     }
 
     /**

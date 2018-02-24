@@ -4,6 +4,8 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.util.Log
+import co.familytreeapp.DataNotFoundException
+import co.familytreeapp.MultipleIdResultsException
 import co.familytreeapp.database.DatabaseHelper
 import co.familytreeapp.database.query.Filters
 import co.familytreeapp.database.query.Query
@@ -29,8 +31,17 @@ class PersonManager(private val context: Context) : StandardDataManager<Person>(
 
     /**
      * Returns the [Person] with the specified [id] from the database.
+     *
+     * @throws DataNotFoundException if the item with the [id] could not be found
      */
-    fun get(id: Int) = query(Query(Filters.equal(PersonsSchema.COL_ID, id.toString())))[0]
+    fun get(id: Int): Person {
+        val results = query(Query(Filters.equal(PersonsSchema.COL_ID, id.toString())))
+        return when (results.count()) {
+            0 -> throw DataNotFoundException("Person", id)
+            1 -> results[0]
+            else -> throw MultipleIdResultsException("Person", id, results.count())
+        }
+    }
 
     override fun propertiesAsContentValues(item: Person) = ContentValues().apply {
         put(PersonsSchema.COL_ID, item.id)
