@@ -21,7 +21,7 @@ import co.familytreeapp.model.Person
 import co.familytreeapp.ui.UiHelper
 import co.familytreeapp.ui.Validator
 import co.familytreeapp.ui.person.EditPersonActivity
-import co.familytreeapp.ui.widget.DateViewHelper
+import co.familytreeapp.ui.widget.DateSelectorHelper
 import co.familytreeapp.ui.widget.PersonSelectorHelper
 import co.familytreeapp.util.toTitleCase
 
@@ -55,10 +55,10 @@ class EditMarriageActivity : AppCompatActivity() {
     private lateinit var person1Selector: PersonSelectorHelper
     private lateinit var person2Selector: PersonSelectorHelper
 
-    private lateinit var startDateHelper: DateViewHelper
+    private lateinit var startDateHelper: DateSelectorHelper
     private lateinit var placeInput: EditText
     private lateinit var isMarriedCheckBox: CheckBox
-    private lateinit var endDateHelper: DateViewHelper
+    private lateinit var endDateHelper: DateSelectorHelper
 
     /**
      * The [Marriage] received via intent extra from the previous activity. If a new marriage is
@@ -107,12 +107,12 @@ class EditMarriageActivity : AppCompatActivity() {
             }
         }
 
-        startDateHelper = DateViewHelper(this, findViewById(R.id.editText_startDate))
+        startDateHelper = DateSelectorHelper(this, findViewById(R.id.editText_startDate))
         placeInput = findViewById(R.id.editText_placeOfMarriage)
 
         isMarriedCheckBox = findViewById(R.id.checkbox_married)
 
-        endDateHelper = DateViewHelper(this, findViewById(R.id.editText_endDate))
+        endDateHelper = DateSelectorHelper(this, findViewById(R.id.editText_endDate))
     }
 
     private fun setupLayout() {

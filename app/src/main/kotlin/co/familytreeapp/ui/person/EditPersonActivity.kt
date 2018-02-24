@@ -30,7 +30,7 @@ import co.familytreeapp.ui.Validator
 import co.familytreeapp.ui.adapter.MarriageAdapter
 import co.familytreeapp.ui.adapter.PersonAdapter
 import co.familytreeapp.ui.marriage.EditMarriageActivity
-import co.familytreeapp.ui.widget.DateViewHelper
+import co.familytreeapp.ui.widget.DateSelectorHelper
 import co.familytreeapp.util.toTitleCase
 
 /**
@@ -72,10 +72,10 @@ class EditPersonActivity : AppCompatActivity() {
     private lateinit var maleRadioBtn: RadioButton
     private lateinit var femaleRadioBtn: RadioButton
 
-    private lateinit var dateOfBirthHelper: DateViewHelper
+    private lateinit var dateOfBirthHelper: DateSelectorHelper
     private lateinit var placeOfBirthInput: EditText
     private lateinit var isAliveCheckBox: CheckBox
-    private lateinit var dateOfDeathHelper: DateViewHelper
+    private lateinit var dateOfDeathHelper: DateSelectorHelper
     private lateinit var placeOfDeathInput: EditText
 
     private lateinit var marriageRecyclerView: RecyclerView
@@ -148,13 +148,13 @@ class EditPersonActivity : AppCompatActivity() {
         maleRadioBtn = findViewById(R.id.rBtn_male)
         femaleRadioBtn = findViewById(R.id.rBtn_female)
 
-        dateOfBirthHelper = DateViewHelper(this, findViewById(R.id.editText_dateOfBirth))
+        dateOfBirthHelper = DateSelectorHelper(this, findViewById(R.id.editText_dateOfBirth))
         placeOfBirthInput = findViewById(R.id.editText_placeOfBirth)
 
         isAliveCheckBox = findViewById(R.id.checkbox_alive)
         isAliveCheckBox.setOnCheckedChangeListener { _, isChecked -> setPersonAlive(isChecked) }
 
-        dateOfDeathHelper = DateViewHelper(this, findViewById(R.id.editText_dateOfDeath))
+        dateOfDeathHelper = DateSelectorHelper(this, findViewById(R.id.editText_dateOfDeath))
         placeOfDeathInput = findViewById(R.id.editText_placeOfDeath)
 
         marriageRecyclerView = findViewById<RecyclerView>(R.id.recyclerView_marriages).apply {
