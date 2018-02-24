@@ -25,13 +25,13 @@ import co.familytreeapp.database.manager.PersonManager
 import co.familytreeapp.model.Gender
 import co.familytreeapp.model.Marriage
 import co.familytreeapp.model.Person
+import co.familytreeapp.ui.UiHelper
 import co.familytreeapp.ui.Validator
 import co.familytreeapp.ui.adapter.MarriageAdapter
 import co.familytreeapp.ui.adapter.PersonAdapter
 import co.familytreeapp.ui.marriage.EditMarriageActivity
 import co.familytreeapp.ui.widget.DateViewHelper
 import co.familytreeapp.util.toTitleCase
-import org.threeten.bp.LocalDate
 
 /**
  * This activity provides the UI for adding or editing a new person from the database.
@@ -185,7 +185,7 @@ class EditPersonActivity : AppCompatActivity() {
         setupNameInputError(findViewById(R.id.textInputLayout_forename), forenameInput)
         setupNameInputError(findViewById(R.id.textInputLayout_surname), surnameInput)
 
-        setDatePickerConstraints()
+        UiHelper.setDateRangePickerConstraints(dateOfBirthHelper, dateOfDeathHelper)
 
         setupMarriageList()
         setupChildrenList()
@@ -240,26 +240,6 @@ class EditPersonActivity : AppCompatActivity() {
                 } else {
                     textInputLayout.isErrorEnabled = false
                 }
-            }
-        }
-    }
-
-    /**
-     * Sets the default date picker minimum/maximum dates.
-     * This is based on the current date, and selections made in other date pickers.
-     */
-    private fun setDatePickerConstraints() {
-        with(dateOfBirthHelper) {
-            maxDate = LocalDate.now()
-            onDateSet = { _, newDate ->
-                dateOfDeathHelper.minDate = newDate
-            }
-        }
-
-        with(dateOfDeathHelper) {
-            maxDate = LocalDate.now()
-            onDateSet = { _, newDate ->
-                dateOfBirthHelper.maxDate = newDate
             }
         }
     }
