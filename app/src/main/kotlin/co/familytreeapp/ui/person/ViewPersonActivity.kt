@@ -49,6 +49,11 @@ class ViewPersonActivity : AppCompatActivity() {
         private const val REQUEST_PERSON_EDIT = 3
 
         /**
+         * Request code for starting [TreeActivity] for result.
+         */
+        private const val REQUEST_VIEW_TREE = 9
+
+        /**
          * Intent extra key for supplying a [Person] to this activity.
          */
         const val EXTRA_PERSON = "extra_person"
@@ -111,7 +116,7 @@ class ViewPersonActivity : AppCompatActivity() {
         button.setOnClickListener {
             val intent = Intent(this, TreeActivity::class.java)
                     .putExtra(TreeActivity.EXTRA_PERSON, person)
-            startActivity(intent)
+            startActivityForResult(intent, REQUEST_VIEW_TREE)
         }
     }
 
@@ -224,11 +229,15 @@ class ViewPersonActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == REQUEST_PERSON_EDIT) {
-            if (resultCode == Activity.RESULT_OK) {
+        when (requestCode) {
+            REQUEST_PERSON_EDIT -> if (resultCode == Activity.RESULT_OK) {
                 hasBeenModified = true
                 person = data!!.getParcelableExtra(EditPersonActivity.EXTRA_PERSON)
                 setupLayout() // update UI
+            }
+            REQUEST_VIEW_TREE -> if (resultCode == Activity.RESULT_OK) {
+                hasBeenModified = true
+                setupLayout()
             }
         }
     }

@@ -47,6 +47,8 @@ class TreeActivity : NavigationDrawerActivity() {
      */
     private var person: Person? = null
 
+    private var hasModified = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -170,6 +172,29 @@ class TreeActivity : NavigationDrawerActivity() {
         return super.onOptionsItemSelected(item)
     }
 
+    override fun onBackPressed() = sendResult()
+
+    /**
+     * Sends the correct result back to where this activity was invoked from, and finishes the
+     * activity.
+     *
+     * An "ok" result will be used if the tree has been modified, otherwise a "cancelled" result.
+     *
+     * @see android.app.Activity.RESULT_OK
+     * @see android.app.Activity.RESULT_CANCELED
+     */
+    private fun sendResult() {
+        if (hasModified) {
+            Log.d(LOG_TAG, "Sending successful result: $person")
+            val returnIntent = Intent().putExtra(EXTRA_PERSON, person)
+            setResult(Activity.RESULT_OK, returnIntent)
+        } else {
+            Log.d(LOG_TAG, "Sending cancelled result")
+            setResult(Activity.RESULT_CANCELED)
+        }
+        finish()
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
@@ -178,6 +203,7 @@ class TreeActivity : NavigationDrawerActivity() {
 
             if (resultCode == Activity.RESULT_OK) {
                 // Refresh tree layout
+                hasModified = true
                 setupTree()
             }
         }
