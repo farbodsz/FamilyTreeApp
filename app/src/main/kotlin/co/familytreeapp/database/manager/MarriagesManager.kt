@@ -3,6 +3,7 @@ package co.familytreeapp.database.manager
 import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
+import android.util.Log
 import co.familytreeapp.database.query.Filters
 import co.familytreeapp.database.query.Query
 import co.familytreeapp.database.schemas.MarriagesSchema
@@ -44,6 +45,33 @@ class MarriagesManager(context: Context) : RelationshipManager<Marriage>(context
                 .addFilter(Filters.equal(MarriagesSchema.COL_ID_2, personId.toString()))
                 .build(Filters.JoinType.OR)
         return query(marriagesQuery)
+    }
+
+    /**
+     * Updates the list of a person's marriages.
+     *
+     * @param personId  the person ID of one of the people involved in the marriage
+     * @param marriages the list of marriages that will replace the old list in the database
+     */
+    fun updateMarriages(personId: Int, marriages: List<Marriage>) {
+        Log.d(LOG_TAG, "Updating marriages")
+
+        // Delete the current marriages then add the new list
+        // (This is easier than comparing the db version with the list given in the parameter to see
+        // which need to be deleted/added/kept the same)
+        deleteMarriages(personId)
+        for (m in marriages) add(m)
+    }
+
+    /**
+     * Deletes all marriages involving person with [personId].
+     */
+    fun deleteMarriages(personId: Int) {
+        val query = Query.Builder()
+                .addFilter(Filters.equal(MarriagesSchema.COL_ID_1, personId.toString()))
+                .addFilter(Filters.equal(MarriagesSchema.COL_ID_2, personId.toString()))
+                .build(Filters.JoinType.OR)
+        delete(query)
     }
 
 }

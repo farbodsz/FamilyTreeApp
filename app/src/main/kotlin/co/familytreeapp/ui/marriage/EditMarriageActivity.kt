@@ -40,6 +40,20 @@ class EditMarriageActivity : AppCompatActivity() {
         const val EXTRA_MARRIAGE = "extra_marriage"
 
         /**
+         * Intent extra key for a boolean indicating whether database writes should be made in this
+         * activity. This is useful if we want to make database writes in the calling activity.
+         *
+         * If this is not specified when starting the activity, the value of [DEFAULT_WRITE_DATA]
+         * will be used.
+         */
+        const val EXTRA_WRITE_DATA = "extra_write_data"
+
+        /**
+         * @see EXTRA_WRITE_DATA
+         */
+        private const val DEFAULT_WRITE_DATA = true
+
+        /**
          * Request code for starting [EditPersonActivity] for result, to create a new [Person] to be
          * used as the first person of the marriage.
          */
@@ -154,10 +168,13 @@ class EditMarriageActivity : AppCompatActivity() {
         // Don't continue with db write if inputs invalid
         val newMarriage = validateMarriage() ?: return
 
+        val writeToDb = intent.extras?.getBoolean(EXTRA_WRITE_DATA) ?: DEFAULT_WRITE_DATA
+        if (!writeToDb) Log.d(LOG_TAG, "Nothing will be written to the db in this activity")
+
         val marriagesManager = MarriagesManager(this)
 
         if (marriage == null) {
-            marriagesManager.add(newMarriage)
+            if (writeToDb) marriagesManager.add(newMarriage)
             sendSuccessfulResult(newMarriage)
             return
         }
@@ -166,7 +183,7 @@ class EditMarriageActivity : AppCompatActivity() {
             // Nothing changed, so avoid all db write (nothing will change in result activity)
             sendCancelledResult()
         } else {
-            marriagesManager.update(marriage!!.getIds(), newMarriage)
+            if (writeToDb) marriagesManager.update(marriage!!.getIds(), newMarriage)
             sendSuccessfulResult(newMarriage)
         }
     }

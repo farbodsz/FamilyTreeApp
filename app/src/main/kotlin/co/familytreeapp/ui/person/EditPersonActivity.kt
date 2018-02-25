@@ -455,6 +455,7 @@ class EditPersonActivity : AppCompatActivity() {
                 .setTitle(R.string.dialog_add_marriage_title)
                 .setPositiveButton(R.string.action_create_new) { _, _ ->
                     val intent = Intent(this@EditPersonActivity, EditMarriageActivity::class.java)
+                            .putExtra(EditMarriageActivity.EXTRA_WRITE_DATA, false)
                     startActivityForResult(intent, REQUEST_CREATE_MARRIAGE)
                     dialog.dismiss()
                 }
@@ -471,8 +472,8 @@ class EditPersonActivity : AppCompatActivity() {
         // Don't continue with db write if inputs invalid
         val newPerson = validatePerson() ?: return
 
-        val childrenManager = ChildrenManager(this)
-        childrenManager.updateChildren(editedPersonId(), children)
+        ChildrenManager(this).updateChildren(editedPersonId(), children)
+        MarriagesManager(this).updateMarriages(editedPersonId(), marriages)
 
         if (person == null) {
             personManager.add(newPerson)
