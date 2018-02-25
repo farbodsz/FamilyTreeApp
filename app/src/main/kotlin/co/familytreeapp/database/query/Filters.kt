@@ -13,7 +13,7 @@ object Filters {
      */
     enum class JoinType(val sqlKeyword: String) {
         AND("AND"),
-        OR("AND")
+        OR("OR")
     }
 
     @JvmStatic
