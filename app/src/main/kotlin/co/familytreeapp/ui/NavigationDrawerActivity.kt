@@ -10,6 +10,7 @@ import android.support.v4.widget.DrawerLayout
 import android.support.v7.app.ActionBarDrawerToggle
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
+import android.util.Log
 import android.view.MenuItem
 import co.familytreeapp.R
 import co.familytreeapp.ui.person.PersonListActivity
@@ -39,6 +40,8 @@ abstract class NavigationDrawerActivity : AppCompatActivity() {
 
     companion object {
 
+        private const val LOG_TAG = "Nav...DrawerActivity"
+
         const val NAVDRAWER_ITEM_MAIN = R.id.nav_item_home
         const val NAVDRAWER_ITEM_TREE = R.id.nav_item_tree
         const val NAVDRAWER_ITEM_TREE_LIST = R.id.nav_item_tree_list
@@ -57,15 +60,29 @@ abstract class NavigationDrawerActivity : AppCompatActivity() {
     private lateinit var drawerToggle: ActionBarDrawerToggle
 
     /**
+     * Whether the navigation drawer is being used in the subclass of this activity.
+     */
+    private var usingNavDrawer: Boolean = false
+
+    /**
      * This method should be overridden in subclasses of [NavigationDrawerActivity] to supply
      * details about the navigation behaviour.
      */
-    abstract fun getSelfNavigationParams(): NavigationParameters
+    abstract fun getSelfNavigationParams(): NavigationParameters?
 
     override fun onPostCreate(savedInstanceState: Bundle?) {
         super.onPostCreate(savedInstanceState)
 
-        navParams = getSelfNavigationParams()
+        val receivedNavParams = getSelfNavigationParams()
+        navParams = if (receivedNavParams == null) {
+            Log.d(LOG_TAG, "Navigation params null, not setting up navigation drawer")
+            usingNavDrawer = false
+            return
+        } else {
+            usingNavDrawer = true
+            receivedNavParams
+        }
+
         setupLayout()
     }
 
@@ -127,17 +144,21 @@ abstract class NavigationDrawerActivity : AppCompatActivity() {
     override fun onConfigurationChanged(newConfig: Configuration) {
         super.onConfigurationChanged(newConfig)
 
-        // Pass any configuration change to the drawer toggle
-        drawerToggle.onConfigurationChanged(newConfig)
+        if (usingNavDrawer) {
+            // Pass any configuration change to the drawer toggle
+            drawerToggle.onConfigurationChanged(newConfig)
+        }
     }
 
     override fun onOptionsItemSelected(item: MenuItem) =
-            drawerToggle.onOptionsItemSelected(item) || super.onOptionsItemSelected(item)
+            (if (usingNavDrawer) drawerToggle.onOptionsItemSelected(item) else false)
+                    || super.onOptionsItemSelected(item)
 
-    override fun onBackPressed() = if (navParams.drawerLayout.isDrawerOpen(GravityCompat.START)) {
-        navParams.drawerLayout.closeDrawer(GravityCompat.START)
-    } else {
-        super.onBackPressed()
-    }
+    override fun onBackPressed() =
+            if (usingNavDrawer && navParams.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+                navParams.drawerLayout.closeDrawer(GravityCompat.START)
+            } else {
+                super.onBackPressed()
+            }
 
 }

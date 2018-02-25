@@ -3,6 +3,7 @@ package co.familytreeapp.ui
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.support.annotation.LayoutRes
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.Menu
@@ -48,12 +49,23 @@ class TreeActivity : NavigationDrawerActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(withNavigation(R.layout.activity_tree))
 
-        person = intent.extras?.getParcelable<Person>(EXTRA_PERSON)
+        person = intent.extras?.getParcelable(EXTRA_PERSON)
 
+        setupNavigation()
         setupTitle()
         setupTree()
+    }
+
+    private fun setupNavigation() {
+        // If a particular person is being displayed, then the nav drawer doesn't need to be shown
+        @LayoutRes val mainLayout = R.layout.activity_tree
+
+        if (person == null) {
+            setContentView(withNavigation(mainLayout))
+        } else {
+            setContentView(mainLayout)
+        }
     }
 
     private fun setupTitle() {
@@ -62,6 +74,7 @@ class TreeActivity : NavigationDrawerActivity() {
 
         person?.let {
             supportActionBar!!.title = getString(R.string.title_tree_person, it.forename)
+            supportActionBar!!.setDisplayHomeAsUpEnabled(true)
         }
     }
 
@@ -150,6 +163,7 @@ class TreeActivity : NavigationDrawerActivity() {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
+            android.R.id.home -> onBackPressed()
             R.id.action_add -> startActivity(Intent(this, EditPersonActivity::class.java))
         }
 

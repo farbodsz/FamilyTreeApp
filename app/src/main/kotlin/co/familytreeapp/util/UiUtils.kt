@@ -3,6 +3,8 @@ package co.familytreeapp.util
 import android.app.Activity
 import android.content.Context
 import android.support.annotation.LayoutRes
+import android.support.design.widget.NavigationView
+import android.support.v4.widget.DrawerLayout
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
@@ -52,12 +54,20 @@ fun Context.withNavigation(@LayoutRes layoutRes: Int): View {
  *
  * @param navigationItem    an integer representing the navigation item in the menu
  * @param toolbar           the [Toolbar] being used in the layout of the activity (subclass of
- *                          [NavigationDrawerActivity])
+ *                          [NavigationDrawerActivity]). Null if no [Toolbar] is being used.
+ *
+ * @return  the [NavigationParameters] from the values provided; or null if the [toolbar],
+ *          [DrawerLayout], or [NavigationView] is null.
+ *
  * @see NavigationParameters
  */
-fun Activity.standardNavigationParams(navigationItem: Int, toolbar: Toolbar) = NavigationParameters(
-        navigationItem,
-        findViewById(R.id.drawerLayout),
-        findViewById(R.id.navigationView),
-        toolbar
-)
+fun Activity.standardNavigationParams(navigationItem: Int, toolbar: Toolbar?): NavigationParameters? {
+    val drawerLayout = findViewById<DrawerLayout?>(R.id.drawerLayout)
+    val navigationView = findViewById<NavigationView?>(R.id.navigationView)
+
+    return if (toolbar == null || drawerLayout == null || navigationView == null) {
+        null
+    } else {
+        NavigationParameters(navigationItem, drawerLayout, navigationView, toolbar)
+    }
+}
