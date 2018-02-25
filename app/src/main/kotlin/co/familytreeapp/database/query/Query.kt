@@ -28,16 +28,20 @@ class Query(val filter: Filter) {
         /**
          * @see build
          */
-        private fun combineFilters(joinType: Filters.JoinType) = when (filters.size) {
-            0 -> throw IllegalStateException("you must add at least one filter to the Builder")
-            1 -> filters[0]
-            2 -> Filters.joinFilters(joinType.sqlKeyword, filters[0], filters[1])
-            else -> {
-                // We need to make an array excluding the first two elements for the vararg
-                val moreFilters = filters.slice(IntRange(2, filters.size - 1)).toTypedArray()
+        private fun combineFilters(joinType: Filters.JoinType): Filter {
+            val filter = when (filters.size) {
+                0 -> throw IllegalStateException("you must add at least one filter to the Builder")
+                1 -> filters[0]
+                2 -> Filters.joinFilters(joinType.sqlKeyword, filters[0], filters[1])
+                else -> {
+                    // We need to make an array excluding the first two elements for the vararg
+                    val moreFilters = filters.slice(IntRange(2, filters.size - 1)).toTypedArray()
 
-                Filters.joinFilters(joinType.sqlKeyword, filters[0], filters[1], *moreFilters)
+                    Filters.joinFilters(joinType.sqlKeyword, filters[0], filters[1], *moreFilters)
+                }
             }
+            Log.v(LOG_TAG, "Combined filters: $filter")
+            return filter
         }
 
         /**
