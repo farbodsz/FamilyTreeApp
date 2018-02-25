@@ -10,7 +10,6 @@ import co.familytreeapp.database.DatabaseHelper
 import co.familytreeapp.database.query.Filters
 import co.familytreeapp.database.query.Query
 import co.familytreeapp.database.schemas.ChildrenSchema
-import co.familytreeapp.database.schemas.MarriagesSchema
 import co.familytreeapp.database.schemas.PersonsSchema
 import co.familytreeapp.database.schemas.SQLiteSeqSchema
 import co.familytreeapp.model.Person
@@ -91,11 +90,7 @@ class PersonManager(private val context: Context) : StandardDataManager<Person>(
         Log.d(LOG_TAG, "Deleting person (id: $id) and references to it")
 
         // Delete associated relationships, but not the other person in those relationships
-        MarriagesManager(context).delete(Query.Builder()
-                .addFilter(Filters.equal(MarriagesSchema.COL_ID_1, id.toString()))
-                .addFilter(Filters.equal(MarriagesSchema.COL_ID_2, id.toString()))
-                .build(Filters.JoinType.OR)
-        )
+        MarriagesManager(context).deleteMarriages(id)
         ChildrenManager(context).delete(Query.Builder()
                 .addFilter(Filters.equal(ChildrenSchema.COL_PARENT_ID, id.toString()))
                 .addFilter(Filters.equal(ChildrenSchema.COL_CHILD_ID, id.toString()))
