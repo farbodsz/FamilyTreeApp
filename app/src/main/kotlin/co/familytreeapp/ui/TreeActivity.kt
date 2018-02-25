@@ -1,16 +1,20 @@
 package co.familytreeapp.ui
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.view.ViewGroup
 import co.familytreeapp.R
 import co.familytreeapp.database.manager.ChildrenManager
 import co.familytreeapp.model.Gender
 import co.familytreeapp.model.Person
 import co.familytreeapp.model.tree.TreeNode
 import co.familytreeapp.ui.person.EditPersonActivity
+import co.familytreeapp.ui.person.ViewPersonActivity
 import co.familytreeapp.ui.widget.TreeView
 import co.familytreeapp.util.standardNavigationParams
 import co.familytreeapp.util.withNavigation
@@ -26,30 +30,66 @@ class TreeActivity : NavigationDrawerActivity() {
         private const val LOG_TAG = "TreeActivity"
 
         /**
+         * Request code for starting [ViewPersonActivity] for result.
+         */
+        private const val REQUEST_PERSON_VIEW = 8
+
+        /**
          * Intent extra key for supplying a [Person] to this activity.
          */
         const val EXTRA_PERSON = "extra_person"
     }
 
+    /**
+     * The [Person] who's portion of the family tree is being displayed.
+     * This can be null if the whole tree is being displayed.
+     */
+    private var person: Person? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(withNavigation(R.layout.activity_tree))
 
-        val person = intent.extras?.getParcelable<Person>(EXTRA_PERSON)
+        person = intent.extras?.getParcelable<Person>(EXTRA_PERSON)
 
-        val tree = if (person == null) {
-            Log.v(LOG_TAG, "Displaying dummy tree")
-            getDummyTree()
+        setupTitle()
+        setupTree()
+    }
 
-        } else {
-            Log.v(LOG_TAG, "Displaying tree for: $person")
+    private fun setupTitle() {
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
 
-            val childrenManager = ChildrenManager(this)
-            childrenManager.getTree(person.id)
+        person?.let {
+            supportActionBar!!.title = getString(R.string.title_tree_person, it.forename)
+        }
+    }
+
+    private fun setupTree() {
+        val treeView = TreeView(this).apply {
+            setTreeSource(getTree())
+            onPersonViewClick = { person ->
+                val intent = Intent(this@TreeActivity, ViewPersonActivity::class.java)
+                        .putExtra(ViewPersonActivity.EXTRA_PERSON, person)
+                startActivityForResult(intent, REQUEST_PERSON_VIEW)
+            }
         }
 
-        val treeView = findViewById<TreeView>(R.id.treeView)
-        treeView.setTreeSource(tree)
+        findViewById<ViewGroup>(R.id.container).apply {
+            removeAllViews()
+            addView(treeView)
+        }
+    }
+
+    private fun getTree() = if (person == null) {
+        Log.v(LOG_TAG, "Displaying dummy tree")
+        getDummyTree()
+
+    } else {
+        Log.v(LOG_TAG, "Displaying tree for: $person")
+
+        val childrenManager = ChildrenManager(this)
+        childrenManager.getTree(person!!.id)
     }
 
     private fun getDummyTree(): TreeNode<Person> {
@@ -114,6 +154,19 @@ class TreeActivity : NavigationDrawerActivity() {
         }
 
         return super.onOptionsItemSelected(item)
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == REQUEST_PERSON_VIEW) {
+            // A person could be modified by starting EditPersonActivity from ViewPersonActivity
+
+            if (resultCode == Activity.RESULT_OK) {
+                // Refresh tree layout
+                setupTree()
+            }
+        }
     }
 
 }

@@ -26,7 +26,9 @@ class TreeView @JvmOverloads constructor(
         defStyle: Int = 0
 ) : FrameLayout(context, attrs, defStyle) {
 
-    /** Width (in pixels) allocated per node for drawing. */
+    /**
+     * Width (in pixels) allocated per node for drawing.
+     */
     private val NODE_WIDTH = dpToPx(96) // must match the width in widget_person.xml
 
     /**
@@ -35,30 +37,51 @@ class TreeView @JvmOverloads constructor(
      */
     private val NODE_LATERAL_SPACING = dpToPx(8)
 
-    /** Total width (in pixels) allocated per node - the sum of its displayed width and spacing */
+    /**
+     * Total width (in pixels) allocated per node - the sum of its displayed width and spacing.
+     */
     private val NODE_TOTAL_WIDTH = NODE_WIDTH + 2 * NODE_LATERAL_SPACING
 
-    /** Height (in pixels) allocated per node for drawing */
+    /**
+     * Height (in pixels) allocated per node for drawing.
+     */
     private val NODE_HEIGHT = dpToPx(112) // must match the height in widget_person.xml
 
-    /** Height (in pixels) allocated for drawing one level of the tree */
+    /**
+     * Height (in pixels) allocated for drawing one level of the tree.
+     */
     private val LEVEL_MAX_HEIGHT = dpToPx(172)
 
 
-    /** The root node of the tree being displayed, initially null until set in [setTreeSource]. */
+    /**
+     * The root node of the tree being displayed, initially null until set in [setTreeSource].
+     */
     private var rootNode: TreeNode<Person>? = null
 
-    /** The height of the portion of the tree being drawn */
+    /**
+     * The height of the portion of the tree being drawn.
+     */
     private var displayedHeight = -1
 
-    /** The total number of leaf nodes of the part of the tree being drawn */
+    /**
+     * The total number of leaf nodes of the part of the tree being drawn.
+     */
     private var numberOfLeafNodes = -1
 
-    /** The paint to be used when drawing the box representing the node */
+    /**
+     * The paint to be used when drawing the box representing the node.
+     */
     private lateinit var nodePaint: Paint
 
-    /** The paint to be used when drawing connections (lines) between nodes */
+    /**
+     * The paint to be used when drawing connections (lines) between nodes.
+     */
     private lateinit var nodeLinePaint: Paint
+
+    /**
+     * Function to be invoked when a [PersonView] has been clicked.
+     */
+    var onPersonViewClick: ((person: Person) -> Unit)? = null
 
     /**
      * Specifies the source data to use for displaying the tree.
@@ -135,7 +158,12 @@ class TreeView @JvmOverloads constructor(
                                     childPos: Int = 0) {
         val totalAllocatedWidth = node.trimAndCountTree(null) * NODE_TOTAL_WIDTH
 
-        val personView = PersonView(context).apply { person = node.data }
+        val personView = PersonView(context).apply {
+            person = node.data
+            setOnClickListener {
+                onPersonViewClick?.invoke(person!!)
+            }
+        }
         addView(personView)
 
         // Calculate allocated coordinates (i.e. total available space)
@@ -147,12 +175,10 @@ class TreeView @JvmOverloads constructor(
         // Calculate X coordinates for area to draw in
         val centre = (allocatedLeft + 0.5 * (allocatedRight - allocatedLeft)).toFloat()
         val left = centre - (NODE_TOTAL_WIDTH / 2) + NODE_LATERAL_SPACING
-        val right = centre + (NODE_TOTAL_WIDTH / 2) - NODE_LATERAL_SPACING
 
         // Draw node representation
         personView.x = left
         personView.y = top
-        //addView(personView)
 
         // Draw line connection if not root
         parentCentre?.let {
