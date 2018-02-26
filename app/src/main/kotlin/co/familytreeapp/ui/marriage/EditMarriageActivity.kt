@@ -18,6 +18,7 @@ import co.familytreeapp.database.manager.MarriagesManager
 import co.familytreeapp.database.manager.PersonManager
 import co.familytreeapp.model.Marriage
 import co.familytreeapp.model.Person
+import co.familytreeapp.model.SimplePerson
 import co.familytreeapp.ui.UiHelper
 import co.familytreeapp.ui.Validator
 import co.familytreeapp.ui.person.EditPersonActivity
@@ -38,6 +39,15 @@ class EditMarriageActivity : AppCompatActivity() {
          * Intent extra key for supplying a [Marriage] to this activity.
          */
         const val EXTRA_MARRIAGE = "extra_marriage"
+
+        /**
+         * Intent extra key for supplying a [SimplePerson] to this activity. The details of this
+         * person will be used as the first person of the marriage.
+         *
+         * This should only be specified if a new marriage is being created (i.e. [EXTRA_MARRIAGE]
+         * is not being passed).
+         */
+        const val EXTRA_EXISTING_PERSON = "extra_existing_person"
 
         /**
          * Intent extra key for a boolean indicating whether database writes should be made in this
@@ -82,6 +92,14 @@ class EditMarriageActivity : AppCompatActivity() {
      */
     private var marriage: Marriage? = null
 
+    /**
+     * Essential data that can be used to set the first person of this marriage. It can be null if
+     * it has not been specified as an intent extra.
+     *
+     * If [marriage] is not null, then this variable will be ignored and not used.
+     */
+    private var existingPerson: SimplePerson? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_marriage)
@@ -93,6 +111,7 @@ class EditMarriageActivity : AppCompatActivity() {
         toolbar.setNavigationOnClickListener { sendCancelledResult() }
 
         marriage = intent.extras?.getParcelable(EXTRA_MARRIAGE)
+        existingPerson = intent.extras?.getParcelable(EXTRA_EXISTING_PERSON)
 
         if (marriage == null) {
             Log.v(LOG_TAG, "Editing a new marriage")
@@ -100,8 +119,17 @@ class EditMarriageActivity : AppCompatActivity() {
             Log.v(LOG_TAG, "Editing an existing marriage: $marriage")
         }
 
+        checkIntentExtras()
+
         assignUiComponents()
         setupLayout()
+    }
+
+    private fun checkIntentExtras() {
+        if (marriage != null && existingPerson != null) {
+            Log.w(LOG_TAG, "marriage and existingPerson are both not null, so existingPerson " +
+                    "will be ignored")
+        }
     }
 
     /**
@@ -109,13 +137,13 @@ class EditMarriageActivity : AppCompatActivity() {
      */
     private fun assignUiComponents() {
         person1Selector = PersonSelectorHelper(this, findViewById(R.id.editText_person1)).apply {
-            setOnCreateNewPerson { _, _ ->
+            onCreateNewPerson = { _, _ ->
                 val intent = Intent(this@EditMarriageActivity, EditPersonActivity::class.java)
                 startActivityForResult(intent, REQUEST_CREATE_PERSON_1)
             }
         }
         person2Selector = PersonSelectorHelper(this, findViewById(R.id.editText_person2)).apply {
-            setOnCreateNewPerson { _, _ ->
+            onCreateNewPerson = { _, _ ->
                 val intent = Intent(this@EditMarriageActivity, EditPersonActivity::class.java)
                 startActivityForResult(intent, REQUEST_CREATE_PERSON_2)
             }
@@ -149,6 +177,11 @@ class EditMarriageActivity : AppCompatActivity() {
 
     private fun setupDefaultLayout() {
         setMarriageOngoing(true)
+
+        existingPerson?.let {
+            person1Selector.person = it
+            person1Selector.onClickEnabled = false
+        }
     }
 
     /**

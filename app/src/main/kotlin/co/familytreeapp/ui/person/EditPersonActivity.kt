@@ -25,6 +25,7 @@ import co.familytreeapp.database.manager.PersonManager
 import co.familytreeapp.model.Gender
 import co.familytreeapp.model.Marriage
 import co.familytreeapp.model.Person
+import co.familytreeapp.model.SimplePerson
 import co.familytreeapp.ui.UiHelper
 import co.familytreeapp.ui.Validator
 import co.familytreeapp.ui.adapter.MarriageAdapter
@@ -454,15 +455,25 @@ class EditPersonActivity : AppCompatActivity() {
         builder.setView(dialogView)
                 .setTitle(R.string.dialog_add_marriage_title)
                 .setPositiveButton(R.string.action_create_new) { _, _ ->
+                    val editingSurname = forenameInput.text.toString().trim() + " " +
+                            surnameInput.text.toString().trim()
+                    val editingPerson = SimplePerson(editedPersonId(), editingSurname)
+
+                    // Will pass the current details of this person into EditMarriageActivity to be
+                    // used as 1st person of the marriage. If user cancels creating this person, the
+                    // marriage will also not be written to db because of EXTRA_WRITE_DATA false.
+                    // This allows us to use the ID the person *would* have (if it was written to
+                    // db) as the ID of editingPerson.
+
                     val intent = Intent(this@EditPersonActivity, EditMarriageActivity::class.java)
                             .putExtra(EditMarriageActivity.EXTRA_WRITE_DATA, false)
+                            .putExtra(EditMarriageActivity.EXTRA_EXISTING_PERSON, editingPerson)
                     startActivityForResult(intent, REQUEST_CREATE_MARRIAGE)
                     dialog.dismiss()
                 }
                 .setNegativeButton(android.R.string.cancel) { _, _ ->  }
 
-        dialog = builder.create()
-        dialog.show()
+        dialog = builder.show()
     }
 
     /**

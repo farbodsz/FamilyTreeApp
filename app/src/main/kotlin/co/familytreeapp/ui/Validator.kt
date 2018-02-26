@@ -4,7 +4,7 @@ import android.support.annotation.StringRes
 import android.support.design.widget.Snackbar
 import android.view.View
 import co.familytreeapp.R
-import co.familytreeapp.model.Person
+import co.familytreeapp.model.PersonInterface
 import org.threeten.bp.LocalDate
 
 /**
@@ -61,13 +61,13 @@ class Validator(private val rootView: View) {
      *
      * @return true if valid
      */
-    fun checkMarriagePeople(person1: Person?, person2: Person?): Boolean {
+    fun checkMarriagePeople(person1: PersonInterface?, person2: PersonInterface?): Boolean {
         if (person1 == null || person2 == null) {
             showMessage(R.string.validate_marriage_people_empty)
             return false
         }
 
-        if (person1 == person2) {
+        if (person1.id == person2.id) {
             showMessage(R.string.validate_marriage_people_same)
             return false
         }
