@@ -4,11 +4,11 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.CoordinatorLayout
+import android.support.design.widget.FloatingActionButton
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.Toolbar
 import android.util.Log
-import android.widget.Button
 import co.familytreeapp.R
 import co.familytreeapp.database.manager.PersonManager
 import co.familytreeapp.model.Marriage
@@ -67,7 +67,7 @@ class CreatePersonActivity : AppCompatActivity() {
     private lateinit var viewPager: ViewPager
     private val pagerAdapter = DynamicPagerAdapter()
 
-    private lateinit var nextButton: Button
+    private lateinit var nextButton: FloatingActionButton
 
     /**
      * The creator class for adding marriages to the person.
@@ -127,7 +127,7 @@ class CreatePersonActivity : AppCompatActivity() {
     private fun setupLayout() {
         coordinatorLayout = findViewById(R.id.coordinatorLayout)
         viewPager = findViewById<ViewPager>(R.id.viewPager).apply { adapter = pagerAdapter }
-        nextButton = findViewById(R.id.button_next)
+        nextButton = findViewById(R.id.fab_next)
 
         setupPersonCreatorPage(0)
     }
@@ -142,7 +142,7 @@ class CreatePersonActivity : AppCompatActivity() {
         val creator = getCreatorClass(pageIndex)
 
         // Change "Next" button's test to "Done" if last page
-        if (pageIndex == NUM_PAGES - 1) nextButton.setText(R.string.action_done)
+        if (pageIndex == NUM_PAGES - 1) nextButton.setImageResource(R.drawable.ic_done_white_24dp)
 
         // Add the new page and go to it
         val page = creator.setupPageLayout(layoutInflater, viewPager)
