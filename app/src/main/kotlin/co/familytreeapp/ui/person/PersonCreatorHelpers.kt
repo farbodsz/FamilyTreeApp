@@ -249,9 +249,6 @@ class PersonMarriageCreator(
 
     /**
      * Sets up [marriageRecyclerView] to display the marriages of the [Person] being edited.
-     *
-     * This should be invoked regardless of whether a new person is being added or an existing
-     * person is being edited.
      */
     private fun setupMarriageList() {
         marriages = MarriagesManager(context).getMarriages(person.id) as ArrayList<Marriage>
@@ -386,9 +383,6 @@ class PersonChildrenCreator(
 
     /**
      * Sets up [childrenRecyclerView] to display the children of the [Person] being edited.
-     *
-     * This should be invoked regardless of whether a new person is being added or an existing
-     * person is being edited.
      */
     private fun setupChildrenList() {
         val childrenManager = ChildrenManager(context)
