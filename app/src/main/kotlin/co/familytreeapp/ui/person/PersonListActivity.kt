@@ -27,7 +27,7 @@ class PersonListActivity : NavigationDrawerActivity() {
         private const val REQUEST_PERSON_VIEW = 1
 
         /**
-         * Request code for starting [EditPersonActivity] for result.
+         * Request code for starting [EditPersonGuidedActivity] for result.
          */
         private const val REQUEST_PERSON_EDIT = 2
     }
@@ -90,7 +90,7 @@ class PersonListActivity : NavigationDrawerActivity() {
      * Starts [EditPersonActivity] to create a [Person], for result.
      */
     private fun addPerson() {
-        val intent = Intent(this, EditPersonActivity::class.java)
+        val intent = Intent(this, EditPersonGuidedActivity::class.java)
         startActivityForResult(intent, REQUEST_PERSON_EDIT)
     }
 
@@ -98,7 +98,8 @@ class PersonListActivity : NavigationDrawerActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         if (requestCode in arrayOf(REQUEST_PERSON_VIEW, REQUEST_PERSON_EDIT)) {
-            // A person could be modified by starting EditPersonActivity from ViewPersonActivity
+            // A person could be modified by starting EditPersonActivity from ViewPersonActivity as
+            // well as from EditPersonGuidedActivity directly
 
             if (resultCode == Activity.RESULT_OK) {
                 // Refresh the list
