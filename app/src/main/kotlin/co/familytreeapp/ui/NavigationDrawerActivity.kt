@@ -14,6 +14,8 @@ import android.util.Log
 import android.view.MenuItem
 import co.familytreeapp.R
 import co.familytreeapp.ui.person.PersonListActivity
+import co.familytreeapp.ui.tree.TreeActivity
+import co.familytreeapp.ui.tree.TreeListActivity
 
 /**
  * Data class to contain details about navigation in a subclass of [NavigationDrawerActivity].

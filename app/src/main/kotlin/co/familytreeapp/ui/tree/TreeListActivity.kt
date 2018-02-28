@@ -1,9 +1,10 @@
-package co.familytreeapp.ui
+package co.familytreeapp.ui.tree
 
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import co.familytreeapp.R
+import co.familytreeapp.ui.NavigationDrawerActivity
 import co.familytreeapp.ui.person.CreatePersonActivity
 import co.familytreeapp.util.standardNavigationParams
 import co.familytreeapp.util.withNavigation

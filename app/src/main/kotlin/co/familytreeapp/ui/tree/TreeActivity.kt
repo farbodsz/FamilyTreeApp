@@ -1,4 +1,4 @@
-package co.familytreeapp.ui
+package co.familytreeapp.ui.tree
 
 import android.app.Activity
 import android.content.Intent
@@ -14,6 +14,7 @@ import co.familytreeapp.database.manager.ChildrenManager
 import co.familytreeapp.model.Gender
 import co.familytreeapp.model.Person
 import co.familytreeapp.model.tree.TreeNode
+import co.familytreeapp.ui.NavigationDrawerActivity
 import co.familytreeapp.ui.person.EditPersonActivity
 import co.familytreeapp.ui.person.ViewPersonActivity
 import co.familytreeapp.ui.widget.TreeView

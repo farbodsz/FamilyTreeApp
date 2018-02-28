@@ -18,9 +18,9 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".ui.TreeActivity" />
+        <activity android:name=".ui.tree.TreeActivity" />
 
-        <activity android:name=".ui.TreeListActivity" />
+        <activity android:name=".ui.tree.TreeListActivity" />
 
         <activity
             android:name=".ui.person.PersonListActivity"
