@@ -53,7 +53,10 @@ class EditPersonGuidedActivity : AppCompatActivity() {
          */
         private const val REQUEST_CREATE_MARRIAGE = 5
 
-        private const val MAX_PAGES = 3
+        /**
+         * The number of pages to be displayed in this activity.
+         */
+        private const val NUM_PAGES = 3
     }
 
 
@@ -114,11 +117,6 @@ class EditPersonGuidedActivity : AppCompatActivity() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        toolbar.setNavigationIcon(R.drawable.ic_close_white_24dp)
-        toolbar.setNavigationOnClickListener { sendCancelledResult() }
-
-        Log.v(LOG_TAG, "Editing a new person")
-
         setupLayout()
     }
 
@@ -137,24 +135,25 @@ class EditPersonGuidedActivity : AppCompatActivity() {
         val creator = getCreatorClass(pageIndex)
 
         // Change "Next" button's test to "Done" if last page
-        if (pageIndex == MAX_PAGES) nextButton.setText(R.string.action_done)
+        if (pageIndex == NUM_PAGES - 1) nextButton.setText(R.string.action_done)
 
         // Add the new page and go to it
+        // The currentItem will always be at index 1 if we've already added a page (because we
+        // remove the page at index 0 later), and at index 0 if this is the first page (no other
+        // pages have been added or removed).
         val page = creator.setupPageLayout(layoutInflater, viewPager)
-        pagerAdapter.addView(page, pageIndex)
-        viewPager.currentItem = pageIndex
+        pagerAdapter.addView(page)
+        viewPager.currentItem = if (pageIndex == 0) 0 else 1
 
         // Remove the previous page so the user cannot swipe back
-        if (pageIndex > 0) {
-            pagerAdapter.removeView(viewPager, pageIndex - 1)
-        }
+        if (pageIndex > 0) pagerAdapter.removeView(viewPager, 0)
 
         // Change action for when the next button is pressed
         nextButton.setOnClickListener {
             if (!creator.writeData()) return@setOnClickListener
-            // Only continue if data successfully stored in personBuilder
+            // Only continue if data successfully written to database (i.e. not invalid data)
 
-            if (pageIndex < MAX_PAGES) {
+            if (pageIndex < NUM_PAGES - 1) {
                 setupPersonCreatorPage(pageIndex + 1) // setup the next page
             } else {
                 completePersonCreation()
