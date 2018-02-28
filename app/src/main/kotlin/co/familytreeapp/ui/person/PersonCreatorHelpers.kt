@@ -310,7 +310,7 @@ class PersonChildrenCreator(
     override fun setupPageLayout(layoutInflater: LayoutInflater, viewPager: ViewPager): View {
         val page = layoutInflater.inflate(R.layout.fragment_edit_person_guided, viewPager, false)
         val container = page.findViewById<ViewGroup>(R.id.container)
-        val card = layoutInflater.inflate(R.layout.card_edit_marriages, container, false)
+        val card = layoutInflater.inflate(R.layout.card_edit_children, container, false)
 
         childrenText = card.findViewById(R.id.text_childrenNum)
         childrenText.text = context.resources.getQuantityText(R.plurals.children_count_subtitle, 0)
