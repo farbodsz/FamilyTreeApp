@@ -11,6 +11,7 @@ import android.view.MenuItem
 import android.view.ViewGroup
 import co.familytreeapp.R
 import co.familytreeapp.database.manager.ChildrenManager
+import co.familytreeapp.database.manager.PersonManager
 import co.familytreeapp.model.Gender
 import co.familytreeapp.model.Person
 import co.familytreeapp.model.tree.TreeNode
@@ -30,6 +31,8 @@ class TreeActivity : NavigationDrawerActivity() {
     companion object {
 
         private const val LOG_TAG = "TreeActivity"
+
+        private const val DISPLAY_DUMMY_TREE = false // for debugging purposes only
 
         /**
          * Request code for starting [ViewPersonActivity] for result.
@@ -83,7 +86,7 @@ class TreeActivity : NavigationDrawerActivity() {
 
     private fun setupTree() {
         val treeView = TreeView(this).apply {
-            setTreeSource(getTree())
+            setTreeSource(getDisplayedTree())
             onPersonViewClick = { person ->
                 val intent = Intent(this@TreeActivity, ViewPersonActivity::class.java)
                         .putExtra(ViewPersonActivity.EXTRA_PERSON, person)
@@ -97,15 +100,46 @@ class TreeActivity : NavigationDrawerActivity() {
         }
     }
 
-    private fun getTree() = if (person == null) {
-        Log.v(LOG_TAG, "Displaying dummy tree")
-        getDummyTree()
-
+    /**
+     * Returns the tree to be displayed in the UI.
+     */
+    private fun getDisplayedTree() = if (person == null) {
+        Log.v(LOG_TAG, "Displaying full tree")
+        getFullTree()
     } else {
         Log.v(LOG_TAG, "Displaying tree for: $person")
-
         val childrenManager = ChildrenManager(this)
         childrenManager.getTree(person!!.id)
+    }
+
+    /**
+     * Returns a tree consisting of all people added in the database.
+     */
+    private fun getFullTree(): TreeNode<Person> {
+        if (DISPLAY_DUMMY_TREE) return getDummyTree()
+
+        // We'll take the root of the tree as the node with greatest height
+
+        val allPeople = PersonManager(this).getAll()
+        val childrenManager = ChildrenManager(this)
+
+        val nodes = ArrayList<TreeNode<Person>>()
+        for (person in allPeople) {
+            val n = childrenManager.getTree(person.id)
+            nodes.add(n)
+        }
+
+        var greatestHeight = 0
+        lateinit var nodeWithGreatestHeight: TreeNode<Person>
+        for (node in nodes) {
+            val height = node.height()
+            if (height > greatestHeight) {
+                greatestHeight = height
+                nodeWithGreatestHeight = node
+            }
+        }
+
+        return nodeWithGreatestHeight
     }
 
     private fun getDummyTree(): TreeNode<Person> {
