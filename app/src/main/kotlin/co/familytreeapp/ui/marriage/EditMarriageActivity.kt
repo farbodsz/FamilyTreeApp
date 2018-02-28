@@ -18,9 +18,10 @@ import co.familytreeapp.database.manager.MarriagesManager
 import co.familytreeapp.database.manager.PersonManager
 import co.familytreeapp.model.Marriage
 import co.familytreeapp.model.Person
-import co.familytreeapp.model.SimplePerson
 import co.familytreeapp.ui.UiHelper
 import co.familytreeapp.ui.Validator
+import co.familytreeapp.ui.marriage.EditMarriageActivity.Companion.EXTRA_WRITE_DATA
+import co.familytreeapp.ui.person.CreatePersonActivity
 import co.familytreeapp.ui.person.EditPersonActivity
 import co.familytreeapp.ui.widget.DateSelectorHelper
 import co.familytreeapp.ui.widget.PersonSelectorHelper
@@ -28,6 +29,9 @@ import co.familytreeapp.util.toTitleCase
 
 /**
  * Activity to edit a [Marriage].
+ *
+ * Any changes made in this activity to the [marriage] (including creating one) will be written to
+ * the database unless a [EXTRA_WRITE_DATA] is explicitly specified.
  */
 class EditMarriageActivity : AppCompatActivity() {
 
@@ -41,8 +45,8 @@ class EditMarriageActivity : AppCompatActivity() {
         const val EXTRA_MARRIAGE = "extra_marriage"
 
         /**
-         * Intent extra key for supplying a [SimplePerson] to this activity. The details of this
-         * person will be used as the first person of the marriage.
+         * Intent extra key for supplying a [Person] to this activity. The details of this person
+         * will be used as the first person of the marriage.
          *
          * This should only be specified if a new marriage is being created (i.e. [EXTRA_MARRIAGE]
          * is not being passed).
@@ -98,7 +102,7 @@ class EditMarriageActivity : AppCompatActivity() {
      *
      * If [marriage] is not null, then this variable will be ignored and not used.
      */
-    private var existingPerson: SimplePerson? = null
+    private var existingPerson: Person? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -138,13 +142,13 @@ class EditMarriageActivity : AppCompatActivity() {
     private fun assignUiComponents() {
         person1Selector = PersonSelectorHelper(this, findViewById(R.id.editText_person1)).apply {
             onCreateNewPerson = { _, _ ->
-                val intent = Intent(this@EditMarriageActivity, EditPersonActivity::class.java)
+                val intent = Intent(this@EditMarriageActivity, CreatePersonActivity::class.java)
                 startActivityForResult(intent, REQUEST_CREATE_PERSON_1)
             }
         }
         person2Selector = PersonSelectorHelper(this, findViewById(R.id.editText_person2)).apply {
             onCreateNewPerson = { _, _ ->
-                val intent = Intent(this@EditMarriageActivity, EditPersonActivity::class.java)
+                val intent = Intent(this@EditMarriageActivity, CreatePersonActivity::class.java)
                 startActivityForResult(intent, REQUEST_CREATE_PERSON_2)
             }
         }
@@ -292,11 +296,11 @@ class EditMarriageActivity : AppCompatActivity() {
 
         when (requestCode) {
             REQUEST_CREATE_PERSON_1 -> if (resultCode == Activity.RESULT_OK) {
-                val newPerson1 = data!!.getParcelableExtra<Person>(EditPersonActivity.EXTRA_PERSON)
+                val newPerson1 = data!!.getParcelableExtra<Person>(CreatePersonActivity.EXTRA_PERSON)
                 person1Selector.person = newPerson1
             }
             REQUEST_CREATE_PERSON_2 -> if (resultCode == Activity.RESULT_OK) {
-                val newPerson2 = data!!.getParcelableExtra<Person>(EditPersonActivity.EXTRA_PERSON)
+                val newPerson2 = data!!.getParcelableExtra<Person>(CreatePersonActivity.EXTRA_PERSON)
                 person2Selector.person = newPerson2
             }
         }

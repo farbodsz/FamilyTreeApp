@@ -62,7 +62,7 @@ class ViewPersonActivity : AppCompatActivity() {
     /**
      * The [Person] received via intent extra from the previous activity.
      *
-     * It cannot be null. To create a new [Person], [EditPersonActivity] should be used, since this
+     * It cannot be null. To create a new [Person], [CreatePersonActivity] should be used, since this
      * this activity is only for displaying existing [Person]s.
      */
     private lateinit var person: Person

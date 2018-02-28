@@ -4,7 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.FloatingActionButton
 import co.familytreeapp.R
-import co.familytreeapp.ui.person.EditPersonActivity
+import co.familytreeapp.ui.person.CreatePersonActivity
 import co.familytreeapp.util.standardNavigationParams
 import co.familytreeapp.util.withNavigation
 
@@ -25,7 +25,7 @@ class TreeListActivity : NavigationDrawerActivity() {
     private fun setupFab() {
         val addPersonButton = findViewById<FloatingActionButton>(R.id.fab)
         addPersonButton.setOnClickListener {
-            val intent = Intent(this@TreeListActivity, EditPersonActivity::class.java)
+            val intent = Intent(this@TreeListActivity, CreatePersonActivity::class.java)
             startActivity(intent)
         }
     }

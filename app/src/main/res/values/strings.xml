@@ -20,6 +20,7 @@
     <string name="action_done">Done</string>
     <string name="action_delete">Delete</string>
     <string name="action_edit">Edit</string>
+    <string name="action_next">Next</string>
 
     <!-- Navigation item texts -->
     <string name="nav_item_home">@string/title_home</string>
