@@ -77,7 +77,7 @@ class PersonDetailsCreator(
     private lateinit var isAliveCheckBox: CheckBox
 
     override fun setupPageLayout(layoutInflater: LayoutInflater, viewPager: ViewPager): View {
-        val page = layoutInflater.inflate(R.layout.fragment_edit_person_guided, viewPager, false)
+        val page = layoutInflater.inflate(R.layout.fragment_create_person_page, viewPager, false)
         val container = page.findViewById<ViewGroup>(R.id.container)
 
         container.addView(createPersonDetailsCard(layoutInflater, container))
@@ -213,7 +213,7 @@ class PersonMarriageCreator(
     private lateinit var marriages: ArrayList<Marriage>
 
     override fun setupPageLayout(layoutInflater: LayoutInflater, viewPager: ViewPager): View {
-        val page = layoutInflater.inflate(R.layout.fragment_edit_person_guided, viewPager, false)
+        val page = layoutInflater.inflate(R.layout.fragment_create_person_page, viewPager, false)
         val container = page.findViewById<ViewGroup>(R.id.container)
         val card = layoutInflater.inflate(R.layout.card_edit_marriages, container, false)
 
@@ -307,7 +307,7 @@ class PersonChildrenCreator(
     private lateinit var children: ArrayList<Person>
 
     override fun setupPageLayout(layoutInflater: LayoutInflater, viewPager: ViewPager): View {
-        val page = layoutInflater.inflate(R.layout.fragment_edit_person_guided, viewPager, false)
+        val page = layoutInflater.inflate(R.layout.fragment_create_person_page, viewPager, false)
         val container = page.findViewById<ViewGroup>(R.id.container)
         val card = layoutInflater.inflate(R.layout.card_edit_children, container, false)
 

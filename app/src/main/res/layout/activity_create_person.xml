@@ -6,7 +6,7 @@
     android:id="@+id/coordinatorLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.person.EditPersonGuidedActivity">
+    tools:context=".ui.person.CreatePersonActivity">
 
     <include layout="@layout/app_bar_layout" />
 

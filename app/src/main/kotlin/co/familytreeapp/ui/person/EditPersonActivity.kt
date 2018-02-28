@@ -41,7 +41,7 @@ import co.familytreeapp.util.toTitleCase
  * to the database, and the newly created [Person] will be sent back to the activity from which this
  * was started as a result.
  *
- * @see EditPersonGuidedActivity
+ * @see CreatePersonActivity
  */
 class EditPersonActivity : AppCompatActivity() {
 
@@ -569,7 +569,7 @@ class EditPersonActivity : AppCompatActivity() {
         when (requestCode) {
             REQUEST_CREATE_CHILD -> if (resultCode == Activity.RESULT_OK) {
                 // User has successfully created a new child from the dialog
-                val child = data!!.getParcelableExtra<Person>(EditPersonActivity.EXTRA_PERSON)
+                val child = data!!.getParcelableExtra<Person>(CreatePersonActivity.EXTRA_PERSON)
                 addChildToUi(child)
             }
             REQUEST_CREATE_MARRIAGE -> if (resultCode == Activity.RESULT_OK) {

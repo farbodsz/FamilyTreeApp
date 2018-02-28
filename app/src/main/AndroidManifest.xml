@@ -35,7 +35,7 @@
             android:label="@string/title_edit_person" />
 
         <activity
-            android:name=".ui.person.EditPersonGuidedActivity"
+            android:name=".ui.person.CreatePersonActivity"
             android:label="@string/title_edit_person" />
 
         <activity

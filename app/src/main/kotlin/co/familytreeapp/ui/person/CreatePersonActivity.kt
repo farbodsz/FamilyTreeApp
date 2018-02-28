@@ -28,11 +28,11 @@ import co.familytreeapp.ui.marriage.EditMarriageActivity
  *
  * @see EditPersonActivity
  */
-class EditPersonGuidedActivity : AppCompatActivity() {
+class CreatePersonActivity : AppCompatActivity() {
 
     companion object {
 
-        private const val LOG_TAG = "EditPersonGuidedActi..."
+        private const val LOG_TAG = "CreatePersonActivity"
 
         /**
          * Intent extra key for *returning* a [Person] from the calling activity.
@@ -43,7 +43,7 @@ class EditPersonGuidedActivity : AppCompatActivity() {
         const val EXTRA_PERSON = "extra_person"
 
         /**
-         * Request code for starting [EditPersonGuidedActivity] for result, to create a new [Person]
+         * Request code for starting [CreatePersonActivity] for result, to create a new [Person]
          * which would be the child of the [person] (parent).
          */
         private const val REQUEST_CREATE_CHILD = 4
@@ -109,7 +109,7 @@ class EditPersonGuidedActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_edit_person_guided)
+        setContentView(R.layout.activity_create_person)
 
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
@@ -181,7 +181,7 @@ class EditPersonGuidedActivity : AppCompatActivity() {
         }
         2 -> {
             childrenCreator = PersonChildrenCreator(this, person!!) { _, _ ->
-                val intent = Intent(this, EditPersonGuidedActivity::class.java)
+                val intent = Intent(this, CreatePersonActivity::class.java)
                 startActivityForResult(intent, REQUEST_CREATE_CHILD)
             }
             childrenCreator
@@ -225,7 +225,7 @@ class EditPersonGuidedActivity : AppCompatActivity() {
         when (requestCode) {
             REQUEST_CREATE_CHILD -> if (resultCode == Activity.RESULT_OK) {
                 // User has successfully created a new child from the dialog
-                val child = data!!.getParcelableExtra<Person>(EditPersonGuidedActivity.EXTRA_PERSON)
+                val child = data!!.getParcelableExtra<Person>(CreatePersonActivity.EXTRA_PERSON)
                 childrenCreator.addChild(child)
             }
             REQUEST_CREATE_MARRIAGE -> if (resultCode == Activity.RESULT_OK) {

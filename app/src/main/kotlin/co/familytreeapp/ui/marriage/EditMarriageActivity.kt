@@ -22,6 +22,7 @@ import co.familytreeapp.model.SimplePerson
 import co.familytreeapp.ui.UiHelper
 import co.familytreeapp.ui.Validator
 import co.familytreeapp.ui.marriage.EditMarriageActivity.Companion.EXTRA_WRITE_DATA
+import co.familytreeapp.ui.person.CreatePersonActivity
 import co.familytreeapp.ui.person.EditPersonActivity
 import co.familytreeapp.ui.widget.DateSelectorHelper
 import co.familytreeapp.ui.widget.PersonSelectorHelper
@@ -142,13 +143,13 @@ class EditMarriageActivity : AppCompatActivity() {
     private fun assignUiComponents() {
         person1Selector = PersonSelectorHelper(this, findViewById(R.id.editText_person1)).apply {
             onCreateNewPerson = { _, _ ->
-                val intent = Intent(this@EditMarriageActivity, EditPersonActivity::class.java)
+                val intent = Intent(this@EditMarriageActivity, CreatePersonActivity::class.java)
                 startActivityForResult(intent, REQUEST_CREATE_PERSON_1)
             }
         }
         person2Selector = PersonSelectorHelper(this, findViewById(R.id.editText_person2)).apply {
             onCreateNewPerson = { _, _ ->
-                val intent = Intent(this@EditMarriageActivity, EditPersonActivity::class.java)
+                val intent = Intent(this@EditMarriageActivity, CreatePersonActivity::class.java)
                 startActivityForResult(intent, REQUEST_CREATE_PERSON_2)
             }
         }
@@ -296,11 +297,11 @@ class EditMarriageActivity : AppCompatActivity() {
 
         when (requestCode) {
             REQUEST_CREATE_PERSON_1 -> if (resultCode == Activity.RESULT_OK) {
-                val newPerson1 = data!!.getParcelableExtra<Person>(EditPersonActivity.EXTRA_PERSON)
+                val newPerson1 = data!!.getParcelableExtra<Person>(CreatePersonActivity.EXTRA_PERSON)
                 person1Selector.person = newPerson1
             }
             REQUEST_CREATE_PERSON_2 -> if (resultCode == Activity.RESULT_OK) {
-                val newPerson2 = data!!.getParcelableExtra<Person>(EditPersonActivity.EXTRA_PERSON)
+                val newPerson2 = data!!.getParcelableExtra<Person>(CreatePersonActivity.EXTRA_PERSON)
                 person2Selector.person = newPerson2
             }
         }
