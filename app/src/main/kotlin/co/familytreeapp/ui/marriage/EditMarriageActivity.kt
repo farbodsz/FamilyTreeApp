@@ -21,6 +21,7 @@ import co.familytreeapp.model.Person
 import co.familytreeapp.model.SimplePerson
 import co.familytreeapp.ui.UiHelper
 import co.familytreeapp.ui.Validator
+import co.familytreeapp.ui.marriage.EditMarriageActivity.Companion.EXTRA_WRITE_DATA
 import co.familytreeapp.ui.person.EditPersonActivity
 import co.familytreeapp.ui.widget.DateSelectorHelper
 import co.familytreeapp.ui.widget.PersonSelectorHelper
@@ -28,6 +29,9 @@ import co.familytreeapp.util.toTitleCase
 
 /**
  * Activity to edit a [Marriage].
+ *
+ * Any changes made in this activity to the [marriage] (including creating one) will be written to
+ * the database unless a [EXTRA_WRITE_DATA] is explicitly specified.
  */
 class EditMarriageActivity : AppCompatActivity() {
 
