@@ -115,9 +115,18 @@ class ViewPersonActivity : AppCompatActivity() {
         button.text = getString(R.string.view_tree, person.forename)
         button.setOnClickListener {
             val intent = Intent(this, TreeActivity::class.java)
-                    .putExtra(TreeActivity.EXTRA_PERSON, person)
+                    .putExtra(TreeActivity.EXTRA_PERSON, getTreeRoot())
             startActivityForResult(intent, REQUEST_VIEW_TREE)
         }
+    }
+
+    /**
+     * Returns the [Person] used for the root of the tree.
+     * @see REQUEST_VIEW_TREE
+     */
+    private fun getTreeRoot(): Person {
+        val parents = ChildrenManager(this).getParents(person.id)
+        return if (parents.isEmpty()) person else parents[0]
     }
 
     private fun setupParentsList() {
