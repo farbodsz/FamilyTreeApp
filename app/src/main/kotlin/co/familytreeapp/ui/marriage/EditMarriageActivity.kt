@@ -18,7 +18,6 @@ import co.familytreeapp.database.manager.MarriagesManager
 import co.familytreeapp.database.manager.PersonManager
 import co.familytreeapp.model.Marriage
 import co.familytreeapp.model.Person
-import co.familytreeapp.model.SimplePerson
 import co.familytreeapp.ui.UiHelper
 import co.familytreeapp.ui.Validator
 import co.familytreeapp.ui.marriage.EditMarriageActivity.Companion.EXTRA_WRITE_DATA
@@ -46,8 +45,8 @@ class EditMarriageActivity : AppCompatActivity() {
         const val EXTRA_MARRIAGE = "extra_marriage"
 
         /**
-         * Intent extra key for supplying a [SimplePerson] to this activity. The details of this
-         * person will be used as the first person of the marriage.
+         * Intent extra key for supplying a [Person] to this activity. The details of this person
+         * will be used as the first person of the marriage.
          *
          * This should only be specified if a new marriage is being created (i.e. [EXTRA_MARRIAGE]
          * is not being passed).
@@ -103,7 +102,7 @@ class EditMarriageActivity : AppCompatActivity() {
      *
      * If [marriage] is not null, then this variable will be ignored and not used.
      */
-    private var existingPerson: SimplePerson? = null
+    private var existingPerson: Person? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

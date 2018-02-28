@@ -175,6 +175,7 @@ class CreatePersonActivity : AppCompatActivity() {
         1 -> {
             marriageCreator = PersonMarriageCreator(this, person!!) { _, _ ->
                 val intent = Intent(this, EditMarriageActivity::class.java)
+                        .putExtra(EditMarriageActivity.EXTRA_EXISTING_PERSON, person!!)
                 startActivityForResult(intent, REQUEST_CREATE_MARRIAGE)
             }
             marriageCreator

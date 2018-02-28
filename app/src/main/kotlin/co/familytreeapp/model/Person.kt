@@ -7,64 +7,6 @@ import co.familytreeapp.database.schemas.PersonsSchema
 import org.threeten.bp.LocalDate
 
 /**
- * Defines the most essential properties of a person.
- */
-interface PersonInterface {
-
-    /**
-     * A unique identifier of the person.
-     * This must be an integer greater than 0.
-     */
-    val id: Int
-
-    /**
-     * The forename and surname of the person.
-     * Whether it is allowed to be blank or not depends on the subclass of this interface.
-     */
-    val fullName: String
-
-}
-
-/**
- * Data class used to store the id and name of a person - the most basic implementation of
- * [PersonInterface].
- *
- * This should not be used in the [Person] class itself, but can be used elsewhere to pass these two
- * vital properties.
- *
- * @see PersonInterface
- * @see Person
- */
-data class SimplePerson(
-        override val id: Int,
-        override val fullName: String
-) : PersonInterface, Parcelable {
-
-    init {
-        require(id > 0) { "the id must be greater than 0" }
-        require(fullName.isNotBlank()) { "the full name cannot be blank" }
-    }
-
-    companion object {
-        @JvmField
-        val CREATOR: Parcelable.Creator<SimplePerson> = object : Parcelable.Creator<SimplePerson> {
-            override fun createFromParcel(source: Parcel): SimplePerson = SimplePerson(source)
-            override fun newArray(size: Int): Array<SimplePerson?> = arrayOfNulls(size)
-        }
-    }
-
-    constructor(source: Parcel) : this(source.readInt(), source.readString())
-
-    override fun describeContents() = 0
-
-    override fun writeToParcel(dest: Parcel, flags: Int) = with(dest) {
-        writeInt(id)
-        writeString(fullName)
-    }
-
-}
-
-/**
  * Represents a member of the family.
  *
  * @param id            a unique identifier of the person
@@ -79,7 +21,7 @@ data class SimplePerson(
  *                      example, if the person is currently alive).
  */
 data class Person(
-        override val id: Int,
+        val id: Int,
         val forename: String,
         val surname: String,
         val gender: Gender,
@@ -87,7 +29,7 @@ data class Person(
         val placeOfBirth: String,
         val dateOfDeath: LocalDate?,
         val placeOfDeath: String
-) : PersonInterface, StandardData, Comparable<Person>, Parcelable {
+) : StandardData, Comparable<Person>, Parcelable {
 
     init {
         require(id > 0) { "the id must be greater than 0" }
@@ -103,7 +45,7 @@ data class Person(
         }
     }
 
-    override val fullName = "$forename $surname"
+    val fullName = "$forename $surname"
 
     fun isAlive() = dateOfDeath == null
 
@@ -119,7 +61,8 @@ data class Person(
         /**
          * Instantiates a [Person] by getting values in columns from a [cursor].
          */
-        @JvmStatic fun from(cursor: Cursor): Person {
+        @JvmStatic
+        fun from(cursor: Cursor): Person {
             val dateOfBirth = LocalDate.of(
                     cursor.getInt(cursor.getColumnIndex(PersonsSchema.COL_BIRTH_DATE_YEAR)),
                     cursor.getInt(cursor.getColumnIndex(PersonsSchema.COL_BIRTH_DATE_MONTH)),
@@ -202,8 +145,7 @@ data class Gender(val id: Int) : Parcelable {
 
         @JvmField val FEMALE = Gender(1)
 
-        @JvmField
-        val CREATOR: Parcelable.Creator<Gender> = object : Parcelable.Creator<Gender> {
+        @JvmField val CREATOR: Parcelable.Creator<Gender> = object : Parcelable.Creator<Gender> {
             override fun createFromParcel(source: Parcel): Gender = Gender(source)
             override fun newArray(size: Int): Array<Gender?> = arrayOfNulls(size)
         }

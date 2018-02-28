@@ -10,12 +10,11 @@ import android.view.View
 import co.familytreeapp.R
 import co.familytreeapp.database.manager.PersonManager
 import co.familytreeapp.model.Person
-import co.familytreeapp.model.PersonInterface
 import co.familytreeapp.ui.adapter.PersonAdapter
 
 /**
- * A helper class to display a [person][PersonInterface] on a [TextInputEditText], and allowing it
- * to be changed through click then dialog.
+ * A helper class to display a [Person] on a [TextInputEditText], and allowing it to be changed
+ * through click then dialog.
  *
  * @param context           context from the activity/fragment
  * @param textInputEditText the [TextInputEditText] being used for the person picker
@@ -26,7 +25,7 @@ import co.familytreeapp.ui.adapter.PersonAdapter
 class PersonSelectorHelper(
         private val context: Context,
         private val textInputEditText: TextInputEditText,
-        initialPerson: PersonInterface? = null
+        initialPerson: Person? = null
 ) {
 
     /**
