@@ -21,9 +21,9 @@ import co.familytreeapp.database.manager.ChildrenManager
 import co.familytreeapp.database.manager.MarriagesManager
 import co.familytreeapp.database.manager.PersonManager
 import co.familytreeapp.model.Person
-import co.familytreeapp.ui.TreeActivity
 import co.familytreeapp.ui.adapter.MarriageAdapter
 import co.familytreeapp.ui.adapter.PersonAdapter
+import co.familytreeapp.ui.tree.TreeActivity
 import co.familytreeapp.util.DATE_FORMATTER_BIRTH
 
 /**

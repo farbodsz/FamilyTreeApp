@@ -4,10 +4,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical"
-    android:layout_width="96dp"
-    android:layout_height="112dp"
+    android:layout_width="72dp"
+    android:layout_height="96dp"
     android:gravity="center"
-    android:padding="8dp">
+    android:padding="4dp">
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/circleImageView"
@@ -20,6 +20,8 @@
     <TextView
         android:id="@+id/name"
         tools:text="Forename Surname"
+        android:maxLines="3"
+        android:ellipsize="end"
         android:textColor="@color/text_black"
         android:textSize="12sp"
         android:layout_width="wrap_content"
