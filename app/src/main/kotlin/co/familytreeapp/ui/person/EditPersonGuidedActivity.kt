@@ -129,7 +129,10 @@ class EditPersonGuidedActivity : AppCompatActivity() {
     }
 
     /**
-     * Sets up a page of the layout, determined by the [pageIndex]
+     * Sets up a page of the layout, determined by the [pageIndex].
+     *
+     * @param pageIndex an integer identifying the page being set up. This is not the same as the
+     *                  position of the page in the [viewPager].
      */
     private fun setupPersonCreatorPage(pageIndex: Int) {
         val creator = getCreatorClass(pageIndex)
@@ -138,15 +141,12 @@ class EditPersonGuidedActivity : AppCompatActivity() {
         if (pageIndex == NUM_PAGES - 1) nextButton.setText(R.string.action_done)
 
         // Add the new page and go to it
-        // The currentItem will always be at index 1 if we've already added a page (because we
-        // remove the page at index 0 later), and at index 0 if this is the first page (no other
-        // pages have been added or removed).
         val page = creator.setupPageLayout(layoutInflater, viewPager)
-        pagerAdapter.addView(page)
-        viewPager.currentItem = if (pageIndex == 0) 0 else 1
+        val pagePos = pagerAdapter.addView(page)
+        viewPager.currentItem = pagePos
 
         // Remove the previous page so the user cannot swipe back
-        if (pageIndex > 0) pagerAdapter.removeView(viewPager, 0)
+        if (pagePos > 0) pagerAdapter.removeView(viewPager, pagePos - 1)
 
         // Change action for when the next button is pressed
         nextButton.setOnClickListener {

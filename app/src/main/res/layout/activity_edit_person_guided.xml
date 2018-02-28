@@ -20,31 +20,31 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content" />
 
-        <View
-            android:id="@+id/divider"
-            android:background="@color/text_white_secondary"
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_alignTop="@+id/bottomBar" />
-
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/bottomBar"
-            style="@style/Widget.AppTheme.Toolbar"
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true" />
-
-        <Button
-            android:id="@+id/button_next"
-            android:text="@string/action_next"
-            android:textColor="@color/text_white_secondary"
-            style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_below="@+id/divider"
-            android:layout_alignTop="@+id/bottomBar"
-            android:layout_alignBottom="@+id/bottomBar"
+            android:elevation="4dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
             android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true" />
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true">
+
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/bottomBar"
+                android:minHeight="?actionBarSize"
+                android:background="@color/white"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+            <Button
+                android:id="@+id/button_next"
+                android:text="@string/action_next"
+                android:textColor="?colorAccent"
+                style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="end" />
+        </FrameLayout>
     </RelativeLayout>
 </android.support.design.widget.CoordinatorLayout>
