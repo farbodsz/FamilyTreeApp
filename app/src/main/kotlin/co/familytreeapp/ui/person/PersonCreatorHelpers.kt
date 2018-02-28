@@ -442,6 +442,10 @@ class PersonChildrenCreator(
         )
     }
 
-    override fun writeData() = true // data will be written in instances of EditPersonActivity
-
+    override fun writeData(): Boolean {
+        // While the Person objects from the child-parent relationship have been added, the
+        // relationships themselves have not. Data validation doesn't need to be done here.
+        ChildrenManager(context).addChildren(parent.id, children)
+        return true
+    }
 }
