@@ -44,7 +44,7 @@ class EditPersonGuidedActivity : AppCompatActivity() {
 
         /**
          * Request code for starting [EditPersonGuidedActivity] for result, to create a new [Person]
-         * which would be the child of the [cachedPerson] (parent).
+         * which would be the child of the [person] (parent).
          */
         private const val REQUEST_CREATE_CHILD = 4
 
@@ -76,7 +76,7 @@ class EditPersonGuidedActivity : AppCompatActivity() {
      * object and writing it to the database.
      *
      * @see childrenCreator
-     * @see cachedPerson
+     * @see person
      */
     private lateinit var marriageCreator: PersonMarriageCreator
 
@@ -87,7 +87,7 @@ class EditPersonGuidedActivity : AppCompatActivity() {
      * object and writing it to the database.
      *
      * @see marriageCreator
-     * @see cachedPerson
+     * @see person
      */
     private lateinit var childrenCreator: PersonChildrenCreator
 
@@ -100,15 +100,12 @@ class EditPersonGuidedActivity : AppCompatActivity() {
     private val personId by lazy { personManager.nextAvailableId() }
 
     /**
-     * The created [Person] (already written to the database) with ID determined by [personId].
+     * The newly created [Person] (already written to the database).
      *
-     * It will be initialised lazily, so the [Person] object will be retrieved from the database
-     * only the first time it is accessed, and subsequent accesses will use a cached value.
-     *
-     * **THIS SHOULD ONLY BE ACCESSED AFTER THE PERSON HAS BEEN WRITTEN TO THE DATABASE**, otherwise
-     * the database query will be unsuccessful.
+     * It will be assigned after a [PersonDetailsCreator] writes to the database; until then it will
+     * remain at its default value of null.
      */
-    private val cachedPerson by lazy { personManager.get(personId) }
+    private var person: Person? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -117,8 +114,15 @@ class EditPersonGuidedActivity : AppCompatActivity() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
+        toolbar.setNavigationIcon(R.drawable.ic_close_white_24dp)
+        toolbar.setNavigationOnClickListener {
+            if (personHasCreated()) sendSuccessfulResult(person!!) else sendCancelledResult()
+        }
+
         setupLayout()
     }
+
+    private fun personHasCreated() = person != null
 
     private fun setupLayout() {
         coordinatorLayout = findViewById(R.id.coordinatorLayout)
@@ -164,17 +168,19 @@ class EditPersonGuidedActivity : AppCompatActivity() {
     /**
      * Returns the creator class responsible for displaying the page with [index].
      */
-    private fun getCreatorClass(index: Int) = when (index) { // TODO sealed classes?
-        0 -> PersonDetailsCreator(personId, this, Validator(coordinatorLayout))
+    private fun getCreatorClass(index: Int) = when (index) {
+        0 -> PersonDetailsCreator(this, personId, Validator(coordinatorLayout)) { newPerson ->
+            person = newPerson
+        }
         1 -> {
-            marriageCreator = PersonMarriageCreator(this, cachedPerson) { _, _ ->
+            marriageCreator = PersonMarriageCreator(this, person!!) { _, _ ->
                 val intent = Intent(this, EditMarriageActivity::class.java)
                 startActivityForResult(intent, REQUEST_CREATE_MARRIAGE)
             }
             marriageCreator
         }
         2 -> {
-            childrenCreator = PersonChildrenCreator(this, cachedPerson) { _, _ ->
+            childrenCreator = PersonChildrenCreator(this, person!!) { _, _ ->
                 val intent = Intent(this, EditPersonGuidedActivity::class.java)
                 startActivityForResult(intent, REQUEST_CREATE_CHILD)
             }
@@ -186,7 +192,7 @@ class EditPersonGuidedActivity : AppCompatActivity() {
     private fun completePersonCreation() {
         // Data has already been written to the database
         // Just send back a successful result
-        sendSuccessfulResult(cachedPerson)
+        sendSuccessfulResult(person!!)
     }
 
     /**

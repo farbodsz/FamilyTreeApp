@@ -58,9 +58,10 @@ interface PersonCreatorSection {
 typealias OnCreateNew = (dialogInterface: DialogInterface, which: Int) -> Unit
 
 class PersonDetailsCreator(
-        private val personId: Int,
         private val context: Context,
-        private val validator: Validator
+        private val personId: Int,
+        private val validator: Validator,
+        private val onPostWriteData: (newPerson: Person) -> Unit
 ) : PersonCreatorSection {
 
     private lateinit var forenameInput: TextInputEditText
@@ -165,6 +166,7 @@ class PersonDetailsCreator(
         // Don't continue with db write if inputs invalid
         val newPerson = validatePerson(validator) ?: return false
         PersonManager(context).add(newPerson)
+        onPostWriteData.invoke(newPerson)
         return true
     }
 
