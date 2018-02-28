@@ -462,6 +462,7 @@ class EditPersonActivity : AppCompatActivity() {
                 .setPositiveButton(R.string.action_create_new) { _, _ ->
                     val intent = Intent(this@EditPersonActivity, EditMarriageActivity::class.java)
                             .putExtra(EditMarriageActivity.EXTRA_WRITE_DATA, false)
+                            .putExtra(EditMarriageActivity.EXTRA_EXISTING_PERSON, person)
                     startActivityForResult(intent, REQUEST_CREATE_MARRIAGE)
                     dialog.dismiss()
                 }
