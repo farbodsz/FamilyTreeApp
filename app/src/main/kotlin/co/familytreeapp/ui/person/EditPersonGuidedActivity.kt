@@ -1,0 +1,236 @@
+package co.familytreeapp.ui.person
+
+import android.app.Activity
+import android.content.Intent
+import android.os.Bundle
+import android.support.design.widget.CoordinatorLayout
+import android.support.v4.view.ViewPager
+import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.Toolbar
+import android.util.Log
+import android.widget.Button
+import co.familytreeapp.R
+import co.familytreeapp.database.manager.PersonManager
+import co.familytreeapp.model.Marriage
+import co.familytreeapp.model.Person
+import co.familytreeapp.ui.Validator
+import co.familytreeapp.ui.adapter.DynamicPagerAdapter
+import co.familytreeapp.ui.marriage.EditMarriageActivity
+
+/**
+ * This activity provides the UI for adding a new person from the database, with a guided format.
+ *
+ * **To edit an existing person, [EditPersonActivity] should be used, not this.**
+ *
+ * When the user adds all the information and confirms, the data for the new person will be written
+ * to the database, and the newly created [Person] will be sent back to the activity from which this
+ * was started as a result.
+ *
+ * @see EditPersonActivity
+ */
+class EditPersonGuidedActivity : AppCompatActivity() {
+
+    companion object {
+
+        private const val LOG_TAG = "EditPersonGuidedActi..."
+
+        /**
+         * Intent extra key for *returning* a [Person] from the calling activity.
+         *
+         * This activity is only for creating a new [Person], so anything with this key passed to
+         * this activity will be ignored.
+         */
+        const val EXTRA_PERSON = "extra_person"
+
+        /**
+         * Request code for starting [EditPersonGuidedActivity] for result, to create a new [Person]
+         * which would be the child of the [cachedPerson] (parent).
+         */
+        private const val REQUEST_CREATE_CHILD = 4
+
+        /**
+         * Request code for starting [EditMarriageActivity] for result, to create a new [Marriage]
+         */
+        private const val REQUEST_CREATE_MARRIAGE = 5
+
+        private const val MAX_PAGES = 3
+    }
+
+
+    private val personManager = PersonManager(this)
+
+    private lateinit var coordinatorLayout: CoordinatorLayout
+
+    private lateinit var viewPager: ViewPager
+    private val pagerAdapter = DynamicPagerAdapter()
+
+    private lateinit var nextButton: Button
+
+    /**
+     * The creator class for adding marriages to the person.
+     *
+     * It will be initialised (and so should only be accessed) only after creating the [Person]
+     * object and writing it to the database.
+     *
+     * @see childrenCreator
+     * @see cachedPerson
+     */
+    private lateinit var marriageCreator: PersonMarriageCreator
+
+    /**
+     * The creator class for adding children to the person.
+     *
+     * It will be initialised (and so should only be accessed) only after creating the [Person]
+     * object and writing it to the database.
+     *
+     * @see marriageCreator
+     * @see cachedPerson
+     */
+    private lateinit var childrenCreator: PersonChildrenCreator
+
+    /**
+     * The ID assigned to this new [Person] being created.
+     *
+     * As a lazily-initialised variable, its value will remain constant, so it will have the same
+     * value before and after the [Person] has been written to the database.
+     */
+    private val personId by lazy { personManager.nextAvailableId() }
+
+    /**
+     * The created [Person] (already written to the database) with ID determined by [personId].
+     *
+     * It will be initialised lazily, so the [Person] object will be retrieved from the database
+     * only the first time it is accessed, and subsequent accesses will use a cached value.
+     *
+     * **THIS SHOULD ONLY BE ACCESSED AFTER THE PERSON HAS BEEN WRITTEN TO THE DATABASE**, otherwise
+     * the database query will be unsuccessful.
+     */
+    private val cachedPerson by lazy { personManager.get(personId) }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setContentView(R.layout.activity_edit_person_guided)
+
+        val toolbar = findViewById<Toolbar>(R.id.toolbar)
+        setSupportActionBar(toolbar)
+
+        toolbar.setNavigationIcon(R.drawable.ic_close_white_24dp)
+        toolbar.setNavigationOnClickListener { sendCancelledResult() }
+
+        Log.v(LOG_TAG, "Editing a new person")
+
+        setupLayout()
+    }
+
+    private fun setupLayout() {
+        coordinatorLayout = findViewById(R.id.coordinatorLayout)
+        viewPager = findViewById<ViewPager>(R.id.viewPager).apply { adapter = pagerAdapter }
+        nextButton = findViewById(R.id.button_next)
+
+        setupPersonCreatorPage(0)
+    }
+
+    /**
+     * Sets up a page of the layout, determined by the [pageIndex]
+     */
+    private fun setupPersonCreatorPage(pageIndex: Int) {
+        val creator = getCreatorClass(pageIndex)
+
+        // Change "Next" button's test to "Done" if last page
+        if (pageIndex == MAX_PAGES) nextButton.setText(R.string.action_done)
+
+        // Add the new page and go to it
+        val page = creator.setupPageLayout(layoutInflater, viewPager)
+        pagerAdapter.addView(page, pageIndex)
+        viewPager.currentItem = pageIndex
+
+        // Remove the previous page so the user cannot swipe back
+        if (pageIndex > 0) {
+            pagerAdapter.removeView(viewPager, pageIndex - 1)
+        }
+
+        // Change action for when the next button is pressed
+        nextButton.setOnClickListener {
+            if (!creator.writeData()) return@setOnClickListener
+            // Only continue if data successfully stored in personBuilder
+
+            if (pageIndex < MAX_PAGES) {
+                setupPersonCreatorPage(pageIndex + 1) // setup the next page
+            } else {
+                completePersonCreation()
+            }
+        }
+    }
+
+    /**
+     * Returns the creator class responsible for displaying the page with [index].
+     */
+    private fun getCreatorClass(index: Int) = when (index) { // TODO sealed classes?
+        0 -> PersonDetailsCreator(personId, this, Validator(coordinatorLayout))
+        1 -> {
+            marriageCreator = PersonMarriageCreator(this, cachedPerson) { _, _ ->
+                val intent = Intent(this, EditMarriageActivity::class.java)
+                startActivityForResult(intent, REQUEST_CREATE_MARRIAGE)
+            }
+            marriageCreator
+        }
+        2 -> {
+            childrenCreator = PersonChildrenCreator(this, cachedPerson) { _, _ ->
+                val intent = Intent(this, EditPersonGuidedActivity::class.java)
+                startActivityForResult(intent, REQUEST_CREATE_CHILD)
+            }
+            childrenCreator
+        }
+        else -> throw IllegalArgumentException("invalid index: $index")
+    }
+
+    private fun completePersonCreation() {
+        // Data has already been written to the database
+        // Just send back a successful result
+        sendSuccessfulResult(cachedPerson)
+    }
+
+    /**
+     * Sends an "ok" result back to where this activity was invoked from.
+     *
+     * @param result    the newly created [Person]
+     * @see android.app.Activity.RESULT_OK
+     */
+    private fun sendSuccessfulResult(result: Person) {
+        Log.d(LOG_TAG, "Sending successful result: $result")
+        val returnIntent = Intent().putExtra(EXTRA_PERSON, result)
+        setResult(Activity.RESULT_OK, returnIntent)
+        finish()
+    }
+
+    /**
+     * Sends a "cancelled" result back to where this activity was invoked from.
+     *
+     * @see android.app.Activity.RESULT_CANCELED
+     */
+    private fun sendCancelledResult() {
+        Log.d(LOG_TAG, "Sending cancelled result")
+        setResult(Activity.RESULT_CANCELED)
+        finish()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        when (requestCode) {
+            REQUEST_CREATE_CHILD -> if (resultCode == Activity.RESULT_OK) {
+                // User has successfully created a new child from the dialog
+                val child = data!!.getParcelableExtra<Person>(EditPersonGuidedActivity.EXTRA_PERSON)
+                childrenCreator.addChild(child)
+            }
+            REQUEST_CREATE_MARRIAGE -> if (resultCode == Activity.RESULT_OK) {
+                // User has successfully created a new marriage from the dialog
+                val marriage = data!!.getParcelableExtra<Marriage>(EditMarriageActivity.EXTRA_MARRIAGE)
+                marriageCreator.addMarriage(marriage)
+            }
+        }
+    }
+
+    override fun onBackPressed() = sendCancelledResult()
+
+}

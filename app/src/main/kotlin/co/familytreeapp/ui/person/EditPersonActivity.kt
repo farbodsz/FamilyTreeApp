@@ -40,6 +40,8 @@ import co.familytreeapp.util.toTitleCase
  * When the user adds all the information and confirms, the data for the new person will be written
  * to the database, and the newly created [Person] will be sent back to the activity from which this
  * was started as a result.
+ *
+ * @see EditPersonGuidedActivity
  */
 class EditPersonActivity : AppCompatActivity() {
 
