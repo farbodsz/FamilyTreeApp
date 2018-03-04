@@ -5,9 +5,11 @@ import android.support.annotation.ColorRes
 import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
 import android.view.View
+import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
 import co.familytreeapp.R
+import co.familytreeapp.database.manager.MarriagesManager
 import co.familytreeapp.model.Person
 import de.hdodenhof.circleimageview.CircleImageView
 
@@ -22,6 +24,7 @@ class PersonView @JvmOverloads constructor(
 
     private val imageView: CircleImageView
     private val nameTextView: TextView
+    private val marriageIcon: ImageView
 
     private var name = ""
         set(value) {
@@ -51,6 +54,9 @@ class PersonView @JvmOverloads constructor(
             } else {
                 R.color.image_border_female
             }
+
+            val isMarried = MarriagesManager(context).getMarriages(value.id).isNotEmpty()
+            marriageIcon.visibility = if (isMarried) View.VISIBLE else View.GONE
         }
 
     init {
@@ -58,6 +64,7 @@ class PersonView @JvmOverloads constructor(
         val personView = View.inflate(context, R.layout.widget_person, this)
         imageView = personView.findViewById(R.id.circleImageView)
         nameTextView = personView.findViewById(R.id.name)
+        marriageIcon = personView.findViewById(R.id.icon_married)
     }
 
 }

@@ -7,19 +7,37 @@
     android:layout_width="72dp"
     android:layout_height="96dp"
     android:gravity="center"
-    android:padding="4dp">
+    android:padding="2dp">
 
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/circleImageView"
-        android:src="@color/white"
-        android:layout_width="36dp"
-        android:layout_height="36dp"
-        app:civ_border_color="@color/black"
-        app:civ_border_width="2dp" />
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/circleImageView"
+            android:src="@color/white"
+            android:layout_width="36dp"
+            android:layout_height="36dp"
+            android:layout_gravity="center"
+            app:civ_border_color="@color/black"
+            app:civ_border_width="2dp" />
+
+        <ImageView
+            android:id="@+id/icon_married"
+            app:srcCompat="@drawable/ic_link_black_24dp"
+            android:visibility="gone"
+            tools:visibility="visible"
+            android:contentDescription="@string/married_to"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_gravity="bottom"
+            android:layout_width="24dp"
+            android:layout_height="24dp" />
+    </FrameLayout>
 
     <TextView
         android:id="@+id/name"
-        tools:text="Forename Surname"
+        tools:text="Forename Middle Surname"
         android:maxLines="3"
         android:ellipsize="end"
         android:textColor="@color/text_black"
