@@ -12,9 +12,7 @@ import co.familytreeapp.model.StandardData
  *
  * @see DataManager
  */
-abstract class StandardDataManager<T : StandardData>(
-        private val context: Context
-): DataManager<T>(context) {
+abstract class StandardDataManager<T : StandardData>(context: Context) : DataManager<T>(context) {
 
     companion object {
         private const val LOG_TAG = "StandardDataManager"

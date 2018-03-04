@@ -14,8 +14,8 @@ import co.familytreeapp.model.DataRelationship
  * @see DataManager
  */
 abstract class RelationshipManager<T : DataRelationship>(
-        private val context: Context
-): DataManager<T>(context) {
+        context: Context
+) : DataManager<T>(context) {
 
     companion object {
         private const val LOG_TAG = "RelationshipManager"
