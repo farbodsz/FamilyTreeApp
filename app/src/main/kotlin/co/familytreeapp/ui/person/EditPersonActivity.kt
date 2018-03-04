@@ -4,7 +4,6 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.design.widget.CoordinatorLayout
-import android.support.design.widget.TextInputEditText
 import android.support.design.widget.TextInputLayout
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
@@ -70,8 +69,8 @@ class EditPersonActivity : AppCompatActivity() {
 
     private lateinit var coordinatorLayout: CoordinatorLayout
 
-    private lateinit var forenameInput: TextInputEditText
-    private lateinit var surnameInput: TextInputEditText
+    private lateinit var forenameInput: EditText
+    private lateinit var surnameInput: EditText
     private lateinit var maleRadioBtn: RadioButton
     private lateinit var femaleRadioBtn: RadioButton
 
@@ -223,7 +222,7 @@ class EditPersonActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupNameInputError(textInputLayout: TextInputLayout, editText: TextInputEditText) {
+    private fun setupNameInputError(textInputLayout: TextInputLayout, editText: EditText) {
         editText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 if (s!!.isBlank()) {
