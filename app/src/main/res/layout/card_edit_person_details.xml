@@ -49,7 +49,7 @@
                     android:layout_weight="1"
                     android:layout_height="wrap_content">
 
-                    <co.familytreeapp.ui.widget.SurnameAutoCompleteEditText
+                    <com.farbodsz.familytree.ui.widget.SurnameAutoCompleteEditText
                         android:id="@+id/editText_surname"
                         android:hint="@string/surname"
                         style="@style/Widget.AppTheme.EditText.SingleLine.Input"

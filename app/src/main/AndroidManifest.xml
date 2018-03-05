@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="co.familytreeapp">
+    package="com.farbodsz.familytree">
 
     <application
         android:name=".FamilyTreeApplication"
@@ -42,5 +42,4 @@
             android:name=".ui.marriage.EditMarriageActivity"
             android:label="@string/title_edit_marriage" />
     </application>
-
 </manifest>
