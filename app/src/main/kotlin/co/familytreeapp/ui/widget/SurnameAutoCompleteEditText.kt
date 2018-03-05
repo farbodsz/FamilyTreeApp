@@ -3,6 +3,7 @@ package co.familytreeapp.ui.widget
 import android.content.Context
 import android.util.AttributeSet
 import android.widget.ArrayAdapter
+import co.familytreeapp.R
 import co.familytreeapp.database.manager.PersonManager
 
 /**
@@ -24,11 +25,8 @@ class SurnameAutoCompleteEditText @JvmOverloads constructor(
     /**
      * Returns an [ArrayAdapter] that can be used to provide the list and layout of suggestions.
      */
-    private fun makeAdapter() = ArrayAdapter<String>(
-            context,
-            android.R.layout.simple_spinner_dropdown_item,
-            getSurnames()
-    )
+    private fun makeAdapter() =
+            ArrayAdapter<String>(context, R.layout.item_text_dropdown, getSurnames())
 
     /**
      * Returns a list of surnames that can be used as suggestions.
