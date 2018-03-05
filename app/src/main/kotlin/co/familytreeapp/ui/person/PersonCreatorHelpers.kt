@@ -64,8 +64,8 @@ class PersonDetailsCreator(
         private val onPostWriteData: (newPerson: Person) -> Unit
 ) : PersonCreatorSection {
 
-    private lateinit var forenameInput: TextInputEditText
-    private lateinit var surnameInput: TextInputEditText
+    private lateinit var forenameInput: EditText
+    private lateinit var surnameInput: EditText
     private lateinit var maleRadioBtn: RadioButton
     private lateinit var femaleRadioBtn: RadioButton
 
@@ -104,7 +104,7 @@ class PersonDetailsCreator(
     }
 
     private fun setupNameInputError(textInputLayout: TextInputLayout,
-                                    editText: TextInputEditText) {
+                                    editText: EditText) {
         editText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 if (s!!.isBlank()) {

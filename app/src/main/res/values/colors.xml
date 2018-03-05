@@ -24,4 +24,6 @@
     <color name="text_white">#FFFFFFFF</color>
     <color name="text_white_secondary">#B3FFFFFF</color>
 
+    <color name="divider_black">#1F000000</color>
+
 </resources>
