@@ -86,7 +86,9 @@ class TreeActivity : NavigationDrawerActivity() {
 
     private fun setupTree() {
         val treeView = TreeView(this).apply {
-            setTreeSource(getDisplayedTree())
+            val treeNode = getDisplayedTree() ?: return@apply // don't display tree if null
+
+            setTreeSource(treeNode)
             onPersonViewClick = { person ->
                 val intent = Intent(this@TreeActivity, ViewPersonActivity::class.java)
                         .putExtra(ViewPersonActivity.EXTRA_PERSON, person)
@@ -114,13 +116,21 @@ class TreeActivity : NavigationDrawerActivity() {
 
     /**
      * Returns a tree consisting of all people added in the database.
+     *
+     * The root of the tree is taken as the node with greatest height.
+     *
+     * @return the root node of the tree, or null if there is no tree to display
      */
-    private fun getFullTree(): TreeNode<Person> {
-        if (DISPLAY_DUMMY_TREE) return getDummyTree()
-
-        // We'll take the root of the tree as the node with greatest height
+    private fun getFullTree(): TreeNode<Person>? {
+        if (DISPLAY_DUMMY_TREE) {
+            return getDummyTree()
+        }
 
         val allPeople = PersonManager(this).getAll()
+        if (allPeople.isEmpty()) {
+            return null
+        }
+
         val childrenManager = ChildrenManager(this)
 
         val nodes = ArrayList<TreeNode<Person>>()
