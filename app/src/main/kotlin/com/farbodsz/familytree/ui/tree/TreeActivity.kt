@@ -16,7 +16,7 @@ import com.farbodsz.familytree.R
 import com.farbodsz.familytree.model.Person
 import com.farbodsz.familytree.model.tree.TreeNode
 import com.farbodsz.familytree.ui.NavigationDrawerActivity
-import com.farbodsz.familytree.ui.person.EditPersonActivity
+import com.farbodsz.familytree.ui.person.CreatePersonActivity
 import com.farbodsz.familytree.ui.person.ViewPersonActivity
 import com.farbodsz.familytree.ui.widget.TreeView
 import com.farbodsz.familytree.util.standardNavigationParams
@@ -35,6 +35,11 @@ class TreeActivity : NavigationDrawerActivity() {
          * Request code for starting [ViewPersonActivity] for result.
          */
         private const val REQUEST_PERSON_VIEW = 8
+
+        /**
+         * Request code for starting [CreatePersonActivity] for result.
+         */
+        private const val REQUEST_PERSON_CREATE = 9
 
         /**
          * Intent extra key for supplying a [Person] to this activity.
@@ -113,7 +118,7 @@ class TreeActivity : NavigationDrawerActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
             android.R.id.home -> onBackPressed()
-            R.id.action_add -> startActivity(Intent(this, EditPersonActivity::class.java))
+            R.id.action_add -> addPerson()
             R.id.action_choose_layers -> chooseLayersDialog()
         }
 
@@ -121,6 +126,14 @@ class TreeActivity : NavigationDrawerActivity() {
     }
 
     override fun onBackPressed() = sendResult()
+
+    /**
+     * Starts activity for result for creating a new [Person].
+     */
+    private fun addPerson() {
+        val intent = Intent(this, CreatePersonActivity::class.java)
+        startActivityForResult(intent, REQUEST_PERSON_CREATE)
+    }
 
     /**
      * Displays a dialog allowing the user to choose the number of layers shown on the tree.
@@ -184,7 +197,7 @@ class TreeActivity : NavigationDrawerActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == REQUEST_PERSON_VIEW) {
+        if (requestCode in arrayOf(REQUEST_PERSON_VIEW, REQUEST_PERSON_CREATE)) {
             // A person could be modified by starting EditPersonActivity from ViewPersonActivity
 
             if (resultCode == Activity.RESULT_OK) {
