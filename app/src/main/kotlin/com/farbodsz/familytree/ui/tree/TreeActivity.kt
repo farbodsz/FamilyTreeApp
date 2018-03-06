@@ -4,6 +4,9 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.annotation.LayoutRes
+import android.support.design.widget.CoordinatorLayout
+import android.support.design.widget.Snackbar
+import android.support.v7.app.AlertDialog
 import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.Menu
@@ -46,6 +49,12 @@ class TreeActivity : NavigationDrawerActivity() {
     }
 
     /**
+     * The [rootNode] being used to display the family tree.
+     * This can be null where [setupTree] has not been invoked, or there is no tree to display.
+     */
+    private var rootNode: TreeNode<Person>? = null
+
+    /**
      * The [Person] who's portion of the family tree is being displayed.
      * This can be null if the whole tree is being displayed.
      */
@@ -84,11 +93,24 @@ class TreeActivity : NavigationDrawerActivity() {
         }
     }
 
+    /**
+     * Shows the tree for the first time.
+     */
     private fun setupTree() {
-        val treeView = TreeView(this).apply {
-            val treeNode = getDisplayedTree() ?: return@apply // don't display tree if null
+        val treeSource = getDisplayedTree()
+        treeSource?.let {
+            displayTree(it) // only display if source not null
+        }
+    }
 
-            setTreeSource(treeNode)
+    /**
+     * Displays a tree using the [rootNode], with [displayedHeight] no. of layers (from the root).
+     */
+    private fun displayTree(rootNode: TreeNode<Person>, displayedHeight: Int? = null) {
+        this.rootNode = rootNode
+
+        val treeView = TreeView(this).apply {
+            setTreeSource(rootNode, displayedHeight)
             onPersonViewClick = { person ->
                 val intent = Intent(this@TreeActivity, ViewPersonActivity::class.java)
                         .putExtra(ViewPersonActivity.EXTRA_PERSON, person)
@@ -212,12 +234,46 @@ class TreeActivity : NavigationDrawerActivity() {
         when (item.itemId) {
             android.R.id.home -> onBackPressed()
             R.id.action_add -> startActivity(Intent(this, EditPersonActivity::class.java))
+            R.id.action_choose_layers -> chooseLayersDialog()
         }
 
         return super.onOptionsItemSelected(item)
     }
 
     override fun onBackPressed() = sendResult()
+
+    /**
+     * Displays a dialog allowing the user to choose the number of layers shown on the tree.
+     * If there is no tree being displayed, a [Snackbar] error message will be shown instead.
+     */
+    private fun chooseLayersDialog() {
+        if (rootNode == null) {
+            val layoutRoot = findViewById<CoordinatorLayout>(R.id.coordinatorLayout)
+            Snackbar.make(layoutRoot, R.string.error_no_tree_no_layers, Snackbar.LENGTH_LONG)
+                    .show()
+            return
+        }
+
+        lateinit var dialog: AlertDialog
+        val builder = AlertDialog.Builder(this)
+                .setTitle(R.string.dialog_choose_layers_title)
+                .setItems(getNodeLayers(rootNode!!)) { _, which ->
+                    val newDisplayedHeight = which + 1 // which is the index
+                    displayTree(rootNode!!, newDisplayedHeight) // update tree
+                    dialog.dismiss()
+                }
+                .setNegativeButton(android.R.string.cancel) { _, _ ->
+                    dialog.dismiss()
+                }
+        dialog = builder.show()
+    }
+
+    /**
+     * Returns an array of strings containing the integers from 1 to N inclusive (N may be 1), where
+     * N is the height of the given [node] (i.e. total number of layers).
+     */
+    private fun <T> getNodeLayers(node: TreeNode<T>) =
+            Array(node.height()) { i -> (i + 1).toString() }
 
     /**
      * Sends the correct result back to where this activity was invoked from, and finishes the
@@ -249,7 +305,7 @@ class TreeActivity : NavigationDrawerActivity() {
             if (resultCode == Activity.RESULT_OK) {
                 // Refresh tree layout
                 hasModified = true
-                setupTree()
+                displayTree(rootNode!!, null)
             }
         }
     }
