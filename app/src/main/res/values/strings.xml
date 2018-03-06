@@ -105,5 +105,9 @@
         Are you sure you want to delete this person? This cannot be undone.
     </string>
     <string name="dialog_choose_layers_title">@string/action_choose_layers</string>
+    <plurals name="dialog_choose_layers_item">
+        <item quantity="one">Display %1$d layer</item>
+        <item quantity="other">Display %1$d layers</item>
+    </plurals>
 
 </resources>

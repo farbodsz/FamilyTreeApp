@@ -272,8 +272,10 @@ class TreeActivity : NavigationDrawerActivity() {
      * Returns an array of strings containing the integers from 1 to N inclusive (N may be 1), where
      * N is the height of the given [node] (i.e. total number of layers).
      */
-    private fun <T> getNodeLayers(node: TreeNode<T>) =
-            Array(node.height()) { i -> (i + 1).toString() }
+    private fun <T> getNodeLayers(node: TreeNode<T>) = Array(node.height()) { i ->
+        val layerNum = i + 1
+        resources.getQuantityString(R.plurals.dialog_choose_layers_item, layerNum, layerNum)
+    }
 
     /**
      * Sends the correct result back to where this activity was invoked from, and finishes the
