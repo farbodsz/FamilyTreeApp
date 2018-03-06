@@ -49,17 +49,17 @@ class TreeActivity : NavigationDrawerActivity() {
     }
 
     /**
-     * The [rootNode] being used to display the family tree.
-     * This can be null where [setupTree] has not been invoked, or there is no tree to display.
-     */
-    private var rootNode: TreeNode<Person>? = null
-
-    /**
      * The [Person] who's portion of the family tree is being displayed.
      * This can be null if the whole tree is being displayed.
      */
     private var person: Person? = null
 
+    /**
+     * Whether any modifications have been made on this page (such as adding a new person).
+     * This is used to determine what result should be sent to the calling activity.
+     *
+     * @see sendResult
+     */
     private var hasModified = false
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -94,12 +94,16 @@ class TreeActivity : NavigationDrawerActivity() {
     }
 
     /**
-     * Shows the tree for the first time.
+     * Displays the tree with [displayedHeight] in the UI.
+     *
+     * @param displayedHeight   the number of layers of the tree to show. This can be null to show
+     *                          the whole tree, rather than a portion of it.
+     * @see getDisplayedTree
      */
-    private fun setupTree() {
+    private fun setupTree(displayedHeight: Int? = null) {
         val treeSource = getDisplayedTree()
         treeSource?.let {
-            displayTree(it) // only display if source not null
+            displayTree(it, displayedHeight) // only display if source not null
         }
     }
 
@@ -107,7 +111,7 @@ class TreeActivity : NavigationDrawerActivity() {
      * Displays a tree using the [rootNode], with [displayedHeight] no. of layers (from the root).
      */
     private fun displayTree(rootNode: TreeNode<Person>, displayedHeight: Int? = null) {
-        this.rootNode = rootNode
+        Log.v(LOG_TAG, "displayTree called with rootNode=$rootNode; height=$displayedHeight")
 
         val treeView = TreeView(this).apply {
             setTreeSource(rootNode, displayedHeight)
@@ -138,7 +142,6 @@ class TreeActivity : NavigationDrawerActivity() {
 
     /**
      * Returns a tree consisting of all people added in the database.
-     *
      * The root of the tree is taken as the node with greatest height.
      *
      * @return the root node of the tree, or null if there is no tree to display
@@ -247,6 +250,7 @@ class TreeActivity : NavigationDrawerActivity() {
      * If there is no tree being displayed, a [Snackbar] error message will be shown instead.
      */
     private fun chooseLayersDialog() {
+        val rootNode = getDisplayedTree()
         if (rootNode == null) {
             val layoutRoot = findViewById<CoordinatorLayout>(R.id.coordinatorLayout)
             Snackbar.make(layoutRoot, R.string.error_no_tree_no_layers, Snackbar.LENGTH_LONG)
@@ -257,9 +261,9 @@ class TreeActivity : NavigationDrawerActivity() {
         lateinit var dialog: AlertDialog
         val builder = AlertDialog.Builder(this)
                 .setTitle(R.string.dialog_choose_layers_title)
-                .setItems(getNodeLayers(rootNode!!)) { _, which ->
+                .setItems(getNodeLayers(rootNode)) { _, which ->
                     val newDisplayedHeight = which + 1 // which is the index
-                    displayTree(rootNode!!, newDisplayedHeight) // update tree
+                    setupTree(newDisplayedHeight)
                     dialog.dismiss()
                 }
                 .setNegativeButton(android.R.string.cancel) { _, _ ->
@@ -271,6 +275,8 @@ class TreeActivity : NavigationDrawerActivity() {
     /**
      * Returns an array of strings containing the integers from 1 to N inclusive (N may be 1), where
      * N is the height of the given [node] (i.e. total number of layers).
+     *
+     * @see chooseLayersDialog
      */
     private fun <T> getNodeLayers(node: TreeNode<T>) = Array(node.height()) { i ->
         val layerNum = i + 1
@@ -307,7 +313,7 @@ class TreeActivity : NavigationDrawerActivity() {
             if (resultCode == Activity.RESULT_OK) {
                 // Refresh tree layout
                 hasModified = true
-                displayTree(rootNode!!, null)
+                setupTree(null)
             }
         }
     }

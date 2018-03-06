@@ -48,6 +48,10 @@ class TreeNode<T>(val data: T) {
 
     /**
      * Calculates the height of the tree (from this node to the leaf node with greatest depth).
+     *
+     * _N.B. this is based on the children of this node and subsequent nodes, so the height value
+     * will be affected if the tree has been trimmed (see [trimAndCountTree])._
+     *
      * @return the height of the tree
      */
     fun height(): Int {
