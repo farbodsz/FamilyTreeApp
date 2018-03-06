@@ -21,6 +21,10 @@
         <item name="cardUseCompatPadding">true</item>
     </style>
 
+    <style name="Widget.AppTheme.CardView.Tile">
+        <item name="android:radius">0dp</item>
+    </style>
+
     <style name="Widget.AppTheme.CardLateralPadding">
         <item name="android:paddingLeft">@dimen/card_padding</item>
         <item name="android:paddingRight">@dimen/card_padding</item>
@@ -62,6 +66,11 @@
         <item name="android:paddingLeft">16dp</item>
         <item name="android:paddingRight">16dp</item>
         <item name="android:paddingBottom">16dp</item>
+    </style>
+
+    <style name="Widget.AppTheme.TextView.CardSupportingText">
+        <item name="android:textSize">@dimen/card_text_subtitle</item>
+        <item name="android:textColor">@color/text_black_secondary</item>
     </style>
 
     <style name="Widget.AppTheme.TextView.FloatingLabel">

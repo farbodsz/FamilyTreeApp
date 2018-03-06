@@ -64,6 +64,8 @@ abstract class DataManager<T : DataModel>(private val context: Context) {
 
     fun getAll() = query(null)
 
+    fun count() = getAll().count()
+
     /**
      * Adds an item of type [T] to the table named [tableName].
      */

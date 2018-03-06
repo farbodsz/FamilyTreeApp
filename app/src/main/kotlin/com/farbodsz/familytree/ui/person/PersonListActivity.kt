@@ -10,7 +10,6 @@ import com.farbodsz.familytree.R
 import com.farbodsz.familytree.database.manager.PersonManager
 import com.farbodsz.familytree.model.Person
 import com.farbodsz.familytree.ui.NavigationDrawerActivity
-import com.farbodsz.familytree.ui.adapter.PersonAdapter
 import com.farbodsz.familytree.util.standardNavigationParams
 import com.farbodsz.familytree.util.withNavigation
 
