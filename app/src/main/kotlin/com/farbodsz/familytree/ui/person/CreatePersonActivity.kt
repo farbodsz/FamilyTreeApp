@@ -13,8 +13,8 @@ import com.farbodsz.familytree.R
 import com.farbodsz.familytree.database.manager.PersonManager
 import com.farbodsz.familytree.model.Marriage
 import com.farbodsz.familytree.model.Person
+import com.farbodsz.familytree.ui.DynamicPagerAdapter
 import com.farbodsz.familytree.ui.Validator
-import com.farbodsz.familytree.ui.adapter.DynamicPagerAdapter
 import com.farbodsz.familytree.ui.marriage.EditMarriageActivity
 
 /**

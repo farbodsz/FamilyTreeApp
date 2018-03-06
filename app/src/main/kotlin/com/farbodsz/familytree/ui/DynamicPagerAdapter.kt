@@ -1,4 +1,4 @@
-package com.farbodsz.familytree.ui.adapter;
+package com.farbodsz.familytree.ui
 
 import android.support.v4.view.PagerAdapter
 import android.support.v4.view.ViewPager
