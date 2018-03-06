@@ -43,6 +43,13 @@ data class Marriage(
             source.readString()
     )
 
+    /**
+     * Returns the person ID of the other person involved in the marriage.
+     *
+     * @param personId  the person ID of one person involved in the marriage
+     */
+    fun getOtherSpouseId(personId: Int) = if (personId == person1Id) person2Id else person1Id
+
     override fun getIds() = Pair(person1Id, person2Id)
 
     override fun describeContents() = 0
