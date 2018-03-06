@@ -15,6 +15,12 @@ import com.farbodsz.familytree.model.Person
 import com.farbodsz.familytree.ui.NavigationParameters
 
 /**
+ * Type definition for an action to be preformed when a view has been clicked.
+ * This is a function type with one parameter: the view that was clicked. It returns [Unit].
+ */
+typealias OnClick = (view: View) -> Unit
+
+/**
  * Type definition for an action to be preformed when a view in the list has been clicked.
  *
  * This is a function type with its parameters as the view that was clicked and the
