@@ -11,16 +11,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import com.farbodsz.familytree.R
+import com.farbodsz.familytree.model.Person
 import com.farbodsz.familytree.ui.NavigationParameters
 
 /**
  * Type definition for an action to be preformed when a view in the list has been clicked.
  *
  * This is a function type with its parameters as the view that was clicked and the
- * [layout position][RecyclerView.ViewHolder.getLayoutPosition] of the ViewHolder. The function does
- * not return anything.
+ * [layout position][RecyclerView.ViewHolder.getLayoutPosition] of the ViewHolder. The function
+ * returns [Unit].
  */
 typealias OnItemClick = (view: View, position: Int) -> Unit
+
+/**
+ * Type definition for an action to be preformed when a [Person] in a collection of items has been
+ * clicked.
+ *
+ * This is a function type with two parameters: the [View] that was clicked/selected, and the
+ * corresponding [Person] from the collection. The function returns [Unit].
+ */
+typealias OnPersonClick = (view: View, person: Person) -> Unit
 
 /**
  * Converts a dip value into pixels.
