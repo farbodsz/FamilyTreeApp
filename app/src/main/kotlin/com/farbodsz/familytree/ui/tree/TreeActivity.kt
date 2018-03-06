@@ -42,7 +42,8 @@ class TreeActivity : NavigationDrawerActivity() {
         private const val REQUEST_PERSON_CREATE = 9
 
         /**
-         * Intent extra key for supplying a [Person] to this activity.
+         * Intent extra key for supplying a [Person] to this activity. This will be used as the
+         * root of the tree.
          */
         const val EXTRA_PERSON = "extra_person"
     }
@@ -53,7 +54,9 @@ class TreeActivity : NavigationDrawerActivity() {
     private lateinit var treeHandler: TreeHandler
 
     /**
-     * The [Person] who's portion of the family tree is being displayed.
+     * The [Person] who's portion of the family tree is being displayed. It will be the root of the
+     * tree.
+     *
      * This can be null if the whole tree is being displayed.
      */
     private var person: Person? = null
