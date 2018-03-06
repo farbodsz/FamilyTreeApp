@@ -46,6 +46,12 @@ class TreeActivity : NavigationDrawerActivity() {
          * root of the tree.
          */
         const val EXTRA_PERSON = "extra_person"
+
+        /**
+         * Intent extra key for supplying the forename of a person to show on the page's title.
+         * It can be null, in which case a default/generic title will be shown.
+         */
+        const val EXTRA_NAME = "extra_name"
     }
 
     /**
@@ -62,6 +68,12 @@ class TreeActivity : NavigationDrawerActivity() {
     private var person: Person? = null
 
     /**
+     * The name of a person to display on the page title. This can be null, in which case a
+     * different title will be used.
+     */
+    private var personName: String? = null
+
+    /**
      * Whether any modifications have been made on this page (such as adding a new person).
      * This is used to determine what result should be sent to the calling activity.
      *
@@ -73,6 +85,7 @@ class TreeActivity : NavigationDrawerActivity() {
         super.onCreate(savedInstanceState)
 
         person = intent.extras?.getParcelable(EXTRA_PERSON)
+        personName = intent.extras?.getString(EXTRA_NAME)
         setupNavigation()
 
         setupTitle()
@@ -92,10 +105,17 @@ class TreeActivity : NavigationDrawerActivity() {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        person?.let {
-            supportActionBar!!.title = getString(R.string.title_tree_person, it.forename)
-            supportActionBar!!.setDisplayHomeAsUpEnabled(true)
+        updateToolbarTitle()
+        person?.let { supportActionBar!!.setDisplayHomeAsUpEnabled(true) }
+    }
+
+    private fun updateToolbarTitle() {
+        val titleText = if (personName != null) {
+            getString(R.string.title_tree_person, personName)
+        } else {
+            getString(R.string.title_tree)
         }
+        supportActionBar!!.title = titleText
     }
 
     private fun initTreeHandler() {

@@ -116,6 +116,7 @@ class ViewPersonActivity : AppCompatActivity() {
             val treeRoot = ChildrenManager(this).getRootParent(person.id)
             val intent = Intent(this, TreeActivity::class.java)
                     .putExtra(TreeActivity.EXTRA_PERSON, treeRoot)
+                    .putExtra(TreeActivity.EXTRA_NAME, person.forename)
             startActivityForResult(intent, REQUEST_VIEW_TREE)
         }
     }
