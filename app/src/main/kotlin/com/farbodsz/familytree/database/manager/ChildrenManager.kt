@@ -84,6 +84,26 @@ class ChildrenManager(
     }
 
     /**
+     * Returns the tree of the root [Person] and its children recursively.
+     *
+     * @param rootId    the person ID of the root of the tree
+     * @return  the root node of the tree which contains its children, its children's children, etc.
+     *
+     * @see getChildren
+     */
+    fun getTree(rootId: Int): TreeNode<Person> {
+        val personManager = PersonManager(context)
+        val rootNode = TreeNode(personManager.get(rootId))
+
+        for (child in getChildren(rootId)) {
+            val childNode = getTree(child.id)
+            rootNode.addChild(childNode)
+        }
+
+        return rootNode
+    }
+
+    /**
      * Returns the list of parents of a child with the given [childId]
      *
      * @see getChildren
@@ -103,21 +123,21 @@ class ChildrenManager(
     }
 
     /**
-     * Returns the tree of the root [Person] and its children recursively.
+     * Returns the root [Person] of a tree containing a child with [childId].
      *
-     * @param rootId    the person ID of the root of the tree
-     * @return  the root node of the tree which contains its children, its children's children, etc.
+     * _N.B. there can be numerous possible roots, but only one will be returned here._
+     *
+     * @see getParents
      */
-    fun getTree(rootId: Int): TreeNode<Person> {
-        val personManager = PersonManager(context)
-        val rootNode = TreeNode(personManager.get(rootId))
-
-        for (child in getChildren(rootId)) {
-            val childNode = getTree(child.id)
-            rootNode.addChild(childNode)
+    fun getRootParent(childId: Int): Person {
+        val parents = getParents(childId)
+        return if (parents.isEmpty()) {
+            // Has no parents, so this is the root
+            PersonManager(context).get(childId)
+        } else {
+            val parentId = parents[0].id // use the first parent found as default
+            getRootParent(parentId)
         }
-
-        return rootNode
     }
 
 }
