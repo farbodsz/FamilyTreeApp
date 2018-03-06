@@ -12,6 +12,7 @@ import android.widget.ScrollView
 import com.farbodsz.familytree.R
 import com.farbodsz.familytree.model.Person
 import com.farbodsz.familytree.model.tree.TreeNode
+import com.farbodsz.familytree.util.OnPersonClick
 import com.farbodsz.familytree.util.dpToPx
 
 /**
@@ -56,12 +57,14 @@ class TreeView @JvmOverloads constructor(
     /**
      * The root node of the tree being displayed, initially null until set in [setTreeSource].
      */
-    private var rootNode: TreeNode<Person>? = null
+    var rootNode: TreeNode<Person>? = null
+        private set
 
     /**
      * The height of the portion of the tree being drawn.
      */
-    private var displayedHeight = -1
+    var displayedHeight = -1
+        private set
 
     /**
      * The total number of leaf nodes of the part of the tree being drawn.
@@ -81,32 +84,49 @@ class TreeView @JvmOverloads constructor(
     /**
      * Function to be invoked when a [PersonView] has been clicked.
      */
-    var onPersonViewClick: ((person: Person) -> Unit)? = null
+    var onPersonViewClick: OnPersonClick? = null
+
+    init {
+        setWillNotDraw(false) // the view doesn't draw on its own
+    }
 
     /**
      * Specifies the source data to use for displaying the tree.
      *
      * @param node              the root node of the tree
      * @param displayedHeight   the height of the tree to display. This can be null to display the
-     *                          whole tree. (optional parameter with null as default).
+     *                          whole tree (optional parameter with null as default).
      */
     fun setTreeSource(node: TreeNode<Person>, displayedHeight: Int? = null) {
-        if (node == rootNode) {
+        if (isSameSource(node, displayedHeight)) {
             // Source has stayed the same - no need to change anything else
             return
         }
 
-        setWillNotDraw(false)
-
         rootNode = node
         this.displayedHeight = displayedHeight ?: node.height()
 
-        numberOfLeafNodes = node.trimAndCountTree(displayedHeight) // trim the tree to the specified height
+        // Trim the tree to the specified height, and get the number of leaf nodes
+        numberOfLeafNodes = node.trimAndCountTree(displayedHeight)
 
         initialiseDrawing()
 
         invalidate()
         requestLayout()
+    }
+
+    /**
+     * Returns whether the node and height are the same as before.
+     */
+    private fun isSameSource(node: TreeNode<Person>, height: Int? = null): Boolean {
+        val isSameRoot = node != rootNode
+        val isSameHeight = if (height == null) {
+            // The node height is used in setTreeSource if height argument is null
+            node.height() == displayedHeight
+        } else {
+            height == displayedHeight
+        }
+        return isSameRoot && isSameHeight
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -161,7 +181,7 @@ class TreeView @JvmOverloads constructor(
         val personView = PersonView(context).apply {
             person = node.data
             setOnClickListener {
-                onPersonViewClick?.invoke(person!!)
+                onPersonViewClick?.invoke(this, person!!)
             }
         }
         addView(personView)

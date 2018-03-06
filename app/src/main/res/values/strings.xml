@@ -16,6 +16,7 @@
 
     <!-- Action texts for menus -->
     <string name="action_add_person">Add person</string>
+    <string name="action_choose_layers">Choose layers to display</string>
     <string name="action_create_new">Create new</string>
     <string name="action_done">Done</string>
     <string name="action_delete">Delete</string>
@@ -88,6 +89,9 @@
     <string name="validate_dateOfDeath_beforeBirth">The date of death cannot be before the date of birth</string>
     <string name="validate_marriage_people_empty">You must specify two people</string>
     <string name="validate_marriage_people_same">A person cannot be married to themselves</string>
+    <string name="error_no_tree_no_layers">
+        You cannot choose layers on the tree since there is no tree being displayed
+    </string>
 
     <!-- Dialog texts -->
     <string name="dialog_add_child_title">@string/add_child</string>
@@ -100,5 +104,10 @@
     <string name="dialog_confirm_delete_message">
         Are you sure you want to delete this person? This cannot be undone.
     </string>
+    <string name="dialog_choose_layers_title">@string/action_choose_layers</string>
+    <plurals name="dialog_choose_layers_item">
+        <item quantity="one">Display %1$d layer</item>
+        <item quantity="other">Display %1$d layers</item>
+    </plurals>
 
 </resources>

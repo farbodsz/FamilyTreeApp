@@ -10,15 +10,8 @@ import android.widget.TextView
 import com.farbodsz.familytree.R
 import com.farbodsz.familytree.model.Person
 import com.farbodsz.familytree.util.DATE_FORMATTER_BIRTH
+import com.farbodsz.familytree.util.OnPersonClick
 import de.hdodenhof.circleimageview.CircleImageView
-
-/**
- * Type definition for an action to be preformed when a view in the [Person] list has been clicked.
- *
- * This is a function type with its parameters as the view  and [Person] that was clicked.
- * The function does not return anything.
- */
-typealias OnPersonClick = (view: View, person: Person) -> Unit
 
 /**
  * A [RecyclerView] adapter for displaying [people][Person] in a standard list layout.
