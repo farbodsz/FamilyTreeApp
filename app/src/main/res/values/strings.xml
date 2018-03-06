@@ -36,7 +36,7 @@
 
     <!-- Home card texts -->
     <string name="home_item_tree_title">@string/nav_item_tree</string>
-    <string name="home_item_tree_desc">The full family tree.</string>
+    <string name="home_item_tree_desc">Browse the family tree.</string>
     <string name="home_item_people_title">@string/nav_item_person_list</string>
     <plurals name="home_item_people_desc">
         <item quantity="one">List of family members. Currently, %1$d person have been added.</item>
