@@ -10,7 +10,7 @@ import android.view.View
 import com.farbodsz.familytree.R
 import com.farbodsz.familytree.database.manager.PersonManager
 import com.farbodsz.familytree.model.Person
-import com.farbodsz.familytree.ui.adapter.PersonAdapter
+import com.farbodsz.familytree.ui.person.PersonAdapter
 
 /**
  * A helper class to display a [Person] on a [TextInputEditText], and allowing it to be changed

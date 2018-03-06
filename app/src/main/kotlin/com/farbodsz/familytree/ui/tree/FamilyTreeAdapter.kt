@@ -1,4 +1,4 @@
-package com.farbodsz.familytree.ui.adapter
+package com.farbodsz.familytree.ui.tree
 
 import android.content.Context
 import android.support.v4.content.ContextCompat

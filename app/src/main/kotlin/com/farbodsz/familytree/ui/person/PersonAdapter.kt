@@ -1,4 +1,4 @@
-package com.farbodsz.familytree.ui.adapter
+package com.farbodsz.familytree.ui.person
 
 import android.content.Context
 import android.support.v4.content.ContextCompat
@@ -8,31 +8,22 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.farbodsz.familytree.R
-import com.farbodsz.familytree.database.manager.PersonManager
-import com.farbodsz.familytree.model.Marriage
+import com.farbodsz.familytree.model.Person
 import com.farbodsz.familytree.util.DATE_FORMATTER_BIRTH
+import com.farbodsz.familytree.util.OnPersonClick
 import de.hdodenhof.circleimageview.CircleImageView
 
 /**
- * Type definition for an action to be preformed when a view in the [Marriage] list has been clicked.
- *
- * This is a function type with its parameters as the view  and [Marriage] that was clicked.
- * The function does not return anything.
+ * A [RecyclerView] adapter for displaying [people][Person] in a standard list layout.
  */
-typealias OnMarriageClick = (view: View, marriage: Marriage) -> Unit
-
-/**
- * A [RecyclerView] adapter for displaying [marriages][Marriage] in a standard list layout.
- */
-class MarriageAdapter(
+class PersonAdapter(
         private val context: Context,
-        private val personId: Int,
-        private val marriages: List<Marriage>
-) : RecyclerView.Adapter<MarriageAdapter.ViewHolder>() {
+        private val people: List<Person>
+) : RecyclerView.Adapter<PersonAdapter.ViewHolder>() {
 
-    private var onItemClickAction: OnMarriageClick? = null
+    private var onItemClickAction: OnPersonClick? = null
 
-    fun onItemClick(action: OnMarriageClick) {
+    fun onItemClick(action: OnPersonClick) {
         onItemClickAction = action
     }
 
@@ -43,16 +34,13 @@ class MarriageAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
-        val marriage = marriages[position]
-        val spouseId =
-                if (marriage.person1Id == personId) marriage.person2Id else marriage.person1Id
-        val spouse = PersonManager(context).get(spouseId)
+        val person = people[position]
 
         with(holder!!) {
-            nameText.text = spouse.fullName
-            infoText.text = marriage.startDate.format(DATE_FORMATTER_BIRTH) // TODO show end date too
+            nameText.text = person.fullName
+            infoText.text = person.dateOfBirth.format(DATE_FORMATTER_BIRTH)
 
-            imageView.borderColor = ContextCompat.getColor(context, if (spouse.gender.isMale()) {
+            imageView.borderColor = ContextCompat.getColor(context, if (person.gender.isMale()) {
                 R.color.image_border_male
             } else {
                 R.color.image_border_female
@@ -60,7 +48,7 @@ class MarriageAdapter(
         }
     }
 
-    override fun getItemCount() = marriages.size
+    override fun getItemCount() = people.size
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
@@ -71,7 +59,7 @@ class MarriageAdapter(
         init {
             itemView.setOnClickListener {
                 val position = layoutPosition
-                onItemClickAction?.invoke(it, marriages[position])
+                onItemClickAction?.invoke(it, people[position])
             }
         }
 

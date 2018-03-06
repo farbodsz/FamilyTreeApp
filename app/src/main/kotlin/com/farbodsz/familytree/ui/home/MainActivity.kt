@@ -1,4 +1,4 @@
-package com.farbodsz.familytree.ui
+package com.farbodsz.familytree.ui.home
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import com.farbodsz.familytree.R
 import com.farbodsz.familytree.database.manager.PersonManager
-import com.farbodsz.familytree.ui.home.*
+import com.farbodsz.familytree.ui.NavigationDrawerActivity
 import com.farbodsz.familytree.ui.person.PersonListActivity
 import com.farbodsz.familytree.ui.tree.TreeActivity
 import com.farbodsz.familytree.util.standardNavigationParams
