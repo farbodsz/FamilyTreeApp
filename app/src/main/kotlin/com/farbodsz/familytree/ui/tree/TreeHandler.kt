@@ -14,7 +14,7 @@ import com.farbodsz.familytree.util.OnPersonClick
 import org.threeten.bp.LocalDate
 
 /**
- * Manages setting up the tree and displaying it in the UI.
+ * Manages setting up tree data and displaying it in the UI.
  *
  * @property context        activity [Context]
  * @property treeContainer  the [ViewGroup] that will contain the [TreeView]
@@ -66,6 +66,9 @@ class TreeHandler(
      *
      * @param person    the person who's tree will be displayed. It can be null to indicate that a
      *                  full tree (consisting of all/most people from the db) should be displayed.
+     *
+     * @see getFullTree
+     * @see ChildrenManager.getTree
      */
     fun getDisplayedTree(person: Person?) = if (person == null) {
         Log.v(LOG_TAG, "Displaying full tree")
