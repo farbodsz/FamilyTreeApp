@@ -33,26 +33,22 @@ class TreeHandler(
     }
 
     /**
-     * Displays the tree with [displayedHeight] in the UI.
+     * Displays a tree in the UI using the [rootNode], with [displayedHeight] number of layers (from
+     * the root).
      *
-     * @param treeSource        the root node of the tree being displayed. It can be null if there
+     * @param rootNode          the root node of the tree being displayed. It can be null if there
      *                          is no tree to display.
      * @param displayedHeight   the number of layers of the tree to show. This can be null to show
      *                          the whole tree, rather than a portion of it.
      *
      * @see getDisplayedTree
      */
-    fun setupTree(treeSource: TreeNode<Person>?, displayedHeight: Int? = null) {
-        treeSource?.let {
-            displayTree(it, displayedHeight) // only display if source not null
-        }
-    }
-
-    /**
-     * Displays a tree using the [rootNode], with [displayedHeight] no. of layers (from the root).
-     */
-    private fun displayTree(rootNode: TreeNode<Person>, displayedHeight: Int? = null) {
+    fun displayTree(rootNode: TreeNode<Person>?, displayedHeight: Int? = null) {
         Log.v(LOG_TAG, "displayTree called with rootNode=$rootNode; height=$displayedHeight")
+
+        if (rootNode == null) {
+            return // don't display anything if null
+        }
 
         val treeView = TreeView(context).apply {
             setTreeSource(rootNode, displayedHeight)

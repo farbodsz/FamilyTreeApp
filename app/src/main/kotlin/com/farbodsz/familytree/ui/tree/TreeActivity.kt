@@ -71,7 +71,7 @@ class TreeActivity : NavigationDrawerActivity() {
 
         initTreeHandler()
         val rootNode = treeHandler.getDisplayedTree(person)
-        treeHandler.setupTree(rootNode)
+        treeHandler.displayTree(rootNode)
     }
 
     private fun setupNavigation() {
@@ -140,7 +140,7 @@ class TreeActivity : NavigationDrawerActivity() {
                 .setTitle(R.string.dialog_choose_layers_title)
                 .setItems(getNodeLayers(rootNode)) { _, which ->
                     val newDisplayedHeight = which + 1 // which is the index
-                    treeHandler.setupTree(rootNode, newDisplayedHeight)
+                    treeHandler.displayTree(rootNode, newDisplayedHeight)
                     dialog.dismiss()
                 }
                 .setNegativeButton(android.R.string.cancel) { _, _ ->
@@ -190,7 +190,7 @@ class TreeActivity : NavigationDrawerActivity() {
             if (resultCode == Activity.RESULT_OK) {
                 // Refresh tree layout
                 hasModified = true
-                treeHandler.setupTree(null)
+                treeHandler.displayTree(null)
             }
         }
     }
