@@ -13,11 +13,12 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
 import com.farbodsz.familytree.R
+import com.farbodsz.familytree.database.manager.ChildrenManager
+import com.farbodsz.familytree.model.ChildRelationship
 import com.farbodsz.familytree.model.Person
 import com.farbodsz.familytree.model.tree.TreeNode
 import com.farbodsz.familytree.ui.NavigationDrawerActivity
 import com.farbodsz.familytree.ui.person.CreatePersonActivity
-import com.farbodsz.familytree.ui.person.ViewPersonActivity
 import com.farbodsz.familytree.ui.widget.TreeView
 import com.farbodsz.familytree.util.standardNavigationParams
 import com.farbodsz.familytree.util.withNavigation
@@ -31,15 +32,12 @@ class TreeActivity : NavigationDrawerActivity() {
 
         private const val LOG_TAG = "TreeActivity"
 
-        /**
-         * Request code for starting [ViewPersonActivity] for result.
-         */
-        private const val REQUEST_PERSON_VIEW = 8
+        private const val FRAGMENT_TAG_DIALOG = "dialog"
 
         /**
          * Request code for starting [CreatePersonActivity] for result.
          */
-        private const val REQUEST_PERSON_CREATE = 9
+        private const val REQUEST_PERSON_CREATE = 8
 
         /**
          * Intent extra key for supplying a [Person] to this activity. This will be used as the
@@ -122,9 +120,8 @@ class TreeActivity : NavigationDrawerActivity() {
         val treeContainer = findViewById<ViewGroup>(R.id.container)
 
         treeHandler = TreeHandler(this, treeContainer) { _, person ->
-            val intent = Intent(this@TreeActivity, ViewPersonActivity::class.java)
-                    .putExtra(ViewPersonActivity.EXTRA_PERSON, person)
-            startActivityForResult(intent, REQUEST_PERSON_VIEW)
+            val dialogFragment = PersonViewDialogFragment.newInstance(person)
+            dialogFragment.show(supportFragmentManager, FRAGMENT_TAG_DIALOG)
         }
     }
 
@@ -220,13 +217,36 @@ class TreeActivity : NavigationDrawerActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode in arrayOf(REQUEST_PERSON_VIEW, REQUEST_PERSON_CREATE)) {
-            // A person could be modified by starting EditPersonActivity from ViewPersonActivity
+        // N.B. A person could be modified by starting EditPersonActivity from ViewPersonActivity,
+        // hence the "VIEW" requests being included below:
 
-            if (resultCode == Activity.RESULT_OK) {
+        Log.d(LOG_TAG, "onActivityResult")
+
+        when (requestCode) {
+            REQUEST_PERSON_CREATE,
+            PersonViewDialogFragment.REQUEST_VIEW_PERSON -> if (resultCode == Activity.RESULT_OK) {
                 // Refresh tree layout
                 hasModified = true
                 treeHandler.displayTree(null)
+            }
+
+            PersonViewDialogFragment.REQUEST_ADD_PARENT -> if (resultCode == Activity.RESULT_OK) {
+                val parent = data?.getParcelableExtra<Person>(CreatePersonActivity.EXTRA_PERSON)
+                if (parent != null) {
+                    val relationship = ChildRelationship(parent.id, person!!.id)
+                    ChildrenManager(this).add(relationship)
+                }
+            }
+
+            // PersonViewDialogFragment.REQUEST_ADD_MARRIAGE -> marriage data already written in
+            // EditMarriageActivity since passing EXTRA_WRITE_DATA true in PersonViewDialogFragment
+
+            PersonViewDialogFragment.REQUEST_ADD_CHILD -> if (resultCode == Activity.RESULT_OK) {
+                val child = data?.getParcelableExtra<Person>(CreatePersonActivity.EXTRA_PERSON)
+                if (child != null) {
+                    val relationship = ChildRelationship(person!!.id, child.id)
+                    ChildrenManager(this).add(relationship)
+                }
             }
         }
     }

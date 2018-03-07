@@ -118,5 +118,15 @@
         <item quantity="one">Display %1$d layer</item>
         <item quantity="other">Display %1$d layers</item>
     </plurals>
+    <string name="dialog_personView_item_viewPerson">View person</string>
+    <string name="dialog_personView_item_addParent">Add parent</string>
+    <string name="dialog_personView_item_addMarriage">Add marriage</string>
+    <string name="dialog_personView_item_addChild">Add child</string>
+    <string name="dialog_personView_item_switchTree">Switch to %1$s\'s tree</string>
+    <plurals name="dialog_personView_marriages">
+        <item quantity="one">Married to %1$s</item>
+        <item quantity="two">Married to %1$s and %2$d other</item>
+        <item quantity="other">Married to %1$s and %2$d others</item>
+    </plurals>
 
 </resources>
