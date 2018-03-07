@@ -88,7 +88,7 @@ class PersonViewDialogFragment : DialogFragment() {
      * dialog.
      */
     private fun getTitleView(): View {
-        val titleView = layoutInflater.inflate(R.layout.item_list_person, null)
+        val titleView = activity.layoutInflater.inflate(R.layout.item_list_person, null)
 
         // TODO person image
         titleView.findViewById<TextView>(R.id.text1).text = person.fullName
