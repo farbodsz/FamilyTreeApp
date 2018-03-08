@@ -39,7 +39,7 @@ abstract class StandardDataManager<T : StandardData>(context: Context) : DataMan
      *
      * @see deleteWithReferences
      */
-    fun delete(id: Int) {
+    private fun delete(id: Int) {
         val query = Query(Filters.equal(idColumn, id.toString()))
         Log.d(LOG_TAG, "Deleting items with id: $id...")
         delete(query)
@@ -47,8 +47,8 @@ abstract class StandardDataManager<T : StandardData>(context: Context) : DataMan
 
     /**
      * Deletes an item of type [T] with specified [id] and any other references to it.
-     * This function should be overridden by subclasses of [StandardDataManager] to specify which references
-     * should be deleted.
+     * This function should be overridden by subclasses of [StandardDataManager] to specify which
+     * references should be deleted.
      *
      * @see delete
      */

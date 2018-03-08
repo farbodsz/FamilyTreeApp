@@ -253,7 +253,7 @@ class ViewPersonActivity : AppCompatActivity() {
                 .setTitle(R.string.dialog_confirm_delete_title)
                 .setMessage(R.string.dialog_confirm_delete_message)
                 .setPositiveButton(R.string.action_delete) { _, _ ->
-                    PersonManager(this).delete(person.id)
+                    PersonManager(this).deleteWithReferences(person.id)
 
                     Log.d(LOG_TAG, "Sending successful result: person has been deleted")
                     val returnIntent = Intent() // no "extra" to indicate deletion

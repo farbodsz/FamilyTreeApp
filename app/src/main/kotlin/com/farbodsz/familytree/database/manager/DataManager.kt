@@ -85,7 +85,7 @@ abstract class DataManager<T : DataModel>(private val context: Context) {
     /**
      * Deletes items returned by the [query] from the table named [tableName].
      */
-    fun delete(query: Query) {
+    internal fun delete(query: Query) {
         val db = DatabaseHelper.getInstance(context).writableDatabase
         val deletedRows = db.delete(
                 tableName,
