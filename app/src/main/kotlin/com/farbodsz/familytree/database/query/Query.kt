@@ -17,11 +17,10 @@ class Query(val filter: Filter) {
 
         /**
          * Adds a filter to the SQL query builder to be joined with AND
-         * @return the query builder, so methods can be chained
+         * @return the query [Builder], to allow method chaining
          */
         fun addFilter(filter: Filter): Builder {
             filters.add(filter)
-            Log.v(LOG_TAG, "Added filter: ${filter.sqlStatement}")
             return this
         }
 
