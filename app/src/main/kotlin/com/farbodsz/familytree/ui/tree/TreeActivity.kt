@@ -14,7 +14,6 @@ import android.view.MenuItem
 import android.view.ViewGroup
 import com.farbodsz.familytree.R
 import com.farbodsz.familytree.database.manager.ChildrenManager
-import com.farbodsz.familytree.model.ChildRelationship
 import com.farbodsz.familytree.model.Person
 import com.farbodsz.familytree.model.tree.TreeNode
 import com.farbodsz.familytree.ui.NavigationDrawerActivity
@@ -23,16 +22,19 @@ import com.farbodsz.familytree.ui.widget.TreeView
 import com.farbodsz.familytree.util.standardNavigationParams
 import com.farbodsz.familytree.util.withNavigation
 
+
 /**
  * Activity to display a [TreeView].
  */
-class TreeActivity : NavigationDrawerActivity() {
+class TreeActivity : NavigationDrawerActivity(), PersonViewDialogFragment.OnTreeChangedListener {
 
     companion object {
 
         private const val LOG_TAG = "TreeActivity"
 
         private const val FRAGMENT_TAG_DIALOG = "dialog"
+
+        private const val REQUEST_DIALOG_PERSON_VIEW = "request_personViewDialogFragment"
 
         /**
          * Request code for starting [CreatePersonActivity] for result.
@@ -63,13 +65,7 @@ class TreeActivity : NavigationDrawerActivity() {
      *
      * This can be null if the whole tree is being displayed.
      */
-    private var person: Person? = null
-
-    /**
-     * The name of a person to display on the page title. This can be null, in which case a
-     * different title will be used.
-     */
-    private var personName: String? = null
+    private var rootPerson: Person? = null
 
     /**
      * Whether any modifications have been made on this page (such as adding a new person).
@@ -79,35 +75,40 @@ class TreeActivity : NavigationDrawerActivity() {
      */
     private var hasModified = false
 
+    /**
+     * Reference to the most recent [PersonViewDialogFragment] displayed from this activity.
+     */
+    private var dialogFragment: PersonViewDialogFragment? = null
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        person = intent.extras?.getParcelable(EXTRA_PERSON)
-        personName = intent.extras?.getString(EXTRA_NAME)
+        rootPerson = intent.extras?.getParcelable(EXTRA_PERSON)
+        val personName = intent.extras?.getString(EXTRA_NAME)
         setupNavigation()
 
-        setupTitle()
+        setupTitle(personName)
 
         initTreeHandler()
-        val rootNode = treeHandler.getDisplayedTree(person)
+        val rootNode = treeHandler.getDisplayedTree(rootPerson)
         treeHandler.displayTree(rootNode)
     }
 
     private fun setupNavigation() {
         // If a particular person is being displayed, then the nav drawer doesn't need to be shown
         @LayoutRes val layout = R.layout.activity_tree
-        if (person == null) setContentView(withNavigation(layout)) else setContentView(layout)
+        if (rootPerson == null) setContentView(withNavigation(layout)) else setContentView(layout)
     }
 
-    private fun setupTitle() {
+    private fun setupTitle(personName: String?) {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        updateToolbarTitle()
-        person?.let { supportActionBar!!.setDisplayHomeAsUpEnabled(true) }
+        updateToolbarTitle(personName)
+        rootPerson?.let { supportActionBar!!.setDisplayHomeAsUpEnabled(true) }
     }
 
-    private fun updateToolbarTitle() {
+    private fun updateToolbarTitle(personName: String?) {
         val titleText = if (personName != null) {
             getString(R.string.title_tree_person, personName)
         } else {
@@ -120,8 +121,9 @@ class TreeActivity : NavigationDrawerActivity() {
         val treeContainer = findViewById<ViewGroup>(R.id.container)
 
         treeHandler = TreeHandler(this, treeContainer) { _, person ->
-            val dialogFragment = PersonViewDialogFragment.newInstance(person)
-            dialogFragment.show(supportFragmentManager, FRAGMENT_TAG_DIALOG)
+            dialogFragment = PersonViewDialogFragment.newInstance(person).apply {
+                show(supportFragmentManager, FRAGMENT_TAG_DIALOG)
+            }
         }
     }
 
@@ -160,7 +162,7 @@ class TreeActivity : NavigationDrawerActivity() {
      * If there is no tree being displayed, a [Snackbar] error message will be shown instead.
      */
     private fun chooseLayersDialog() {
-        val rootNode = treeHandler.getDisplayedTree(person)
+        val rootNode = treeHandler.getDisplayedTree(rootPerson)
         if (rootNode == null) {
             val layoutRoot = findViewById<CoordinatorLayout>(R.id.coordinatorLayout)
             Snackbar.make(layoutRoot, R.string.error_no_tree_no_layers, Snackbar.LENGTH_LONG)
@@ -203,9 +205,9 @@ class TreeActivity : NavigationDrawerActivity() {
      * @see android.app.Activity.RESULT_CANCELED
      */
     private fun sendResult() {
-        if (hasModified) {
-            Log.d(LOG_TAG, "Sending successful result: $person")
-            val returnIntent = Intent().putExtra(EXTRA_PERSON, person)
+        if (hasModified) { // TODO what is this really for?
+            Log.d(LOG_TAG, "Sending successful result: $rootPerson")
+            val returnIntent = Intent().putExtra(EXTRA_PERSON, rootPerson)
             setResult(Activity.RESULT_OK, returnIntent)
         } else {
             Log.d(LOG_TAG, "Sending cancelled result")
@@ -217,38 +219,38 @@ class TreeActivity : NavigationDrawerActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        // N.B. A person could be modified by starting EditPersonActivity from ViewPersonActivity,
-        // hence the "VIEW" requests being included below:
-
-        Log.d(LOG_TAG, "onActivityResult")
-
-        when (requestCode) {
-            REQUEST_PERSON_CREATE,
-            PersonViewDialogFragment.REQUEST_VIEW_PERSON -> if (resultCode == Activity.RESULT_OK) {
+        if (requestCode == REQUEST_PERSON_CREATE) {
+            if (resultCode == Activity.RESULT_OK) {
                 // Refresh tree layout
                 hasModified = true
                 treeHandler.displayTree(null)
             }
-
-            PersonViewDialogFragment.REQUEST_ADD_PARENT -> if (resultCode == Activity.RESULT_OK) {
-                val parent = data?.getParcelableExtra<Person>(CreatePersonActivity.EXTRA_PERSON)
-                if (parent != null) {
-                    val relationship = ChildRelationship(parent.id, person!!.id)
-                    ChildrenManager(this).add(relationship)
-                }
-            }
-
-            // PersonViewDialogFragment.REQUEST_ADD_MARRIAGE -> marriage data already written in
-            // EditMarriageActivity since passing EXTRA_WRITE_DATA true in PersonViewDialogFragment
-
-            PersonViewDialogFragment.REQUEST_ADD_CHILD -> if (resultCode == Activity.RESULT_OK) {
-                val child = data?.getParcelableExtra<Person>(CreatePersonActivity.EXTRA_PERSON)
-                if (child != null) {
-                    val relationship = ChildRelationship(person!!.id, child.id)
-                    ChildrenManager(this).add(relationship)
-                }
-            }
+            return
         }
+
+        // For other request codes, pass to PersonViewDialogFragment to handle
+        dialogFragment?.onActivityResult(requestCode, resultCode, data)
+    }
+
+    override fun onTreeUpdate() {
+        Log.v(LOG_TAG, "onTreeUpdate called")
+        // Updates the tree using the existing root node
+
+        // rootPerson cannot be null when onTreeUpdate is called, since nothing would be in the tree
+        // to be clicked on and update
+        val rootNode = ChildrenManager(this).getTree(rootPerson!!.id)
+
+        hasModified = true
+        treeHandler.displayTree(rootNode)
+    }
+
+    override fun onTreeChangeRoot(newRootNode: TreeNode<Person>, newName: String) {
+        Log.v(LOG_TAG, "onTreeChangeRoot called with rootNode=$newRootNode, name=$newName")
+
+        rootPerson = newRootNode.data
+        treeHandler.displayTree(newRootNode)
+
+        updateToolbarTitle(newName)
     }
 
 }

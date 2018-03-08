@@ -1,5 +1,6 @@
 package com.farbodsz.familytree.ui.tree
 
+import android.app.Activity
 import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
@@ -8,9 +9,12 @@ import android.support.v7.app.AlertDialog
 import android.view.View
 import android.widget.TextView
 import com.farbodsz.familytree.R
+import com.farbodsz.familytree.database.manager.ChildrenManager
 import com.farbodsz.familytree.database.manager.MarriagesManager
 import com.farbodsz.familytree.database.manager.PersonManager
+import com.farbodsz.familytree.model.ChildRelationship
 import com.farbodsz.familytree.model.Person
+import com.farbodsz.familytree.model.tree.TreeNode
 import com.farbodsz.familytree.ui.marriage.EditMarriageActivity
 import com.farbodsz.familytree.ui.person.CreatePersonActivity
 import com.farbodsz.familytree.ui.person.ViewPersonActivity
@@ -23,16 +27,6 @@ import com.farbodsz.familytree.util.DATE_FORMATTER_BIRTH
  * @see TreeActivity
  */
 class PersonViewDialogFragment : DialogFragment() {
-
-    private lateinit var person: Person
-
-    /**
-     * The spouses of [person].
-     * This is initialised lazily and cached to avoid processing data on each access.
-     */
-    private val spouses by lazy {
-        MarriagesManager(context).getSpouses(person.id)
-    }
 
     companion object {
 
@@ -62,11 +56,45 @@ class PersonViewDialogFragment : DialogFragment() {
                 R.string.dialog_personView_item_addChild
         )
 
-        internal const val REQUEST_VIEW_PERSON = 11
-        internal const val REQUEST_ADD_PARENT = 12
-        internal const val REQUEST_ADD_MARRIAGE = 13
-        internal const val REQUEST_ADD_CHILD = 14
+        private const val REQUEST_VIEW_PERSON = 11
+        private const val REQUEST_ADD_PARENT = 12
+        private const val REQUEST_ADD_MARRIAGE = 13
+        private const val REQUEST_ADD_CHILD = 14
     }
+
+    /**
+     * Functional interface used to allow the creator of this dialog fragment to run code after a
+     * dialog action resulted in the family tree being changed.
+     */
+    interface OnTreeChangedListener {
+
+        /**
+         * This method will be invoked if a person in the tree has been added, edited or deleted.
+         */
+        fun onTreeUpdate()
+
+        /**
+         * This method will be invoked when the root node of the tree has changed (e.g. if person
+         * whose tree is being shown has changed).
+         *
+         * @param newRootNode   the new root node
+         * @param newName       the new name to use as the title on the UI (see
+         *                      [TreeActivity.personName]).
+         */
+        fun onTreeChangeRoot(newRootNode: TreeNode<Person>, newName: String)
+    }
+
+    private lateinit var person: Person
+
+    /**
+     * The spouses of [person].
+     * This is initialised lazily and cached to avoid processing data on each access.
+     */
+    private val spouses by lazy {
+        MarriagesManager(context).getSpouses(person.id)
+    }
+
+    private lateinit var treeChangedListener: OnTreeChangedListener
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         person = arguments?.getParcelable(ARGUMENT_PERSON)
@@ -77,7 +105,7 @@ class PersonViewDialogFragment : DialogFragment() {
                 .setCustomTitle(getTitleView())
                 .setItems(getDialogOptions()) { _, which ->
                     invokeDialogAction(which)
-                    dismiss()
+                    // Dialog dismissed in onActivityResult
                 }
                 .setNegativeButton(android.R.string.cancel) { _, _ -> dismiss() }
                 .create()
@@ -172,7 +200,43 @@ class PersonViewDialogFragment : DialogFragment() {
     }
 
     private fun switchTreeTo(person: Person) {
-        throw IllegalArgumentException("not implemented") // TODO
+        val rootPerson = ChildrenManager(context).getRootParent(person.id)
+        val rootNode = ChildrenManager(context).getTree(rootPerson.id)
+        treeChangedListener.onTreeChangeRoot(rootNode, person.forename)
+        dismiss()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        when (requestCode) {
+            REQUEST_VIEW_PERSON -> if (resultCode == Activity.RESULT_OK) {
+                // A person could be modified by starting EditPersonActivity from ViewPersonActivity
+                treeChangedListener.onTreeUpdate()
+            }
+
+            REQUEST_ADD_PARENT -> if (resultCode == Activity.RESULT_OK) {
+                val parent = data?.getParcelableExtra<Person>(CreatePersonActivity.EXTRA_PERSON)
+                if (parent != null) {
+                    val relationship = ChildRelationship(parent.id, person.id)
+                    ChildrenManager(context).add(relationship)
+                }
+                treeChangedListener.onTreeUpdate()
+            }
+
+            REQUEST_ADD_MARRIAGE -> if (resultCode == Activity.RESULT_OK) {
+                // Marriage data already added in EditMarriageActivity since we passed
+                // EXTRA_WRITE_DATA true - only update the calling activity
+                treeChangedListener.onTreeUpdate()
+            }
+
+            REQUEST_ADD_CHILD -> if (resultCode == Activity.RESULT_OK) {
+                val child = data?.getParcelableExtra<Person>(CreatePersonActivity.EXTRA_PERSON)
+                if (child != null) {
+                    val relationship = ChildRelationship(person.id, child.id)
+                    ChildrenManager(context).add(relationship)
+                }
+                treeChangedListener.onTreeUpdate()
+            }
+        }
     }
 
 }

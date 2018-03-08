@@ -123,17 +123,17 @@ class ChildrenManager(
     }
 
     /**
-     * Returns the root [Person] of a tree containing a child with [childId].
+     * Returns the root [Person] of a tree containing a person with [personId].
      *
      * _N.B. there can be numerous possible roots, but only one will be returned here._
      *
      * @see getParents
      */
-    fun getRootParent(childId: Int): Person {
-        val parents = getParents(childId)
+    fun getRootParent(personId: Int): Person {
+        val parents = getParents(personId)
         return if (parents.isEmpty()) {
             // Has no parents, so this is the root
-            PersonManager(context).get(childId)
+            PersonManager(context).get(personId)
         } else {
             val parentId = parents[0].id // use the first parent found as default
             getRootParent(parentId)
