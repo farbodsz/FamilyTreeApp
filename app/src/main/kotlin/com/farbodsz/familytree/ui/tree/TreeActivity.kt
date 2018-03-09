@@ -55,8 +55,8 @@ class TreeActivity : NavigationDrawerActivity(), PersonViewDialogFragment.OnDial
         private const val REQUEST_ADD_PARENT = 10
 
         /**
-         * Request code for starting [EditMarriageActivity] for result, to create a new [Marriage]
-         * involving a [Person].
+         * Request code for starting [EditMarriageActivity] for result, to create a new
+         * [com.farbodsz.familytree.model.Marriage] involving a [Person].
          */
         private const val REQUEST_ADD_MARRIAGE = 11
 
@@ -85,14 +85,6 @@ class TreeActivity : NavigationDrawerActivity(), PersonViewDialogFragment.OnDial
     private lateinit var treeHandler: TreeHandler
 
     /**
-     * The [Person] who's portion of the family tree is being displayed. It will be the root of the
-     * tree.
-     *
-     * This can be null if the whole tree is being displayed.
-     */
-    private var rootPerson: Person? = null
-
-    /**
      * The most recent [Person] selected from the tree.
      */
     private var selectedPersonCache: Person? = null
@@ -108,24 +100,25 @@ class TreeActivity : NavigationDrawerActivity(), PersonViewDialogFragment.OnDial
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        rootPerson = intent.extras?.getParcelable(EXTRA_PERSON)
+        val rootPerson = intent.extras?.getParcelable<Person>(EXTRA_PERSON)
         val personName = intent.extras?.getString(EXTRA_NAME)
-        setupNavigation()
 
-        setupTitle(personName)
+        setupNavigation(rootPerson)
+        setupTitle(rootPerson, personName)
 
         initTreeHandler()
+
         val rootNode = treeHandler.getDisplayedTree(rootPerson)
-        treeHandler.displayTree(rootNode)
+        treeHandler.updateTree(rootNode)
     }
 
-    private fun setupNavigation() {
+    private fun setupNavigation(rootPerson: Person?) {
         // If a particular person is being displayed, then the nav drawer doesn't need to be shown
         @LayoutRes val layout = R.layout.activity_tree
         if (rootPerson == null) setContentView(withNavigation(layout)) else setContentView(layout)
     }
 
-    private fun setupTitle(personName: String?) {
+    private fun setupTitle(rootPerson: Person?, personName: String?) {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
@@ -187,7 +180,7 @@ class TreeActivity : NavigationDrawerActivity(), PersonViewDialogFragment.OnDial
      * If there is no tree being displayed, a [Snackbar] error message will be shown instead.
      */
     private fun chooseLayersDialog() {
-        val rootNode = treeHandler.getDisplayedTree(rootPerson)
+        val rootNode = treeHandler.updateRootNode()
         if (rootNode == null) {
             val layoutRoot = findViewById<CoordinatorLayout>(R.id.coordinatorLayout)
             Snackbar.make(layoutRoot, R.string.error_no_tree_no_layers, Snackbar.LENGTH_LONG)
@@ -200,7 +193,7 @@ class TreeActivity : NavigationDrawerActivity(), PersonViewDialogFragment.OnDial
                 .setTitle(R.string.dialog_choose_layers_title)
                 .setItems(getNodeLayers(rootNode)) { _, which ->
                     val newDisplayedHeight = which + 1 // which is the index
-                    treeHandler.displayTree(rootNode, newDisplayedHeight)
+                    treeHandler.updateTree(rootNode, newDisplayedHeight)
                     dialog.dismiss()
                 }
                 .setNegativeButton(android.R.string.cancel) { _, _ ->
@@ -231,6 +224,7 @@ class TreeActivity : NavigationDrawerActivity(), PersonViewDialogFragment.OnDial
      */
     private fun sendResult() {
         if (hasModified) { // TODO what is this really for?
+            val rootPerson = treeHandler.currentRootNode!!.data
             Log.d(LOG_TAG, "Sending successful result: $rootPerson")
             val returnIntent = Intent().putExtra(EXTRA_PERSON, rootPerson)
             setResult(Activity.RESULT_OK, returnIntent)
@@ -250,13 +244,13 @@ class TreeActivity : NavigationDrawerActivity(), PersonViewDialogFragment.OnDial
             REQUEST_PERSON_CREATE -> if (resultCode == Activity.RESULT_OK) {
                 // Refresh tree layout
                 hasModified = true
-                updateTree()
+                treeHandler.updateTree()
             }
 
             REQUEST_VIEW_PERSON -> if (resultCode == Activity.RESULT_OK) {
                 // A person could be modified by starting EditPersonActivity from ViewPersonActivity
                 hasModified = true
-                updateTree()
+                treeHandler.updateTree()
             }
 
             REQUEST_ADD_PARENT -> if (resultCode == Activity.RESULT_OK) {
@@ -264,7 +258,7 @@ class TreeActivity : NavigationDrawerActivity(), PersonViewDialogFragment.OnDial
                 if (parent != null) {
                     val relationship = ChildRelationship(parent.id, selectedPersonCache!!.id)
                     ChildrenManager(this).add(relationship)
-                    updateTree()
+                    treeHandler.updateTree()
                 } else {
                     Log.w(LOG_TAG, "Could not update tree - parent received was null")
                 }
@@ -273,7 +267,7 @@ class TreeActivity : NavigationDrawerActivity(), PersonViewDialogFragment.OnDial
             REQUEST_ADD_MARRIAGE -> if (resultCode == Activity.RESULT_OK) {
                 // Marriage data already added in EditMarriageActivity since we passed
                 // EXTRA_WRITE_DATA true - only update the calling activity
-                updateTree()
+                treeHandler.updateTree()
             }
 
             REQUEST_ADD_CHILD -> if (resultCode == Activity.RESULT_OK) {
@@ -281,7 +275,7 @@ class TreeActivity : NavigationDrawerActivity(), PersonViewDialogFragment.OnDial
                 if (child != null) {
                     val relationship = ChildRelationship(selectedPersonCache!!.id, child.id)
                     ChildrenManager(this).add(relationship)
-                    updateTree()
+                    treeHandler.updateTree()
                 } else {
                     Log.w(LOG_TAG, "Could not update tree - child received was null")
                 }
@@ -290,11 +284,6 @@ class TreeActivity : NavigationDrawerActivity(), PersonViewDialogFragment.OnDial
             else -> Log.w(LOG_TAG, "Request code ($requestCode) not recognised")
         }
     }
-
-    /**
-     * Display the tree again using the existing [rootPerson].
-     */
-    private fun updateTree() = treeHandler.displayTree(findTreeContainingPerson(rootPerson!!))
 
     override fun onViewPerson(person: Person) {
         selectedPersonCache = person
