@@ -270,7 +270,14 @@ class TreeActivity : NavigationDrawerActivity(), PersonViewDialogFragment.OnDial
     }
 
     override fun onSwitchTree(person: Person) {
-        // TODO
+        treeHandler.updateTree(treeHandler.getDisplayedTree(person))
+
+        // Show message
+        Snackbar.make(
+                coordinatorLayout,
+                getString(R.string.msg_tree_person_updated, person.forename),
+                Snackbar.LENGTH_SHORT
+        ).show()
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
