@@ -14,19 +14,21 @@ import android.view.MenuItem
 import android.view.ViewGroup
 import com.farbodsz.familytree.R
 import com.farbodsz.familytree.database.manager.ChildrenManager
+import com.farbodsz.familytree.model.ChildRelationship
 import com.farbodsz.familytree.model.Person
 import com.farbodsz.familytree.model.tree.TreeNode
 import com.farbodsz.familytree.ui.NavigationDrawerActivity
+import com.farbodsz.familytree.ui.marriage.EditMarriageActivity
 import com.farbodsz.familytree.ui.person.CreatePersonActivity
+import com.farbodsz.familytree.ui.person.ViewPersonActivity
 import com.farbodsz.familytree.ui.widget.TreeView
 import com.farbodsz.familytree.util.standardNavigationParams
 import com.farbodsz.familytree.util.withNavigation
 
-
 /**
  * Activity to display a [TreeView].
  */
-class TreeActivity : NavigationDrawerActivity(), PersonViewDialogFragment.OnTreeChangedListener {
+class TreeActivity : NavigationDrawerActivity(), PersonViewDialogFragment.OnDialogActionChosenListener {
 
     companion object {
 
@@ -34,12 +36,35 @@ class TreeActivity : NavigationDrawerActivity(), PersonViewDialogFragment.OnTree
 
         private const val FRAGMENT_TAG_DIALOG = "dialog"
 
-        private const val REQUEST_DIALOG_PERSON_VIEW = "request_personViewDialogFragment"
-
         /**
-         * Request code for starting [CreatePersonActivity] for result.
+         * Request code for starting [CreatePersonActivity] for result, to add a new person to the
+         * database.
          */
         private const val REQUEST_PERSON_CREATE = 8
+
+        /**
+         * Request code for starting [ViewPersonActivity] for result, to view the details of a
+         * [Person].
+         */
+        private const val REQUEST_VIEW_PERSON = 9
+
+        /**
+         * Request code for starting [CreatePersonActivity] for result, to create a parent for a
+         * [Person].
+         */
+        private const val REQUEST_ADD_PARENT = 10
+
+        /**
+         * Request code for starting [EditMarriageActivity] for result, to create a new [Marriage]
+         * involving a [Person].
+         */
+        private const val REQUEST_ADD_MARRIAGE = 11
+
+        /**
+         * Request code for starting [CreatePersonActivity] for result, to create a child for a
+         * [Person].
+         */
+        private const val REQUEST_ADD_CHILD = 12
 
         /**
          * Intent extra key for supplying a [Person] to this activity. This will be used as the
@@ -68,17 +93,17 @@ class TreeActivity : NavigationDrawerActivity(), PersonViewDialogFragment.OnTree
     private var rootPerson: Person? = null
 
     /**
+     * The most recent [Person] selected from the tree.
+     */
+    private var selectedPersonCache: Person? = null
+
+    /**
      * Whether any modifications have been made on this page (such as adding a new person).
      * This is used to determine what result should be sent to the calling activity.
      *
      * @see sendResult
      */
     private var hasModified = false
-
-    /**
-     * Reference to the most recent [PersonViewDialogFragment] displayed from this activity.
-     */
-    private var dialogFragment: PersonViewDialogFragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -121,9 +146,9 @@ class TreeActivity : NavigationDrawerActivity(), PersonViewDialogFragment.OnTree
         val treeContainer = findViewById<ViewGroup>(R.id.container)
 
         treeHandler = TreeHandler(this, treeContainer) { _, person ->
-            dialogFragment = PersonViewDialogFragment.newInstance(person).apply {
-                show(supportFragmentManager, FRAGMENT_TAG_DIALOG)
-            }
+            selectedPersonCache = person
+            val dialogFragment = PersonViewDialogFragment.newInstance(person, this)
+            dialogFragment.show(supportFragmentManager, FRAGMENT_TAG_DIALOG)
         }
     }
 
@@ -218,39 +243,93 @@ class TreeActivity : NavigationDrawerActivity(), PersonViewDialogFragment.OnTree
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        Log.v(LOG_TAG, "onActivityResult called with requestCode=$requestCode, " +
+                "resultCode=$resultCode")
 
-        if (requestCode == REQUEST_PERSON_CREATE) {
-            if (resultCode == Activity.RESULT_OK) {
+        when (requestCode) {
+            REQUEST_PERSON_CREATE -> if (resultCode == Activity.RESULT_OK) {
                 // Refresh tree layout
                 hasModified = true
-                treeHandler.displayTree(null)
+                updateTree()
             }
-            return
+
+            REQUEST_VIEW_PERSON -> if (resultCode == Activity.RESULT_OK) {
+                // A person could be modified by starting EditPersonActivity from ViewPersonActivity
+                hasModified = true
+                updateTree()
+            }
+
+            REQUEST_ADD_PARENT -> if (resultCode == Activity.RESULT_OK) {
+                val parent = data?.getParcelableExtra<Person>(CreatePersonActivity.EXTRA_PERSON)
+                if (parent != null) {
+                    val relationship = ChildRelationship(parent.id, selectedPersonCache!!.id)
+                    ChildrenManager(this).add(relationship)
+                    updateTree()
+                } else {
+                    Log.w(LOG_TAG, "Could not update tree - parent received was null")
+                }
+            }
+
+            REQUEST_ADD_MARRIAGE -> if (resultCode == Activity.RESULT_OK) {
+                // Marriage data already added in EditMarriageActivity since we passed
+                // EXTRA_WRITE_DATA true - only update the calling activity
+                updateTree()
+            }
+
+            REQUEST_ADD_CHILD -> if (resultCode == Activity.RESULT_OK) {
+                val child = data?.getParcelableExtra<Person>(CreatePersonActivity.EXTRA_PERSON)
+                if (child != null) {
+                    val relationship = ChildRelationship(selectedPersonCache!!.id, child.id)
+                    ChildrenManager(this).add(relationship)
+                    updateTree()
+                } else {
+                    Log.w(LOG_TAG, "Could not update tree - child received was null")
+                }
+            }
+
+            else -> Log.w(LOG_TAG, "Request code ($requestCode) not recognised")
         }
-
-        // For other request codes, pass to PersonViewDialogFragment to handle
-        dialogFragment?.onActivityResult(requestCode, resultCode, data)
     }
 
-    override fun onTreeUpdate() {
-        Log.v(LOG_TAG, "onTreeUpdate called")
-        // Updates the tree using the existing root node
+    /**
+     * Display the tree again using the existing [rootPerson].
+     */
+    private fun updateTree() = treeHandler.displayTree(findTreeContainingPerson(rootPerson!!))
 
-        // rootPerson cannot be null when onTreeUpdate is called, since nothing would be in the tree
-        // to be clicked on and update
-        val rootNode = ChildrenManager(this).getTree(rootPerson!!.id)
-
-        hasModified = true
-        treeHandler.displayTree(rootNode)
+    override fun onViewPerson(person: Person) {
+        selectedPersonCache = person
+        val intent = Intent(this, ViewPersonActivity::class.java)
+                .putExtra(ViewPersonActivity.EXTRA_PERSON, person)
+        startActivityForResult(intent, REQUEST_VIEW_PERSON)
     }
 
-    override fun onTreeChangeRoot(newRootNode: TreeNode<Person>, newName: String) {
-        Log.v(LOG_TAG, "onTreeChangeRoot called with rootNode=$newRootNode, name=$newName")
+    override fun onAddParent(person: Person) {
+        val intent = Intent(this, CreatePersonActivity::class.java)
+        startActivityForResult(intent, REQUEST_ADD_PARENT)
+    }
 
-        rootPerson = newRootNode.data
-        treeHandler.displayTree(newRootNode)
+    override fun onAddMarriage(person: Person) {
+        val intent = Intent(this, EditMarriageActivity::class.java)
+                .putExtra(EditMarriageActivity.EXTRA_WRITE_DATA, true)
+                .putExtra(EditMarriageActivity.EXTRA_EXISTING_PERSON, person)
+        startActivityForResult(intent, REQUEST_ADD_MARRIAGE)
+    }
 
-        updateToolbarTitle(newName)
+    override fun onAddChild(person: Person) {
+        val intent = Intent(this, CreatePersonActivity::class.java)
+        startActivityForResult(intent, REQUEST_ADD_CHILD)
+    }
+
+    override fun onSwitchTree(person: Person) {
+        // TODO
+    }
+
+    /**
+     * Returns a tree containing the given [person].
+     */
+    private fun findTreeContainingPerson(person: Person): TreeNode<Person> {
+        val rootPerson = ChildrenManager(this).getRootParent(person.id)
+        return ChildrenManager(this).getTree(rootPerson.id)
     }
 
 }

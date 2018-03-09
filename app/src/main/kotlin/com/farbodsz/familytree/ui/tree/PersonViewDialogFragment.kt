@@ -1,23 +1,15 @@
 package com.farbodsz.familytree.ui.tree
 
-import android.app.Activity
 import android.app.Dialog
-import android.content.Intent
 import android.os.Bundle
 import android.support.v4.app.DialogFragment
 import android.support.v7.app.AlertDialog
 import android.view.View
 import android.widget.TextView
 import com.farbodsz.familytree.R
-import com.farbodsz.familytree.database.manager.ChildrenManager
 import com.farbodsz.familytree.database.manager.MarriagesManager
 import com.farbodsz.familytree.database.manager.PersonManager
-import com.farbodsz.familytree.model.ChildRelationship
 import com.farbodsz.familytree.model.Person
-import com.farbodsz.familytree.model.tree.TreeNode
-import com.farbodsz.familytree.ui.marriage.EditMarriageActivity
-import com.farbodsz.familytree.ui.person.CreatePersonActivity
-import com.farbodsz.familytree.ui.person.ViewPersonActivity
 import com.farbodsz.familytree.util.DATE_FORMATTER_BIRTH
 
 /**
@@ -33,15 +25,22 @@ class PersonViewDialogFragment : DialogFragment() {
         const val ARGUMENT_PERSON = "arg_person"
 
         /**
-         * Instantiates this dialog fragment with a [person] as an argument.
+         * Instantiates this dialog fragment with a [person] as an argument to the fragment.
+         *
+         * @param person                the [Person] to show in the dialog
+         * @param actionChangedListener the listener implemented by the calling activity
          */
         @JvmStatic
-        fun newInstance(person: Person): PersonViewDialogFragment {
+        fun newInstance(person: Person,
+                        actionChangedListener: OnDialogActionChosenListener
+        ): PersonViewDialogFragment {
             val fragment = PersonViewDialogFragment()
 
             val args = Bundle()
             args.putParcelable(ARGUMENT_PERSON, person)
+
             fragment.arguments = args
+            fragment.actionChosenListener = actionChangedListener
 
             return fragment
         }
@@ -55,33 +54,38 @@ class PersonViewDialogFragment : DialogFragment() {
                 R.string.dialog_personView_item_addMarriage,
                 R.string.dialog_personView_item_addChild
         )
-
-        private const val REQUEST_VIEW_PERSON = 11
-        private const val REQUEST_ADD_PARENT = 12
-        private const val REQUEST_ADD_MARRIAGE = 13
-        private const val REQUEST_ADD_CHILD = 14
     }
 
     /**
-     * Functional interface used to allow the creator of this dialog fragment to run code after a
-     * dialog action resulted in the family tree being changed.
+     * Functional interface used to allow the creator of this dialog fragment to run code after an
+     * option in the dialog has been selected.
      */
-    interface OnTreeChangedListener {
+    interface OnDialogActionChosenListener {
 
         /**
-         * This method will be invoked if a person in the tree has been added, edited or deleted.
+         * Invoked when the user has chosen to view the details of the given [person].
          */
-        fun onTreeUpdate()
+        fun onViewPerson(person: Person)
 
         /**
-         * This method will be invoked when the root node of the tree has changed (e.g. if person
-         * whose tree is being shown has changed).
-         *
-         * @param newRootNode   the new root node
-         * @param newName       the new name to use as the title on the UI (see
-         *                      [TreeActivity.personName]).
+         * Invoked when the user has chosen to add a parent to the given [person].
          */
-        fun onTreeChangeRoot(newRootNode: TreeNode<Person>, newName: String)
+        fun onAddParent(person: Person)
+
+        /**
+         * Invoked when the user has chosen to add a marriage involving the given [person].
+         */
+        fun onAddMarriage(person: Person)
+
+        /**
+         * Invoked when the user has chosen to add a child to the given [person].
+         */
+        fun onAddChild(person: Person)
+
+        /**
+         * Invoked when the user has chosen to view the given [person]'s tree.
+         */
+        fun onSwitchTree(person: Person)
     }
 
     private lateinit var person: Person
@@ -94,7 +98,7 @@ class PersonViewDialogFragment : DialogFragment() {
         MarriagesManager(context).getSpouses(person.id)
     }
 
-    private lateinit var treeChangedListener: OnTreeChangedListener
+    private lateinit var actionChosenListener: OnDialogActionChosenListener
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         person = arguments?.getParcelable(ARGUMENT_PERSON)
@@ -168,75 +172,16 @@ class PersonViewDialogFragment : DialogFragment() {
      *              the person has no spouses).
      */
     private fun invokeDialogAction(which: Int) = when (which) {
-        0 -> viewPerson()
-        1 -> addParent()
-        2 -> addMarriage()
-        3 -> addChild()
-        in 4..(4 + spouses.count()) -> switchTreeTo(spouses[which - 4])
-        else -> throw IllegalArgumentException("invalid index (which) value: $which")
-    }
-
-    private fun viewPerson() {
-        val intent = Intent(activity, ViewPersonActivity::class.java)
-                .putExtra(ViewPersonActivity.EXTRA_PERSON, person)
-        startActivityForResult(intent, REQUEST_VIEW_PERSON)
-    }
-
-    private fun addParent() {
-        val intent = Intent(activity, CreatePersonActivity::class.java)
-        startActivityForResult(intent, REQUEST_ADD_PARENT)
-    }
-
-    private fun addMarriage() {
-        val intent = Intent(activity, EditMarriageActivity::class.java)
-                .putExtra(EditMarriageActivity.EXTRA_WRITE_DATA, true)
-                .putExtra(EditMarriageActivity.EXTRA_EXISTING_PERSON, person)
-        startActivityForResult(intent, REQUEST_ADD_MARRIAGE)
-    }
-
-    private fun addChild() {
-        val intent = Intent(activity, CreatePersonActivity::class.java)
-        startActivityForResult(intent, REQUEST_ADD_CHILD)
-    }
-
-    private fun switchTreeTo(person: Person) {
-        val rootPerson = ChildrenManager(context).getRootParent(person.id)
-        val rootNode = ChildrenManager(context).getTree(rootPerson.id)
-        treeChangedListener.onTreeChangeRoot(rootNode, person.forename)
-        dismiss()
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        when (requestCode) {
-            REQUEST_VIEW_PERSON -> if (resultCode == Activity.RESULT_OK) {
-                // A person could be modified by starting EditPersonActivity from ViewPersonActivity
-                treeChangedListener.onTreeUpdate()
-            }
-
-            REQUEST_ADD_PARENT -> if (resultCode == Activity.RESULT_OK) {
-                val parent = data?.getParcelableExtra<Person>(CreatePersonActivity.EXTRA_PERSON)
-                if (parent != null) {
-                    val relationship = ChildRelationship(parent.id, person.id)
-                    ChildrenManager(context).add(relationship)
-                }
-                treeChangedListener.onTreeUpdate()
-            }
-
-            REQUEST_ADD_MARRIAGE -> if (resultCode == Activity.RESULT_OK) {
-                // Marriage data already added in EditMarriageActivity since we passed
-                // EXTRA_WRITE_DATA true - only update the calling activity
-                treeChangedListener.onTreeUpdate()
-            }
-
-            REQUEST_ADD_CHILD -> if (resultCode == Activity.RESULT_OK) {
-                val child = data?.getParcelableExtra<Person>(CreatePersonActivity.EXTRA_PERSON)
-                if (child != null) {
-                    val relationship = ChildRelationship(person.id, child.id)
-                    ChildrenManager(context).add(relationship)
-                }
-                treeChangedListener.onTreeUpdate()
-            }
+        0 -> actionChosenListener.onViewPerson(person)
+        1 -> actionChosenListener.onAddParent(person)
+        2 -> actionChosenListener.onAddMarriage(person)
+        3 -> actionChosenListener.onAddChild(person)
+        in 4..(4 + spouses.count()) -> {
+            val spouseIndex = which - 4
+            val spouse = spouses[spouseIndex]
+            actionChosenListener.onSwitchTree(spouse)
         }
+        else -> throw IllegalArgumentException("invalid index (which) value: $which")
     }
 
 }
