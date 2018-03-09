@@ -129,4 +129,10 @@
         <item quantity="other">Married to %1$s and %2$d others</item>
     </plurals>
 
+    <!-- Other Snackbar messages -->
+    <string name="msg_tree_person_updated">Displaying %1$s\'s tree</string>
+    <string name="msg_added_parent">Added %2$s as %1$s\'s child</string>
+    <string name="msg_added_child">Added %1$s as %2$s\'s parent</string>
+    <string name="msg_added_spouse">Added %1$s as %2$s\'s spouse</string>
+
 </resources>
