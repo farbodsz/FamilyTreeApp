@@ -94,8 +94,20 @@ class PersonViewDialogFragment : DialogFragment() {
      * The spouses of [person].
      * This is initialised lazily and cached to avoid processing data on each access.
      */
-    private val spouses by lazy {
-        MarriagesManager(context).getSpouses(person.id)
+    private val spouses by lazy { MarriagesManager(context).getSpouses(person.id) }
+
+    /**
+     * For providing a list of [people][Person] who's tree the user can choose to switch to and
+     * view.
+     *
+     * It includes the [person] itself and his/her spouses.
+     * This is initialised lazily and cached to avoid processing data on each access.
+     */
+    private val switchTreeOptions by lazy {
+        val options = ArrayList<Person>()
+        options.add(person)
+        options.addAll(spouses)
+        options
     }
 
     private lateinit var actionChosenListener: OnDialogActionChosenListener
@@ -155,8 +167,8 @@ class PersonViewDialogFragment : DialogFragment() {
         }
 
         // Add "switch to ___'s tree" options
-        for (spouse in spouses) {
-            val actionText = getString(R.string.dialog_personView_item_switchTree, spouse.forename)
+        for (p in switchTreeOptions) {
+            val actionText = getString(R.string.dialog_personView_item_switchTree, p.forename)
             actions.add(actionText)
         }
 
@@ -176,10 +188,9 @@ class PersonViewDialogFragment : DialogFragment() {
         1 -> actionChosenListener.onAddParent(person)
         2 -> actionChosenListener.onAddMarriage(person)
         3 -> actionChosenListener.onAddChild(person)
-        in 4..(4 + spouses.count()) -> {
-            val spouseIndex = which - 4
-            val spouse = spouses[spouseIndex]
-            actionChosenListener.onSwitchTree(spouse)
+        in 4..(4 + switchTreeOptions.count()) -> {
+            val chosenPerson = switchTreeOptions[which - 4]
+            actionChosenListener.onSwitchTree(chosenPerson)
         }
         else -> throw IllegalArgumentException("invalid index (which) value: $which")
     }
