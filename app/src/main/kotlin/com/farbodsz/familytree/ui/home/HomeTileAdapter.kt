@@ -1,6 +1,5 @@
 package com.farbodsz.familytree.ui.home
 
-import android.content.Context
 import android.support.v7.widget.CardView
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
@@ -8,13 +7,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.farbodsz.familytree.R
-import com.farbodsz.familytree.model.Person
 
 /**
- * A [RecyclerView] adapter for displaying [people][Person] in a standard list layout.
+ * A [RecyclerView] adapter for displaying tiles containing information for the home screen.
+ *
+ * @property tiles  the list of [HomeTile]s to display
  */
 class HomeTileAdapter(
-        private val context: Context,
         private val tiles: List<HomeTile>
 ) : RecyclerView.Adapter<HomeTileAdapter.ViewHolder>() {
 
