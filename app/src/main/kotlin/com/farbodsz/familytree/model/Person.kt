@@ -29,7 +29,7 @@ data class Person(
         val placeOfBirth: String,
         val dateOfDeath: LocalDate?,
         val placeOfDeath: String
-) : StandardData, Comparable<Person>, Parcelable {
+) : StandardData, WithEvent, Comparable<Person>, Parcelable {
 
     init {
         require(id > 0) { "the id must be greater than 0" }
@@ -48,6 +48,8 @@ data class Person(
     val fullName = "$forename $surname"
 
     fun isAlive() = dateOfDeath == null
+
+    override fun getRelatedEvent() = Birthday(id, dateOfBirth, placeOfBirth)
 
     override fun compareTo(other: Person) = fullName.compareTo(other.fullName)
 
