@@ -4,6 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.annotation.LayoutRes
+import android.support.annotation.StringRes
 import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.Snackbar
 import android.support.v7.app.AlertDialog
@@ -13,9 +14,14 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
 import com.farbodsz.familytree.R
+import com.farbodsz.familytree.database.manager.ChildrenManager
+import com.farbodsz.familytree.database.manager.PersonManager
+import com.farbodsz.familytree.model.ChildRelationship
+import com.farbodsz.familytree.model.Marriage
 import com.farbodsz.familytree.model.Person
 import com.farbodsz.familytree.model.tree.TreeNode
 import com.farbodsz.familytree.ui.NavigationDrawerActivity
+import com.farbodsz.familytree.ui.marriage.EditMarriageActivity
 import com.farbodsz.familytree.ui.person.CreatePersonActivity
 import com.farbodsz.familytree.ui.person.ViewPersonActivity
 import com.farbodsz.familytree.ui.widget.TreeView
@@ -25,21 +31,43 @@ import com.farbodsz.familytree.util.withNavigation
 /**
  * Activity to display a [TreeView].
  */
-class TreeActivity : NavigationDrawerActivity() {
+class TreeActivity : NavigationDrawerActivity(), PersonViewDialogFragment.OnDialogActionChosenListener {
 
     companion object {
 
         private const val LOG_TAG = "TreeActivity"
 
-        /**
-         * Request code for starting [ViewPersonActivity] for result.
-         */
-        private const val REQUEST_PERSON_VIEW = 8
+        private const val FRAGMENT_TAG_DIALOG = "dialog"
 
         /**
-         * Request code for starting [CreatePersonActivity] for result.
+         * Request code for starting [CreatePersonActivity] for result, to add a new person to the
+         * database.
          */
-        private const val REQUEST_PERSON_CREATE = 9
+        private const val REQUEST_PERSON_CREATE = 8
+
+        /**
+         * Request code for starting [ViewPersonActivity] for result, to view the details of a
+         * [Person].
+         */
+        private const val REQUEST_VIEW_PERSON = 9
+
+        /**
+         * Request code for starting [CreatePersonActivity] for result, to create a parent for a
+         * [Person].
+         */
+        private const val REQUEST_ADD_PARENT = 10
+
+        /**
+         * Request code for starting [EditMarriageActivity] for result, to create a new
+         * [com.farbodsz.familytree.model.Marriage] involving a [Person].
+         */
+        private const val REQUEST_ADD_MARRIAGE = 11
+
+        /**
+         * Request code for starting [CreatePersonActivity] for result, to create a child for a
+         * [Person].
+         */
+        private const val REQUEST_ADD_CHILD = 12
 
         /**
          * Intent extra key for supplying a [Person] to this activity. This will be used as the
@@ -55,23 +83,19 @@ class TreeActivity : NavigationDrawerActivity() {
     }
 
     /**
+     * The [CoordinatorLayout] used as the root of the layout being displayed.
+     */
+    private lateinit var coordinatorLayout: CoordinatorLayout
+
+    /**
      * Helper class for setting up the tree and showing it in the UI.
      */
     private lateinit var treeHandler: TreeHandler
 
     /**
-     * The [Person] who's portion of the family tree is being displayed. It will be the root of the
-     * tree.
-     *
-     * This can be null if the whole tree is being displayed.
+     * The most recent [Person] selected from the tree.
      */
-    private var person: Person? = null
-
-    /**
-     * The name of a person to display on the page title. This can be null, in which case a
-     * different title will be used.
-     */
-    private var personName: String? = null
+    private var selectedPersonCache: Person? = null
 
     /**
      * Whether any modifications have been made on this page (such as adding a new person).
@@ -84,32 +108,35 @@ class TreeActivity : NavigationDrawerActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        person = intent.extras?.getParcelable(EXTRA_PERSON)
-        personName = intent.extras?.getString(EXTRA_NAME)
-        setupNavigation()
+        val rootPerson = intent.extras?.getParcelable<Person>(EXTRA_PERSON)
+        val personName = intent.extras?.getString(EXTRA_NAME)
 
-        setupTitle()
+        setupNavigation(rootPerson)
+        setupTitle(rootPerson, personName)
+
+        coordinatorLayout = findViewById(R.id.coordinatorLayout)
 
         initTreeHandler()
-        val rootNode = treeHandler.getDisplayedTree(person)
-        treeHandler.displayTree(rootNode)
+
+        val rootNode = treeHandler.getDisplayedTree(rootPerson)
+        treeHandler.updateTree(rootNode)
     }
 
-    private fun setupNavigation() {
+    private fun setupNavigation(rootPerson: Person?) {
         // If a particular person is being displayed, then the nav drawer doesn't need to be shown
         @LayoutRes val layout = R.layout.activity_tree
-        if (person == null) setContentView(withNavigation(layout)) else setContentView(layout)
+        if (rootPerson == null) setContentView(withNavigation(layout)) else setContentView(layout)
     }
 
-    private fun setupTitle() {
+    private fun setupTitle(rootPerson: Person?, personName: String?) {
         val toolbar = findViewById<Toolbar>(R.id.toolbar)
         setSupportActionBar(toolbar)
 
-        updateToolbarTitle()
-        person?.let { supportActionBar!!.setDisplayHomeAsUpEnabled(true) }
+        updateToolbarTitle(personName)
+        rootPerson?.let { supportActionBar!!.setDisplayHomeAsUpEnabled(true) }
     }
 
-    private fun updateToolbarTitle() {
+    private fun updateToolbarTitle(personName: String?) {
         val titleText = if (personName != null) {
             getString(R.string.title_tree_person, personName)
         } else {
@@ -122,9 +149,9 @@ class TreeActivity : NavigationDrawerActivity() {
         val treeContainer = findViewById<ViewGroup>(R.id.container)
 
         treeHandler = TreeHandler(this, treeContainer) { _, person ->
-            val intent = Intent(this@TreeActivity, ViewPersonActivity::class.java)
-                    .putExtra(ViewPersonActivity.EXTRA_PERSON, person)
-            startActivityForResult(intent, REQUEST_PERSON_VIEW)
+            selectedPersonCache = person
+            val dialogFragment = PersonViewDialogFragment.newInstance(person, this)
+            dialogFragment.show(supportFragmentManager, FRAGMENT_TAG_DIALOG)
         }
     }
 
@@ -163,7 +190,7 @@ class TreeActivity : NavigationDrawerActivity() {
      * If there is no tree being displayed, a [Snackbar] error message will be shown instead.
      */
     private fun chooseLayersDialog() {
-        val rootNode = treeHandler.getDisplayedTree(person)
+        val rootNode = treeHandler.updateRootNode()
         if (rootNode == null) {
             val layoutRoot = findViewById<CoordinatorLayout>(R.id.coordinatorLayout)
             Snackbar.make(layoutRoot, R.string.error_no_tree_no_layers, Snackbar.LENGTH_LONG)
@@ -176,7 +203,7 @@ class TreeActivity : NavigationDrawerActivity() {
                 .setTitle(R.string.dialog_choose_layers_title)
                 .setItems(getNodeLayers(rootNode)) { _, which ->
                     val newDisplayedHeight = which + 1 // which is the index
-                    treeHandler.displayTree(rootNode, newDisplayedHeight)
+                    treeHandler.updateTree(rootNode, newDisplayedHeight)
                     dialog.dismiss()
                 }
                 .setNegativeButton(android.R.string.cancel) { _, _ ->
@@ -206,9 +233,10 @@ class TreeActivity : NavigationDrawerActivity() {
      * @see android.app.Activity.RESULT_CANCELED
      */
     private fun sendResult() {
-        if (hasModified) {
-            Log.d(LOG_TAG, "Sending successful result: $person")
-            val returnIntent = Intent().putExtra(EXTRA_PERSON, person)
+        if (hasModified) { // TODO what is this really for?
+            val rootPerson = treeHandler.currentRootNode!!.data
+            Log.d(LOG_TAG, "Sending successful result: $rootPerson")
+            val returnIntent = Intent().putExtra(EXTRA_PERSON, rootPerson)
             setResult(Activity.RESULT_OK, returnIntent)
         } else {
             Log.d(LOG_TAG, "Sending cancelled result")
@@ -217,18 +245,125 @@ class TreeActivity : NavigationDrawerActivity() {
         finish()
     }
 
+    override fun onViewPerson(person: Person) {
+        selectedPersonCache = person
+        val intent = Intent(this, ViewPersonActivity::class.java)
+                .putExtra(ViewPersonActivity.EXTRA_PERSON, person)
+        startActivityForResult(intent, REQUEST_VIEW_PERSON)
+    }
+
+    override fun onAddParent(person: Person) {
+        val intent = Intent(this, CreatePersonActivity::class.java)
+        startActivityForResult(intent, REQUEST_ADD_PARENT)
+    }
+
+    override fun onAddMarriage(person: Person) {
+        val intent = Intent(this, EditMarriageActivity::class.java)
+                .putExtra(EditMarriageActivity.EXTRA_WRITE_DATA, true)
+                .putExtra(EditMarriageActivity.EXTRA_EXISTING_PERSON, person)
+        startActivityForResult(intent, REQUEST_ADD_MARRIAGE)
+    }
+
+    override fun onAddChild(person: Person) {
+        val intent = Intent(this, CreatePersonActivity::class.java)
+        startActivityForResult(intent, REQUEST_ADD_CHILD)
+    }
+
+    override fun onSwitchTree(person: Person) {
+        treeHandler.updateTree(treeHandler.getDisplayedTree(person))
+
+        // Show message
+        Snackbar.make(
+                coordinatorLayout,
+                getString(R.string.msg_tree_person_updated, person.forename),
+                Snackbar.LENGTH_SHORT
+        ).show()
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
+        Log.v(LOG_TAG, "onActivityResult called with requestCode=$requestCode, " +
+                "resultCode=$resultCode")
 
-        if (requestCode in arrayOf(REQUEST_PERSON_VIEW, REQUEST_PERSON_CREATE)) {
-            // A person could be modified by starting EditPersonActivity from ViewPersonActivity
-
-            if (resultCode == Activity.RESULT_OK) {
+        when (requestCode) {
+            REQUEST_PERSON_CREATE -> if (resultCode == Activity.RESULT_OK) {
                 // Refresh tree layout
                 hasModified = true
-                treeHandler.displayTree(null)
+                treeHandler.updateTree()
             }
+
+            REQUEST_VIEW_PERSON -> if (resultCode == Activity.RESULT_OK) {
+                // A person could be modified by starting EditPersonActivity from ViewPersonActivity
+                hasModified = true
+                treeHandler.updateTree()
+            }
+
+            REQUEST_ADD_PARENT -> if (resultCode == Activity.RESULT_OK) {
+                val parent = data?.getParcelableExtra<Person>(CreatePersonActivity.EXTRA_PERSON)
+                if (parent != null) {
+                    val relationship = ChildRelationship(parent.id, selectedPersonCache!!.id)
+                    ChildrenManager(this).add(relationship)
+                    treeHandler.updateTree()
+                    showAddParentMessage(parent.forename, selectedPersonCache!!.forename)
+                } else {
+                    Log.w(LOG_TAG, "Could not update tree - parent received was null")
+                }
+            }
+
+            REQUEST_ADD_MARRIAGE -> if (resultCode == Activity.RESULT_OK) {
+                // Marriage data already added in EditMarriageActivity since we passed
+                // EXTRA_WRITE_DATA true - only update the calling activity
+                val marriage =
+                        data!!.getParcelableExtra<Marriage>(EditMarriageActivity.EXTRA_MARRIAGE)
+                treeHandler.updateTree()
+
+                val pm = PersonManager(this)
+                val person1 = pm.get(marriage.person1Id)
+                val person2 = pm.get(marriage.person2Id)
+                showAddSpouseMessage(person1.forename, person2.forename)
+            }
+
+            REQUEST_ADD_CHILD -> if (resultCode == Activity.RESULT_OK) {
+                val child = data?.getParcelableExtra<Person>(CreatePersonActivity.EXTRA_PERSON)
+                if (child != null) {
+                    val relationship = ChildRelationship(selectedPersonCache!!.id, child.id)
+                    ChildrenManager(this).add(relationship)
+                    treeHandler.updateTree()
+                    showAddChildMessage(selectedPersonCache!!.forename, child.forename)
+                } else {
+                    Log.w(LOG_TAG, "Could not update tree - child received was null")
+                }
+            }
+
+            else -> Log.w(LOG_TAG, "Request code ($requestCode) not recognised")
         }
+    }
+
+    private fun showAddParentMessage(parentName: String, childName: String) =
+            showDataUpdateMessage(parentName, childName, R.string.msg_added_parent)
+
+    private fun showAddChildMessage(parentName: String, childName: String) =
+            showDataUpdateMessage(parentName, childName, R.string.msg_added_child)
+
+    private fun showAddSpouseMessage(person1Name: String, person2Name: String) =
+            showDataUpdateMessage(person1Name, person2Name, R.string.msg_added_spouse)
+
+    /**
+     * Shows a [Snackbar] message notifying that the tree has been updated.
+     *
+     * @param person1Name   name of the parent if a parent-child relationship, or a person in the
+     *                      marriage
+     * @param person2Name   name of the child if a parent-child relationship, or the other person in
+     *                      the marriage
+     */
+    private fun showDataUpdateMessage(person1Name: String,
+                                      person2Name: String,
+                                      @StringRes stringRes: Int) {
+        Snackbar.make(
+                coordinatorLayout,
+                getString(stringRes, person1Name, person2Name),
+                Snackbar.LENGTH_SHORT
+        ).show()
     }
 
 }

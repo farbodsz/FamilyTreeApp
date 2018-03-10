@@ -33,27 +33,76 @@ class TreeHandler(
     }
 
     /**
-     * Displays a tree in the UI using the [rootNode], with [displayedHeight] number of layers (from
-     * the root).
+     * The root node currently being used in the tree being displayed.
+     * This is null if no tree is being displayed.
+     */
+    var currentRootNode: TreeNode<Person>? = null
+        private set
+
+    /**
+     * The number of layers of the tree currently being displayed.
+     * This is null if no tree is being displayed, or if the whole tree is being displayed (i.e not
+     * restricted to a particular displayed height).
+     */
+    var currentDisplayedHeight: Int? = null
+        private set
+
+    /**
+     * Updates and displays the tree in the UI, reflecting any changes made in the database.
+     *
+     * @see updateRootNode
+     * @see displayTree
+     */
+    fun updateTree() {
+        updateRootNode()
+        displayTree()
+    }
+
+    /**
+     * Updates the [currentRootNode] reflecting any changes made in the database.
+     *
+     * @return the updated [currentRootNode]
+     * @see updateTree
+     */
+    fun updateRootNode(): TreeNode<Person>? {
+        val currentRootPerson = currentRootNode?.data ?: return null // otherwise nothing to update
+
+        currentRootNode = getDisplayedTree(currentRootPerson) // retrieve again
+
+        return currentRootNode
+    }
+
+    /**
+     * Updates and displays a tree in the UI, using the given [rootNode] with [displayedHeight]
+     * number of layers (from the root) being shown.
      *
      * @param rootNode          the root node of the tree being displayed. It can be null if there
      *                          is no tree to display.
      * @param displayedHeight   the number of layers of the tree to show. This can be null to show
      *                          the whole tree, rather than a portion of it.
      *
-     * @see getDisplayedTree
+     * @see displayTree
      */
-    fun displayTree(rootNode: TreeNode<Person>?, displayedHeight: Int? = null) {
-        Log.v(LOG_TAG, "displayTree called with rootNode=$rootNode; height=$displayedHeight")
+    fun updateTree(rootNode: TreeNode<Person>?, displayedHeight: Int? = null) {
+        currentRootNode = rootNode
+        currentDisplayedHeight = displayedHeight
+        displayTree()
+    }
 
-        if (rootNode == null) {
-            return // don't display anything if null
-        }
+    /**
+     * Displays a tree in the UI using the [currentRootNode] and [currentDisplayedHeight].
+     *
+     * @see updateTree
+     */
+    private fun displayTree() {
+        Log.v(LOG_TAG, "displayTree using currentRootNode=$currentRootNode, " +
+                "currentDisplayedHeight=$currentDisplayedHeight")
 
-        val treeView = TreeView(context).apply {
-            setTreeSource(rootNode, displayedHeight)
-            onPersonViewClick = onPersonClick
-        }
+        val rootNode = currentRootNode ?: return // don't display anything if rootNode=null
+
+        val treeView = TreeView(context)
+        treeView.setTreeSource(rootNode, currentDisplayedHeight)
+        treeView.onPersonViewClick = onPersonClick
 
         treeContainer.apply {
             removeAllViews()
@@ -62,7 +111,7 @@ class TreeHandler(
     }
 
     /**
-     * Returns the tree to be displayed in the UI.
+     * Returns a tree to be displayed in the UI.
      *
      * @param person    the person who's tree will be displayed. It can be null to indicate that a
      *                  full tree (consisting of all/most people from the db) should be displayed.
@@ -70,14 +119,8 @@ class TreeHandler(
      * @see getFullTree
      * @see ChildrenManager.getTree
      */
-    fun getDisplayedTree(person: Person?) = if (person == null) {
-        Log.v(LOG_TAG, "Displaying full tree")
-        getFullTree()
-    } else {
-        Log.v(LOG_TAG, "Displaying tree for: $person")
-        val childrenManager = ChildrenManager(context)
-        childrenManager.getTree(person.id)
-    }
+    fun getDisplayedTree(person: Person?) =
+            if (person == null) getFullTree() else ChildrenManager(context).getTree(person.id)
 
     /**
      * Returns a tree consisting of all people added in the database.

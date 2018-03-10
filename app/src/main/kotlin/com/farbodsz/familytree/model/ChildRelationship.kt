@@ -15,7 +15,11 @@ data class ChildRelationship(val parentId: Int, val childId: Int): DataRelations
 
     init {
         require(parentId > 0 && childId > 0) {
-            "the ids must be greater than 0 (currently: parentId=$parentId, childId=$childId"
+            "the ids must be greater than 0 (currently: parentId=$parentId, childId=$childId)"
+        }
+
+        require(parentId != childId) {
+            "the ids cannot be the same (currently: parentId=$parentId, childId=$childId)"
         }
     }
 

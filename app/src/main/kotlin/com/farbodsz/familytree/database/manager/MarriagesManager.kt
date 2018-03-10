@@ -8,11 +8,12 @@ import com.farbodsz.familytree.database.query.Filters
 import com.farbodsz.familytree.database.query.Query
 import com.farbodsz.familytree.database.schemas.MarriagesSchema
 import com.farbodsz.familytree.model.Marriage
+import com.farbodsz.familytree.model.Person
 
 /**
  * Responsible for performing CRUD operations for the "marriages" table.
  */
-class MarriagesManager(context: Context) : RelationshipManager<Marriage>(context) {
+class MarriagesManager(private val context: Context) : RelationshipManager<Marriage>(context) {
 
     companion object {
         private const val LOG_TAG = "MarriagesManager"
@@ -38,6 +39,7 @@ class MarriagesManager(context: Context) : RelationshipManager<Marriage>(context
 
     /**
      * Returns the list of marriages (former and current) of a person with the given [personId]
+     * @see getSpouses
      */
     fun getMarriages(personId: Int): List<Marriage> {
         val marriagesQuery = Query.Builder()
@@ -45,6 +47,22 @@ class MarriagesManager(context: Context) : RelationshipManager<Marriage>(context
                 .addFilter(Filters.equal(MarriagesSchema.COL_ID_2, personId.toString()))
                 .build(Filters.JoinType.OR)
         return query(marriagesQuery)
+    }
+
+    /**
+     * Returns the list of spouses (former and current) of a person with the given [personId]
+     * @see getMarriages
+     */
+    fun getSpouses(personId: Int): List<Person> {
+        val people = ArrayList<Person>()
+        val personManager = PersonManager(context)
+
+        for (marriage in getMarriages(personId)) {
+            val spouseId = marriage.getOtherSpouseId(personId)
+            people.add(personManager.get(spouseId))
+        }
+
+        return people
     }
 
     /**

@@ -44,8 +44,7 @@ class MarriageAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder?, position: Int) {
         val marriage = marriages[position]
-        val spouseId =
-                if (marriage.person1Id == personId) marriage.person2Id else marriage.person1Id
+        val spouseId = marriage.getOtherSpouseId(personId)
         val spouse = PersonManager(context).get(spouseId)
 
         with(holder!!) {
