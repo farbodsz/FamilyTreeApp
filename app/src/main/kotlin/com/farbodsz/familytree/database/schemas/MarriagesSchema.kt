@@ -32,7 +32,7 @@ object MarriagesSchema {
 
     /**
      * SQLite statement which creates the "marriages" table upon execution.
-     * @see co.familytree.database.DatabaseHelper
+     * @see com.farbodsz.familytree.database.DatabaseHelper
      */
     const val SQL_CREATE =
             "CREATE TABLE $TABLE_NAME($COL_ID_1 INTEGER NOT NULL, $COL_ID_2 INTEGER NOT NULL, " +

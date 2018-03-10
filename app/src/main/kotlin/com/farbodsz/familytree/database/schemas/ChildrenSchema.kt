@@ -37,7 +37,7 @@ object ChildrenSchema {
 
     /**
      * SQLite statement which creates the "children" table upon execution.
-     * @see co.familytree.database.DatabaseHelper
+     * @see com.farbodsz.familytree.database.DatabaseHelper
      */
     const val SQL_CREATE = "CREATE TABLE $TABLE_NAME($COL_PARENT_ID INTEGER NOT NULL, " +
             "$COL_CHILD_ID INTEGER NOT NULL)"

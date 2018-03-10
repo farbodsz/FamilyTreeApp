@@ -4,7 +4,7 @@ import org.junit.Assert.assertEquals
 import org.junit.Test
 
 /**
- * Unit tests for util functions in [co.familytree.util.TextUtilsTest].
+ * Unit tests for util functions in [com.farbodsz.familytree.util.TextUtilsTest].
  */
 class TextUtilsTest {
 

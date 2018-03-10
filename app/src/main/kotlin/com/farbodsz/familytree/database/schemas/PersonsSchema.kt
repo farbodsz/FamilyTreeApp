@@ -34,7 +34,7 @@ object PersonsSchema {
 
     /**
      * SQLite statement which creates the "persons" table upon execution.
-     * @see co.familytree.database.DatabaseHelper
+     * @see com.farbodsz.familytree.database.DatabaseHelper
      */
     const val SQL_CREATE =
             "CREATE TABLE $TABLE_NAME($COL_ID INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, " +

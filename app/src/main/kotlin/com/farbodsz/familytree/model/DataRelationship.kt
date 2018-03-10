@@ -3,7 +3,7 @@ package com.farbodsz.familytree.model
 /**
  * Interface that "relationship" model classes should implement.
  *
- * @see co.familytree.database.manager.RelationshipManager
+ * @see com.farbodsz.familytree.database.manager.RelationshipManager
  */
 interface DataRelationship : DataModel {
 

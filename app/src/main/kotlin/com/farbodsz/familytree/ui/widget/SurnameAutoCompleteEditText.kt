@@ -9,7 +9,7 @@ import com.farbodsz.familytree.database.manager.PersonManager
 /**
  * A [TextInputAutoCompleteEditText] which provides a list of surname suggestions.
  *
- * @see co.familytree.model.Person
+ * @see com.farbodsz.familytree.model.Person
  */
 class SurnameAutoCompleteEditText @JvmOverloads constructor(
         context: Context,
