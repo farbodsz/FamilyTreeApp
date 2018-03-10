@@ -32,7 +32,7 @@ class MainActivity : NavigationDrawerActivity() {
         findViewById<RecyclerView>(R.id.recyclerView).apply {
             setHasFixedSize(true)
             layoutManager = GridLayoutManager(this@MainActivity, 2)
-            adapter = HomeTileAdapter(this@MainActivity, getHomeTiles())
+            adapter = HomeTileAdapter(getHomeTiles())
         }
     }
 
