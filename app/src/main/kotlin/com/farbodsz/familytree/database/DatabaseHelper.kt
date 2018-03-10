@@ -9,7 +9,7 @@ import com.farbodsz.familytree.database.schemas.MarriagesSchema
 import com.farbodsz.familytree.database.schemas.PersonsSchema
 
 /**
- * Helper class for managing the SQLite database.
+ * Helper singleton class for managing the SQLite database.
  */
 class DatabaseHelper private constructor(context: Context): SQLiteOpenHelper(
         context,

@@ -1,7 +1,7 @@
 package com.farbodsz.familytree.model.tree
 
 /**
- * Represents a node in the tree, holding data type [T].
+ * Represents a node in the tree, holding [data] type [T].
  */
 class TreeNode<T>(val data: T) {
 

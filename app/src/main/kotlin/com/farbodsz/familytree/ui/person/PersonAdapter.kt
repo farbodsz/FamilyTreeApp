@@ -14,7 +14,7 @@ import com.farbodsz.familytree.util.OnPersonClick
 import de.hdodenhof.circleimageview.CircleImageView
 
 /**
- * A [RecyclerView] adapter for displaying [people][Person] in a standard list layout.
+ * A [RecyclerView] adapter for displaying [people] in a standard list layout.
  */
 class PersonAdapter(
         private val context: Context,

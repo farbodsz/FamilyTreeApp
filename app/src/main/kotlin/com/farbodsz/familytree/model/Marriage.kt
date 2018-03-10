@@ -9,13 +9,13 @@ import org.threeten.bp.LocalDate
 /**
  * Represents a marriage between two people.
  *
- * @param person1Id         the id of a person in this marriage
- * @param person2Id         the id of another person in this marriage
- * @param startDate         the date of marriage
- * @param endDate           the date when the marriage ended. If the marriage has not ended, this
- *                          should be null.
- * @param placeOfMarriage   the name of the place where the marriage took place. This is optional
- *                          and can be left blank.
+ * @property person1Id          ID of a person in this marriage
+ * @property person2Id          ID of another person in this marriage
+ * @property startDate          date of marriage
+ * @property endDate            date when the marriage ended. If the marriage has not ended, this
+ *                              should be null.
+ * @property placeOfMarriage    name of the place where the marriage took place. This is optional
+ *                              and can be left blank.
  */
 data class Marriage(
         val person1Id: Int,

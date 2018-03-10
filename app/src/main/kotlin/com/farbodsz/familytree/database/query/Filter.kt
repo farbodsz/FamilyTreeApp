@@ -1,7 +1,7 @@
 package com.farbodsz.familytree.database.query
 
 /**
- * Stores part of a SQL selection statement, used to filter results in database queries.
+ * Stores part of a SQLite selection statement, used to filter results in database queries.
  *
  * @see Filters
  * @see Query

@@ -9,16 +9,16 @@ import org.threeten.bp.LocalDate
 /**
  * Represents a member of the family.
  *
- * @param id            a unique identifier of the person
- * @param forename      first name / forename. This cannot be blank.
- * @param surname       last name / surname. This cannot be blank.
- * @param gender        male or female
- * @param dateOfBirth   the date when the person was born
- * @param placeOfBirth  the place where the person was born. This is optional and can be left blank.
- * @param dateOfDeath   the date when the person died. If the person is currently alive, this should
- *                      be null.
- * @param placeOfDeath  the place where the person died. This is optional and can be left blank (for
- *                      example, if the person is currently alive).
+ * @property id             a unique integer identifier of the person
+ * @property forename       first name / forename. This cannot be blank.
+ * @property surname        last name / surname. This cannot be blank.
+ * @property gender         male or female
+ * @property dateOfBirth    date when the person was born
+ * @property placeOfBirth   place where the person was born. This is optional and can be left blank.
+ * @property dateOfDeath    date when the person died. If the person is currently alive, this should
+ *                          be null.
+ * @property placeOfDeath   place where the person died. This is optional and can be left blank (for
+ *                          example, if the person is currently alive).
  */
 data class Person(
         val id: Int,
@@ -119,7 +119,7 @@ data class Person(
 /**
  * Represents a gender.
  *
- * @param id    an integer identifier corresponding to a gender. 0 = male; 1 = female.
+ * @property id an integer identifier corresponding to a gender. 0 = male; 1 = female.
  */
 data class Gender(val id: Int) : Parcelable {
 

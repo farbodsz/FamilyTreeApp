@@ -12,8 +12,8 @@ import org.threeten.bp.ZoneOffset
  * A helper class to display the date on a [TextInputEditText], and allowing it to be changed
  * through click then dialog.
  *
- * @param context           context from the activity/fragment
- * @param textInputEditText the [TextInputEditText] being used for the date picker
+ * @property context            context from the activity/fragment
+ * @property textInputEditText  the [TextInputEditText] being used for the date picker
  */
 class DateSelectorHelper(
         private val context: Context,

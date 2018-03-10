@@ -77,7 +77,8 @@ fun Context.withNavigation(@LayoutRes layoutRes: Int): View {
  *
  * @see NavigationParameters
  */
-fun Activity.standardNavigationParams(navigationItem: Int, toolbar: Toolbar?): NavigationParameters? {
+fun Activity.standardNavigationParams(navigationItem: Int,
+                                      toolbar: Toolbar?): NavigationParameters? {
     val drawerLayout = findViewById<DrawerLayout?>(R.id.drawerLayout)
     val navigationView = findViewById<NavigationView?>(R.id.navigationView)
 

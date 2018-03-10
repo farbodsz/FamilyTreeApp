@@ -3,7 +3,7 @@ package com.farbodsz.familytree.database.query
 import android.util.Log
 
 /**
- * Convenience class for producing SQL queries.
+ * Convenience class for producing SQLite queries.
  */
 class Query(val filter: Filter) {
 
