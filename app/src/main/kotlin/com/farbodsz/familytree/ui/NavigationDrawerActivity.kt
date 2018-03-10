@@ -13,6 +13,7 @@ import android.support.v7.widget.Toolbar
 import android.util.Log
 import android.view.MenuItem
 import com.farbodsz.familytree.R
+import com.farbodsz.familytree.ui.event.EventsActivity
 import com.farbodsz.familytree.ui.home.MainActivity
 import com.farbodsz.familytree.ui.person.PersonListActivity
 import com.farbodsz.familytree.ui.tree.TreeActivity
@@ -49,9 +50,7 @@ abstract class NavigationDrawerActivity : AppCompatActivity() {
         const val NAVDRAWER_ITEM_TREE = R.id.nav_item_tree
         const val NAVDRAWER_ITEM_TREE_LIST = R.id.nav_item_tree_list
         const val NAVDRAWER_ITEM_PERSON_LIST = R.id.nav_item_person_list
-        const val NAVDRAWER_ITEM_EVENTS = R.id.nav_item_person_list
-
-        const val NAVDRAWER_ITEM_INVALID = -1
+        const val NAVDRAWER_ITEM_EVENTS = R.id.nav_item_events
 
         private const val NAVDRAWER_LAUNCH_DELAY = 250L
     }
@@ -138,6 +137,7 @@ abstract class NavigationDrawerActivity : AppCompatActivity() {
             NAVDRAWER_ITEM_TREE -> Intent(this, TreeActivity::class.java)
             NAVDRAWER_ITEM_TREE_LIST -> Intent(this, TreeListActivity::class.java)
             NAVDRAWER_ITEM_PERSON_LIST -> Intent(this, PersonListActivity::class.java)
+            NAVDRAWER_ITEM_EVENTS -> Intent(this, EventsActivity::class.java)
             else -> throw IllegalArgumentException("unrecognised menu item: $menuItem")
         }
 

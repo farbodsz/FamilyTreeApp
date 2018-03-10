@@ -25,7 +25,7 @@
     <group android:id="@+id/navigation_group_3" android:checkableBehavior="single">
         <item
             android:id="@+id/nav_item_events"
-            android:title="@string/nav_item_tree"
+            android:title="@string/nav_item_events"
             android:icon="@drawable/ic_birthday_black_24dp" />
     </group>
 
