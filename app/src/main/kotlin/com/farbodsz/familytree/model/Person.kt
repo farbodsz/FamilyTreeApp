@@ -3,6 +3,8 @@ package com.farbodsz.familytree.model
 import android.database.Cursor
 import android.os.Parcel
 import android.os.Parcelable
+import android.support.annotation.ColorRes
+import com.farbodsz.familytree.R
 import com.farbodsz.familytree.database.schemas.PersonsSchema
 import org.threeten.bp.LocalDate
 
@@ -132,6 +134,12 @@ data class Gender(val id: Int) : Parcelable {
     fun isMale() = this == MALE
 
     fun isFemale() = this == FEMALE
+
+    /**
+     * Returns a color resource to use in the UI to represent with this gender.
+     */
+    @ColorRes
+    fun getColorRes() = if (isMale()) R.color.image_border_male else R.color.image_border_female
 
     constructor(source: Parcel) : this(source.readInt())
 
