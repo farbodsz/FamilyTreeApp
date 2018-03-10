@@ -44,6 +44,8 @@
         <item quantity="one">List of family members. Currently, %1$d person have been added.</item>
         <item quantity="other">List of family members. Currently, %1$d people have been added.</item>
     </plurals>
+    <string name="home_item_events_title">Browse events</string>
+    <string name="home_item_events_desc">View a list of birthdays and anniversaries.</string>
 
     <!-- User input labels for person -->
     <string name="person">Person</string>
