@@ -18,13 +18,13 @@ import com.farbodsz.familytree.database.manager.MarriagesManager
 import com.farbodsz.familytree.database.manager.PersonManager
 import com.farbodsz.familytree.model.Marriage
 import com.farbodsz.familytree.model.Person
+import com.farbodsz.familytree.ui.DateSelectorHelper
+import com.farbodsz.familytree.ui.PersonSelectorHelper
 import com.farbodsz.familytree.ui.UiHelper
 import com.farbodsz.familytree.ui.Validator
 import com.farbodsz.familytree.ui.marriage.EditMarriageActivity.Companion.EXTRA_WRITE_DATA
 import com.farbodsz.familytree.ui.person.CreatePersonActivity
 import com.farbodsz.familytree.ui.person.EditPersonActivity
-import com.farbodsz.familytree.ui.widget.DateSelectorHelper
-import com.farbodsz.familytree.ui.widget.PersonSelectorHelper
 import com.farbodsz.familytree.util.toTitleCase
 
 /**

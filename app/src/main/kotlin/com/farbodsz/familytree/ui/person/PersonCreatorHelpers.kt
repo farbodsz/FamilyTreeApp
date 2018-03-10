@@ -21,10 +21,10 @@ import com.farbodsz.familytree.database.manager.PersonManager
 import com.farbodsz.familytree.model.Gender
 import com.farbodsz.familytree.model.Marriage
 import com.farbodsz.familytree.model.Person
+import com.farbodsz.familytree.ui.DateSelectorHelper
 import com.farbodsz.familytree.ui.UiHelper
 import com.farbodsz.familytree.ui.Validator
 import com.farbodsz.familytree.ui.marriage.MarriageAdapter
-import com.farbodsz.familytree.ui.widget.DateSelectorHelper
 import com.farbodsz.familytree.util.toTitleCase
 
 /**

@@ -1,4 +1,4 @@
-package com.farbodsz.familytree.ui.widget
+package com.farbodsz.familytree.ui
 
 import android.app.DatePickerDialog
 import android.content.Context

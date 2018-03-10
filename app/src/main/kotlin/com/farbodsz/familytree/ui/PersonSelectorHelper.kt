@@ -1,4 +1,4 @@
-package com.farbodsz.familytree.ui.widget
+package com.farbodsz.familytree.ui
 
 import android.content.Context
 import android.content.DialogInterface
