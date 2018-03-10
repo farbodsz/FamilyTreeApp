@@ -49,7 +49,7 @@ class EventsActivity : NavigationDrawerActivity() {
 
     private fun populateList() {
         events = eventHandler.getEvents() as ArrayList<Event>
-        //events.sort() // TODO
+        events.sort()
 
         eventAdapter = EventAdapter(this, events)
         eventAdapter.onItemClick { _, event -> viewEvent(event) }
@@ -67,7 +67,7 @@ class EventsActivity : NavigationDrawerActivity() {
     private fun refreshList() {
         events.clear()
         events.addAll(eventHandler.getEvents())
-        //events.sort() // TODO
+        events.sort()
         eventAdapter.notifyDataSetChanged()
     }
 
