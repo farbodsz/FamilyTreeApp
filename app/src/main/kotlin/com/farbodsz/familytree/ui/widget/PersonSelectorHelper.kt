@@ -18,20 +18,16 @@ import com.farbodsz.familytree.ui.person.PersonAdapter
  *
  * @param context           context from the activity/fragment
  * @param textInputEditText the [TextInputEditText] being used for the person picker
- * @param initialPerson     initial [person] used for this [PersonSelectorHelper]. It can be null
- *                          (its default value), to indicate no initial person. It can be changed
- *                          later by the [person] field.
  */
 class PersonSelectorHelper(
         private val context: Context,
-        private val textInputEditText: TextInputEditText,
-        initialPerson: Person? = null
+        private val textInputEditText: TextInputEditText
 ) {
 
     /**
      * The [Person] being displayed. This is null if no person has been selected.
      */
-    var person = initialPerson
+    var person: Person? = null
         set(value) {
             field = value
             textInputEditText.setText(value?.fullName)

@@ -14,20 +14,16 @@ import org.threeten.bp.ZoneOffset
  *
  * @param context           context from the activity/fragment
  * @param textInputEditText the [TextInputEditText] being used for the date picker
- * @param initialDate       initial [date] used for this [DateSelectorHelper]. It can be null (its
- *                          default value), to indicate no initial date. It can be changed later by
- *                          the [date] field.
  */
 class DateSelectorHelper(
         private val context: Context,
-        private val textInputEditText: TextInputEditText,
-        initialDate: LocalDate? = null
+        private val textInputEditText: TextInputEditText
 ) {
 
     /**
      * The [LocalDate] being displayed. This is null if no date has been selected.
      */
-    var date = initialDate
+    var date: LocalDate? = null
         set(value) {
             field = value
             textInputEditText.setText(value?.format(DATE_FORMATTER_BIRTH))
