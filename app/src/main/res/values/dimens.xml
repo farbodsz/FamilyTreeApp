@@ -6,6 +6,8 @@
     <dimen name="navdrawer_header_height">135dp</dimen>
 
     <!-- Padding and spacing -->
+    <dimen name="keyline_2">72dp</dimen>
+    <dimen name="keyline_2_minus_16dp">56dp</dimen>
     <dimen name="spacing_micro">4dp</dimen>
     <dimen name="spacing_normal">8dp</dimen>
     <dimen name="padding_normal">16dp</dimen>
