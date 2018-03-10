@@ -9,6 +9,7 @@
     <string name="title_tree_person">%1$s\'s Tree</string>
     <string name="title_tree_list">@string/title_tree</string>
     <string name="title_person_list">People</string>
+    <string name="title_events">Birthdays and Anniversaries</string>
     <string name="title_view_person" />
     <string name="title_edit_person">Edit Person</string>
     <string name="title_edit_marriage">Edit Marriage</string>
@@ -28,6 +29,7 @@
     <string name="nav_item_tree">View Tree</string>
     <string name="nav_item_tree_list">View Tree (list)</string>
     <string name="nav_item_person_list">@string/title_person_list</string>
+    <string name="nav_item_events">@string/title_events</string>
     <string name="nav_item_settings">@string/title_settings</string>
 
     <!-- Nav drawer content description texts -->

@@ -49,6 +49,7 @@ abstract class NavigationDrawerActivity : AppCompatActivity() {
         const val NAVDRAWER_ITEM_TREE = R.id.nav_item_tree
         const val NAVDRAWER_ITEM_TREE_LIST = R.id.nav_item_tree_list
         const val NAVDRAWER_ITEM_PERSON_LIST = R.id.nav_item_person_list
+        const val NAVDRAWER_ITEM_EVENTS = R.id.nav_item_person_list
 
         const val NAVDRAWER_ITEM_INVALID = -1
 
