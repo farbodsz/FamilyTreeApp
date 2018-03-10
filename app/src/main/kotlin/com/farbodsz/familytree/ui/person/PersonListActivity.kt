@@ -14,7 +14,7 @@ import com.farbodsz.familytree.util.standardNavigationParams
 import com.farbodsz.familytree.util.withNavigation
 
 /**
- * Activity for displaying the tree as a vertical list with indents.
+ * Activity for displaying a list of people.
  */
 class PersonListActivity : NavigationDrawerActivity() {
 
