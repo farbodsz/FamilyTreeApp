@@ -3,6 +3,7 @@ package com.farbodsz.familytree.ui.person
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.provider.MediaStore
 import android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
 import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.FloatingActionButton
@@ -17,6 +18,7 @@ import com.farbodsz.familytree.model.Person
 import com.farbodsz.familytree.ui.DynamicPagerAdapter
 import com.farbodsz.familytree.ui.Validator
 import com.farbodsz.familytree.ui.marriage.EditMarriageActivity
+
 
 /**
  * This activity provides the UI for adding a new person from the database, with a guided format.
@@ -282,7 +284,9 @@ class CreatePersonActivity : AppCompatActivity() {
             }
 
             REQUEST_PICK_IMAGE -> if (resultCode == Activity.RESULT_OK) {
-                personDetailsCreator.setPersonImage() // TODO
+                val imageUri = data!!.data
+                val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imageUri)
+                personDetailsCreator.setPersonImage(bitmap)
             }
         }
     }

@@ -3,6 +3,7 @@ package com.farbodsz.familytree.ui.person
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.graphics.Bitmap
 import android.support.design.widget.TextInputEditText
 import android.support.design.widget.TextInputLayout
 import android.support.v4.content.ContextCompat
@@ -150,13 +151,14 @@ class PersonDetailsCreator(
     }
 
     /**
-     * Sets the image to use for the person.
+     * Sets the [bitmap] image to use for the person.
      *
      * This should be called when an image has been selected from an [Intent] via the activity this
      * is being invoked from.
      */
-    fun setPersonImage() {
+    fun setPersonImage(bitmap: Bitmap) {
         Log.w("PersonCreatorHelper", "RECEIVED")
+        circleImageView.setImageBitmap(bitmap)
     }
 
     private fun createDatesCard(layoutInflater: LayoutInflater, container: ViewGroup): View {
