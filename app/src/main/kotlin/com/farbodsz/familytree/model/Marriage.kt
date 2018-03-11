@@ -82,13 +82,13 @@ data class Marriage(
                     cursor.getInt(cursor.getColumnIndex(MarriagesSchema.COL_START_DATE_DAY))
             ) // TODO should marriages dates be optional?
 
-            val endDate = if (cursor.isNull(cursor.getColumnIndex(MarriagesSchema.COL_START_DATE_DAY))) {
+            val endDate = if (cursor.isNull(cursor.getColumnIndex(MarriagesSchema.COL_END_DATE_DAY))) {
                 null
             } else {
                 LocalDate.of(
-                        cursor.getInt(cursor.getColumnIndex(MarriagesSchema.COL_START_DATE_YEAR)),
-                        cursor.getInt(cursor.getColumnIndex(MarriagesSchema.COL_START_DATE_MONTH)),
-                        cursor.getInt(cursor.getColumnIndex(MarriagesSchema.COL_START_DATE_DAY))
+                        cursor.getInt(cursor.getColumnIndex(MarriagesSchema.COL_END_DATE_YEAR)),
+                        cursor.getInt(cursor.getColumnIndex(MarriagesSchema.COL_END_DATE_MONTH)),
+                        cursor.getInt(cursor.getColumnIndex(MarriagesSchema.COL_END_DATE_DAY))
                 )
             }
 
