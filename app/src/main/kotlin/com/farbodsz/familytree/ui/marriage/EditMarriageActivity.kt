@@ -118,9 +118,11 @@ class EditMarriageActivity : AppCompatActivity() {
         existingPerson = intent.extras?.getParcelable(EXTRA_EXISTING_PERSON)
 
         if (marriage == null) {
-            Log.v(LOG_TAG, "Editing a new marriage")
+            Log.v(LOG_TAG, "Creating a new marriage")
+            supportActionBar!!.setTitle(R.string.title_create_marriage)
         } else {
             Log.v(LOG_TAG, "Editing an existing marriage: $marriage")
+            supportActionBar!!.setTitle(R.string.title_edit_marriage)
         }
 
         checkIntentExtras()

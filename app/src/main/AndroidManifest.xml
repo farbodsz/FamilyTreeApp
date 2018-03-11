@@ -40,7 +40,7 @@
 
         <activity
             android:name=".ui.person.CreatePersonActivity"
-            android:label="@string/title_edit_person" />
+            android:label="@string/title_create_person" />
 
         <activity
             android:name=".ui.marriage.EditMarriageActivity"
