@@ -13,6 +13,7 @@
     <string name="title_view_person" />
     <string name="title_edit_person">Edit Person</string>
     <string name="title_edit_marriage">Edit Marriage</string>
+    <string name="title_view_marriage" />
     <string name="title_settings">Settings</string>
 
     <!-- Action texts for menus -->
@@ -80,7 +81,7 @@
     <string name="place_of_marriage">Place of marriage</string>
     <string name="add_marriage">Add marriage</string>
 
-    <!-- Person properties -->
+    <!-- Person / marriage properties -->
     <string name="full_name">Full name</string>
     <string name="born">Born</string>
     <string name="died">Died</string>
@@ -90,6 +91,8 @@
     <string name="marriage_with">Marriage with %1$s</string>
     <string name="no_marriages">%1$s does not have spouses</string>
     <string name="view_tree">View %1$s\'s tree</string>
+    <string name="married">Married</string>
+    <string name="divorced">Divorced</string>
 
     <!-- Placeholder texts -->
     <string name="db_marriages_empty">No marriages have been entered yet</string>
@@ -114,8 +117,11 @@
     <string name="dialog_add_marriage_title">Add marriage</string>
     <string name="dialog_choose_person_title">Choose person</string>
     <string name="dialog_confirm_delete_title">Confirm delete</string>
-    <string name="dialog_confirm_delete_message">
+    <string name="dialog_confirm_delete_person_message">
         Are you sure you want to delete this person? This cannot be undone.
+    </string>
+    <string name="dialog_confirm_delete_marriage_message">
+        Are you sure you want to delete this marriage? This cannot be undone.
     </string>
     <string name="dialog_choose_layers_title">@string/action_choose_layers</string>
     <plurals name="dialog_choose_layers_item">

@@ -251,7 +251,7 @@ class ViewPersonActivity : AppCompatActivity() {
         lateinit var dialog: AlertDialog
         val builder = AlertDialog.Builder(this)
                 .setTitle(R.string.dialog_confirm_delete_title)
-                .setMessage(R.string.dialog_confirm_delete_message)
+                .setMessage(R.string.dialog_confirm_delete_person_message)
                 .setPositiveButton(R.string.action_delete) { _, _ ->
                     PersonManager(this).deleteWithReferences(person.id)
 

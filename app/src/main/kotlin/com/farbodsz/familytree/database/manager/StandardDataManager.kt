@@ -46,7 +46,7 @@ abstract class StandardDataManager<T : StandardData>(context: Context) : DataMan
     }
 
     /**
-     * Deletes an item of type [T] with specified [id] and any other references to it.
+     * Deletes an item of type [T] with specified [id] and any other references to it, if any.
      * This function should be overridden by subclasses of [StandardDataManager] to specify which
      * references should be deleted.
      *

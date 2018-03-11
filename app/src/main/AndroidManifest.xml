@@ -45,5 +45,9 @@
         <activity
             android:name=".ui.marriage.EditMarriageActivity"
             android:label="@string/title_edit_marriage" />
+
+        <activity
+            android:name=".ui.marriage.ViewMarriageActivity"
+            android:label="@string/title_view_marriage" />
     </application>
 </manifest>
