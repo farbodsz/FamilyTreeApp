@@ -218,7 +218,8 @@ class EditMarriageActivity : AppCompatActivity() {
         // Don't continue with db write if inputs invalid
         val newMarriage = validateMarriage() ?: return
 
-        val writeToDb = intent.extras?.getBoolean(EXTRA_WRITE_DATA) ?: DEFAULT_WRITE_DATA
+        val writeToDb = intent.extras?.getBoolean(EXTRA_WRITE_DATA, DEFAULT_WRITE_DATA)
+                ?: DEFAULT_WRITE_DATA
         if (!writeToDb) Log.d(LOG_TAG, "Nothing will be written to the db in this activity")
 
         val marriagesManager = MarriagesManager(this)
