@@ -85,7 +85,7 @@ class EditMarriageActivity : AppCompatActivity() {
 
     private lateinit var startDateHelper: DateSelectorHelper
     private lateinit var placeInput: EditText
-    private lateinit var isMarriedCheckBox: CheckBox
+    private lateinit var isOngoingCheckBox: CheckBox
     private lateinit var endDateHelper: DateSelectorHelper
 
     /**
@@ -156,7 +156,10 @@ class EditMarriageActivity : AppCompatActivity() {
         startDateHelper = DateSelectorHelper(this, findViewById(R.id.editText_startDate))
         placeInput = findViewById(R.id.editText_placeOfMarriage)
 
-        isMarriedCheckBox = findViewById(R.id.checkbox_married)
+        isOngoingCheckBox = findViewById(R.id.checkbox_married)
+        isOngoingCheckBox.setOnCheckedChangeListener { _, isChecked ->
+            setMarriageOngoing(isChecked)
+        }
 
         endDateHelper = DateSelectorHelper(this, findViewById(R.id.editText_endDate))
     }
@@ -193,9 +196,9 @@ class EditMarriageActivity : AppCompatActivity() {
      * This should be used instead of toggling the checkbox manually.
      */
     private fun setMarriageOngoing(isOngoing: Boolean) {
-        isMarriedCheckBox.isChecked = isOngoing
+        isOngoingCheckBox.isChecked = isOngoing
         findViewById<LinearLayout>(R.id.group_endInfo).visibility =
-                if (isOngoing) View.VISIBLE else View.GONE
+                if (isOngoing) View.GONE else View.VISIBLE
     }
 
     /**
@@ -240,7 +243,7 @@ class EditMarriageActivity : AppCompatActivity() {
 
         // Dates should be ok from dialog constraint, but best to double-check before db write
         val startDate = startDateHelper.date
-        val endDate = if (isMarriedCheckBox.isChecked) endDateHelper.date else null
+        val endDate = if (isOngoingCheckBox.isChecked) null else endDateHelper.date
         if (!validator.checkDates(startDate, endDate)) return null
 
         return Marriage(
