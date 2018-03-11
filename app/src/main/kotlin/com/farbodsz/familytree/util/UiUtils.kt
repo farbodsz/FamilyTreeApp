@@ -5,59 +5,31 @@ import android.content.Context
 import android.support.annotation.LayoutRes
 import android.support.design.widget.NavigationView
 import android.support.v4.widget.DrawerLayout
-import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import com.farbodsz.familytree.R
-import com.farbodsz.familytree.model.Event
-import com.farbodsz.familytree.model.Marriage
-import com.farbodsz.familytree.model.Person
 import com.farbodsz.familytree.ui.DateSelectorHelper
 import com.farbodsz.familytree.ui.NavigationParameters
 import org.threeten.bp.LocalDate
 
 /**
- * Type definition for an action to be preformed when a view has been clicked.
+ * Type definition for an action to be performed when a view has been clicked.
  * This is a function type with one parameter: the view that was clicked. It returns [Unit].
  */
 typealias OnClick = (view: View) -> Unit
 
 /**
- * Type definition for an action to be preformed when a view in the list has been clicked.
- *
- * This is a function type with its parameters as the view that was clicked and the
- * [layout position][RecyclerView.ViewHolder.getLayoutPosition] of the ViewHolder. The function
- * returns [Unit].
- */
-typealias OnItemClick = (view: View, position: Int) -> Unit
-
-/**
- * Type definition for an action to be preformed when an [Event] in a collection of items has been
+ * Type definition for an action to be performed when a data item in a collection of items has been
  * clicked.
  *
  * This is a function type with two parameters: the [View] that was clicked/selected, and the
- * corresponding [Event] from the collection. The function returns [Unit].
- */
-typealias OnEventClick = (view: View, event: Event) -> Unit
-
-/**
- * Type definition for an action to be preformed when a view in the [Marriage] list has been clicked.
+ * corresponding data item from the collection. The function returns [Unit].
  *
- * This is a function type with its parameters as the view and [Marriage] that was clicked.
- * The function does not return anything.
+ * @param T the type of data item
  */
-typealias OnMarriageClick = (view: View, marriage: Marriage) -> Unit
-
-/**
- * Type definition for an action to be preformed when a [Person] in a collection of items has been
- * clicked.
- *
- * This is a function type with two parameters: the [View] that was clicked/selected, and the
- * corresponding [Person] from the collection. The function returns [Unit].
- */
-typealias OnPersonClick = (view: View, person: Person) -> Unit
+typealias OnDataClick<T> = (view: View, itemData: T) -> Unit
 
 /**
  * Converts a dip value into pixels.

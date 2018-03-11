@@ -12,7 +12,7 @@ import android.widget.TextView
 import com.farbodsz.familytree.R
 import com.farbodsz.familytree.model.Person
 import com.farbodsz.familytree.model.tree.TreeListItem
-import com.farbodsz.familytree.util.OnItemClick
+import com.farbodsz.familytree.util.OnDataClick
 import com.farbodsz.familytree.util.dpToPx
 import de.hdodenhof.circleimageview.CircleImageView
 
@@ -24,9 +24,9 @@ class FamilyTreeAdapter(
         private val treeItems: List<TreeListItem<Person>>
 ) : RecyclerView.Adapter<FamilyTreeAdapter.ViewHolder>() {
 
-    private var onItemClickAction: OnItemClick? = null
+    private var onItemClickAction: OnDataClick<TreeListItem<Person>>? = null
 
-    fun onItemClick(action: OnItemClick) {
+    fun onItemClick(action: OnDataClick<TreeListItem<Person>>) {
         onItemClickAction = action
     }
 
@@ -76,7 +76,10 @@ class FamilyTreeAdapter(
         val infoText: TextView = itemView.findViewById(R.id.text2)
 
         init {
-            itemView.setOnClickListener { onItemClickAction?.invoke(it, layoutPosition) }
+            itemView.setOnClickListener {
+                val pos = layoutPosition
+                onItemClickAction?.invoke(it, treeItems[pos])
+            }
         }
 
     }

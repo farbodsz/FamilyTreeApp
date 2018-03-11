@@ -10,7 +10,7 @@ import com.farbodsz.familytree.model.Person
 import com.farbodsz.familytree.model.tree.TreeNode
 import com.farbodsz.familytree.ui.widget.PersonView
 import com.farbodsz.familytree.ui.widget.TreeView
-import com.farbodsz.familytree.util.OnPersonClick
+import com.farbodsz.familytree.util.OnDataClick
 import org.threeten.bp.LocalDate
 
 /**
@@ -24,7 +24,7 @@ import org.threeten.bp.LocalDate
 class TreeHandler(
         private val context: Context,
         private val treeContainer: ViewGroup,
-        private val onPersonClick: OnPersonClick
+        private val onPersonClick: OnDataClick<Person>
 ) {
 
     companion object {

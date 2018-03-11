@@ -14,7 +14,7 @@ import com.farbodsz.familytree.database.manager.PersonManager
 import com.farbodsz.familytree.model.Anniversary
 import com.farbodsz.familytree.model.Birthday
 import com.farbodsz.familytree.model.Event
-import com.farbodsz.familytree.util.OnEventClick
+import com.farbodsz.familytree.util.OnDataClick
 import de.hdodenhof.circleimageview.CircleImageView
 
 /**
@@ -25,9 +25,9 @@ class EventAdapter(
         private val events: List<Event>
 ) : RecyclerView.Adapter<EventAdapter.ViewHolder>() {
 
-    private var onItemClickAction: OnEventClick? = null
+    private var onItemClickAction: OnDataClick<Event>? = null
 
-    fun onItemClick(action: OnEventClick) {
+    fun onItemClick(action: OnDataClick<Event>) {
         onItemClickAction = action
     }
 

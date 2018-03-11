@@ -11,11 +11,11 @@ import com.farbodsz.familytree.R
 import com.farbodsz.familytree.database.manager.PersonManager
 import com.farbodsz.familytree.model.Marriage
 import com.farbodsz.familytree.util.DATE_FORMATTER_BIRTH
-import com.farbodsz.familytree.util.OnMarriageClick
+import com.farbodsz.familytree.util.OnDataClick
 import de.hdodenhof.circleimageview.CircleImageView
 
 /**
- * A [RecyclerView] adapter for displaying [marriages][Marriage] in a standard list layout.
+ * A [RecyclerView] adapter for displaying [marriages] in a standard list layout.
  */
 class MarriageAdapter(
         private val context: Context,
@@ -23,9 +23,9 @@ class MarriageAdapter(
         private val marriages: List<Marriage>
 ) : RecyclerView.Adapter<MarriageAdapter.ViewHolder>() {
 
-    private var onItemClickAction: OnMarriageClick? = null
+    private var onItemClickAction: OnDataClick<Marriage>? = null
 
-    fun onItemClick(action: OnMarriageClick) {
+    fun onItemClick(action: OnDataClick<Marriage>) {
         onItemClickAction = action
     }
 

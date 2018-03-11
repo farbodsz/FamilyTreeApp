@@ -10,7 +10,7 @@ import android.widget.TextView
 import com.farbodsz.familytree.R
 import com.farbodsz.familytree.model.Person
 import com.farbodsz.familytree.util.DATE_FORMATTER_BIRTH
-import com.farbodsz.familytree.util.OnPersonClick
+import com.farbodsz.familytree.util.OnDataClick
 import de.hdodenhof.circleimageview.CircleImageView
 
 /**
@@ -21,9 +21,9 @@ class PersonAdapter(
         private val people: List<Person>
 ) : RecyclerView.Adapter<PersonAdapter.ViewHolder>() {
 
-    private var onItemClickAction: OnPersonClick? = null
+    private var onItemClickAction: OnDataClick<Person>? = null
 
-    fun onItemClick(action: OnPersonClick) {
+    fun onItemClick(action: OnDataClick<Person>) {
         onItemClickAction = action
     }
 

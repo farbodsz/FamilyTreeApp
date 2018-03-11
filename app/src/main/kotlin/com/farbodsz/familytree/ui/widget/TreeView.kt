@@ -12,7 +12,7 @@ import android.widget.ScrollView
 import com.farbodsz.familytree.R
 import com.farbodsz.familytree.model.Person
 import com.farbodsz.familytree.model.tree.TreeNode
-import com.farbodsz.familytree.util.OnPersonClick
+import com.farbodsz.familytree.util.OnDataClick
 import com.farbodsz.familytree.util.dpToPx
 
 /**
@@ -84,7 +84,7 @@ class TreeView @JvmOverloads constructor(
     /**
      * Function to be invoked when a [PersonView] has been clicked.
      */
-    var onPersonViewClick: OnPersonClick? = null
+    var onPersonViewClick: OnDataClick<Person>? = null
 
     init {
         setWillNotDraw(false) // the view doesn't draw on its own
