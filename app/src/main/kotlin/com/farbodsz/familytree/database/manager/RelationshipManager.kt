@@ -71,4 +71,15 @@ abstract class RelationshipManager<T : DataRelationship>(
         delete(query)
     }
 
+    /**
+     * Deletes an item of type [T] with specified [idPair] and any other references to it, if any.
+     * This function should be overridden by subclasses of [RelationshipManager] to specify which
+     * references should be deleted.
+     *
+     * @see delete
+     */
+    open fun deleteWithReferences(idPair: Pair<Int, Int>) {
+        delete(idPair)
+    }
+
 }

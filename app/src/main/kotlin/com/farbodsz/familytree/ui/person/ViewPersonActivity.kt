@@ -99,9 +99,11 @@ class ViewPersonActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.text_birth).text =
                 person.dateOfBirth.format(DATE_FORMATTER_BIRTH)
 
+        val deathInfo = findViewById<LinearLayout>(R.id.group_deathInfo)
         if (person.isAlive()) {
-            findViewById<LinearLayout>(R.id.group_deathInfo).visibility = View.GONE
+            deathInfo.visibility = View.GONE
         } else {
+            deathInfo.visibility = View.VISIBLE
             findViewById<TextView>(R.id.text_death).text =
                     person.dateOfDeath!!.format(DATE_FORMATTER_BIRTH)
         }
@@ -144,14 +146,20 @@ class ViewPersonActivity : AppCompatActivity() {
     private fun setupMarriagesList() {
         val marriages = MarriagesManager(this).getMarriages(person.id)
 
+        val marriagesInfo = findViewById<LinearLayout>(R.id.group_marriages)
+        val noMarriagesText = findViewById<TextView>(R.id.text_noMarriages)
+
         if (marriages.isEmpty()) {
-            findViewById<LinearLayout>(R.id.group_marriages).visibility = View.GONE
-            with(findViewById<TextView>(R.id.text_noMarriages)) {
+            marriagesInfo.visibility = View.GONE
+            with(noMarriagesText) {
                 visibility = View.VISIBLE
                 text = getString(R.string.no_marriages, person.forename)
             }
             return
         }
+
+        marriagesInfo.visibility = View.VISIBLE
+        noMarriagesText.visibility = View.GONE
 
         val personAdapter = MarriageAdapter(this, person.id, marriages)
         findViewById<RecyclerView>(R.id.recyclerView_marriages).apply {
@@ -251,7 +259,7 @@ class ViewPersonActivity : AppCompatActivity() {
         lateinit var dialog: AlertDialog
         val builder = AlertDialog.Builder(this)
                 .setTitle(R.string.dialog_confirm_delete_title)
-                .setMessage(R.string.dialog_confirm_delete_message)
+                .setMessage(R.string.dialog_confirm_delete_person_message)
                 .setPositiveButton(R.string.action_delete) { _, _ ->
                     PersonManager(this).deleteWithReferences(person.id)
 
