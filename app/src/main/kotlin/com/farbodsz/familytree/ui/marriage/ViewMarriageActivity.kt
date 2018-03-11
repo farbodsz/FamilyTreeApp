@@ -87,9 +87,11 @@ class ViewMarriageActivity : AppCompatActivity() {
         findViewById<TextView>(R.id.text_married).text =
                 marriage.startDate.format(DATE_FORMATTER_BIRTH)
 
+        val divorceInfo = findViewById<LinearLayout>(R.id.group_divorceInfo)
         if (marriage.isOngoing()) {
-            findViewById<LinearLayout>(R.id.group_divorceInfo).visibility = View.GONE
+            divorceInfo.visibility = View.GONE
         } else {
+            divorceInfo.visibility = View.VISIBLE
             findViewById<TextView>(R.id.text_divorced).text =
                     marriage.endDate!!.format(DATE_FORMATTER_BIRTH)
         }
