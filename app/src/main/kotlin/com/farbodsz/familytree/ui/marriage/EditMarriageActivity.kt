@@ -179,6 +179,16 @@ class EditMarriageActivity : AppCompatActivity() {
             person2Selector.person = personManager.get(it.person2Id)
 
             setMarriageOngoing(it.isOngoing())
+
+            with(startDateHelper) {
+                date = it.startDate
+                if (it.endDate != null) maxDate = it.endDate
+            }
+
+            with(endDateHelper) {
+                date = it.endDate
+                minDate = it.startDate
+            }
         }
     }
 
