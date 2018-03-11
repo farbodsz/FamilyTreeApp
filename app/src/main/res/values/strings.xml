@@ -140,6 +140,7 @@
         <item quantity="two">Married to %1$s and %2$d other</item>
         <item quantity="other">Married to %1$s and %2$d others</item>
     </plurals>
+    <string name="dialog_pickImage_title">Select image</string>
 
     <!-- Other Snackbar messages -->
     <string name="msg_tree_person_updated">Displaying %1$s\'s tree</string>
