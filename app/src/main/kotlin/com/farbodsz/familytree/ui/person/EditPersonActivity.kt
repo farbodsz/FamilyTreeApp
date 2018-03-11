@@ -26,10 +26,10 @@ import com.farbodsz.familytree.model.Gender
 import com.farbodsz.familytree.model.Marriage
 import com.farbodsz.familytree.model.Person
 import com.farbodsz.familytree.ui.DateSelectorHelper
-import com.farbodsz.familytree.ui.UiHelper
 import com.farbodsz.familytree.ui.Validator
 import com.farbodsz.familytree.ui.marriage.EditMarriageActivity
 import com.farbodsz.familytree.ui.marriage.MarriageAdapter
+import com.farbodsz.familytree.util.setDateRangePickerConstraints
 import com.farbodsz.familytree.util.toTitleCase
 
 /**
@@ -189,7 +189,7 @@ class EditPersonActivity : AppCompatActivity() {
         setupNameInputError(findViewById(R.id.textInputLayout_forename), forenameInput)
         setupNameInputError(findViewById(R.id.textInputLayout_surname), surnameInput)
 
-        UiHelper.setDateRangePickerConstraints(dateOfBirthHelper, dateOfDeathHelper)
+        setDateRangePickerConstraints(dateOfBirthHelper, dateOfDeathHelper)
 
         setupMarriageList()
         setupChildrenList()

@@ -11,15 +11,8 @@ import com.farbodsz.familytree.R
 import com.farbodsz.familytree.database.manager.PersonManager
 import com.farbodsz.familytree.model.Marriage
 import com.farbodsz.familytree.util.DATE_FORMATTER_BIRTH
+import com.farbodsz.familytree.util.OnMarriageClick
 import de.hdodenhof.circleimageview.CircleImageView
-
-/**
- * Type definition for an action to be preformed when a view in the [Marriage] list has been clicked.
- *
- * This is a function type with its parameters as the view  and [Marriage] that was clicked.
- * The function does not return anything.
- */
-typealias OnMarriageClick = (view: View, marriage: Marriage) -> Unit
 
 /**
  * A [RecyclerView] adapter for displaying [marriages][Marriage] in a standard list layout.

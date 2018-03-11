@@ -22,9 +22,9 @@ import com.farbodsz.familytree.model.Gender
 import com.farbodsz.familytree.model.Marriage
 import com.farbodsz.familytree.model.Person
 import com.farbodsz.familytree.ui.DateSelectorHelper
-import com.farbodsz.familytree.ui.UiHelper
 import com.farbodsz.familytree.ui.Validator
 import com.farbodsz.familytree.ui.marriage.MarriageAdapter
+import com.farbodsz.familytree.util.setDateRangePickerConstraints
 import com.farbodsz.familytree.util.toTitleCase
 
 /**
@@ -146,7 +146,7 @@ class PersonDetailsCreator(
         }
 
         setPersonAlive(card, true) // isAlive by default
-        UiHelper.setDateRangePickerConstraints(dateOfBirthSelector, dateOfDeathSelector)
+        setDateRangePickerConstraints(dateOfBirthSelector, dateOfDeathSelector)
 
         return card
     }

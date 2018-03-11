@@ -20,11 +20,11 @@ import com.farbodsz.familytree.model.Marriage
 import com.farbodsz.familytree.model.Person
 import com.farbodsz.familytree.ui.DateSelectorHelper
 import com.farbodsz.familytree.ui.PersonSelectorHelper
-import com.farbodsz.familytree.ui.UiHelper
 import com.farbodsz.familytree.ui.Validator
 import com.farbodsz.familytree.ui.marriage.EditMarriageActivity.Companion.EXTRA_WRITE_DATA
 import com.farbodsz.familytree.ui.person.CreatePersonActivity
 import com.farbodsz.familytree.ui.person.EditPersonActivity
+import com.farbodsz.familytree.util.setDateRangePickerConstraints
 import com.farbodsz.familytree.util.toTitleCase
 
 /**
@@ -167,7 +167,7 @@ class EditMarriageActivity : AppCompatActivity() {
     }
 
     private fun setupLayout() {
-        UiHelper.setDateRangePickerConstraints(startDateHelper, endDateHelper)
+        setDateRangePickerConstraints(startDateHelper, endDateHelper)
 
         if (marriage == null) {
             Log.i(LOG_TAG, "Marriage is null - setting up the default layout")

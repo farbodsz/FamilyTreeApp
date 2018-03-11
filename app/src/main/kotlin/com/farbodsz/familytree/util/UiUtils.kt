@@ -12,8 +12,11 @@ import android.view.View
 import android.widget.FrameLayout
 import com.farbodsz.familytree.R
 import com.farbodsz.familytree.model.Event
+import com.farbodsz.familytree.model.Marriage
 import com.farbodsz.familytree.model.Person
+import com.farbodsz.familytree.ui.DateSelectorHelper
 import com.farbodsz.familytree.ui.NavigationParameters
+import org.threeten.bp.LocalDate
 
 /**
  * Type definition for an action to be preformed when a view has been clicked.
@@ -38,6 +41,14 @@ typealias OnItemClick = (view: View, position: Int) -> Unit
  * corresponding [Event] from the collection. The function returns [Unit].
  */
 typealias OnEventClick = (view: View, event: Event) -> Unit
+
+/**
+ * Type definition for an action to be preformed when a view in the [Marriage] list has been clicked.
+ *
+ * This is a function type with its parameters as the view and [Marriage] that was clicked.
+ * The function does not return anything.
+ */
+typealias OnMarriageClick = (view: View, marriage: Marriage) -> Unit
 
 /**
  * Type definition for an action to be preformed when a [Person] in a collection of items has been
@@ -96,5 +107,26 @@ fun Activity.standardNavigationParams(navigationItem: Int,
         null
     } else {
         NavigationParameters(navigationItem, drawerLayout, navigationView, toolbar)
+    }
+}
+
+/**
+ * Sets the default minimum/maximum dates for two person pickers for start and end dates.
+ * This is based on the current person, and selections made in other person pickers.
+ */
+fun setDateRangePickerConstraints(startDateHelper: DateSelectorHelper,
+                                  endDateHelper: DateSelectorHelper) {
+    with(startDateHelper) {
+        maxDate = LocalDate.now()
+        onDateSet = { _, newDate ->
+            endDateHelper.minDate = newDate
+        }
+    }
+
+    with(endDateHelper) {
+        maxDate = LocalDate.now()
+        onDateSet = { _, newDate ->
+            startDateHelper.maxDate = newDate
+        }
     }
 }
