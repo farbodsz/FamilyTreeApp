@@ -27,6 +27,10 @@
             android:label="@string/title_person_list" />
 
         <activity
+            android:name=".ui.event.EventsActivity"
+            android:label="@string/title_events" />
+
+        <activity
             android:name=".ui.person.ViewPersonActivity"
             android:label="@string/title_view_person" />
 
@@ -41,5 +45,9 @@
         <activity
             android:name=".ui.marriage.EditMarriageActivity"
             android:label="@string/title_edit_marriage" />
+
+        <activity
+            android:name=".ui.marriage.ViewMarriageActivity"
+            android:label="@string/title_view_marriage" />
     </application>
 </manifest>

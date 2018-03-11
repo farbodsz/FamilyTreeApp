@@ -24,6 +24,13 @@
 
     <group android:id="@+id/navigation_group_3" android:checkableBehavior="single">
         <item
+            android:id="@+id/nav_item_events"
+            android:title="@string/nav_item_events"
+            android:icon="@drawable/ic_birthday_black_24dp" />
+    </group>
+
+    <group android:id="@+id/navigation_group_4" android:checkableBehavior="single">
+        <item
             android:id="@+id/nav_item_settings"
             android:title="@string/nav_item_settings"
             android:icon="@drawable/ic_settings_black_24dp" />

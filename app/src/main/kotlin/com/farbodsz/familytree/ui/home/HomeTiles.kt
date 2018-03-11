@@ -8,7 +8,8 @@ import com.farbodsz.familytree.util.OnClick
 
 enum class HomeTiles {
     VIEW_TREE,
-    PEOPLE
+    PEOPLE,
+    EVENTS
 }
 
 /**
@@ -32,5 +33,12 @@ class PeopleTile(context: Context, peopleCount: Int, onClick: OnClick) : HomeTil
         context.getString(R.string.home_item_people_title),
         context.resources.getQuantityString(R.plurals.home_item_people_desc, peopleCount, peopleCount),
         ContextCompat.getColor(context, R.color.homeCard_people_bkgd),
+        onClick
+)
+
+class EventsTile(context: Context, onClick: OnClick) : HomeTile(
+        context.getString(R.string.home_item_events_title),
+        context.getString(R.string.home_item_events_desc),
+        ContextCompat.getColor(context, R.color.homeCard_events_bkgd),
         onClick
 )

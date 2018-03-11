@@ -3,6 +3,8 @@ package com.farbodsz.familytree.model
 import android.database.Cursor
 import android.os.Parcel
 import android.os.Parcelable
+import android.support.annotation.ColorRes
+import com.farbodsz.familytree.R
 import com.farbodsz.familytree.database.schemas.PersonsSchema
 import org.threeten.bp.LocalDate
 
@@ -29,7 +31,7 @@ data class Person(
         val placeOfBirth: String,
         val dateOfDeath: LocalDate?,
         val placeOfDeath: String
-) : StandardData, Comparable<Person>, Parcelable {
+) : StandardData, WithEvent, Comparable<Person>, Parcelable {
 
     init {
         require(id > 0) { "the id must be greater than 0" }
@@ -48,6 +50,8 @@ data class Person(
     val fullName = "$forename $surname"
 
     fun isAlive() = dateOfDeath == null
+
+    override fun getRelatedEvent() = Birthday(id, dateOfBirth, placeOfBirth)
 
     override fun compareTo(other: Person) = fullName.compareTo(other.fullName)
 
@@ -130,6 +134,12 @@ data class Gender(val id: Int) : Parcelable {
     fun isMale() = this == MALE
 
     fun isFemale() = this == FEMALE
+
+    /**
+     * Returns a color resource to use in the UI to represent with this gender.
+     */
+    @ColorRes
+    fun getColorRes() = if (isMale()) R.color.image_border_male else R.color.image_border_female
 
     constructor(source: Parcel) : this(source.readInt())
 

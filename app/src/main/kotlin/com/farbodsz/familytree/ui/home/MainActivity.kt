@@ -8,6 +8,7 @@ import android.support.v7.widget.Toolbar
 import com.farbodsz.familytree.R
 import com.farbodsz.familytree.database.manager.PersonManager
 import com.farbodsz.familytree.ui.NavigationDrawerActivity
+import com.farbodsz.familytree.ui.event.EventsActivity
 import com.farbodsz.familytree.ui.person.PersonListActivity
 import com.farbodsz.familytree.ui.tree.TreeActivity
 import com.farbodsz.familytree.util.standardNavigationParams
@@ -42,7 +43,9 @@ class MainActivity : NavigationDrawerActivity() {
         val peopleCount = PersonManager(this).count()
         val peopleTile = PeopleTile(this, peopleCount) { goToPage(HomeTiles.PEOPLE) }
 
-        return arrayListOf(viewTreeTile, peopleTile)
+        val eventsTitle = EventsTile(this) { goToPage(HomeTiles.EVENTS) }
+
+        return arrayListOf(viewTreeTile, peopleTile, eventsTitle)
     }
 
     /**
@@ -52,6 +55,7 @@ class MainActivity : NavigationDrawerActivity() {
         val cls = when (tile) {
             HomeTiles.VIEW_TREE -> TreeActivity::class.java
             HomeTiles.PEOPLE -> PersonListActivity::class.java
+            HomeTiles.EVENTS -> EventsActivity::class.java
         }
         val intent = Intent(this, cls)
         startActivity(intent)

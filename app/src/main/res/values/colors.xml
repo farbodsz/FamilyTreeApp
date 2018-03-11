@@ -9,6 +9,7 @@
     <!-- Home page card backgrounds -->
     <color name="homeCard_tree_bkgd">@color/cyan_500</color>
     <color name="homeCard_people_bkgd">@color/orange_500</color>
+    <color name="homeCard_events_bkgd">@color/pink_500</color>
 
     <!-- PersonView image borders -->
     <color name="image_border_male">@color/blue_500</color>

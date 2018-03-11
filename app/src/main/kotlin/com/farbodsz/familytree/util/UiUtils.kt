@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.FrameLayout
 import com.farbodsz.familytree.R
+import com.farbodsz.familytree.model.Event
 import com.farbodsz.familytree.model.Person
 import com.farbodsz.familytree.ui.NavigationParameters
 
@@ -28,6 +29,15 @@ typealias OnClick = (view: View) -> Unit
  * returns [Unit].
  */
 typealias OnItemClick = (view: View, position: Int) -> Unit
+
+/**
+ * Type definition for an action to be preformed when an [Event] in a collection of items has been
+ * clicked.
+ *
+ * This is a function type with two parameters: the [View] that was clicked/selected, and the
+ * corresponding [Event] from the collection. The function returns [Unit].
+ */
+typealias OnEventClick = (view: View, event: Event) -> Unit
 
 /**
  * Type definition for an action to be preformed when a [Person] in a collection of items has been

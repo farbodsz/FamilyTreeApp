@@ -23,7 +23,7 @@ data class Marriage(
         val startDate: LocalDate,
         val endDate: LocalDate?,
         val placeOfMarriage: String
-) : DataRelationship, Parcelable {
+) : DataRelationship, WithEvent, Parcelable {
 
     init {
         require(person1Id > 0) { "person1Id < 1: the id of a person must be greater than 0" }
@@ -51,6 +51,8 @@ data class Marriage(
     fun getOtherSpouseId(personId: Int) = if (personId == person1Id) person2Id else person1Id
 
     override fun getIds() = Pair(person1Id, person2Id)
+
+    override fun getRelatedEvent() = Anniversary(getIds(), startDate, placeOfMarriage)
 
     override fun describeContents() = 0
 
@@ -80,13 +82,13 @@ data class Marriage(
                     cursor.getInt(cursor.getColumnIndex(MarriagesSchema.COL_START_DATE_DAY))
             ) // TODO should marriages dates be optional?
 
-            val endDate = if (cursor.isNull(cursor.getColumnIndex(MarriagesSchema.COL_START_DATE_DAY))) {
+            val endDate = if (cursor.isNull(cursor.getColumnIndex(MarriagesSchema.COL_END_DATE_DAY))) {
                 null
             } else {
                 LocalDate.of(
-                        cursor.getInt(cursor.getColumnIndex(MarriagesSchema.COL_START_DATE_YEAR)),
-                        cursor.getInt(cursor.getColumnIndex(MarriagesSchema.COL_START_DATE_MONTH)),
-                        cursor.getInt(cursor.getColumnIndex(MarriagesSchema.COL_START_DATE_DAY))
+                        cursor.getInt(cursor.getColumnIndex(MarriagesSchema.COL_END_DATE_YEAR)),
+                        cursor.getInt(cursor.getColumnIndex(MarriagesSchema.COL_END_DATE_MONTH)),
+                        cursor.getInt(cursor.getColumnIndex(MarriagesSchema.COL_END_DATE_DAY))
                 )
             }
 

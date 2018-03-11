@@ -9,9 +9,11 @@
     <string name="title_tree_person">%1$s\'s Tree</string>
     <string name="title_tree_list">@string/title_tree</string>
     <string name="title_person_list">People</string>
+    <string name="title_events">Birthdays and Anniversaries</string>
     <string name="title_view_person" />
     <string name="title_edit_person">Edit Person</string>
     <string name="title_edit_marriage">Edit Marriage</string>
+    <string name="title_view_marriage" />
     <string name="title_settings">Settings</string>
 
     <!-- Action texts for menus -->
@@ -28,6 +30,7 @@
     <string name="nav_item_tree">View Tree</string>
     <string name="nav_item_tree_list">View Tree (list)</string>
     <string name="nav_item_person_list">@string/title_person_list</string>
+    <string name="nav_item_events">@string/title_events</string>
     <string name="nav_item_settings">@string/title_settings</string>
 
     <!-- Nav drawer content description texts -->
@@ -42,6 +45,8 @@
         <item quantity="one">List of family members. Currently, %1$d person have been added.</item>
         <item quantity="other">List of family members. Currently, %1$d people have been added.</item>
     </plurals>
+    <string name="home_item_events_title">Browse events</string>
+    <string name="home_item_events_desc">View a list of birthdays and anniversaries.</string>
 
     <!-- User input labels for person -->
     <string name="person">Person</string>
@@ -76,7 +81,7 @@
     <string name="place_of_marriage">Place of marriage</string>
     <string name="add_marriage">Add marriage</string>
 
-    <!-- Person properties -->
+    <!-- Person / marriage properties -->
     <string name="full_name">Full name</string>
     <string name="born">Born</string>
     <string name="died">Died</string>
@@ -86,6 +91,8 @@
     <string name="marriage_with">Marriage with %1$s</string>
     <string name="no_marriages">%1$s does not have spouses</string>
     <string name="view_tree">View %1$s\'s tree</string>
+    <string name="married">Married</string>
+    <string name="divorced">Divorced</string>
 
     <!-- Placeholder texts -->
     <string name="db_marriages_empty">No marriages have been entered yet</string>
@@ -110,8 +117,11 @@
     <string name="dialog_add_marriage_title">Add marriage</string>
     <string name="dialog_choose_person_title">Choose person</string>
     <string name="dialog_confirm_delete_title">Confirm delete</string>
-    <string name="dialog_confirm_delete_message">
+    <string name="dialog_confirm_delete_person_message">
         Are you sure you want to delete this person? This cannot be undone.
+    </string>
+    <string name="dialog_confirm_delete_marriage_message">
+        Are you sure you want to delete this marriage? This cannot be undone.
     </string>
     <string name="dialog_choose_layers_title">@string/action_choose_layers</string>
     <plurals name="dialog_choose_layers_item">

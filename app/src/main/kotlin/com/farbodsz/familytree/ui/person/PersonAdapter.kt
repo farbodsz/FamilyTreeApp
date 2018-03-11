@@ -39,12 +39,7 @@ class PersonAdapter(
         with(holder!!) {
             nameText.text = person.fullName
             infoText.text = person.dateOfBirth.format(DATE_FORMATTER_BIRTH)
-
-            imageView.borderColor = ContextCompat.getColor(context, if (person.gender.isMale()) {
-                R.color.image_border_male
-            } else {
-                R.color.image_border_female
-            })
+            imageView.borderColor = ContextCompat.getColor(context, person.gender.getColorRes())
         }
     }
 

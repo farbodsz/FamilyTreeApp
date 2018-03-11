@@ -49,11 +49,7 @@ class PersonView @JvmOverloads constructor(
             field = value
 
             name = value.fullName
-            iconBorderColorRes = if (value.gender.isMale()) {
-                R.color.image_border_male
-            } else {
-                R.color.image_border_female
-            }
+            iconBorderColorRes = value.gender.getColorRes()
 
             val isMarried = MarriagesManager(context).getMarriages(value.id).isNotEmpty()
             marriageIcon.visibility = if (isMarried) View.VISIBLE else View.GONE
