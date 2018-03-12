@@ -73,7 +73,7 @@ object IOUtils {
             readPersonImage(personId, applicationContext)
                     ?: getDefaultImage(applicationContext)
 
-    private fun getDefaultImage(context: Context): Drawable {
+    fun getDefaultImage(context: Context): Drawable {
         val defaultColor = ContextCompat.getColor(context, DEFAULT_IMAGE_COLOR_RES)
         return ColorDrawable(defaultColor)
     }

@@ -1,7 +1,6 @@
 package com.farbodsz.familytree.ui.marriage
 
 import android.content.Context
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -10,9 +9,9 @@ import android.widget.TextView
 import com.farbodsz.familytree.R
 import com.farbodsz.familytree.database.manager.PersonManager
 import com.farbodsz.familytree.model.Marriage
+import com.farbodsz.familytree.ui.widget.PersonCircleImageView
 import com.farbodsz.familytree.util.DATE_FORMATTER_BIRTH
 import com.farbodsz.familytree.util.OnDataClick
-import de.hdodenhof.circleimageview.CircleImageView
 
 /**
  * A [RecyclerView] adapter for displaying [marriages] in a standard list layout.
@@ -42,13 +41,8 @@ class MarriageAdapter(
 
         with(holder!!) {
             nameText.text = spouse.fullName
-            infoText.text = marriage.startDate.format(DATE_FORMATTER_BIRTH) // TODO show end date too
-
-            imageView.borderColor = ContextCompat.getColor(context, if (spouse.gender.isMale()) {
-                R.color.image_border_male
-            } else {
-                R.color.image_border_female
-            })
+            infoText.text = marriage.startDate.format(DATE_FORMATTER_BIRTH)
+            personImageView.person = spouse
         }
     }
 
@@ -56,7 +50,7 @@ class MarriageAdapter(
 
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
-        val imageView: CircleImageView = itemView.findViewById(R.id.circleImageView)
+        val personImageView: PersonCircleImageView = itemView.findViewById(R.id.circleImageView)
         val nameText: TextView = itemView.findViewById(R.id.text1)
         val infoText: TextView = itemView.findViewById(R.id.text2)
 
@@ -66,7 +60,6 @@ class MarriageAdapter(
                 onItemClickAction?.invoke(it, marriages[position])
             }
         }
-
     }
 
 }
