@@ -1,6 +1,5 @@
 package com.farbodsz.familytree.ui.person
 
-import android.content.Context
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -16,7 +15,6 @@ import com.farbodsz.familytree.util.OnDataClick
  * A [RecyclerView] adapter for displaying [people] in a standard list layout.
  */
 class PersonAdapter(
-        private val context: Context,
         private val people: List<Person>
 ) : RecyclerView.Adapter<PersonAdapter.ViewHolder>() {
 

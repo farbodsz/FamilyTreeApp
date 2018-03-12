@@ -364,7 +364,7 @@ class EditPersonActivity : AppCompatActivity() {
                 children.count()
         )
 
-        val personAdapter = PersonAdapter(this, children)
+        val personAdapter = PersonAdapter(children)
         personAdapter.onItemClick { _, person ->
             // Show dialog with option to delete
             val options = arrayOf(getString(R.string.action_delete))
@@ -416,7 +416,7 @@ class EditPersonActivity : AppCompatActivity() {
         lateinit var dialog: AlertDialog
         val builder = AlertDialog.Builder(this)
 
-        val personAdapter = PersonAdapter(this, getPotentialChildren())
+        val personAdapter = PersonAdapter(getPotentialChildren())
         personAdapter.onItemClick { _, person ->
             addChildToUi(person)
             dialog.dismiss()

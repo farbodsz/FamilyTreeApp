@@ -370,7 +370,7 @@ class PersonChildrenCreator(
         lateinit var dialog: AlertDialog
         val builder = AlertDialog.Builder(context)
 
-        val personAdapter = PersonAdapter(context, getPotentialChildren())
+        val personAdapter = PersonAdapter(getPotentialChildren())
         personAdapter.onItemClick { _, person ->
             addChild(person)
             dialog.dismiss()
@@ -433,7 +433,7 @@ class PersonChildrenCreator(
                 children.count()
         )
 
-        val personAdapter = PersonAdapter(context, children)
+        val personAdapter = PersonAdapter(children)
         personAdapter.onItemClick { _, person ->
             // Show dialog with option to delete
             val options = arrayOf(context.getString(R.string.action_delete))

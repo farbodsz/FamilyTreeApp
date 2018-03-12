@@ -142,7 +142,7 @@ class ViewPersonActivity : AppCompatActivity() {
             return
         }
 
-        val personAdapter = PersonAdapter(this, parents)
+        val personAdapter = PersonAdapter(parents)
         findViewById<RecyclerView>(R.id.recyclerView_parents).apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
@@ -188,7 +188,7 @@ class ViewPersonActivity : AppCompatActivity() {
             return
         }
 
-        val personAdapter = PersonAdapter(this, children)
+        val personAdapter = PersonAdapter(children)
         findViewById<RecyclerView>(R.id.recyclerView_children).apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)

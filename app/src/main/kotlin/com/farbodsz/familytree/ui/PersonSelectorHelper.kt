@@ -89,7 +89,7 @@ class PersonSelectorHelper(
      * Returns the [View] used for the displaying a list of all [people][Person].
      */
     private fun createPersonSelector(dialog: AlertDialog): RecyclerView {
-        val personAdapter = PersonAdapter(context, PersonManager(context).getAll())
+        val personAdapter = PersonAdapter(PersonManager(context).getAll())
         personAdapter.onItemClick { _, newPerson ->
             person = newPerson
             dialog.dismiss()
