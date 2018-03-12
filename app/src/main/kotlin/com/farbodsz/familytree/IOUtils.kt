@@ -3,7 +3,10 @@ package com.farbodsz.familytree
 import android.content.Context
 import android.content.ContextWrapper
 import android.graphics.Bitmap
+import android.graphics.drawable.ColorDrawable
 import android.graphics.drawable.Drawable
+import android.support.annotation.ColorRes
+import android.support.v4.content.ContextCompat
 import android.util.Log
 import com.farbodsz.familytree.model.Person
 import java.io.File
@@ -17,6 +20,9 @@ import java.io.IOException
 object IOUtils {
 
     private const val LOG_TAG = "IOUtils"
+
+    @ColorRes
+    private const val DEFAULT_IMAGE_COLOR_RES = R.color.grey_500
 
     /**
      * Saves a person's image to the internal storage.
@@ -54,6 +60,18 @@ object IOUtils {
     fun readPersonImage(personId: Int, applicationContext: Context): Drawable? {
         val filePath = getPersonImageFilePath(applicationContext, personId)
         return Drawable.createFromPath(filePath.toString())
+    }
+
+    /**
+     * Returns the [Drawable] image associated with the [Person] with [personId], or a default
+     * [Drawable] to use if the person's image could not be found on the internal storage.
+     */
+    fun readPersonImageWithDefault(personId: Int, applicationContext: Context) =
+            readPersonImage(personId, applicationContext) ?: getDefaultImage(applicationContext)
+
+    private fun getDefaultImage(context: Context): Drawable {
+        val defaultColor = ContextCompat.getColor(context, DEFAULT_IMAGE_COLOR_RES)
+        return ColorDrawable(defaultColor)
     }
 
     /**
