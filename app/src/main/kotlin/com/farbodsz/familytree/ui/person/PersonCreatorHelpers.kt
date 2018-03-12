@@ -13,11 +13,11 @@ import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.text.Editable
 import android.text.TextWatcher
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import com.farbodsz.familytree.IOUtils
 import com.farbodsz.familytree.R
 import com.farbodsz.familytree.database.manager.ChildrenManager
 import com.farbodsz.familytree.database.manager.MarriagesManager
@@ -72,6 +72,7 @@ class PersonDetailsCreator(
 ) : PersonCreatorSection {
 
     private lateinit var circleImageView: CircleImageView
+    private var bitmap: Bitmap? = null
 
     private lateinit var forenameInput: EditText
     private lateinit var surnameInput: EditText
@@ -157,7 +158,7 @@ class PersonDetailsCreator(
      * is being invoked from.
      */
     fun setPersonImage(bitmap: Bitmap) {
-        Log.w("PersonCreatorHelper", "RECEIVED")
+        this.bitmap = bitmap
         circleImageView.setImageBitmap(bitmap)
     }
 
@@ -196,7 +197,17 @@ class PersonDetailsCreator(
         // Don't continue with db write if inputs invalid
         val newPerson = validatePerson(validator) ?: return false
         PersonManager(context).add(newPerson)
+
+        bitmap?.let { // save if bitmap has been set
+            IOUtils.saveBitmap(
+                    it,
+                    IOUtils.getPersonImageFilename(newPerson),
+                    context.applicationContext
+            )
+        }
+
         onPostWriteData.invoke(newPerson)
+
         return true
     }
 
