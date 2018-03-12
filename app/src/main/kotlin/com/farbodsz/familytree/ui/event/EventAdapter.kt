@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.farbodsz.familytree.IOUtils
 import com.farbodsz.familytree.R
 import com.farbodsz.familytree.database.manager.MarriagesManager
 import com.farbodsz.familytree.database.manager.PersonManager
@@ -56,7 +57,13 @@ class EventAdapter(
             imageIcon.setImageResource(R.drawable.ic_marriage_black_24dp)
             titleText.text = person1.fullName + " and " + person2.fullName
             subtitleText.text = anniversary.getDateText()
+
+            val imageDrawable1 = IOUtils.readPersonImage(person1.id, context.applicationContext)
+            person1Image.setImageDrawable(imageDrawable1)
             person1Image.borderColor = ContextCompat.getColor(context, person1.gender.getColorRes())
+
+            val imageDrawable2 = IOUtils.readPersonImage(person2.id, context.applicationContext)
+            person2Image.setImageDrawable(imageDrawable2)
             person2Image.borderColor = ContextCompat.getColor(context, person2.gender.getColorRes())
         }
     }
@@ -68,6 +75,9 @@ class EventAdapter(
             imageIcon.setImageResource(R.drawable.ic_birthday_black_24dp)
             titleText.text = person.fullName
             subtitleText.text = birthday.getDateText()
+
+            val imageDrawable = IOUtils.readPersonImage(person.id, context.applicationContext)
+            person1Image.setImageDrawable(imageDrawable)
             person1Image.borderColor = ContextCompat.getColor(context, person.gender.getColorRes())
             person2Image.visibility = View.GONE
         }
