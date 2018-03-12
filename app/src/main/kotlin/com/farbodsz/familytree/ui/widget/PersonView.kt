@@ -36,7 +36,8 @@ class PersonView @JvmOverloads constructor(
 
             nameTextView.text = value.fullName
             imageView.borderColor = ContextCompat.getColor(context, value.gender.getColorRes())
-            imageView.setImageDrawable(IOUtils.readPersonImage(value, context.applicationContext))
+            imageView.setImageDrawable(
+                    IOUtils.readPersonImage(value.id, context.applicationContext))
 
             val isMarried = MarriagesManager(context).getMarriages(value.id).isNotEmpty()
             marriageIcon.visibility = if (isMarried) View.VISIBLE else View.GONE

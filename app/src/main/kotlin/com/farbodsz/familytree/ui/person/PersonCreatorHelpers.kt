@@ -201,7 +201,7 @@ class PersonDetailsCreator(
         bitmap?.let { // save if bitmap has been set
             IOUtils.saveBitmap(
                     it,
-                    IOUtils.getPersonImageFilename(newPerson),
+                    IOUtils.getPersonImageFilename(newPerson.id),
                     context.applicationContext
             )
         }

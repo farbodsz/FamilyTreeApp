@@ -87,7 +87,7 @@ class ViewPersonActivity : AppCompatActivity() {
     }
 
     private fun setupLayout() {
-        val personImage = IOUtils.readPersonImage(person, applicationContext)
+        val personImage = IOUtils.readPersonImage(person.id, applicationContext)
         val circleImageView = findViewById<CircleImageView>(R.id.circleImageView)
         circleImageView.borderColor = ContextCompat.getColor(this, person.gender.getColorRes())
         circleImageView.setImageDrawable(personImage)

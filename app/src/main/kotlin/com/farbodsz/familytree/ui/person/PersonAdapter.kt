@@ -41,7 +41,7 @@ class PersonAdapter(
             nameText.text = person.fullName
             infoText.text = person.dateOfBirth.format(DATE_FORMATTER_BIRTH)
 
-            val personImage = IOUtils.readPersonImage(person, context.applicationContext)
+            val personImage = IOUtils.readPersonImage(person.id, context.applicationContext)
             imageView.setImageDrawable(personImage)
             imageView.borderColor = ContextCompat.getColor(context, person.gender.getColorRes())
         }

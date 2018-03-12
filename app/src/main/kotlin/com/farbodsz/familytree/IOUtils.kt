@@ -49,13 +49,23 @@ object IOUtils {
     }
 
     /**
-     * Returns the [Drawable] image associated with the given [person], or null if no associated
-     * image could be found on the internal storage.
+     * Returns the [Drawable] image associated with the [Person] with [personId], or null if no
+     * associated image could be found on the internal storage.
      */
-    fun readPersonImage(person: Person, applicationContext: Context): Drawable? {
+    fun readPersonImage(personId: Int, applicationContext: Context): Drawable? {
         val contextWrapper = ContextWrapper(applicationContext)
-        val filePath = getImageFilePath(contextWrapper, getPersonImageFilename(person))
+        val filePath = getImageFilePath(contextWrapper, getPersonImageFilename(personId))
         return Drawable.createFromPath(filePath.toString())
+    }
+
+    /**
+     * Deletes an image on the internal storage associated with [Person] with the given [personId].
+     * @return whether the deletion was successful
+     */
+    fun deletePersonImage(personId: Int, applicationContext: Context): Boolean {
+        val contextWrapper = ContextWrapper(applicationContext)
+        val filePath = getImageFilePath(contextWrapper, getPersonImageFilename(personId))
+        return filePath?.delete() ?: false
     }
 
     /**
@@ -74,8 +84,8 @@ object IOUtils {
     }
 
     /**
-     * Returns the filename of the image associated with the given [person].
+     * Returns the filename of the image associated with [Person] with given [personId].
      */
-    fun getPersonImageFilename(person: Person) = "img_person_profile_${person.id}.png"
+    fun getPersonImageFilename(personId: Int) = "img_person_profile_$personId.png"
 
 }

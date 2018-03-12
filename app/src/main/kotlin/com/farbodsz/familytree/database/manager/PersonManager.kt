@@ -5,6 +5,7 @@ import android.content.Context
 import android.database.Cursor
 import android.util.Log
 import com.farbodsz.familytree.DataNotFoundException
+import com.farbodsz.familytree.IOUtils
 import com.farbodsz.familytree.MultipleIdResultsException
 import com.farbodsz.familytree.database.DatabaseHelper
 import com.farbodsz.familytree.database.query.Filters
@@ -88,6 +89,13 @@ class PersonManager(private val context: Context) : StandardDataManager<Person>(
         super.deleteWithReferences(id)
 
         Log.d(LOG_TAG, "Deleting person (id: $id) and references to it")
+
+        // Delete the person's image, and log the result
+        if (IOUtils.deletePersonImage(id, context.applicationContext)) {
+            Log.d(LOG_TAG, "Successfully deleted image for person with id: $id")
+        } else {
+            Log.w(LOG_TAG, "Failed to delete image for person with id: $id")
+        }
 
         // Delete associated relationships, but not the other person in those relationships
         MarriagesManager(context).deleteMarriages(id)
