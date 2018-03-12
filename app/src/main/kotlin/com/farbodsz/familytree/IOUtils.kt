@@ -19,15 +19,14 @@ object IOUtils {
     private const val LOG_TAG = "IOUtils"
 
     /**
-     * Saves a [bitmap] with the given [fileName] to the internal storage.
+     * Saves a person's image to the internal storage.
      *
-     * @param bitmap        the [Bitmap] object to be written
-     * @param fileName      name of the image file. **This excludes the file extension!**
-     * @param appContext    the application [Context]
+     * @param bitmap                the [Bitmap] image to be written
+     * @param personId              the ID of the [Person] this image is representing
+     * @param applicationContext    the application [Context]
      */
-    fun saveBitmap(bitmap: Bitmap, fileName: String, appContext: Context) {
-        val cw = ContextWrapper(appContext)
-        val filePath = getImageFilePath(cw, fileName)
+    fun writePersonImage(bitmap: Bitmap, personId: Int, applicationContext: Context) {
+        val filePath = getImageFilePath(applicationContext, getPersonImageFilename(personId))
 
         var outputStream: FileOutputStream? = null
         try {
@@ -41,7 +40,7 @@ object IOUtils {
         } finally {
             try {
                 outputStream!!.close()
-                Log.d(LOG_TAG, "Successfully saved image with fileName: $fileName")
+                Log.d(LOG_TAG, "Successfully saved image with fileName: ${filePath?.absolutePath}")
             } catch (e: IOException) {
                 e.printStackTrace()
             }
@@ -63,8 +62,7 @@ object IOUtils {
      * @return whether the deletion was successful
      */
     fun deletePersonImage(personId: Int, applicationContext: Context): Boolean {
-        val contextWrapper = ContextWrapper(applicationContext)
-        val filePath = getImageFilePath(contextWrapper, getPersonImageFilename(personId))
+        val filePath = getImageFilePath(applicationContext, getPersonImageFilename(personId))
         return filePath?.delete() ?: false
     }
 
@@ -72,10 +70,12 @@ object IOUtils {
      * Returns the complete file path (including the file name) to the internal storage where the
      * image with given [fileName] is stored, or null if not found.
      *
-     * @param contextWrapper
+     * @param applicationContext
      * @param fileName          the file name of the image, **including the file extension**.
      */
-    private fun getImageFilePath(contextWrapper: ContextWrapper, fileName: String): File? {
+    private fun getImageFilePath(applicationContext: Context, fileName: String): File? {
+        val contextWrapper = ContextWrapper(applicationContext)
+
         // Path image directory for this app (/data/data/com.farbodsz.familytree/app_data/imageDir)
         val directory = contextWrapper.getDir("imageDir", Context.MODE_PRIVATE)
 
@@ -86,6 +86,6 @@ object IOUtils {
     /**
      * Returns the filename of the image associated with [Person] with given [personId].
      */
-    fun getPersonImageFilename(personId: Int) = "img_person_profile_$personId.png"
+    private fun getPersonImageFilename(personId: Int) = "img_person_profile_$personId.png"
 
 }

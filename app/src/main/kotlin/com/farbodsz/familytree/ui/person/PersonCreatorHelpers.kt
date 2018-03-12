@@ -199,11 +199,7 @@ class PersonDetailsCreator(
         PersonManager(context).add(newPerson)
 
         bitmap?.let { // save if bitmap has been set
-            IOUtils.saveBitmap(
-                    it,
-                    IOUtils.getPersonImageFilename(newPerson.id),
-                    context.applicationContext
-            )
+            IOUtils.writePersonImage(it, newPerson.id, context.applicationContext)
         }
 
         onPostWriteData.invoke(newPerson)
