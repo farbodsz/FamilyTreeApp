@@ -7,10 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import com.farbodsz.familytree.IOUtils
 import com.farbodsz.familytree.R
 import com.farbodsz.familytree.model.Person
 import com.farbodsz.familytree.util.DATE_FORMATTER_BIRTH
+import com.farbodsz.familytree.util.IOUtils
 import com.farbodsz.familytree.util.OnDataClick
 import de.hdodenhof.circleimageview.CircleImageView
 

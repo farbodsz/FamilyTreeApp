@@ -20,7 +20,6 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
-import com.farbodsz.familytree.IOUtils
 import com.farbodsz.familytree.R
 import com.farbodsz.familytree.database.manager.ChildrenManager
 import com.farbodsz.familytree.database.manager.MarriagesManager
@@ -32,6 +31,7 @@ import com.farbodsz.familytree.ui.DateSelectorHelper
 import com.farbodsz.familytree.ui.Validator
 import com.farbodsz.familytree.ui.marriage.EditMarriageActivity
 import com.farbodsz.familytree.ui.marriage.MarriageAdapter
+import com.farbodsz.familytree.util.IOUtils
 import com.farbodsz.familytree.util.setDateRangePickerConstraints
 import com.farbodsz.familytree.util.toTitleCase
 import de.hdodenhof.circleimageview.CircleImageView

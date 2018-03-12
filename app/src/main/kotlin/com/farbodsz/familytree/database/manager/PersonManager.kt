@@ -5,7 +5,6 @@ import android.content.Context
 import android.database.Cursor
 import android.util.Log
 import com.farbodsz.familytree.DataNotFoundException
-import com.farbodsz.familytree.IOUtils
 import com.farbodsz.familytree.MultipleIdResultsException
 import com.farbodsz.familytree.database.DatabaseHelper
 import com.farbodsz.familytree.database.query.Filters
@@ -14,6 +13,7 @@ import com.farbodsz.familytree.database.schemas.ChildrenSchema
 import com.farbodsz.familytree.database.schemas.PersonsSchema
 import com.farbodsz.familytree.database.schemas.SQLiteSeqSchema
 import com.farbodsz.familytree.model.Person
+import com.farbodsz.familytree.util.IOUtils
 
 /**
  * Contains some methods to perform CRUD operations for the *persons* table.

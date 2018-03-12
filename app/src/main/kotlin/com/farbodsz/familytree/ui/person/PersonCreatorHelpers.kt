@@ -17,7 +17,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import com.farbodsz.familytree.IOUtils
 import com.farbodsz.familytree.R
 import com.farbodsz.familytree.database.manager.ChildrenManager
 import com.farbodsz.familytree.database.manager.MarriagesManager
@@ -28,6 +27,7 @@ import com.farbodsz.familytree.model.Person
 import com.farbodsz.familytree.ui.DateSelectorHelper
 import com.farbodsz.familytree.ui.Validator
 import com.farbodsz.familytree.ui.marriage.MarriageAdapter
+import com.farbodsz.familytree.util.IOUtils
 import com.farbodsz.familytree.util.OnClick
 import com.farbodsz.familytree.util.setDateRangePickerConstraints
 import com.farbodsz.familytree.util.toTitleCase

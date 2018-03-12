@@ -1,4 +1,4 @@
-package com.farbodsz.familytree
+package com.farbodsz.familytree.util
 
 import android.content.Context
 import android.content.ContextWrapper
@@ -8,6 +8,7 @@ import android.graphics.drawable.Drawable
 import android.support.annotation.ColorRes
 import android.support.v4.content.ContextCompat
 import android.util.Log
+import com.farbodsz.familytree.R
 import com.farbodsz.familytree.model.Person
 import java.io.File
 import java.io.FileNotFoundException
@@ -69,7 +70,8 @@ object IOUtils {
      * [Drawable] to use if the person's image could not be found on the internal storage.
      */
     fun readPersonImageWithDefault(personId: Int, applicationContext: Context) =
-            readPersonImage(personId, applicationContext) ?: getDefaultImage(applicationContext)
+            readPersonImage(personId, applicationContext)
+                    ?: getDefaultImage(applicationContext)
 
     private fun getDefaultImage(context: Context): Drawable {
         val defaultColor = ContextCompat.getColor(context, DEFAULT_IMAGE_COLOR_RES)

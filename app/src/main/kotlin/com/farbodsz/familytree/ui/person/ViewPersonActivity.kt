@@ -16,7 +16,6 @@ import android.view.View
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.farbodsz.familytree.IOUtils
 import com.farbodsz.familytree.R
 import com.farbodsz.familytree.database.manager.ChildrenManager
 import com.farbodsz.familytree.database.manager.MarriagesManager
@@ -25,6 +24,7 @@ import com.farbodsz.familytree.model.Person
 import com.farbodsz.familytree.ui.marriage.MarriageAdapter
 import com.farbodsz.familytree.ui.tree.TreeActivity
 import com.farbodsz.familytree.util.DATE_FORMATTER_BIRTH
+import com.farbodsz.familytree.util.IOUtils
 import de.hdodenhof.circleimageview.CircleImageView
 
 /**

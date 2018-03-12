@@ -8,13 +8,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import com.farbodsz.familytree.IOUtils
 import com.farbodsz.familytree.R
 import com.farbodsz.familytree.database.manager.MarriagesManager
 import com.farbodsz.familytree.database.manager.PersonManager
 import com.farbodsz.familytree.model.Anniversary
 import com.farbodsz.familytree.model.Birthday
 import com.farbodsz.familytree.model.Event
+import com.farbodsz.familytree.util.IOUtils
 import com.farbodsz.familytree.util.OnDataClick
 import de.hdodenhof.circleimageview.CircleImageView
 

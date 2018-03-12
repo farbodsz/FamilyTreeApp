@@ -7,10 +7,10 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
-import com.farbodsz.familytree.IOUtils
 import com.farbodsz.familytree.R
 import com.farbodsz.familytree.database.manager.MarriagesManager
 import com.farbodsz.familytree.model.Person
+import com.farbodsz.familytree.util.IOUtils
 import de.hdodenhof.circleimageview.CircleImageView
 
 /**
