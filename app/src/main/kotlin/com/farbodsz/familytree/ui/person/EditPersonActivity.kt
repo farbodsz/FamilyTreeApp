@@ -2,7 +2,9 @@ package com.farbodsz.familytree.ui.person
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.provider.MediaStore
 import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.TextInputLayout
 import android.support.v7.app.AlertDialog
@@ -18,6 +20,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.*
+import com.farbodsz.familytree.IOUtils
 import com.farbodsz.familytree.R
 import com.farbodsz.familytree.database.manager.ChildrenManager
 import com.farbodsz.familytree.database.manager.MarriagesManager
@@ -31,6 +34,7 @@ import com.farbodsz.familytree.ui.marriage.EditMarriageActivity
 import com.farbodsz.familytree.ui.marriage.MarriageAdapter
 import com.farbodsz.familytree.util.setDateRangePickerConstraints
 import com.farbodsz.familytree.util.toTitleCase
+import de.hdodenhof.circleimageview.CircleImageView
 
 /**
  * This activity provides the UI for adding or editing a new person from the database.
@@ -62,11 +66,24 @@ class EditPersonActivity : AppCompatActivity() {
          * Request code for starting [EditMarriageActivity] for result, to create a new [Marriage]
          */
         private const val REQUEST_CREATE_MARRIAGE = 5
+
+        /**
+         * Request code for selecting a person image from a "gallery" app on the device.
+         */
+        private const val REQUEST_PICK_IMAGE = 6
+
+        /**
+         * Represents an explicit MIME image type for use with [Intent.setType].
+         */
+        private const val MIME_IMAGE_TYPE = "image/*"
     }
 
     private val personManager = PersonManager(this)
 
     private lateinit var coordinatorLayout: CoordinatorLayout
+
+    private lateinit var circleImageView: CircleImageView
+    private var bitmap: Bitmap? = null
 
     private lateinit var forenameInput: EditText
     private lateinit var surnameInput: EditText
@@ -114,6 +131,8 @@ class EditPersonActivity : AppCompatActivity() {
      */
     private var hasModifiedChildren = false
 
+    private var hasModifiedBitmap = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_person)
@@ -142,6 +161,9 @@ class EditPersonActivity : AppCompatActivity() {
      */
     private fun assignUiComponents() {
         coordinatorLayout = findViewById(R.id.coordinatorLayout)
+
+        circleImageView = findViewById(R.id.circleImageView)
+        circleImageView.setOnClickListener { selectPersonImage() }
 
         forenameInput = findViewById(R.id.editText_forename)
         surnameInput = findViewById(R.id.editText_surname)
@@ -183,6 +205,22 @@ class EditPersonActivity : AppCompatActivity() {
         addChildButton.setOnClickListener {
             chooseChildDialog()
         }
+    }
+
+    /**
+     * Starts an [Intent] for result to pick an image from the gallery app.
+     * The result will be sent to [onActivityResult].
+     */
+    private fun selectPersonImage() {
+        val getContentIntent = Intent(Intent.ACTION_GET_CONTENT).setType(MIME_IMAGE_TYPE)
+        val pickIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI).setType(MIME_IMAGE_TYPE)
+
+        val chooserIntent = Intent.createChooser(
+                getContentIntent,
+                getString(R.string.dialog_pickImage_title)
+        ).putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(pickIntent))
+
+        startActivityForResult(chooserIntent, REQUEST_PICK_IMAGE)
     }
 
     private fun setupLayout() {
@@ -479,23 +517,32 @@ class EditPersonActivity : AppCompatActivity() {
         ChildrenManager(this).updateChildren(editedPersonId(), children)
         MarriagesManager(this).updateMarriages(editedPersonId(), marriages)
 
-        if (person == null) {
-            personManager.add(newPerson)
-            sendSuccessfulResult(newPerson)
-            return
+        var successful = false
+
+        if (hasModifiedBitmap) {
+            successful = true
+            bitmap?.let { IOUtils.writePersonImage(it, newPerson.id, applicationContext) }
         }
 
-        if (person!! == newPerson) {
-            // Person hasn't changed - no need to update it
-            if (hasModifiedChildren || hasModifiedMarriages) {
-                sendSuccessfulResult(newPerson)
-            } else {
-                // Nothing changed, so avoid all db write (nothing will change in result activity)
-                sendCancelledResult()
+        successful = when {
+            person == null -> {
+                personManager.add(newPerson)
+                true
             }
-        } else {
-            personManager.update(person!!.id, newPerson)
+            person!! == newPerson -> {
+                // Person itself hasn't changed - only update if bitmap/children/marriages modified
+                successful || hasModifiedChildren || hasModifiedMarriages
+            }
+            else -> {
+                personManager.update(person!!.id, newPerson)
+                true
+            }
+        }
+
+        if (successful) {
             sendSuccessfulResult(newPerson)
+        } else {
+            sendCancelledResult()
         }
     }
 
@@ -571,10 +618,18 @@ class EditPersonActivity : AppCompatActivity() {
                 val child = data!!.getParcelableExtra<Person>(CreatePersonActivity.EXTRA_PERSON)
                 addChildToUi(child)
             }
+
             REQUEST_CREATE_MARRIAGE -> if (resultCode == Activity.RESULT_OK) {
                 // User has successfully created a new marriage from the dialog
                 val marriage = data!!.getParcelableExtra<Marriage>(EditMarriageActivity.EXTRA_MARRIAGE)
                 addMarriageToUi(marriage)
+            }
+
+            REQUEST_PICK_IMAGE -> {
+                val imageUri = data!!.data
+                bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imageUri)
+                hasModifiedBitmap = true
+                circleImageView.setImageBitmap(bitmap)
             }
         }
     }

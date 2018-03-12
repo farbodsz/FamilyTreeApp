@@ -27,6 +27,8 @@ object IOUtils {
     /**
      * Saves a person's image to the internal storage.
      *
+     * If an image for a person already exists, then it will be overwritten with the new [bitmap].
+     *
      * @param bitmap                the [Bitmap] image to be written
      * @param personId              the ID of the [Person] this image is representing
      * @param applicationContext    the application [Context]
