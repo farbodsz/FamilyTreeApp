@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.farbodsz.familytree.IOUtils
 import com.farbodsz.familytree.R
 import com.farbodsz.familytree.model.Person
 import com.farbodsz.familytree.util.DATE_FORMATTER_BIRTH
@@ -39,6 +40,9 @@ class PersonAdapter(
         with(holder!!) {
             nameText.text = person.fullName
             infoText.text = person.dateOfBirth.format(DATE_FORMATTER_BIRTH)
+
+            val personImage = IOUtils.readPersonImage(person, context.applicationContext)
+            imageView.setImageDrawable(personImage)
             imageView.borderColor = ContextCompat.getColor(context, person.gender.getColorRes())
         }
     }

@@ -3,6 +3,7 @@ package com.farbodsz.familytree
 import android.content.Context
 import android.content.ContextWrapper
 import android.graphics.Bitmap
+import android.graphics.drawable.Drawable
 import android.util.Log
 import com.farbodsz.familytree.model.Person
 import java.io.File
@@ -48,11 +49,14 @@ object IOUtils {
     }
 
     /**
-     * Returns the file path of the image associated with the given [person], or null if no
-     * associated image could be found on the internal storage.
+     * Returns the [Drawable] image associated with the given [person], or null if no associated
+     * image could be found on the internal storage.
      */
-    fun readPersonImage(person: Person, applicationContext: Context) =
-            getImageFilePath(ContextWrapper(applicationContext), getPersonImageFilename(person))
+    fun readPersonImage(person: Person, applicationContext: Context): Drawable? {
+        val contextWrapper = ContextWrapper(applicationContext)
+        val filePath = getImageFilePath(contextWrapper, getPersonImageFilename(person))
+        return Drawable.createFromPath(filePath.toString())
+    }
 
     /**
      * Returns the complete file path (including the file name) to the internal storage where the

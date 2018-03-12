@@ -1,13 +1,13 @@
 package com.farbodsz.familytree.ui.widget
 
 import android.content.Context
-import android.support.annotation.ColorRes
 import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
 import android.view.View
 import android.widget.ImageView
 import android.widget.LinearLayout
 import android.widget.TextView
+import com.farbodsz.familytree.IOUtils
 import com.farbodsz.familytree.R
 import com.farbodsz.familytree.database.manager.MarriagesManager
 import com.farbodsz.familytree.model.Person
@@ -26,20 +26,6 @@ class PersonView @JvmOverloads constructor(
     private val nameTextView: TextView
     private val marriageIcon: ImageView
 
-    private var name = ""
-        set(value) {
-            field = value
-            nameTextView.text = name
-        }
-
-    @ColorRes private var iconBorderColorRes = R.color.black
-        set(value) {
-            field = value
-            imageView.borderColor = ContextCompat.getColor(context, iconBorderColorRes)
-        }
-
-    // TODO setting image resource
-
     var person: Person? = null
         set(value) {
             if (value == null) {
@@ -48,8 +34,9 @@ class PersonView @JvmOverloads constructor(
 
             field = value
 
-            name = value.fullName
-            iconBorderColorRes = value.gender.getColorRes()
+            nameTextView.text = value.fullName
+            imageView.borderColor = ContextCompat.getColor(context, value.gender.getColorRes())
+            imageView.setImageDrawable(IOUtils.readPersonImage(value, context.applicationContext))
 
             val isMarried = MarriagesManager(context).getMarriages(value.id).isNotEmpty()
             marriageIcon.visibility = if (isMarried) View.VISIBLE else View.GONE
