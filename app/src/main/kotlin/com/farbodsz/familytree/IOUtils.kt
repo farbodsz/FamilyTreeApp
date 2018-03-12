@@ -26,7 +26,7 @@ object IOUtils {
      * @param applicationContext    the application [Context]
      */
     fun writePersonImage(bitmap: Bitmap, personId: Int, applicationContext: Context) {
-        val filePath = getImageFilePath(applicationContext, getPersonImageFilename(personId))
+        val filePath = getPersonImageFilePath(applicationContext, personId)
 
         var outputStream: FileOutputStream? = null
         try {
@@ -52,8 +52,7 @@ object IOUtils {
      * associated image could be found on the internal storage.
      */
     fun readPersonImage(personId: Int, applicationContext: Context): Drawable? {
-        val contextWrapper = ContextWrapper(applicationContext)
-        val filePath = getImageFilePath(contextWrapper, getPersonImageFilename(personId))
+        val filePath = getPersonImageFilePath(applicationContext, personId)
         return Drawable.createFromPath(filePath.toString())
     }
 
@@ -62,8 +61,20 @@ object IOUtils {
      * @return whether the deletion was successful
      */
     fun deletePersonImage(personId: Int, applicationContext: Context): Boolean {
-        val filePath = getImageFilePath(applicationContext, getPersonImageFilename(personId))
+        val filePath = getPersonImageFilePath(applicationContext, personId)
         return filePath?.delete() ?: false
+    }
+
+    /**
+     * Returns the complete file path (including the file name) to the internal storage where the
+     * image representing [Person] with [personId] is stored, or null if not found.
+     *
+     * @see getImageFilePath
+     * @see getPersonImageFilename
+     */
+    private fun getPersonImageFilePath(applicationContext: Context, personId: Int): File? {
+        val fileName = getPersonImageFilename(personId)
+        return getImageFilePath(applicationContext, fileName)
     }
 
     /**
@@ -71,7 +82,9 @@ object IOUtils {
      * image with given [fileName] is stored, or null if not found.
      *
      * @param applicationContext
-     * @param fileName          the file name of the image, **including the file extension**.
+     * @param fileName              the file name of the image, **including the file extension**.
+     *
+     * @see getPersonImageFilePath
      */
     private fun getImageFilePath(applicationContext: Context, fileName: String): File? {
         val contextWrapper = ContextWrapper(applicationContext)
@@ -84,7 +97,8 @@ object IOUtils {
     }
 
     /**
-     * Returns the filename of the image associated with [Person] with given [personId].
+     * Returns the filename (including the file extension) of the image associated with [Person]
+     * with given [personId].
      */
     private fun getPersonImageFilename(personId: Int) = "img_person_profile_$personId.png"
 
