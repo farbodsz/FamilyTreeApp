@@ -16,7 +16,6 @@
     <string name="title_create_marriage">Add Marriage</string>
     <string name="title_edit_marriage">Edit Marriage</string>
     <string name="title_view_marriage" />
-    <string name="title_settings">Settings</string>
 
     <!-- Action texts for menus -->
     <string name="action_add_person">Add person</string>
@@ -33,7 +32,6 @@
     <string name="nav_item_tree_list">View Tree (list)</string>
     <string name="nav_item_person_list">@string/title_person_list</string>
     <string name="nav_item_events">@string/title_events</string>
-    <string name="nav_item_settings">@string/title_settings</string>
 
     <!-- Nav drawer content description texts -->
     <string name="drawer_open">Drawer open</string>
