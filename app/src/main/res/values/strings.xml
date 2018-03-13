@@ -49,6 +49,8 @@
     </plurals>
     <string name="home_item_events_title">Browse events</string>
     <string name="home_item_events_desc">View a list of birthdays and anniversaries.</string>
+    <string name="home_item_addPerson_title">Add person</string>
+    <string name="home_item_addPerson_desc">Add a new family member to the tree.</string>
 
     <!-- User input labels for person -->
     <string name="person">Person</string>

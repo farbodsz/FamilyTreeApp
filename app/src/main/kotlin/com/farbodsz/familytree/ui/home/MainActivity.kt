@@ -1,5 +1,6 @@
 package com.farbodsz.familytree.ui.home
 
+import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.support.v7.widget.GridLayoutManager
@@ -9,6 +10,7 @@ import com.farbodsz.familytree.R
 import com.farbodsz.familytree.database.manager.PersonManager
 import com.farbodsz.familytree.ui.NavigationDrawerActivity
 import com.farbodsz.familytree.ui.event.EventsActivity
+import com.farbodsz.familytree.ui.person.CreatePersonActivity
 import com.farbodsz.familytree.ui.person.PersonListActivity
 import com.farbodsz.familytree.ui.tree.TreeActivity
 import com.farbodsz.familytree.util.standardNavigationParams
@@ -18,6 +20,10 @@ import com.farbodsz.familytree.util.withNavigation
  * The main screen of the app.
  */
 class MainActivity : NavigationDrawerActivity() {
+
+    companion object {
+        private const val REQUEST_NEW_ACTIVITY = 1
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,9 +49,11 @@ class MainActivity : NavigationDrawerActivity() {
         val peopleCount = PersonManager(this).count()
         val peopleTile = PeopleTile(this, peopleCount) { goToPage(HomeTiles.PEOPLE) }
 
-        val eventsTitle = EventsTile(this) { goToPage(HomeTiles.EVENTS) }
+        val eventsTile = EventsTile(this) { goToPage(HomeTiles.EVENTS) }
 
-        return arrayListOf(viewTreeTile, peopleTile, eventsTitle)
+        val addPersonTile = AddPersonTile(this) { goToPage(HomeTiles.ADD_PERSON) }
+
+        return arrayListOf(viewTreeTile, peopleTile, eventsTile, addPersonTile)
     }
 
     /**
@@ -56,12 +64,21 @@ class MainActivity : NavigationDrawerActivity() {
             HomeTiles.VIEW_TREE -> TreeActivity::class.java
             HomeTiles.PEOPLE -> PersonListActivity::class.java
             HomeTiles.EVENTS -> EventsActivity::class.java
+            HomeTiles.ADD_PERSON -> CreatePersonActivity::class.java
         }
         val intent = Intent(this, cls)
-        startActivity(intent)
+        startActivityForResult(intent, REQUEST_NEW_ACTIVITY)
     }
 
     override fun getSelfNavigationParams() =
             standardNavigationParams(NAVDRAWER_ITEM_MAIN, findViewById(R.id.toolbar))
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == REQUEST_NEW_ACTIVITY && resultCode == Activity.RESULT_OK) {
+            setupTiles() // refresh
+        }
+    }
 
 }
