@@ -75,7 +75,7 @@ class TreeHandler(
     }
 
     /**
-     * The root node currently being used in the tree being displayed.
+     * The root node of the tree currently being displayed.
      * This is null if no tree is being displayed.
      */
     var currentRootNode: TreeNode<Person>? = null

@@ -37,7 +37,7 @@ data class NavigationParameters(
 )
 
 /**
- * An activity used for the implementing navigation drawer behaviour.
+ * An abstract activity used for implementing navigation drawer behaviour.
  * This should be implemented by activities which contain a navigation drawer.
  */
 abstract class NavigationDrawerActivity : AppCompatActivity() {
@@ -106,7 +106,8 @@ abstract class NavigationDrawerActivity : AppCompatActivity() {
                 navParams.drawerLayout,
                 navParams.toolbar,
                 R.string.drawer_open,
-                R.string.drawer_close)
+                R.string.drawer_close
+        )
 
         navParams.drawerLayout.addDrawerListener(drawerToggle)
 

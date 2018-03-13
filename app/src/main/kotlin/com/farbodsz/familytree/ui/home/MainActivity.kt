@@ -49,7 +49,7 @@ class MainActivity : NavigationDrawerActivity() {
     }
 
     /**
-     * Starts an activity determined by the [tile], and finishes this activity.
+     * Starts an activity determined by the [tile].
      */
     private fun goToPage(tile: HomeTiles) {
         val cls = when (tile) {
