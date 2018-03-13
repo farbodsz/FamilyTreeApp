@@ -4,9 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
 import android.os.Bundle
-import android.provider.MediaStore
 import android.support.design.widget.CoordinatorLayout
-import android.support.design.widget.Snackbar
 import android.support.design.widget.TextInputLayout
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
@@ -60,27 +58,6 @@ class EditPersonActivity : AppCompatActivity() {
          * editing existing [Person] objects.
          */
         const val EXTRA_PERSON = "extra_person"
-
-        /**
-         * Request code for starting [EditPersonActivity] for result, to create a new [Person] which
-         * would be the child of this [person].
-         */
-        private const val REQUEST_CREATE_CHILD = 4
-
-        /**
-         * Request code for starting [EditMarriageActivity] for result, to create a new [Marriage]
-         */
-        private const val REQUEST_CREATE_MARRIAGE = 5
-
-        /**
-         * Request code for selecting a person image from a "gallery" app on the device.
-         */
-        private const val REQUEST_PICK_IMAGE = 6
-
-        /**
-         * Represents an explicit MIME image type for use with [Intent.setType].
-         */
-        private const val MIME_IMAGE_TYPE = "image/*"
     }
 
     private val personManager = PersonManager(this)
@@ -163,7 +140,12 @@ class EditPersonActivity : AppCompatActivity() {
         coordinatorLayout = findViewById(R.id.coordinatorLayout)
 
         personImageView = findViewById(R.id.circleImageView)
-        personImageView.setOnClickListener { selectPersonImage() }
+        personImageView.setOnClickListener {
+            startActivityForResult(
+                    PersonActivityCommons.getImagePickerIntent(this),
+                    PersonActivityCommons.REQUEST_PICK_IMAGE
+            )
+        }
 
         forenameInput = findViewById(R.id.editText_forename)
         surnameInput = findViewById(R.id.editText_surname)
@@ -211,22 +193,6 @@ class EditPersonActivity : AppCompatActivity() {
         val dateOfBirthHelper = DateSelectorHelper(this, findViewById(R.id.editText_dateOfBirth))
         val dateOfDeathHelper = DateSelectorHelper(this, findViewById(R.id.editText_dateOfDeath))
         datesSelectorHelper = DateRangeSelectorHelper(dateOfBirthHelper, dateOfDeathHelper)
-    }
-
-    /**
-     * Starts an [Intent] for result to pick an image from the gallery app.
-     * The result will be sent to [onActivityResult].
-     */
-    private fun selectPersonImage() { // TODO too many similarities between this and CreatePersonActivity
-        val getContentIntent = Intent(Intent.ACTION_GET_CONTENT).setType(MIME_IMAGE_TYPE)
-        val pickIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI).setType(MIME_IMAGE_TYPE)
-
-        val chooserIntent = Intent.createChooser(
-                getContentIntent,
-                getString(R.string.dialog_pickImage_title)
-        ).putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(pickIntent))
-
-        startActivityForResult(chooserIntent, REQUEST_PICK_IMAGE)
     }
 
     private fun setupLayout() {
@@ -421,7 +387,7 @@ class EditPersonActivity : AppCompatActivity() {
                 .setCustomTitle(titleView)
                 .setPositiveButton(R.string.action_create_new) { _, _ ->
                     val intent = Intent(this, EditPersonActivity::class.java)
-                    startActivityForResult(intent, REQUEST_CREATE_CHILD)
+                    startActivityForResult(intent, PersonActivityCommons.REQUEST_CREATE_CHILD)
                     dialog.dismiss()
                 }
                 .setNegativeButton(android.R.string.cancel) { _, _ ->  }
@@ -474,7 +440,7 @@ class EditPersonActivity : AppCompatActivity() {
                     val intent = Intent(this@EditPersonActivity, EditMarriageActivity::class.java)
                             .putExtra(EditMarriageActivity.EXTRA_WRITE_DATA, false)
                             .putExtra(EditMarriageActivity.EXTRA_EXISTING_PERSON, person)
-                    startActivityForResult(intent, REQUEST_CREATE_MARRIAGE)
+                    startActivityForResult(intent, PersonActivityCommons.REQUEST_CREATE_MARRIAGE)
                     dialog.dismiss()
                 }
                 .setNegativeButton(android.R.string.cancel) { _, _ ->  }
@@ -559,28 +525,24 @@ class EditPersonActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         when (requestCode) {
-            REQUEST_CREATE_CHILD -> if (resultCode == Activity.RESULT_OK) {
+            PersonActivityCommons.REQUEST_CREATE_CHILD -> if (resultCode == Activity.RESULT_OK) {
                 // User has successfully created a new child from the dialog
                 val child = data!!.getParcelableExtra<Person>(CreatePersonActivity.EXTRA_PERSON)
                 addChildToUi(child)
             }
 
-            REQUEST_CREATE_MARRIAGE -> if (resultCode == Activity.RESULT_OK) {
+            PersonActivityCommons.REQUEST_CREATE_MARRIAGE -> if (resultCode == Activity.RESULT_OK) {
                 // User has successfully created a new marriage from the dialog
-                val marriage = data!!.getParcelableExtra<Marriage>(EditMarriageActivity.EXTRA_MARRIAGE)
+                val marriage =
+                        data!!.getParcelableExtra<Marriage>(EditMarriageActivity.EXTRA_MARRIAGE)
                 addMarriageToUi(marriage)
             }
 
-            REQUEST_PICK_IMAGE -> {
-                if (data == null) {
-                    Snackbar.make(
-                            coordinatorLayout,
-                            R.string.error_couldntChangeImage,
-                            Snackbar.LENGTH_SHORT
-                    ).show()
-                } else {
-                    val imageUri = data.data
-                    bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imageUri)
+            PersonActivityCommons.REQUEST_PICK_IMAGE -> {
+                val bitmap = PersonActivityCommons.getImageFromResult(
+                        data, resultCode, coordinatorLayout, contentResolver)
+                if (bitmap != null) {
+                    this.bitmap = bitmap
                     hasModifiedBitmap = true
                     personImageView.setImageBitmap(bitmap)
                 }

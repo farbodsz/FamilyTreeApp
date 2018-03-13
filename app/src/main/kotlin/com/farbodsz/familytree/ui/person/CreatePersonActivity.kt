@@ -3,8 +3,6 @@ package com.farbodsz.familytree.ui.person
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.provider.MediaStore
-import android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
 import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.FloatingActionButton
 import android.support.v4.view.ViewPager
@@ -17,7 +15,6 @@ import com.farbodsz.familytree.model.Marriage
 import com.farbodsz.familytree.model.Person
 import com.farbodsz.familytree.ui.DynamicPagerAdapter
 import com.farbodsz.familytree.ui.marriage.EditMarriageActivity
-
 
 /**
  * This activity provides the UI for adding a new person from the database, with a guided format.
@@ -43,27 +40,6 @@ class CreatePersonActivity : AppCompatActivity() {
          * this activity will be ignored.
          */
         const val EXTRA_PERSON = "extra_person"
-
-        /**
-         * Request code for starting [CreatePersonActivity] for result, to create a new [Person]
-         * which would be the child of the [person] (parent).
-         */
-        private const val REQUEST_CREATE_CHILD = 4
-
-        /**
-         * Request code for starting [EditMarriageActivity] for result, to create a new [Marriage]
-         */
-        private const val REQUEST_CREATE_MARRIAGE = 5
-
-        /**
-         * Request code for selecting a person image from a "gallery" app on the device.
-         */
-        private const val REQUEST_PICK_IMAGE = 6
-
-        /**
-         * Represents an explicit MIME image type for use with [Intent.setType].
-         */
-        private const val MIME_IMAGE_TYPE = "image/*"
 
         /**
          * The number of pages to be displayed in this activity.
@@ -198,7 +174,10 @@ class CreatePersonActivity : AppCompatActivity() {
                     personId,
                     coordinatorLayout,
                     { newPerson -> person = newPerson },
-                    { selectPersonImage() }
+                    { startActivityForResult(
+                                PersonActivityCommons.getImagePickerIntent(this),
+                                PersonActivityCommons.REQUEST_PICK_IMAGE
+                    ) }
             )
             personDetailsCreator
         }
@@ -206,34 +185,18 @@ class CreatePersonActivity : AppCompatActivity() {
             marriageCreator = PersonMarriageCreator(this, person!!) { _, _ ->
                 val intent = Intent(this, EditMarriageActivity::class.java)
                         .putExtra(EditMarriageActivity.EXTRA_EXISTING_PERSON, person!!)
-                startActivityForResult(intent, REQUEST_CREATE_MARRIAGE)
+                startActivityForResult(intent, PersonActivityCommons.REQUEST_CREATE_MARRIAGE)
             }
             marriageCreator
         }
         2 -> {
             childrenCreator = PersonChildrenCreator(this, person!!) { _, _ ->
                 val intent = Intent(this, CreatePersonActivity::class.java)
-                startActivityForResult(intent, REQUEST_CREATE_CHILD)
+                startActivityForResult(intent, PersonActivityCommons.REQUEST_CREATE_CHILD)
             }
             childrenCreator
         }
         else -> throw IllegalArgumentException("invalid index: $index")
-    }
-
-    /**
-     * Starts an [Intent] for result to pick an image from the gallery app.
-     * The result will be sent to [onActivityResult].
-     */
-    private fun selectPersonImage() {
-        val getContentIntent = Intent(Intent.ACTION_GET_CONTENT).setType(MIME_IMAGE_TYPE)
-        val pickIntent = Intent(Intent.ACTION_PICK, EXTERNAL_CONTENT_URI).setType(MIME_IMAGE_TYPE)
-
-        val chooserIntent = Intent.createChooser(
-                getContentIntent,
-                getString(R.string.dialog_pickImage_title)
-        ).putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(pickIntent))
-
-        startActivityForResult(chooserIntent, REQUEST_PICK_IMAGE)
     }
 
     private fun completePersonCreation() {
@@ -270,21 +233,22 @@ class CreatePersonActivity : AppCompatActivity() {
         super.onActivityResult(requestCode, resultCode, data)
 
         when (requestCode) {
-            REQUEST_CREATE_CHILD -> if (resultCode == Activity.RESULT_OK) {
+            PersonActivityCommons.REQUEST_CREATE_CHILD -> if (resultCode == Activity.RESULT_OK) {
                 // User has successfully created a new child from the dialog
                 val child = data!!.getParcelableExtra<Person>(CreatePersonActivity.EXTRA_PERSON)
                 childrenCreator.addChild(child)
             }
 
-            REQUEST_CREATE_MARRIAGE -> if (resultCode == Activity.RESULT_OK) {
+            PersonActivityCommons.REQUEST_CREATE_MARRIAGE -> if (resultCode == Activity.RESULT_OK) {
                 // User has successfully created a new marriage from the dialog
-                val marriage = data!!.getParcelableExtra<Marriage>(EditMarriageActivity.EXTRA_MARRIAGE)
+                val marriage =
+                        data!!.getParcelableExtra<Marriage>(EditMarriageActivity.EXTRA_MARRIAGE)
                 marriageCreator.addMarriage(marriage)
             }
 
-            REQUEST_PICK_IMAGE -> if (resultCode == Activity.RESULT_OK) {
-                val imageUri = data!!.data
-                val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imageUri)
+            PersonActivityCommons.REQUEST_PICK_IMAGE -> {
+                val bitmap = PersonActivityCommons.getImageFromResult(
+                        data, resultCode, coordinatorLayout, contentResolver)
                 personDetailsCreator.setPersonImage(bitmap)
             }
         }

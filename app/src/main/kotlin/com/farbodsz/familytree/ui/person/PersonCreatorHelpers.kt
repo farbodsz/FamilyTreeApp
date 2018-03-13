@@ -28,9 +28,9 @@ import com.farbodsz.familytree.ui.DateSelectorHelper
 import com.farbodsz.familytree.ui.GenderRadioButtons
 import com.farbodsz.familytree.ui.marriage.MarriageAdapter
 import com.farbodsz.familytree.ui.validator.PersonValidator
+import com.farbodsz.familytree.ui.widget.PersonCircleImageView
 import com.farbodsz.familytree.util.IOUtils
 import com.farbodsz.familytree.util.OnClick
-import de.hdodenhof.circleimageview.CircleImageView
 
 /**
  * Defines functions that all "person creator" classes must implement.
@@ -69,7 +69,7 @@ class PersonDetailsCreator(
         private val onSelectPersonImage: OnClick
 ) : PersonCreatorSection {
 
-    private lateinit var circleImageView: CircleImageView
+    private lateinit var personImageView: PersonCircleImageView
     private var bitmap: Bitmap? = null
 
     private lateinit var forenameInput: EditText
@@ -95,8 +95,8 @@ class PersonDetailsCreator(
     private fun createPersonDetailsCard(layoutInflater: LayoutInflater, container: ViewGroup): View {
         val card = layoutInflater.inflate(R.layout.card_edit_person_details, container, false)
 
-        circleImageView = card.findViewById(R.id.circleImageView)
-        circleImageView.setOnClickListener { view -> onSelectPersonImage.invoke(view) }
+        personImageView = card.findViewById(R.id.circleImageView)
+        personImageView.setOnClickListener { view -> onSelectPersonImage.invoke(view) }
 
         forenameInput = card.findViewById(R.id.editText_forename)
         surnameInput = card.findViewById(R.id.editText_surname)
@@ -108,7 +108,7 @@ class PersonDetailsCreator(
                 context,
                 card.findViewById(R.id.rBtn_male),
                 card.findViewById(R.id.rBtn_female),
-                circleImageView
+                personImageView
         )
         genderRadioButtons.setGender(Gender.MALE) // set initial gender as male
 
@@ -144,14 +144,15 @@ class PersonDetailsCreator(
     }
 
     /**
-     * Sets the [bitmap] image to use for the person.
+     * Sets the [bitmap] image to use for the person, providing it is not null.
      *
      * This should be called when an image has been selected from an [Intent] via the activity this
      * is being invoked from.
      */
-    fun setPersonImage(bitmap: Bitmap) {
+    fun setPersonImage(bitmap: Bitmap?) {
+        if (bitmap == null) return
         this.bitmap = bitmap
-        circleImageView.setImageBitmap(bitmap)
+        personImageView.setImageBitmap(bitmap)
     }
 
     private fun createDatesCard(layoutInflater: LayoutInflater, container: ViewGroup): View {
