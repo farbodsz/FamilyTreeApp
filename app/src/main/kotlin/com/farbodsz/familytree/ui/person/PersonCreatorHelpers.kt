@@ -32,7 +32,6 @@ import com.farbodsz.familytree.util.IOUtils
 import com.farbodsz.familytree.util.OnClick
 import de.hdodenhof.circleimageview.CircleImageView
 
-
 /**
  * Defines functions that all "person creator" classes must implement.
  *
@@ -158,11 +157,10 @@ class PersonDetailsCreator(
     private fun createDatesCard(layoutInflater: LayoutInflater, container: ViewGroup): View {
         val card = layoutInflater.inflate(R.layout.card_edit_birth_death, container, false)
 
-        val dateOfBirthHelper =
-                DateSelectorHelper(context, card.findViewById(R.id.editText_dateOfBirth))
-        val dateOfDeathHelper =
+        datesSelectorHelper = DateRangeSelectorHelper(
+                DateSelectorHelper(context, card.findViewById(R.id.editText_dateOfBirth)),
                 DateSelectorHelper(context, card.findViewById(R.id.editText_dateOfDeath))
-        datesSelectorHelper = DateRangeSelectorHelper(dateOfBirthHelper, dateOfDeathHelper)
+        )
 
         placeOfBirthInput = card.findViewById(R.id.editText_placeOfBirth)
         placeOfDeathInput = card.findViewById(R.id.editText_placeOfDeath)

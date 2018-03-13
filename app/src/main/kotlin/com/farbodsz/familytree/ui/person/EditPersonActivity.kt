@@ -87,7 +87,7 @@ class EditPersonActivity : AppCompatActivity() {
 
     private lateinit var coordinatorLayout: CoordinatorLayout
 
-    private lateinit var circleImageView: PersonCircleImageView
+    private lateinit var personImageView: PersonCircleImageView
     private var bitmap: Bitmap? = null
 
     private lateinit var forenameInput: EditText
@@ -162,8 +162,8 @@ class EditPersonActivity : AppCompatActivity() {
     private fun assignUiComponents() {
         coordinatorLayout = findViewById(R.id.coordinatorLayout)
 
-        circleImageView = findViewById(R.id.circleImageView)
-        circleImageView.setOnClickListener { selectPersonImage() }
+        personImageView = findViewById(R.id.circleImageView)
+        personImageView.setOnClickListener { selectPersonImage() }
 
         forenameInput = findViewById(R.id.editText_forename)
         surnameInput = findViewById(R.id.editText_surname)
@@ -172,7 +172,7 @@ class EditPersonActivity : AppCompatActivity() {
                 this,
                 findViewById(R.id.rBtn_male),
                 findViewById(R.id.rBtn_female),
-                circleImageView
+                personImageView
         )
 
         setupDatePickers()
@@ -236,7 +236,7 @@ class EditPersonActivity : AppCompatActivity() {
         setupMarriageList()
         setupChildrenList()
 
-        circleImageView.person = person
+        personImageView.person = person
 
         forenameInput.setText(person.forename)
         surnameInput.setText(person.surname)
@@ -245,8 +245,6 @@ class EditPersonActivity : AppCompatActivity() {
         setPersonAlive(person.isAlive())
 
         datesSelectorHelper.setDates(person.dateOfBirth, person.dateOfDeath)
-
-        // TODO continue removing perosn == null cases bc person cant be null here - also add util for common funcs between edit and create activities
     }
 
     private fun setupNameInputError(textInputLayout: TextInputLayout, editText: EditText) {
@@ -584,7 +582,7 @@ class EditPersonActivity : AppCompatActivity() {
                     val imageUri = data.data
                     bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imageUri)
                     hasModifiedBitmap = true
-                    circleImageView.setImageBitmap(bitmap)
+                    personImageView.setImageBitmap(bitmap)
                 }
             }
         }
