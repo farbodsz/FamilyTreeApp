@@ -19,7 +19,7 @@ import com.farbodsz.familytree.database.manager.MarriagesManager
 import com.farbodsz.familytree.database.manager.PersonManager
 import com.farbodsz.familytree.model.Marriage
 import com.farbodsz.familytree.model.Person
-import com.farbodsz.familytree.util.DATE_FORMATTER_BIRTH
+import com.farbodsz.familytree.util.DATE_FORMATTER_LONG
 import de.hdodenhof.circleimageview.CircleImageView
 
 /**
@@ -85,7 +85,7 @@ class ViewMarriageActivity : AppCompatActivity() {
         setupPersonLayout(person2, findViewById(R.id.container_2))
 
         findViewById<TextView>(R.id.text_married).text =
-                marriage.startDate.format(DATE_FORMATTER_BIRTH)
+                marriage.startDate.format(DATE_FORMATTER_LONG)
 
         val divorceInfo = findViewById<LinearLayout>(R.id.group_divorceInfo)
         if (marriage.isOngoing()) {
@@ -93,7 +93,7 @@ class ViewMarriageActivity : AppCompatActivity() {
         } else {
             divorceInfo.visibility = View.VISIBLE
             findViewById<TextView>(R.id.text_divorced).text =
-                    marriage.endDate!!.format(DATE_FORMATTER_BIRTH)
+                    marriage.endDate!!.format(DATE_FORMATTER_LONG)
         }
     }
 
@@ -110,7 +110,7 @@ class ViewMarriageActivity : AppCompatActivity() {
                 ContextCompat.getColor(this, person.gender.getColorRes())
         item.findViewById<TextView>(R.id.text1).text = person.fullName
         item.findViewById<TextView>(R.id.text2).text =
-                person.dateOfBirth.format(DATE_FORMATTER_BIRTH)
+                person.dateOfBirth.format(DATE_FORMATTER_LONG)
 
         container.addView(item)
     }

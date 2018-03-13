@@ -8,7 +8,7 @@ import android.widget.TextView
 import com.farbodsz.familytree.R
 import com.farbodsz.familytree.model.Person
 import com.farbodsz.familytree.ui.widget.PersonCircleImageView
-import com.farbodsz.familytree.util.DATE_FORMATTER_BIRTH
+import com.farbodsz.familytree.util.DATE_FORMATTER_LONG
 import com.farbodsz.familytree.util.OnDataClick
 
 /**
@@ -35,7 +35,7 @@ class PersonAdapter(
 
         with(holder!!) {
             nameText.text = person.fullName
-            infoText.text = person.dateOfBirth.format(DATE_FORMATTER_BIRTH)
+            infoText.text = person.dateOfBirth.format(DATE_FORMATTER_LONG)
             personImageView.person = person
         }
     }

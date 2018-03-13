@@ -10,7 +10,7 @@ import com.farbodsz.familytree.R
 import com.farbodsz.familytree.database.manager.MarriagesManager
 import com.farbodsz.familytree.database.manager.PersonManager
 import com.farbodsz.familytree.model.Person
-import com.farbodsz.familytree.util.DATE_FORMATTER_BIRTH
+import com.farbodsz.familytree.util.DATE_FORMATTER_LONG
 
 /**
  * Displays a dialog providing brief details and action options for a [Person] that has been clicked
@@ -138,7 +138,7 @@ class PersonViewDialogFragment : DialogFragment() {
         titleView.findViewById<TextView>(R.id.text1).text = person.fullName
 
         val subtitle = if (spouses.isEmpty()) {
-            person.dateOfBirth.format(DATE_FORMATTER_BIRTH) // show DOB, if no spouses
+            person.dateOfBirth.format(DATE_FORMATTER_LONG) // show DOB, if no spouses
         } else {
             val aSpouse = PersonManager(context).get(spouses[0].id)
             resources.getQuantityString(

@@ -4,7 +4,7 @@ import android.app.DatePickerDialog
 import android.content.Context
 import android.support.design.widget.TextInputEditText
 import android.widget.DatePicker
-import com.farbodsz.familytree.util.DATE_FORMATTER_BIRTH
+import com.farbodsz.familytree.util.DATE_FORMATTER_LONG
 import org.threeten.bp.LocalDate
 import org.threeten.bp.ZoneOffset
 
@@ -28,7 +28,7 @@ class DateSelectorHelper(
     var date: LocalDate? = null
         set(value) {
             field = value
-            textInputEditText.setText(value?.format(DATE_FORMATTER_BIRTH))
+            textInputEditText.setText(value?.format(DATE_FORMATTER_LONG))
         }
 
     /**

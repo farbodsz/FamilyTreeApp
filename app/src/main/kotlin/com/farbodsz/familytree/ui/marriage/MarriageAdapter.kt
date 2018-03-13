@@ -10,7 +10,7 @@ import com.farbodsz.familytree.R
 import com.farbodsz.familytree.database.manager.PersonManager
 import com.farbodsz.familytree.model.Marriage
 import com.farbodsz.familytree.ui.widget.PersonCircleImageView
-import com.farbodsz.familytree.util.DATE_FORMATTER_BIRTH
+import com.farbodsz.familytree.util.DATE_FORMATTER_LONG
 import com.farbodsz.familytree.util.OnDataClick
 
 /**
@@ -41,7 +41,7 @@ class MarriageAdapter(
 
         with(holder!!) {
             nameText.text = spouse.fullName
-            infoText.text = marriage.startDate.format(DATE_FORMATTER_BIRTH)
+            infoText.text = marriage.startDate.format(DATE_FORMATTER_LONG)
             personImageView.person = spouse
         }
     }

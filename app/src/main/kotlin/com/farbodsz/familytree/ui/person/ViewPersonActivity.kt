@@ -23,7 +23,7 @@ import com.farbodsz.familytree.database.manager.PersonManager
 import com.farbodsz.familytree.model.Person
 import com.farbodsz.familytree.ui.marriage.MarriageAdapter
 import com.farbodsz.familytree.ui.tree.TreeActivity
-import com.farbodsz.familytree.util.DATE_FORMATTER_BIRTH
+import com.farbodsz.familytree.util.DATE_FORMATTER_LONG
 import com.farbodsz.familytree.util.IOUtils
 import de.hdodenhof.circleimageview.CircleImageView
 
@@ -104,7 +104,7 @@ class ViewPersonActivity : AppCompatActivity() {
         }
 
         findViewById<TextView>(R.id.text_birth).text =
-                person.dateOfBirth.format(DATE_FORMATTER_BIRTH)
+                person.dateOfBirth.format(DATE_FORMATTER_LONG)
 
         val deathInfo = findViewById<LinearLayout>(R.id.group_deathInfo)
         if (person.isAlive()) {
@@ -112,7 +112,7 @@ class ViewPersonActivity : AppCompatActivity() {
         } else {
             deathInfo.visibility = View.VISIBLE
             findViewById<TextView>(R.id.text_death).text =
-                    person.dateOfDeath!!.format(DATE_FORMATTER_BIRTH)
+                    person.dateOfDeath!!.format(DATE_FORMATTER_LONG)
         }
 
         setupParentsList()

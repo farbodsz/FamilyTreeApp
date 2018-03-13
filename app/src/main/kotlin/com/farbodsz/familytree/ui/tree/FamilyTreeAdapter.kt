@@ -12,7 +12,7 @@ import com.farbodsz.familytree.R
 import com.farbodsz.familytree.model.Person
 import com.farbodsz.familytree.model.tree.TreeListItem
 import com.farbodsz.familytree.ui.widget.PersonCircleImageView
-import com.farbodsz.familytree.util.DATE_FORMATTER_BIRTH
+import com.farbodsz.familytree.util.DATE_FORMATTER_LONG
 import com.farbodsz.familytree.util.OnDataClick
 import com.farbodsz.familytree.util.dpToPx
 
@@ -43,7 +43,7 @@ class FamilyTreeAdapter(
         with(holder!!) {
             linearLayout.layoutParams = calculateItemLayoutParams(treeItem.depth)
             nameText.text = person.toString()
-            infoText.text = person.dateOfBirth.format(DATE_FORMATTER_BIRTH)
+            infoText.text = person.dateOfBirth.format(DATE_FORMATTER_LONG)
             personImageView.person = person
         }
     }
