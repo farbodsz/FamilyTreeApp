@@ -42,7 +42,7 @@ class FamilyTreeAdapter(
 
         with(holder!!) {
             linearLayout.layoutParams = calculateItemLayoutParams(treeItem.depth)
-            nameText.text = person.toString()
+            nameText.text = person.fullName
             infoText.text = person.dateOfBirth.format(DATE_FORMATTER_LONG)
             personImageView.person = person
         }

@@ -26,7 +26,52 @@ class TreeHandler(
 ) {
 
     companion object {
+
         private const val LOG_TAG = "TreeHandler"
+
+        /**
+         * Returns a tree to be displayed in the UI.
+         */
+        @JvmStatic
+        fun getDisplayedTree(context: Context, person: Person?) = if (person == null) {
+            getFullTree(context)
+        } else {
+            ChildrenManager(context).getTree(person.id)
+        }
+
+        /**
+         * Returns a tree consisting of all people added in the database.
+         * The root of the tree is taken as the node with greatest height.
+         *
+         * @return the root node of the tree, or null if there is no tree to display
+         */
+        @JvmStatic
+        private fun getFullTree(context: Context): TreeNode<Person>? {
+            val allPeople = PersonManager(context).getAll()
+            if (allPeople.isEmpty()) {
+                return null
+            }
+
+            val childrenManager = ChildrenManager(context)
+
+            val nodes = ArrayList<TreeNode<Person>>()
+            for (person in allPeople) {
+                val n = childrenManager.getTree(person.id)
+                nodes.add(n)
+            }
+
+            var greatestHeight = 0
+            lateinit var nodeWithGreatestHeight: TreeNode<Person>
+            for (node in nodes) {
+                val height = node.height()
+                if (height > greatestHeight) {
+                    greatestHeight = height
+                    nodeWithGreatestHeight = node
+                }
+            }
+
+            return nodeWithGreatestHeight
+        }
     }
 
     /**
@@ -110,48 +155,8 @@ class TreeHandler(
     /**
      * Returns a tree to be displayed in the UI.
      *
-     * @param person    the person who's tree will be displayed. It can be null to indicate that a
-     *                  full tree (consisting of all/most people from the db) should be displayed.
-     *
-     * @return root node of the tree to display, or null if there is no tree to display
-     *
-     * @see getFullTree
-     * @see ChildrenManager.getTree
+     * @see Companion.getDisplayedTree
      */
-    fun getDisplayedTree(person: Person?) =
-            if (person == null) getFullTree() else ChildrenManager(context).getTree(person.id)
-
-    /**
-     * Returns a tree consisting of all people added in the database.
-     * The root of the tree is taken as the node with greatest height.
-     *
-     * @return the root node of the tree, or null if there is no tree to display
-     */
-    private fun getFullTree(): TreeNode<Person>? {
-        val allPeople = PersonManager(context).getAll()
-        if (allPeople.isEmpty()) {
-            return null
-        }
-
-        val childrenManager = ChildrenManager(context)
-
-        val nodes = ArrayList<TreeNode<Person>>()
-        for (person in allPeople) {
-            val n = childrenManager.getTree(person.id)
-            nodes.add(n)
-        }
-
-        var greatestHeight = 0
-        lateinit var nodeWithGreatestHeight: TreeNode<Person>
-        for (node in nodes) {
-            val height = node.height()
-            if (height > greatestHeight) {
-                greatestHeight = height
-                nodeWithGreatestHeight = node
-            }
-        }
-
-        return nodeWithGreatestHeight
-    }
+    fun getDisplayedTree(person: Person?) = TreeHandler.getDisplayedTree(context, person)
 
 }
