@@ -8,7 +8,6 @@ import android.provider.MediaStore
 import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.Snackbar
 import android.support.design.widget.TextInputLayout
-import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.LinearLayoutManager
@@ -25,11 +24,11 @@ import com.farbodsz.familytree.R
 import com.farbodsz.familytree.database.manager.ChildrenManager
 import com.farbodsz.familytree.database.manager.MarriagesManager
 import com.farbodsz.familytree.database.manager.PersonManager
-import com.farbodsz.familytree.model.Gender
 import com.farbodsz.familytree.model.Marriage
 import com.farbodsz.familytree.model.Person
 import com.farbodsz.familytree.ui.DateRangeSelectorHelper
 import com.farbodsz.familytree.ui.DateSelectorHelper
+import com.farbodsz.familytree.ui.GenderRadioButtons
 import com.farbodsz.familytree.ui.marriage.EditMarriageActivity
 import com.farbodsz.familytree.ui.marriage.MarriageAdapter
 import com.farbodsz.familytree.ui.validator.PersonValidator
@@ -93,7 +92,7 @@ class EditPersonActivity : AppCompatActivity() {
 
     private lateinit var forenameInput: EditText
     private lateinit var surnameInput: EditText
-    private lateinit var maleRadioBtn: RadioButton
+    private lateinit var genderRadioButtons: GenderRadioButtons
 
     private lateinit var datesSelectorHelper: DateRangeSelectorHelper
     private lateinit var placeOfBirthInput: EditText
@@ -169,12 +168,12 @@ class EditPersonActivity : AppCompatActivity() {
         forenameInput = findViewById(R.id.editText_forename)
         surnameInput = findViewById(R.id.editText_surname)
 
-        maleRadioBtn = findViewById(R.id.rBtn_male)
-        maleRadioBtn.setOnCheckedChangeListener { _, isChecked ->
-            val newGender = if (isChecked) Gender.MALE else Gender.FEMALE
-            circleImageView.borderColor = ContextCompat.getColor(this, newGender.getColorRes())
-        }
-        // No need to use the female radio button - it will respond accordingly
+        genderRadioButtons = GenderRadioButtons(
+                this,
+                findViewById(R.id.rBtn_male),
+                findViewById(R.id.rBtn_female),
+                circleImageView
+        )
 
         setupDatePickers()
 
@@ -242,9 +241,7 @@ class EditPersonActivity : AppCompatActivity() {
         forenameInput.setText(person.forename)
         surnameInput.setText(person.surname)
 
-        maleRadioBtn.isChecked = person.gender.isMale()
-        findViewById<RadioButton>(R.id.rBtn_female).isChecked = person.gender.isFemale()
-
+        genderRadioButtons.setGender(person.gender)
         setPersonAlive(person.isAlive())
 
         datesSelectorHelper.setDates(person.dateOfBirth, person.dateOfDeath)
@@ -303,7 +300,7 @@ class EditPersonActivity : AppCompatActivity() {
             // Show dialog with option to delete
             val options = arrayOf(getString(R.string.action_delete))
 
-            AlertDialog.Builder(this).setTitle(getString(R.string.marriage_with, person?.forename ?: "null"))
+            AlertDialog.Builder(this).setTitle(getString(R.string.marriage_with, person.forename))
                     .setItems(options) { _, which -> deleteMarriageFromUi(marriage) }
                     .setNegativeButton(android.R.string.cancel) { _, _ ->  }
                     .show()
@@ -527,7 +524,7 @@ class EditPersonActivity : AppCompatActivity() {
                 person.id,
                 forenameInput.text.toString(),
                 surnameInput.text.toString(),
-                if (maleRadioBtn.isChecked) Gender.MALE else Gender.FEMALE,
+                genderRadioButtons.getGender(),
                 datesSelectorHelper.getStartDate(),
                 placeOfBirthInput.text.toString(),
                 if (isAliveCheckBox.isChecked) null else datesSelectorHelper.getEndDate(),

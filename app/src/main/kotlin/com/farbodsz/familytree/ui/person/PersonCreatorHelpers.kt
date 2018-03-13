@@ -6,7 +6,6 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.support.design.widget.TextInputEditText
 import android.support.design.widget.TextInputLayout
-import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
@@ -26,6 +25,7 @@ import com.farbodsz.familytree.model.Marriage
 import com.farbodsz.familytree.model.Person
 import com.farbodsz.familytree.ui.DateRangeSelectorHelper
 import com.farbodsz.familytree.ui.DateSelectorHelper
+import com.farbodsz.familytree.ui.GenderRadioButtons
 import com.farbodsz.familytree.ui.marriage.MarriageAdapter
 import com.farbodsz.familytree.ui.validator.PersonValidator
 import com.farbodsz.familytree.util.IOUtils
@@ -75,7 +75,7 @@ class PersonDetailsCreator(
 
     private lateinit var forenameInput: EditText
     private lateinit var surnameInput: EditText
-    private lateinit var maleRadioBtn: RadioButton
+    private lateinit var genderRadioButtons: GenderRadioButtons
 
     private lateinit var datesSelectorHelper: DateRangeSelectorHelper
     private lateinit var placeOfBirthInput: TextInputEditText
@@ -105,10 +105,13 @@ class PersonDetailsCreator(
         setupNameInputError(card.findViewById(R.id.textInputLayout_forename), forenameInput)
         setupNameInputError(card.findViewById(R.id.textInputLayout_surname), surnameInput)
 
-        maleRadioBtn = card.findViewById(R.id.rBtn_male)
-        maleRadioBtn.setOnCheckedChangeListener { _, isChecked -> setGender(isChecked) }
-        maleRadioBtn.isChecked = true
-        // Female radio button will respond accordingly since they are in the same RadioGroup
+        genderRadioButtons = GenderRadioButtons(
+                context,
+                card.findViewById(R.id.rBtn_male),
+                card.findViewById(R.id.rBtn_female),
+                circleImageView
+        )
+        genderRadioButtons.setGender(Gender.MALE) // set initial gender as male
 
         return card
     }
@@ -139,14 +142,6 @@ class PersonDetailsCreator(
                 }
             }
         }
-    }
-
-    /**
-     * Modifies the UI components after a gender has been selected.
-     */
-    private fun setGender(isMale: Boolean) {
-        val gender = if (isMale) Gender.MALE else Gender.FEMALE
-        circleImageView.borderColor = ContextCompat.getColor(context, gender.getColorRes())
     }
 
     /**
@@ -211,7 +206,7 @@ class PersonDetailsCreator(
                 personId,
                 forenameInput.text.toString(),
                 surnameInput.text.toString(),
-                if (maleRadioBtn.isChecked) Gender.MALE else Gender.FEMALE,
+                genderRadioButtons.getGender(),
                 datesSelectorHelper.getStartDate(),
                 placeOfBirthInput.text.toString(),
                 if (isAliveCheckBox.isChecked) null else datesSelectorHelper.getEndDate(),
