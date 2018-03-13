@@ -242,6 +242,7 @@ class PersonMarriageCreator(
 
         setupMarriageList()
 
+        container.addView(card)
         return page
     }
 
@@ -339,6 +340,7 @@ class PersonChildrenCreator(
 
         setupChildrenList()
 
+        container.addView(card)
         return page
     }
 
