@@ -13,3 +13,6 @@ projectFilesBackup2/
 # IntelliJ
 *.iml
 /.idea/
+
+# APKs
+/app/release/
