@@ -11,7 +11,6 @@ import android.support.design.widget.TextInputLayout
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
-import android.support.v7.widget.CardView
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
 import android.support.v7.widget.Toolbar
@@ -44,6 +43,9 @@ import com.farbodsz.familytree.util.IOUtils
  * to the database, and the newly created [Person] will be sent back to the activity from which this
  * was started as a result.
  *
+ * This activity is not responsible for creating a person: for such cases, [CreatePersonActivity]
+ * should be started for result (it will return the new object to the calling activity).
+ *
  * @see CreatePersonActivity
  */
 class EditPersonActivity : AppCompatActivity() {
@@ -53,7 +55,10 @@ class EditPersonActivity : AppCompatActivity() {
         private const val LOG_TAG = "EditPersonActivity"
 
         /**
-         * Intent extra key for supplying a [Person] to this activity.
+         * Intent extra key for passing/receiving a [Person] to/from this activity.
+         *
+         * This must be specified, and the [Person] must not be null, since this activity deals with
+         * editing existing [Person] objects.
          */
         const val EXTRA_PERSON = "extra_person"
 
@@ -101,12 +106,13 @@ class EditPersonActivity : AppCompatActivity() {
     private lateinit var childrenRecyclerView: RecyclerView
 
     /**
-     * The [Person] received via intent extra from the previous activity. If a new person is being
-     * created (hence no intent extra), then this will be null.
+     * The [Person] received via intent extra from the previous activity.
+     * This must not be null since this activity is only responsible for editing existing [Person]
+     * objects.
      *
      * This [Person] will not be affected by changes made in this activity.
      */
-    private var person: Person? = null
+    private lateinit var person: Person
 
     /**
      * The list of this [person]'s marriages that are displayed in the UI.
@@ -143,12 +149,8 @@ class EditPersonActivity : AppCompatActivity() {
         toolbar.setNavigationOnClickListener { sendCancelledResult() }
 
         person = intent.extras?.getParcelable(EXTRA_PERSON)
-
-        if (person == null) {
-            Log.v(LOG_TAG, "Editing a new person")
-        } else {
-            Log.v(LOG_TAG, "Editing an existing person: $person")
-        }
+                ?: // received Person could be null, throw exception if so
+                throw IllegalArgumentException("EditPersonActivity cannot use a null person")
 
         assignUiComponents()
 
@@ -191,9 +193,6 @@ class EditPersonActivity : AppCompatActivity() {
         addMarriageButton.setOnClickListener {
             chooseMarriageDialog()
         }
-
-        findViewById<CardView>(R.id.card_marriages).visibility =
-                if (person == null) View.GONE else View.VISIBLE
 
         childrenText = findViewById(R.id.text_childrenNum)
         childrenText.text = resources.getQuantityText(R.plurals.children_count_subtitle, 0)
@@ -238,24 +237,19 @@ class EditPersonActivity : AppCompatActivity() {
         setupMarriageList()
         setupChildrenList()
 
-        if (person == null) {
-            Log.i(LOG_TAG, "Person is null - setting up the default layout")
-            setupDefaultLayout()
-            return
-        }
+        circleImageView.person = person
 
-        person?.let {
-            circleImageView.person = it
+        forenameInput.setText(person.forename)
+        surnameInput.setText(person.surname)
 
-            forenameInput.setText(it.forename)
-            surnameInput.setText(it.surname)
+        maleRadioBtn.isChecked = person.gender.isMale()
+        findViewById<RadioButton>(R.id.rBtn_female).isChecked = person.gender.isFemale()
 
-            maleRadioBtn.isChecked = it.gender.isMale()
+        setPersonAlive(person.isAlive())
 
-            setPersonAlive(it.isAlive())
+        datesSelectorHelper.setDates(person.dateOfBirth, person.dateOfDeath)
 
-            datesSelectorHelper.setDates(it.dateOfBirth, it.dateOfDeath)
-        }
+        // TODO continue removing perosn == null cases bc person cant be null here - also add util for common funcs between edit and create activities
     }
 
     private fun setupNameInputError(textInputLayout: TextInputLayout, editText: EditText) {
@@ -285,11 +279,6 @@ class EditPersonActivity : AppCompatActivity() {
         }
     }
 
-    private fun setupDefaultLayout() {
-        maleRadioBtn.isChecked = true
-        setPersonAlive(true)
-    }
-
     /**
      * Toggles the checkbox and other UI components for whether or not a person [isAlive].
      * This should be used instead of toggling the checkbox manually.
@@ -307,9 +296,9 @@ class EditPersonActivity : AppCompatActivity() {
      * person is being edited.
      */
     private fun setupMarriageList() {
-        marriages = MarriagesManager(this).getMarriages(editedPersonId()) as ArrayList<Marriage>
+        marriages = MarriagesManager(this).getMarriages(person.id) as ArrayList<Marriage>
 
-        val marriageAdapter = MarriageAdapter(this, editedPersonId(), marriages)
+        val marriageAdapter = MarriageAdapter(this, person.id, marriages)
         marriageAdapter.onItemClick { _, marriage ->
             // Show dialog with option to delete
             val options = arrayOf(getString(R.string.action_delete))
@@ -355,7 +344,7 @@ class EditPersonActivity : AppCompatActivity() {
      */
     private fun setupChildrenList() {
         val childrenManager = ChildrenManager(this)
-        children = childrenManager.getChildren(editedPersonId()) as ArrayList<Person>
+        children = childrenManager.getChildren(person.id) as ArrayList<Person>
 
         childrenText.text = resources.getQuantityString(
                 R.plurals.children_count_subtitle,
@@ -458,7 +447,7 @@ class EditPersonActivity : AppCompatActivity() {
         val parentDob = datesSelectorHelper.getStartDate()
 
         for (child in personManager.getAll()) {
-            if (child.id != editedPersonId()
+            if (child.id != person.id
                     && child !in children
                     && child.dateOfBirth.isAfter(parentDob)) {
                 potentialChildren.add(child)
@@ -471,28 +460,20 @@ class EditPersonActivity : AppCompatActivity() {
         lateinit var dialog: AlertDialog
         val builder = AlertDialog.Builder(this)
 
-        val dialogView = if (person == null) {
-            TextView(this).apply {
-                setText(R.string.db_marriages_empty)
-            }
-        } else {
-            person?.let { // Use let for null safety on var
-                val potentialMarriages = MarriagesManager(this).getMarriages(it.id)
-                val marriageAdapter = MarriageAdapter(this, it.id, potentialMarriages)
-                marriageAdapter.onItemClick { _, marriage ->
-                    addMarriageToUi(marriage)
-                    dialog.dismiss()
-                }
-
-                RecyclerView(this).apply {
-                    setHasFixedSize(true)
-                    layoutManager = LinearLayoutManager(this@EditPersonActivity)
-                    adapter = marriageAdapter
-                }
-            }
+        val potentialMarriages = MarriagesManager(this).getMarriages(person.id)
+        val marriageAdapter = MarriageAdapter(this, person.id, potentialMarriages)
+        marriageAdapter.onItemClick { _, marriage ->
+            addMarriageToUi(marriage)
+            dialog.dismiss()
         }
 
-        builder.setView(dialogView)
+        val recyclerView = RecyclerView(this).apply {
+            setHasFixedSize(true)
+            layoutManager = LinearLayoutManager(this@EditPersonActivity)
+            adapter = marriageAdapter
+        }
+
+        builder.setView(recyclerView)
                 .setTitle(R.string.dialog_add_marriage_title)
                 .setPositiveButton(R.string.action_create_new) { _, _ ->
                     val intent = Intent(this@EditPersonActivity, EditMarriageActivity::class.java)
@@ -513,8 +494,8 @@ class EditPersonActivity : AppCompatActivity() {
         // Don't continue with db write if inputs invalid
         val newPerson = validatePerson() ?: return
 
-        ChildrenManager(this).updateChildren(editedPersonId(), children)
-        MarriagesManager(this).updateMarriages(editedPersonId(), marriages)
+        ChildrenManager(this).updateChildren(person.id, children)
+        MarriagesManager(this).updateMarriages(person.id, marriages)
 
         var successful = false
 
@@ -523,19 +504,14 @@ class EditPersonActivity : AppCompatActivity() {
             bitmap?.let { IOUtils.writePersonImage(it, newPerson.id, applicationContext) }
         }
 
-        successful = when {
-            person == null -> {
-                personManager.add(newPerson)
-                true
-            }
-            person!! == newPerson -> {
-                // Person itself hasn't changed - only update if bitmap/children/marriages modified
-                successful || hasModifiedChildren || hasModifiedMarriages
-            }
-            else -> {
-                personManager.update(person!!.id, newPerson)
-                true
-            }
+        successful = if (newPerson == person) {
+            // Person itself hasn't changed so no need to write to db
+            // Only update if bitmap/children/marriages modified
+            successful || hasModifiedChildren || hasModifiedMarriages
+        }
+        else {
+            personManager.update(person.id, newPerson)
+            true
         }
 
         if (successful) {
@@ -548,7 +524,7 @@ class EditPersonActivity : AppCompatActivity() {
     private fun validatePerson(): Person? {
         val validator = PersonValidator(
                 coordinatorLayout,
-                editedPersonId(),
+                person.id,
                 forenameInput.text.toString(),
                 surnameInput.text.toString(),
                 if (maleRadioBtn.isChecked) Gender.MALE else Gender.FEMALE,
@@ -559,13 +535,6 @@ class EditPersonActivity : AppCompatActivity() {
         )
         return validator.validate()
     }
-
-    /**
-     * Returns the ID to be used for the [Person] being edited in this activity.
-     * If the [Person] is being updated, this ID will remain the same as the original [Person]; if
-     * it's a new [Person], it will be assigned a new ID.
-     */
-    private fun editedPersonId() = person?.id ?: personManager.nextAvailableId()
 
     /**
      * Sends an "ok" result back to where this activity was invoked from.
