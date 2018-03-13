@@ -18,13 +18,13 @@ import com.farbodsz.familytree.database.manager.MarriagesManager
 import com.farbodsz.familytree.database.manager.PersonManager
 import com.farbodsz.familytree.model.Marriage
 import com.farbodsz.familytree.model.Person
+import com.farbodsz.familytree.ui.DateRangeSelectorHelper
 import com.farbodsz.familytree.ui.DateSelectorHelper
 import com.farbodsz.familytree.ui.PersonSelectorHelper
 import com.farbodsz.familytree.ui.Validator
 import com.farbodsz.familytree.ui.marriage.EditMarriageActivity.Companion.EXTRA_WRITE_DATA
 import com.farbodsz.familytree.ui.person.CreatePersonActivity
 import com.farbodsz.familytree.ui.person.EditPersonActivity
-import com.farbodsz.familytree.util.setDateRangePickerConstraints
 import com.farbodsz.familytree.util.toTitleCase
 
 /**
@@ -83,10 +83,9 @@ class EditMarriageActivity : AppCompatActivity() {
     private lateinit var person1Selector: PersonSelectorHelper
     private lateinit var person2Selector: PersonSelectorHelper
 
-    private lateinit var startDateHelper: DateSelectorHelper
+    private lateinit var datesSelectorHelper: DateRangeSelectorHelper
     private lateinit var placeInput: EditText
     private lateinit var isOngoingCheckBox: CheckBox
-    private lateinit var endDateHelper: DateSelectorHelper
 
     /**
      * The [Marriage] received via intent extra from the previous activity. If a new marriage is
@@ -155,20 +154,23 @@ class EditMarriageActivity : AppCompatActivity() {
             }
         }
 
-        startDateHelper = DateSelectorHelper(this, findViewById(R.id.editText_startDate))
+        initDatePickers()
+
         placeInput = findViewById(R.id.editText_placeOfMarriage)
 
         isOngoingCheckBox = findViewById(R.id.checkbox_married)
         isOngoingCheckBox.setOnCheckedChangeListener { _, isChecked ->
             setMarriageOngoing(isChecked)
         }
+    }
 
-        endDateHelper = DateSelectorHelper(this, findViewById(R.id.editText_endDate))
+    private fun initDatePickers() {
+        val startDateHelper = DateSelectorHelper(this, findViewById(R.id.editText_startDate))
+        val endDateHelper = DateSelectorHelper(this, findViewById(R.id.editText_endDate))
+        datesSelectorHelper = DateRangeSelectorHelper(startDateHelper, endDateHelper)
     }
 
     private fun setupLayout() {
-        setDateRangePickerConstraints(startDateHelper, endDateHelper)
-
         if (marriage == null) {
             Log.i(LOG_TAG, "Marriage is null - setting up the default layout")
             setupDefaultLayout()
@@ -182,15 +184,7 @@ class EditMarriageActivity : AppCompatActivity() {
 
             setMarriageOngoing(it.isOngoing())
 
-            with(startDateHelper) {
-                date = it.startDate
-                if (it.endDate != null) maxDate = it.endDate
-            }
-
-            with(endDateHelper) {
-                date = it.endDate
-                minDate = it.startDate
-            }
+            datesSelectorHelper.setDates(it.startDate, it.endDate)
         }
     }
 
@@ -255,8 +249,8 @@ class EditMarriageActivity : AppCompatActivity() {
         if (!validator.checkMarriagePeople(person1, person2)) return null
 
         // Dates should be ok from dialog constraint, but best to double-check before db write
-        val startDate = startDateHelper.date
-        val endDate = if (isOngoingCheckBox.isChecked) null else endDateHelper.date
+        val startDate = datesSelectorHelper.getStartDate()
+        val endDate = if (isOngoingCheckBox.isChecked) null else datesSelectorHelper.getEndDate()
         if (!validator.checkDates(startDate, endDate)) return null
 
         return Marriage(

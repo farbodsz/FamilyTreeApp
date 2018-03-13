@@ -14,6 +14,8 @@ import org.threeten.bp.ZoneOffset
  *
  * @property context            context from the activity/fragment
  * @property textInputEditText  the [TextInputEditText] being used for the date picker
+ *
+ * @see DateRangeSelectorHelper
  */
 class DateSelectorHelper(
         private val context: Context,

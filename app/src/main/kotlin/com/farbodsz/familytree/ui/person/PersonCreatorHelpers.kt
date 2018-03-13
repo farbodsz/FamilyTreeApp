@@ -24,12 +24,12 @@ import com.farbodsz.familytree.database.manager.PersonManager
 import com.farbodsz.familytree.model.Gender
 import com.farbodsz.familytree.model.Marriage
 import com.farbodsz.familytree.model.Person
+import com.farbodsz.familytree.ui.DateRangeSelectorHelper
 import com.farbodsz.familytree.ui.DateSelectorHelper
 import com.farbodsz.familytree.ui.Validator
 import com.farbodsz.familytree.ui.marriage.MarriageAdapter
 import com.farbodsz.familytree.util.IOUtils
 import com.farbodsz.familytree.util.OnClick
-import com.farbodsz.familytree.util.setDateRangePickerConstraints
 import com.farbodsz.familytree.util.toTitleCase
 import de.hdodenhof.circleimageview.CircleImageView
 
@@ -78,9 +78,8 @@ class PersonDetailsCreator(
     private lateinit var surnameInput: EditText
     private lateinit var maleRadioBtn: RadioButton
 
-    private lateinit var dateOfBirthSelector: DateSelectorHelper
+    private lateinit var datesSelectorHelper: DateRangeSelectorHelper
     private lateinit var placeOfBirthInput: TextInputEditText
-    private lateinit var dateOfDeathSelector: DateSelectorHelper
     private lateinit var placeOfDeathInput: TextInputEditText
 
     private lateinit var isAliveCheckBox: CheckBox
@@ -165,12 +164,13 @@ class PersonDetailsCreator(
     private fun createDatesCard(layoutInflater: LayoutInflater, container: ViewGroup): View {
         val card = layoutInflater.inflate(R.layout.card_edit_birth_death, container, false)
 
-        dateOfBirthSelector =
+        val dateOfBirthHelper =
                 DateSelectorHelper(context, card.findViewById(R.id.editText_dateOfBirth))
-        placeOfBirthInput = card.findViewById(R.id.editText_placeOfBirth)
-
-        dateOfDeathSelector =
+        val dateOfDeathHelper =
                 DateSelectorHelper(context, card.findViewById(R.id.editText_dateOfDeath))
+        datesSelectorHelper = DateRangeSelectorHelper(dateOfBirthHelper, dateOfDeathHelper)
+
+        placeOfBirthInput = card.findViewById(R.id.editText_placeOfBirth)
         placeOfDeathInput = card.findViewById(R.id.editText_placeOfDeath)
 
         isAliveCheckBox = card.findViewById<CheckBox>(R.id.checkbox_alive).apply {
@@ -178,7 +178,6 @@ class PersonDetailsCreator(
         }
 
         setPersonAlive(card, true) // isAlive by default
-        setDateRangePickerConstraints(dateOfBirthSelector, dateOfDeathSelector)
 
         return card
     }
@@ -221,8 +220,8 @@ class PersonDetailsCreator(
         val gender = if (maleRadioBtn.isChecked) Gender.MALE else Gender.FEMALE
 
         // Dates should be ok from dialog constraint, but best to double-check before db write
-        val dateOfBirth = dateOfBirthSelector.date
-        val dateOfDeath = if (isAliveCheckBox.isChecked) null else dateOfDeathSelector.date
+        val dateOfBirth = datesSelectorHelper.getStartDate()
+        val dateOfDeath = if (isAliveCheckBox.isChecked) null else datesSelectorHelper.getEndDate()
         if (!validator.checkDates(dateOfBirth, dateOfDeath)) return null
 
         return Person(

@@ -29,13 +29,13 @@ import com.farbodsz.familytree.database.manager.PersonManager
 import com.farbodsz.familytree.model.Gender
 import com.farbodsz.familytree.model.Marriage
 import com.farbodsz.familytree.model.Person
+import com.farbodsz.familytree.ui.DateRangeSelectorHelper
 import com.farbodsz.familytree.ui.DateSelectorHelper
 import com.farbodsz.familytree.ui.Validator
 import com.farbodsz.familytree.ui.marriage.EditMarriageActivity
 import com.farbodsz.familytree.ui.marriage.MarriageAdapter
 import com.farbodsz.familytree.ui.widget.PersonCircleImageView
 import com.farbodsz.familytree.util.IOUtils
-import com.farbodsz.familytree.util.setDateRangePickerConstraints
 import com.farbodsz.familytree.util.toTitleCase
 
 /**
@@ -91,10 +91,9 @@ class EditPersonActivity : AppCompatActivity() {
     private lateinit var surnameInput: EditText
     private lateinit var maleRadioBtn: RadioButton
 
-    private lateinit var dateOfBirthHelper: DateSelectorHelper
+    private lateinit var datesSelectorHelper: DateRangeSelectorHelper
     private lateinit var placeOfBirthInput: EditText
     private lateinit var isAliveCheckBox: CheckBox
-    private lateinit var dateOfDeathHelper: DateSelectorHelper
     private lateinit var placeOfDeathInput: EditText
 
     private lateinit var marriageRecyclerView: RecyclerView
@@ -176,14 +175,13 @@ class EditPersonActivity : AppCompatActivity() {
         }
         // No need to use the female radio button - it will respond accordingly
 
-        dateOfBirthHelper = DateSelectorHelper(this, findViewById(R.id.editText_dateOfBirth))
+        setupDatePickers()
+
+        placeOfDeathInput = findViewById(R.id.editText_placeOfDeath)
         placeOfBirthInput = findViewById(R.id.editText_placeOfBirth)
 
         isAliveCheckBox = findViewById(R.id.checkbox_alive)
         isAliveCheckBox.setOnCheckedChangeListener { _, isChecked -> setPersonAlive(isChecked) }
-
-        dateOfDeathHelper = DateSelectorHelper(this, findViewById(R.id.editText_dateOfDeath))
-        placeOfDeathInput = findViewById(R.id.editText_placeOfDeath)
 
         marriageRecyclerView = findViewById<RecyclerView>(R.id.recyclerView_marriages).apply {
             setHasFixedSize(true)
@@ -212,6 +210,12 @@ class EditPersonActivity : AppCompatActivity() {
         }
     }
 
+    private fun setupDatePickers() {
+        val dateOfBirthHelper = DateSelectorHelper(this, findViewById(R.id.editText_dateOfBirth))
+        val dateOfDeathHelper = DateSelectorHelper(this, findViewById(R.id.editText_dateOfDeath))
+        datesSelectorHelper = DateRangeSelectorHelper(dateOfBirthHelper, dateOfDeathHelper)
+    }
+
     /**
      * Starts an [Intent] for result to pick an image from the gallery app.
      * The result will be sent to [onActivityResult].
@@ -232,8 +236,6 @@ class EditPersonActivity : AppCompatActivity() {
         setupNameInputError(findViewById(R.id.textInputLayout_forename), forenameInput)
         setupNameInputError(findViewById(R.id.textInputLayout_surname), surnameInput)
 
-        setDateRangePickerConstraints(dateOfBirthHelper, dateOfDeathHelper)
-
         setupMarriageList()
         setupChildrenList()
 
@@ -253,15 +255,7 @@ class EditPersonActivity : AppCompatActivity() {
 
             setPersonAlive(it.isAlive())
 
-            with(dateOfBirthHelper) {
-                date = it.dateOfBirth
-                if (it.dateOfDeath != null) maxDate = it.dateOfDeath
-            }
-
-            with(dateOfDeathHelper) {
-                date = it.dateOfDeath
-                minDate = it.dateOfBirth
-            }
+            datesSelectorHelper.setDates(it.dateOfBirth, it.dateOfDeath)
         }
     }
 
@@ -462,7 +456,7 @@ class EditPersonActivity : AppCompatActivity() {
         val potentialChildren = ArrayList<Person>()
 
         // Ok to use this DOB as there were constraints/validation on the dialog picker
-        val parentDob = dateOfBirthHelper.date
+        val parentDob = datesSelectorHelper.getStartDate()
 
         for (child in personManager.getAll()) {
             if (child.id != editedPersonId()
@@ -568,8 +562,8 @@ class EditPersonActivity : AppCompatActivity() {
         val gender = if (maleRadioBtn.isChecked) Gender.MALE else Gender.FEMALE
 
         // Dates should be ok from dialog constraint, but best to double-check before db write
-        val dateOfBirth = dateOfBirthHelper.date
-        val dateOfDeath = if (isAliveCheckBox.isChecked) null else dateOfDeathHelper.date
+        val dateOfBirth = datesSelectorHelper.getStartDate()
+        val dateOfDeath = if (isAliveCheckBox.isChecked) null else datesSelectorHelper.getEndDate()
         if (!validator.checkDates(dateOfBirth, dateOfDeath)) return null
 
         return Person(
