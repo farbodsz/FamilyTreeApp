@@ -286,14 +286,9 @@ class TreeActivity : NavigationDrawerActivity(), PersonViewDialogFragment.OnDial
                 "resultCode=$resultCode")
 
         when (requestCode) {
-            REQUEST_PERSON_CREATE -> if (resultCode == Activity.RESULT_OK) {
-                // Refresh tree layout
-                hasModified = true
-                treeHandler.updateTree()
-            }
-
+            REQUEST_PERSON_CREATE,
             REQUEST_VIEW_PERSON -> if (resultCode == Activity.RESULT_OK) {
-                // A person could be modified by starting EditPersonActivity from ViewPersonActivity
+                // Refresh tree layout
                 hasModified = true
                 treeHandler.updateTree()
             }
