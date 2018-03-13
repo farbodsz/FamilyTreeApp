@@ -103,8 +103,13 @@
     <string name="error_name_empty">Name cannot be empty</string>
     <string name="validate_name_empty">You must enter a forename and surname</string>
     <string name="validate_dateOfBirth_empty">You must enter a date of birth</string>
-    <string name="validate_dateOfBirth_future">The date of birth cannot be in the future</string>
-    <string name="validate_dateOfDeath_beforeBirth">The date of death cannot be before the date of birth</string>
+    <string name="validate_dateOfBirth_future">Date of birth cannot be in the future</string>
+    <string name="validate_dateOfDeath_beforeBirth">
+        Date of death cannot be before the date of birth
+    </string>
+    <string name="validate_startDate_empty">You must enter a start date</string>
+    <string name="validate_startDate_future">Start date cannot be in the future</string>
+    <string name="validate_endDate_beforeStart">End date cannot be before the start date</string>
     <string name="validate_marriage_people_empty">You must specify two people</string>
     <string name="validate_marriage_people_same">A person cannot be married to themselves</string>
     <string name="error_no_tree_no_layers">
