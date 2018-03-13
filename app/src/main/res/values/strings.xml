@@ -12,7 +12,9 @@
     <string name="title_events">Birthdays and Anniversaries</string>
     <string name="title_view_person" />
     <string name="title_create_person">Add Person</string>
+    <string name="title_create_person_withName">Adding %1$s</string>
     <string name="title_edit_person">Edit Person</string>
+    <string name="title_edit_person_withName">Editing %1$s</string>
     <string name="title_create_marriage">Add Marriage</string>
     <string name="title_edit_marriage">Edit Marriage</string>
     <string name="title_view_marriage" />
