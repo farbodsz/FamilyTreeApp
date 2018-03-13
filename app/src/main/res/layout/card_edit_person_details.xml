@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v7.widget.CardView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/Widget.AppTheme.CardView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
@@ -19,20 +19,28 @@
         <LinearLayout
             style="@style/Widget.AppTheme.CardLateralPadding"
             android:paddingBottom="@dimen/card_padding"
-            android:orientation="vertical"
+            android:orientation="horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <com.farbodsz.familytree.ui.widget.PersonCircleImageView
+                android:id="@+id/circleImageView"
+                android:src="@color/colorPrimary"
+                android:layout_width="56dp"
+                android:layout_height="56dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
+                app:civ_border_color="@color/black"
+                app:civ_border_width="2dp" />
+
             <LinearLayout
-                android:orientation="horizontal"
+                android:orientation="vertical"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:baselineAligned="false">
+                android:layout_height="wrap_content">
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/textInputLayout_forename"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <android.support.design.widget.TextInputEditText
@@ -45,8 +53,7 @@
 
                 <android.support.design.widget.TextInputLayout
                     android:id="@+id/textInputLayout_surname"
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
                     <com.farbodsz.familytree.ui.widget.SurnameAutoCompleteEditText
@@ -56,26 +63,26 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </android.support.design.widget.TextInputLayout>
+
+                <RadioGroup
+                    android:orientation="horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="@dimen/padding_normal">
+
+                    <RadioButton
+                        android:id="@+id/rBtn_male"
+                        android:text="@string/male"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+
+                    <RadioButton
+                        android:id="@+id/rBtn_female"
+                        android:text="@string/female"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </RadioGroup>
             </LinearLayout>
-
-            <RadioGroup
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:paddingTop="@dimen/padding_normal">
-
-                <RadioButton
-                    android:id="@+id/rBtn_male"
-                    android:text="@string/male"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-
-                <RadioButton
-                    android:id="@+id/rBtn_female"
-                    android:text="@string/female"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content" />
-            </RadioGroup>
         </LinearLayout>
     </LinearLayout>
 </android.support.v7.widget.CardView>

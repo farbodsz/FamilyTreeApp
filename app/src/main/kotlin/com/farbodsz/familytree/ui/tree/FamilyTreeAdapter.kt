@@ -1,7 +1,6 @@
 package com.farbodsz.familytree.ui.tree
 
 import android.content.Context
-import android.support.v4.content.ContextCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
 import android.view.View
@@ -12,9 +11,10 @@ import android.widget.TextView
 import com.farbodsz.familytree.R
 import com.farbodsz.familytree.model.Person
 import com.farbodsz.familytree.model.tree.TreeListItem
+import com.farbodsz.familytree.ui.widget.PersonCircleImageView
+import com.farbodsz.familytree.util.DATE_FORMATTER_BIRTH
 import com.farbodsz.familytree.util.OnDataClick
 import com.farbodsz.familytree.util.dpToPx
-import de.hdodenhof.circleimageview.CircleImageView
 
 /**
  * A [RecyclerView] adapter for displaying [Person]s in a vertical tree.
@@ -43,13 +43,8 @@ class FamilyTreeAdapter(
         with(holder!!) {
             linearLayout.layoutParams = calculateItemLayoutParams(treeItem.depth)
             nameText.text = person.toString()
-            infoText.text = "Date of birth" // TODO
-
-            imageView.borderColor = ContextCompat.getColor(context, if (person.gender.isMale()) {
-                R.color.image_border_male
-            } else {
-                R.color.image_border_female
-            })
+            infoText.text = person.dateOfBirth.format(DATE_FORMATTER_BIRTH)
+            personImageView.person = person
         }
     }
 
@@ -71,7 +66,7 @@ class FamilyTreeAdapter(
     inner class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
 
         val linearLayout: LinearLayout = itemView.findViewById(R.id.linearLayout)
-        val imageView: CircleImageView = itemView.findViewById(R.id.circleImageView)
+        val personImageView: PersonCircleImageView = itemView.findViewById(R.id.circleImageView)
         val nameText: TextView = itemView.findViewById(R.id.text1)
         val infoText: TextView = itemView.findViewById(R.id.text2)
 

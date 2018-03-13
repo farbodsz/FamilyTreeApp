@@ -55,7 +55,7 @@ class PersonListActivity : NavigationDrawerActivity() {
         people = personManager.getAll() as ArrayList<Person>
         people.sort()
 
-        personAdapter = PersonAdapter(this, people)
+        personAdapter = PersonAdapter(people)
         personAdapter.onItemClick { _, person -> viewPerson(person) }
 
         findViewById<RecyclerView>(R.id.recyclerView).apply {

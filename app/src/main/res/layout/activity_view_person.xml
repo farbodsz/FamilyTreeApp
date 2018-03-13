@@ -24,39 +24,56 @@
                 style="@style/Widget.AppTheme.CardView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
+
                 <LinearLayout
-                    android:orientation="vertical"
+                    android:orientation="horizontal"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:padding="16dp">
 
-                    <TextView
-                        android:text="@string/full_name"
-                        style="@style/Widget.AppTheme.TextView.FloatingLabel"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/circleImageView"
+                        android:src="@color/colorPrimary"
+                        android:layout_width="56dp"
+                        android:layout_height="56dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginRight="16dp"
+                        app:civ_border_color="@color/black"
+                        app:civ_border_width="2dp" />
 
-                    <TextView
-                        android:id="@+id/text_name"
-                        tools:text="Forename Surname"
-                        style="@style/Widget.AppTheme.TextView.InputText"
+                    <LinearLayout
+                        android:orientation="vertical"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content">
 
-                    <TextView
-                        android:text="@string/sex"
-                        style="@style/Widget.AppTheme.TextView.FloatingLabel"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp" />
+                        <TextView
+                            android:text="@string/full_name"
+                            style="@style/Widget.AppTheme.TextView.FloatingLabel"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
 
-                    <TextView
-                        android:id="@+id/text_gender"
-                        tools:text="Male"
-                        tools:textColor="@color/image_border_male"
-                        style="@style/Widget.AppTheme.TextView.InputText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        <TextView
+                            android:id="@+id/text_name"
+                            tools:text="Forename Surname"
+                            style="@style/Widget.AppTheme.TextView.InputText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+
+                        <TextView
+                            android:text="@string/sex"
+                            style="@style/Widget.AppTheme.TextView.FloatingLabel"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp" />
+
+                        <TextView
+                            android:id="@+id/text_gender"
+                            tools:text="Male"
+                            tools:textColor="@color/image_border_male"
+                            style="@style/Widget.AppTheme.TextView.InputText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content" />
+                    </LinearLayout>
                 </LinearLayout>
             </android.support.v7.widget.CardView>
 

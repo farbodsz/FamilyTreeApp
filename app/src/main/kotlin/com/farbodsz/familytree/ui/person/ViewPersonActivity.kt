@@ -24,6 +24,8 @@ import com.farbodsz.familytree.model.Person
 import com.farbodsz.familytree.ui.marriage.MarriageAdapter
 import com.farbodsz.familytree.ui.tree.TreeActivity
 import com.farbodsz.familytree.util.DATE_FORMATTER_BIRTH
+import com.farbodsz.familytree.util.IOUtils
+import de.hdodenhof.circleimageview.CircleImageView
 
 /**
  * Activity for displaying the details of a person.
@@ -61,7 +63,7 @@ class ViewPersonActivity : AppCompatActivity() {
     /**
      * The [Person] received via intent extra from the previous activity.
      *
-     * It cannot be null. To create a new [Person], [CreatePersonActivity] should be used, since this
+     * It cannot be null. To create a new [Person], [CreatePersonActivity] should be used, since
      * this activity is only for displaying existing [Person]s.
      */
     private lateinit var person: Person
@@ -85,6 +87,11 @@ class ViewPersonActivity : AppCompatActivity() {
     }
 
     private fun setupLayout() {
+        val personImage = IOUtils.readPersonImageWithDefault(person.id, applicationContext)
+        val circleImageView = findViewById<CircleImageView>(R.id.circleImageView)
+        circleImageView.borderColor = ContextCompat.getColor(this, person.gender.getColorRes())
+        circleImageView.setImageDrawable(personImage)
+
         findViewById<TextView>(R.id.text_name).text = person.fullName
 
         val genderText = findViewById<TextView>(R.id.text_gender)
@@ -135,7 +142,7 @@ class ViewPersonActivity : AppCompatActivity() {
             return
         }
 
-        val personAdapter = PersonAdapter(this, parents)
+        val personAdapter = PersonAdapter(parents)
         findViewById<RecyclerView>(R.id.recyclerView_parents).apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)
@@ -181,7 +188,7 @@ class ViewPersonActivity : AppCompatActivity() {
             return
         }
 
-        val personAdapter = PersonAdapter(this, children)
+        val personAdapter = PersonAdapter(children)
         findViewById<RecyclerView>(R.id.recyclerView_children).apply {
             setHasFixedSize(true)
             layoutManager = LinearLayoutManager(context)

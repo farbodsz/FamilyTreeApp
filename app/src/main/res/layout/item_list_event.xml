@@ -42,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end">
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <com.farbodsz.familytree.ui.widget.PersonCircleImageView
             android:id="@+id/imageView_person2"
             android:src="@color/colorPrimary"
             android:layout_width="36dp"
@@ -51,7 +51,7 @@
             app:civ_border_color="@color/black"
             app:civ_border_width="2dp" />
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <com.farbodsz.familytree.ui.widget.PersonCircleImageView
             android:id="@+id/imageView_person1"
             android:src="@color/colorPrimary"
             android:layout_width="36dp"

@@ -110,6 +110,7 @@
     <string name="error_no_tree_no_layers">
         You cannot choose layers on the tree since there is no tree being displayed
     </string>
+    <string name="error_couldntChangeImage">Error changing the profile image</string>
 
     <!-- Dialog texts -->
     <string name="dialog_add_child_title">@string/add_child</string>
@@ -140,6 +141,7 @@
         <item quantity="two">Married to %1$s and %2$d other</item>
         <item quantity="other">Married to %1$s and %2$d others</item>
     </plurals>
+    <string name="dialog_pickImage_title">Select image</string>
 
     <!-- Other Snackbar messages -->
     <string name="msg_tree_person_updated">Displaying %1$s\'s tree</string>

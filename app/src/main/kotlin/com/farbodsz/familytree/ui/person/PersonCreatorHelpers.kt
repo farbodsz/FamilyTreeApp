@@ -2,8 +2,11 @@ package com.farbodsz.familytree.ui.person
 
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
+import android.graphics.Bitmap
 import android.support.design.widget.TextInputEditText
 import android.support.design.widget.TextInputLayout
+import android.support.v4.content.ContextCompat
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
@@ -24,8 +27,12 @@ import com.farbodsz.familytree.model.Person
 import com.farbodsz.familytree.ui.DateSelectorHelper
 import com.farbodsz.familytree.ui.Validator
 import com.farbodsz.familytree.ui.marriage.MarriageAdapter
+import com.farbodsz.familytree.util.IOUtils
+import com.farbodsz.familytree.util.OnClick
 import com.farbodsz.familytree.util.setDateRangePickerConstraints
 import com.farbodsz.familytree.util.toTitleCase
+import de.hdodenhof.circleimageview.CircleImageView
+
 
 /**
  * Defines functions that all "person creator" classes must implement.
@@ -60,13 +67,16 @@ class PersonDetailsCreator(
         private val context: Context,
         private val personId: Int,
         private val validator: Validator,
-        private val onPostWriteData: (newPerson: Person) -> Unit
+        private val onPostWriteData: (newPerson: Person) -> Unit,
+        private val onSelectPersonImage: OnClick
 ) : PersonCreatorSection {
+
+    private lateinit var circleImageView: CircleImageView
+    private var bitmap: Bitmap? = null
 
     private lateinit var forenameInput: EditText
     private lateinit var surnameInput: EditText
     private lateinit var maleRadioBtn: RadioButton
-    private lateinit var femaleRadioBtn: RadioButton
 
     private lateinit var dateOfBirthSelector: DateSelectorHelper
     private lateinit var placeOfBirthInput: TextInputEditText
@@ -88,6 +98,9 @@ class PersonDetailsCreator(
     private fun createPersonDetailsCard(layoutInflater: LayoutInflater, container: ViewGroup): View {
         val card = layoutInflater.inflate(R.layout.card_edit_person_details, container, false)
 
+        circleImageView = card.findViewById(R.id.circleImageView)
+        circleImageView.setOnClickListener { view -> onSelectPersonImage.invoke(view) }
+
         forenameInput = card.findViewById(R.id.editText_forename)
         surnameInput = card.findViewById(R.id.editText_surname)
 
@@ -95,9 +108,9 @@ class PersonDetailsCreator(
         setupNameInputError(card.findViewById(R.id.textInputLayout_surname), surnameInput)
 
         maleRadioBtn = card.findViewById(R.id.rBtn_male)
-        femaleRadioBtn = card.findViewById(R.id.rBtn_female)
-
+        maleRadioBtn.setOnCheckedChangeListener { _, isChecked -> setGender(isChecked) }
         maleRadioBtn.isChecked = true
+        // Female radio button will respond accordingly since they are in the same RadioGroup
 
         return card
     }
@@ -128,6 +141,25 @@ class PersonDetailsCreator(
                 }
             }
         }
+    }
+
+    /**
+     * Modifies the UI components after a gender has been selected.
+     */
+    private fun setGender(isMale: Boolean) {
+        val gender = if (isMale) Gender.MALE else Gender.FEMALE
+        circleImageView.borderColor = ContextCompat.getColor(context, gender.getColorRes())
+    }
+
+    /**
+     * Sets the [bitmap] image to use for the person.
+     *
+     * This should be called when an image has been selected from an [Intent] via the activity this
+     * is being invoked from.
+     */
+    fun setPersonImage(bitmap: Bitmap) {
+        this.bitmap = bitmap
+        circleImageView.setImageBitmap(bitmap)
     }
 
     private fun createDatesCard(layoutInflater: LayoutInflater, container: ViewGroup): View {
@@ -165,7 +197,13 @@ class PersonDetailsCreator(
         // Don't continue with db write if inputs invalid
         val newPerson = validatePerson(validator) ?: return false
         PersonManager(context).add(newPerson)
+
+        bitmap?.let { // save if bitmap has been set
+            IOUtils.writePersonImage(it, newPerson.id, context.applicationContext)
+        }
+
         onPostWriteData.invoke(newPerson)
+
         return true
     }
 
@@ -332,7 +370,7 @@ class PersonChildrenCreator(
         lateinit var dialog: AlertDialog
         val builder = AlertDialog.Builder(context)
 
-        val personAdapter = PersonAdapter(context, getPotentialChildren())
+        val personAdapter = PersonAdapter(getPotentialChildren())
         personAdapter.onItemClick { _, person ->
             addChild(person)
             dialog.dismiss()
@@ -395,7 +433,7 @@ class PersonChildrenCreator(
                 children.count()
         )
 
-        val personAdapter = PersonAdapter(context, children)
+        val personAdapter = PersonAdapter(children)
         personAdapter.onItemClick { _, person ->
             // Show dialog with option to delete
             val options = arrayOf(context.getString(R.string.action_delete))

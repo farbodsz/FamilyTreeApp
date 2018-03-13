@@ -3,6 +3,8 @@ package com.farbodsz.familytree.ui.person
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.provider.MediaStore
+import android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI
 import android.support.design.widget.CoordinatorLayout
 import android.support.design.widget.FloatingActionButton
 import android.support.v4.view.ViewPager
@@ -16,6 +18,7 @@ import com.farbodsz.familytree.model.Person
 import com.farbodsz.familytree.ui.DynamicPagerAdapter
 import com.farbodsz.familytree.ui.Validator
 import com.farbodsz.familytree.ui.marriage.EditMarriageActivity
+
 
 /**
  * This activity provides the UI for adding a new person from the database, with a guided format.
@@ -54,6 +57,16 @@ class CreatePersonActivity : AppCompatActivity() {
         private const val REQUEST_CREATE_MARRIAGE = 5
 
         /**
+         * Request code for selecting a person image from a "gallery" app on the device.
+         */
+        private const val REQUEST_PICK_IMAGE = 6
+
+        /**
+         * Represents an explicit MIME image type for use with [Intent.setType].
+         */
+        private const val MIME_IMAGE_TYPE = "image/*"
+
+        /**
          * The number of pages to be displayed in this activity.
          */
         private const val NUM_PAGES = 3
@@ -70,11 +83,21 @@ class CreatePersonActivity : AppCompatActivity() {
     private lateinit var nextButton: FloatingActionButton
 
     /**
+     * The creator class for adding the name, image, and gender for a the person.
+     *
+     * @see marriageCreator
+     * @see childrenCreator
+     * @see person
+     */
+    private lateinit var personDetailsCreator: PersonDetailsCreator
+
+    /**
      * The creator class for adding marriages to the person.
      *
      * It will be initialised (and so should only be accessed) only after creating the [Person]
      * object and writing it to the database.
      *
+     * @see personDetailsCreator
      * @see childrenCreator
      * @see person
      */
@@ -86,6 +109,7 @@ class CreatePersonActivity : AppCompatActivity() {
      * It will be initialised (and so should only be accessed) only after creating the [Person]
      * object and writing it to the database.
      *
+     * @see personDetailsCreator
      * @see marriageCreator
      * @see person
      */
@@ -169,8 +193,15 @@ class CreatePersonActivity : AppCompatActivity() {
      * Returns the creator class responsible for displaying the page with [index].
      */
     private fun getCreatorClass(index: Int) = when (index) {
-        0 -> PersonDetailsCreator(this, personId, Validator(coordinatorLayout)) { newPerson ->
-            person = newPerson
+        0 -> {
+            personDetailsCreator = PersonDetailsCreator(
+                    this,
+                    personId,
+                    Validator(coordinatorLayout),
+                    { newPerson -> person = newPerson },
+                    { selectPersonImage() }
+            )
+            personDetailsCreator
         }
         1 -> {
             marriageCreator = PersonMarriageCreator(this, person!!) { _, _ ->
@@ -188,6 +219,22 @@ class CreatePersonActivity : AppCompatActivity() {
             childrenCreator
         }
         else -> throw IllegalArgumentException("invalid index: $index")
+    }
+
+    /**
+     * Starts an [Intent] for result to pick an image from the gallery app.
+     * The result will be sent to [onActivityResult].
+     */
+    private fun selectPersonImage() {
+        val getContentIntent = Intent(Intent.ACTION_GET_CONTENT).setType(MIME_IMAGE_TYPE)
+        val pickIntent = Intent(Intent.ACTION_PICK, EXTERNAL_CONTENT_URI).setType(MIME_IMAGE_TYPE)
+
+        val chooserIntent = Intent.createChooser(
+                getContentIntent,
+                getString(R.string.dialog_pickImage_title)
+        ).putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(pickIntent))
+
+        startActivityForResult(chooserIntent, REQUEST_PICK_IMAGE)
     }
 
     private fun completePersonCreation() {
@@ -229,10 +276,17 @@ class CreatePersonActivity : AppCompatActivity() {
                 val child = data!!.getParcelableExtra<Person>(CreatePersonActivity.EXTRA_PERSON)
                 childrenCreator.addChild(child)
             }
+
             REQUEST_CREATE_MARRIAGE -> if (resultCode == Activity.RESULT_OK) {
                 // User has successfully created a new marriage from the dialog
                 val marriage = data!!.getParcelableExtra<Marriage>(EditMarriageActivity.EXTRA_MARRIAGE)
                 marriageCreator.addMarriage(marriage)
+            }
+
+            REQUEST_PICK_IMAGE -> if (resultCode == Activity.RESULT_OK) {
+                val imageUri = data!!.data
+                val bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imageUri)
+                personDetailsCreator.setPersonImage(bitmap)
             }
         }
     }

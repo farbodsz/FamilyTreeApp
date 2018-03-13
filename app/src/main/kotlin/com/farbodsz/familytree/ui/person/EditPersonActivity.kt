@@ -2,9 +2,13 @@ package com.farbodsz.familytree.ui.person
 
 import android.app.Activity
 import android.content.Intent
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.provider.MediaStore
 import android.support.design.widget.CoordinatorLayout
+import android.support.design.widget.Snackbar
 import android.support.design.widget.TextInputLayout
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.CardView
@@ -29,6 +33,8 @@ import com.farbodsz.familytree.ui.DateSelectorHelper
 import com.farbodsz.familytree.ui.Validator
 import com.farbodsz.familytree.ui.marriage.EditMarriageActivity
 import com.farbodsz.familytree.ui.marriage.MarriageAdapter
+import com.farbodsz.familytree.ui.widget.PersonCircleImageView
+import com.farbodsz.familytree.util.IOUtils
 import com.farbodsz.familytree.util.setDateRangePickerConstraints
 import com.farbodsz.familytree.util.toTitleCase
 
@@ -62,16 +68,28 @@ class EditPersonActivity : AppCompatActivity() {
          * Request code for starting [EditMarriageActivity] for result, to create a new [Marriage]
          */
         private const val REQUEST_CREATE_MARRIAGE = 5
+
+        /**
+         * Request code for selecting a person image from a "gallery" app on the device.
+         */
+        private const val REQUEST_PICK_IMAGE = 6
+
+        /**
+         * Represents an explicit MIME image type for use with [Intent.setType].
+         */
+        private const val MIME_IMAGE_TYPE = "image/*"
     }
 
     private val personManager = PersonManager(this)
 
     private lateinit var coordinatorLayout: CoordinatorLayout
 
+    private lateinit var circleImageView: PersonCircleImageView
+    private var bitmap: Bitmap? = null
+
     private lateinit var forenameInput: EditText
     private lateinit var surnameInput: EditText
     private lateinit var maleRadioBtn: RadioButton
-    private lateinit var femaleRadioBtn: RadioButton
 
     private lateinit var dateOfBirthHelper: DateSelectorHelper
     private lateinit var placeOfBirthInput: EditText
@@ -114,6 +132,8 @@ class EditPersonActivity : AppCompatActivity() {
      */
     private var hasModifiedChildren = false
 
+    private var hasModifiedBitmap = false
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_edit_person)
@@ -143,11 +163,18 @@ class EditPersonActivity : AppCompatActivity() {
     private fun assignUiComponents() {
         coordinatorLayout = findViewById(R.id.coordinatorLayout)
 
+        circleImageView = findViewById(R.id.circleImageView)
+        circleImageView.setOnClickListener { selectPersonImage() }
+
         forenameInput = findViewById(R.id.editText_forename)
         surnameInput = findViewById(R.id.editText_surname)
 
         maleRadioBtn = findViewById(R.id.rBtn_male)
-        femaleRadioBtn = findViewById(R.id.rBtn_female)
+        maleRadioBtn.setOnCheckedChangeListener { _, isChecked ->
+            val newGender = if (isChecked) Gender.MALE else Gender.FEMALE
+            circleImageView.borderColor = ContextCompat.getColor(this, newGender.getColorRes())
+        }
+        // No need to use the female radio button - it will respond accordingly
 
         dateOfBirthHelper = DateSelectorHelper(this, findViewById(R.id.editText_dateOfBirth))
         placeOfBirthInput = findViewById(R.id.editText_placeOfBirth)
@@ -185,6 +212,22 @@ class EditPersonActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Starts an [Intent] for result to pick an image from the gallery app.
+     * The result will be sent to [onActivityResult].
+     */
+    private fun selectPersonImage() { // TODO too many similarities between this and CreatePersonActivity
+        val getContentIntent = Intent(Intent.ACTION_GET_CONTENT).setType(MIME_IMAGE_TYPE)
+        val pickIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI).setType(MIME_IMAGE_TYPE)
+
+        val chooserIntent = Intent.createChooser(
+                getContentIntent,
+                getString(R.string.dialog_pickImage_title)
+        ).putExtra(Intent.EXTRA_INITIAL_INTENTS, arrayOf(pickIntent))
+
+        startActivityForResult(chooserIntent, REQUEST_PICK_IMAGE)
+    }
+
     private fun setupLayout() {
         setupNameInputError(findViewById(R.id.textInputLayout_forename), forenameInput)
         setupNameInputError(findViewById(R.id.textInputLayout_surname), surnameInput)
@@ -201,11 +244,12 @@ class EditPersonActivity : AppCompatActivity() {
         }
 
         person?.let {
+            circleImageView.person = it
+
             forenameInput.setText(it.forename)
             surnameInput.setText(it.surname)
 
             maleRadioBtn.isChecked = it.gender.isMale()
-            femaleRadioBtn.isChecked = it.gender.isFemale()
 
             setPersonAlive(it.isAlive())
 
@@ -326,7 +370,7 @@ class EditPersonActivity : AppCompatActivity() {
                 children.count()
         )
 
-        val personAdapter = PersonAdapter(this, children)
+        val personAdapter = PersonAdapter(children)
         personAdapter.onItemClick { _, person ->
             // Show dialog with option to delete
             val options = arrayOf(getString(R.string.action_delete))
@@ -378,7 +422,7 @@ class EditPersonActivity : AppCompatActivity() {
         lateinit var dialog: AlertDialog
         val builder = AlertDialog.Builder(this)
 
-        val personAdapter = PersonAdapter(this, getPotentialChildren())
+        val personAdapter = PersonAdapter(getPotentialChildren())
         personAdapter.onItemClick { _, person ->
             addChildToUi(person)
             dialog.dismiss()
@@ -479,23 +523,32 @@ class EditPersonActivity : AppCompatActivity() {
         ChildrenManager(this).updateChildren(editedPersonId(), children)
         MarriagesManager(this).updateMarriages(editedPersonId(), marriages)
 
-        if (person == null) {
-            personManager.add(newPerson)
-            sendSuccessfulResult(newPerson)
-            return
+        var successful = false
+
+        if (hasModifiedBitmap) {
+            successful = true
+            bitmap?.let { IOUtils.writePersonImage(it, newPerson.id, applicationContext) }
         }
 
-        if (person!! == newPerson) {
-            // Person hasn't changed - no need to update it
-            if (hasModifiedChildren || hasModifiedMarriages) {
-                sendSuccessfulResult(newPerson)
-            } else {
-                // Nothing changed, so avoid all db write (nothing will change in result activity)
-                sendCancelledResult()
+        successful = when {
+            person == null -> {
+                personManager.add(newPerson)
+                true
             }
-        } else {
-            personManager.update(person!!.id, newPerson)
+            person!! == newPerson -> {
+                // Person itself hasn't changed - only update if bitmap/children/marriages modified
+                successful || hasModifiedChildren || hasModifiedMarriages
+            }
+            else -> {
+                personManager.update(person!!.id, newPerson)
+                true
+            }
+        }
+
+        if (successful) {
             sendSuccessfulResult(newPerson)
+        } else {
+            sendCancelledResult()
         }
     }
 
@@ -571,10 +624,26 @@ class EditPersonActivity : AppCompatActivity() {
                 val child = data!!.getParcelableExtra<Person>(CreatePersonActivity.EXTRA_PERSON)
                 addChildToUi(child)
             }
+
             REQUEST_CREATE_MARRIAGE -> if (resultCode == Activity.RESULT_OK) {
                 // User has successfully created a new marriage from the dialog
                 val marriage = data!!.getParcelableExtra<Marriage>(EditMarriageActivity.EXTRA_MARRIAGE)
                 addMarriageToUi(marriage)
+            }
+
+            REQUEST_PICK_IMAGE -> {
+                if (data == null) {
+                    Snackbar.make(
+                            coordinatorLayout,
+                            R.string.error_couldntChangeImage,
+                            Snackbar.LENGTH_SHORT
+                    ).show()
+                } else {
+                    val imageUri = data.data
+                    bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imageUri)
+                    hasModifiedBitmap = true
+                    circleImageView.setImageBitmap(bitmap)
+                }
             }
         }
     }
