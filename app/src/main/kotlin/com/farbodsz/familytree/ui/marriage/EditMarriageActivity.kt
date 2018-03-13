@@ -21,11 +21,10 @@ import com.farbodsz.familytree.model.Person
 import com.farbodsz.familytree.ui.DateRangeSelectorHelper
 import com.farbodsz.familytree.ui.DateSelectorHelper
 import com.farbodsz.familytree.ui.PersonSelectorHelper
-import com.farbodsz.familytree.ui.Validator
 import com.farbodsz.familytree.ui.marriage.EditMarriageActivity.Companion.EXTRA_WRITE_DATA
 import com.farbodsz.familytree.ui.person.CreatePersonActivity
 import com.farbodsz.familytree.ui.person.EditPersonActivity
-import com.farbodsz.familytree.util.toTitleCase
+import com.farbodsz.familytree.ui.validator.MarriageValidator
 
 /**
  * Activity to edit a [Marriage].
@@ -235,31 +234,16 @@ class EditMarriageActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * Validates the user inputs and constructs a [Marriage] object from it.
-     *
-     * @return  the constructed [Marriage] object if user inputs are valid. If one or more user
-     *          inputs are invalid, then this will return null.
-     */
     private fun validateMarriage(): Marriage? {
-        val validator = Validator(findViewById<CoordinatorLayout>(R.id.coordinatorLayout))
-
-        val person1 = person1Selector.person
-        val person2 = person2Selector.person
-        if (!validator.checkMarriagePeople(person1, person2)) return null
-
-        // Dates should be ok from dialog constraint, but best to double-check before db write
-        val startDate = datesSelectorHelper.getStartDate()
-        val endDate = if (isOngoingCheckBox.isChecked) null else datesSelectorHelper.getEndDate()
-        if (!validator.checkDates(startDate, endDate)) return null
-
-        return Marriage(
-                person1!!.id,
-                person2!!.id,
-                startDate!!,
-                endDate,
-                placeInput.text.toString().trim().toTitleCase()
+        val validator = MarriageValidator(
+                findViewById<CoordinatorLayout>(R.id.coordinatorLayout),
+                person1Selector.person,
+                person2Selector.person,
+                datesSelectorHelper.getStartDate(),
+                if (isOngoingCheckBox.isChecked) null else datesSelectorHelper.getEndDate(),
+                placeInput.text.toString()
         )
+        return validator.validate()
     }
 
     /**

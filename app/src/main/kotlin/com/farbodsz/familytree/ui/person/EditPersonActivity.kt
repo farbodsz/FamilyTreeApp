@@ -31,12 +31,11 @@ import com.farbodsz.familytree.model.Marriage
 import com.farbodsz.familytree.model.Person
 import com.farbodsz.familytree.ui.DateRangeSelectorHelper
 import com.farbodsz.familytree.ui.DateSelectorHelper
-import com.farbodsz.familytree.ui.Validator
 import com.farbodsz.familytree.ui.marriage.EditMarriageActivity
 import com.farbodsz.familytree.ui.marriage.MarriageAdapter
+import com.farbodsz.familytree.ui.validator.PersonValidator
 import com.farbodsz.familytree.ui.widget.PersonCircleImageView
 import com.farbodsz.familytree.util.IOUtils
-import com.farbodsz.familytree.util.toTitleCase
 
 /**
  * This activity provides the UI for adding or editing a new person from the database.
@@ -546,36 +545,19 @@ class EditPersonActivity : AppCompatActivity() {
         }
     }
 
-    /**
-     * Validates the user inputs and constructs a [Person] object from it.
-     *
-     * @return  the constructed [Person] object if user inputs are valid. If one or more user inputs
-     *          are invalid, then this will return null.
-     */
     private fun validatePerson(): Person? {
-        val validator = Validator(coordinatorLayout)
-
-        val forename = forenameInput.text.toString().trim()
-        val surname = surnameInput.text.toString().trim()
-        if (!validator.checkNames(forename, surname)) return null
-
-        val gender = if (maleRadioBtn.isChecked) Gender.MALE else Gender.FEMALE
-
-        // Dates should be ok from dialog constraint, but best to double-check before db write
-        val dateOfBirth = datesSelectorHelper.getStartDate()
-        val dateOfDeath = if (isAliveCheckBox.isChecked) null else datesSelectorHelper.getEndDate()
-        if (!validator.checkDates(dateOfBirth, dateOfDeath)) return null
-
-        return Person(
+        val validator = PersonValidator(
+                coordinatorLayout,
                 editedPersonId(),
-                forename.trim().toTitleCase('-'),
-                surname.trim().toTitleCase('-'),
-                gender,
-                dateOfBirth!!,
-                placeOfBirthInput.text.toString().trim().toTitleCase(),
-                dateOfDeath,
-                placeOfDeathInput.text.toString().trim().toTitleCase()
+                forenameInput.text.toString(),
+                surnameInput.text.toString(),
+                if (maleRadioBtn.isChecked) Gender.MALE else Gender.FEMALE,
+                datesSelectorHelper.getStartDate(),
+                placeOfBirthInput.text.toString(),
+                if (isAliveCheckBox.isChecked) null else datesSelectorHelper.getEndDate(),
+                placeOfDeathInput.text.toString()
         )
+        return validator.validate()
     }
 
     /**

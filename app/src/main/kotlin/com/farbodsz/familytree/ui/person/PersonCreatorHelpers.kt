@@ -26,11 +26,10 @@ import com.farbodsz.familytree.model.Marriage
 import com.farbodsz.familytree.model.Person
 import com.farbodsz.familytree.ui.DateRangeSelectorHelper
 import com.farbodsz.familytree.ui.DateSelectorHelper
-import com.farbodsz.familytree.ui.Validator
 import com.farbodsz.familytree.ui.marriage.MarriageAdapter
+import com.farbodsz.familytree.ui.validator.PersonValidator
 import com.farbodsz.familytree.util.IOUtils
 import com.farbodsz.familytree.util.OnClick
-import com.farbodsz.familytree.util.toTitleCase
 import de.hdodenhof.circleimageview.CircleImageView
 
 
@@ -66,7 +65,7 @@ typealias OnCreateNew = (dialogInterface: DialogInterface, which: Int) -> Unit
 class PersonDetailsCreator(
         private val context: Context,
         private val personId: Int,
-        private val validator: Validator,
+        private val rootView: View,
         private val onPostWriteData: (newPerson: Person) -> Unit,
         private val onSelectPersonImage: OnClick
 ) : PersonCreatorSection {
@@ -194,7 +193,7 @@ class PersonDetailsCreator(
 
     override fun writeData(): Boolean {
         // Don't continue with db write if inputs invalid
-        val newPerson = validatePerson(validator) ?: return false
+        val newPerson = validatePerson() ?: return false
         PersonManager(context).add(newPerson)
 
         bitmap?.let { // save if bitmap has been set
@@ -206,34 +205,19 @@ class PersonDetailsCreator(
         return true
     }
 
-    /**
-     * Validates the user inputs and constructs a [Person] object from it.
-     *
-     * @return  the constructed [Person] object if user inputs are valid. If one or more user inputs
-     *          are invalid, then this will return null.
-     */
-    private fun validatePerson(validator: Validator): Person? {
-        val forename = forenameInput.text.toString().trim()
-        val surname = surnameInput.text.toString().trim()
-        if (!validator.checkNames(forename, surname)) return null
-
-        val gender = if (maleRadioBtn.isChecked) Gender.MALE else Gender.FEMALE
-
-        // Dates should be ok from dialog constraint, but best to double-check before db write
-        val dateOfBirth = datesSelectorHelper.getStartDate()
-        val dateOfDeath = if (isAliveCheckBox.isChecked) null else datesSelectorHelper.getEndDate()
-        if (!validator.checkDates(dateOfBirth, dateOfDeath)) return null
-
-        return Person(
+    private fun validatePerson(): Person? {
+        val validator = PersonValidator(
+                rootView,
                 personId,
-                forename.trim().toTitleCase('-'),
-                surname.trim().toTitleCase('-'),
-                gender,
-                dateOfBirth!!,
-                placeOfBirthInput.text.toString().trim().toTitleCase(),
-                dateOfDeath,
-                placeOfDeathInput.text.toString().trim().toTitleCase()
+                forenameInput.text.toString(),
+                surnameInput.text.toString(),
+                if (maleRadioBtn.isChecked) Gender.MALE else Gender.FEMALE,
+                datesSelectorHelper.getStartDate(),
+                placeOfBirthInput.text.toString(),
+                if (isAliveCheckBox.isChecked) null else datesSelectorHelper.getEndDate(),
+                placeOfDeathInput.text.toString()
         )
+        return validator.validate()
     }
 
 }
