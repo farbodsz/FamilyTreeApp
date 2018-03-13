@@ -9,6 +9,8 @@ import android.support.v4.view.ViewPager
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -28,6 +30,7 @@ import com.farbodsz.familytree.ui.validator.PersonValidator
 import com.farbodsz.familytree.ui.widget.PersonCircleImageView
 import com.farbodsz.familytree.util.IOUtils
 import com.farbodsz.familytree.util.OnClick
+import com.farbodsz.familytree.util.toTitleCase
 
 /**
  * Defines functions that all "person creator" classes must implement.
@@ -63,7 +66,8 @@ class PersonDetailsCreator(
         private val personId: Int,
         private val rootView: View,
         private val onPostWriteData: (newPerson: Person) -> Unit,
-        private val onSelectPersonImage: OnClick
+        private val onSelectPersonImage: OnClick,
+        private val onNameChange: (newFullName: String) -> Unit
 ) : PersonCreatorSection {
 
     private lateinit var personImageView: PersonCircleImageView
@@ -102,6 +106,8 @@ class PersonDetailsCreator(
                 context, card.findViewById(R.id.textInputLayout_forename), forenameInput)
         PersonActivityCommons.setupNameInputError(
                 context, card.findViewById(R.id.textInputLayout_surname), surnameInput)
+        setOnNameTextChanged(forenameInput)
+        setOnNameTextChanged(surnameInput)
 
         genderRadioButtons = GenderRadioButtons(
                 context,
@@ -112,6 +118,23 @@ class PersonDetailsCreator(
         genderRadioButtons.setGender(Gender.MALE) // set initial gender as male
 
         return card
+    }
+
+    private fun setOnNameTextChanged(editText: EditText) {
+        editText.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                val newTempForename = forenameInput.text.toString().trim().toTitleCase('-')
+                val newTempSurname = surnameInput.text.toString().trim().toTitleCase('-')
+                val newTempFullName = "$newTempForename $newTempSurname"
+                onNameChange.invoke(newTempFullName)
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+        })
     }
 
     /**

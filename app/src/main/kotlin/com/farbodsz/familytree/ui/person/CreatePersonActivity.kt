@@ -177,7 +177,8 @@ class CreatePersonActivity : AppCompatActivity() {
                     { startActivityForResult(
                                 PersonActivityCommons.getImagePickerIntent(this),
                                 PersonActivityCommons.REQUEST_PICK_IMAGE
-                    ) }
+                    ) },
+                    { newFullName -> updateTitle(newFullName) }
             )
             personDetailsCreator
         }
@@ -197,6 +198,14 @@ class CreatePersonActivity : AppCompatActivity() {
             childrenCreator
         }
         else -> throw IllegalArgumentException("invalid index: $index")
+    }
+
+    private fun updateTitle(fullName: String) {
+        supportActionBar!!.title = if (fullName.isBlank()) {
+            getString(R.string.title_create_person)
+        } else {
+            getString(R.string.title_create_person_withName, fullName)
+        }
     }
 
     private fun completePersonCreation() {
