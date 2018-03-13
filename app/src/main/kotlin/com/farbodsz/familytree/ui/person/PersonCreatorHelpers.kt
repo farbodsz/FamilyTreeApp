@@ -249,7 +249,7 @@ class PersonMarriageCreator(
 
         setupMarriageList()
 
-        return card
+        return page
     }
 
     private fun chooseMarriageDialog() {
@@ -346,7 +346,7 @@ class PersonChildrenCreator(
 
         setupChildrenList()
 
-        return card
+        return page
     }
 
     private fun chooseChildDialog(layoutInflater: LayoutInflater) {
