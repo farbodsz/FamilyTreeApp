@@ -5,13 +5,10 @@ import android.content.DialogInterface
 import android.content.Intent
 import android.graphics.Bitmap
 import android.support.design.widget.TextInputEditText
-import android.support.design.widget.TextInputLayout
 import android.support.v4.view.ViewPager
 import android.support.v7.app.AlertDialog
 import android.support.v7.widget.LinearLayoutManager
 import android.support.v7.widget.RecyclerView
-import android.text.Editable
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -101,8 +98,10 @@ class PersonDetailsCreator(
         forenameInput = card.findViewById(R.id.editText_forename)
         surnameInput = card.findViewById(R.id.editText_surname)
 
-        setupNameInputError(card.findViewById(R.id.textInputLayout_forename), forenameInput)
-        setupNameInputError(card.findViewById(R.id.textInputLayout_surname), surnameInput)
+        PersonActivityCommons.setupNameInputError(
+                context, card.findViewById(R.id.textInputLayout_forename), forenameInput)
+        PersonActivityCommons.setupNameInputError(
+                context, card.findViewById(R.id.textInputLayout_surname), surnameInput)
 
         genderRadioButtons = GenderRadioButtons(
                 context,
@@ -113,34 +112,6 @@ class PersonDetailsCreator(
         genderRadioButtons.setGender(Gender.MALE) // set initial gender as male
 
         return card
-    }
-
-    private fun setupNameInputError(textInputLayout: TextInputLayout,
-                                    editText: EditText) {
-        editText.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                if (s!!.isBlank()) {
-                    textInputLayout.error = context.getString(R.string.error_name_empty)
-                } else {
-                    textInputLayout.isErrorEnabled = false
-                }
-            }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
-        })
-        editText.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
-            if (!hasFocus) {
-                if (editText.text.isBlank()) {
-                    textInputLayout.error = context.getString(R.string.error_name_empty)
-                } else {
-                    textInputLayout.isErrorEnabled = false
-                }
-            }
-        }
     }
 
     /**

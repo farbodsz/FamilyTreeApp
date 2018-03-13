@@ -7,7 +7,11 @@ import android.content.Intent
 import android.graphics.Bitmap
 import android.provider.MediaStore
 import android.support.design.widget.Snackbar
+import android.support.design.widget.TextInputLayout
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.View
+import android.widget.EditText
 import com.farbodsz.familytree.R
 import com.farbodsz.familytree.model.Marriage
 import com.farbodsz.familytree.model.Person
@@ -74,6 +78,36 @@ object PersonActivityCommons {
         } else {
             val imageUri = data.data
             MediaStore.Images.Media.getBitmap(contentResolver, imageUri)
+        }
+    }
+
+    /**
+     * Configures the input error which is displayed when the name has not been entered correctly.
+     */
+    fun setupNameInputError(context: Context, textInputLayout: TextInputLayout, editText: EditText) {
+        editText.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                if (s!!.isBlank()) {
+                    textInputLayout.error = context.getString(R.string.error_name_empty)
+                } else {
+                    textInputLayout.isErrorEnabled = false
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+        })
+        editText.onFocusChangeListener = View.OnFocusChangeListener { _, hasFocus ->
+            if (!hasFocus) {
+                if (editText.text.isBlank()) {
+                    textInputLayout.error = context.getString(R.string.error_name_empty)
+                } else {
+                    textInputLayout.isErrorEnabled = false
+                }
+            }
         }
     }
 
