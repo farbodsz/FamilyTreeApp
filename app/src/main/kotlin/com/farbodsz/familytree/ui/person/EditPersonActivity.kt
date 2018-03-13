@@ -6,7 +6,9 @@ import android.graphics.Bitmap
 import android.os.Bundle
 import android.provider.MediaStore
 import android.support.design.widget.CoordinatorLayout
+import android.support.design.widget.Snackbar
 import android.support.design.widget.TextInputLayout
+import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.CardView
@@ -31,10 +33,10 @@ import com.farbodsz.familytree.ui.DateSelectorHelper
 import com.farbodsz.familytree.ui.Validator
 import com.farbodsz.familytree.ui.marriage.EditMarriageActivity
 import com.farbodsz.familytree.ui.marriage.MarriageAdapter
+import com.farbodsz.familytree.ui.widget.PersonCircleImageView
 import com.farbodsz.familytree.util.IOUtils
 import com.farbodsz.familytree.util.setDateRangePickerConstraints
 import com.farbodsz.familytree.util.toTitleCase
-import de.hdodenhof.circleimageview.CircleImageView
 
 /**
  * This activity provides the UI for adding or editing a new person from the database.
@@ -82,13 +84,12 @@ class EditPersonActivity : AppCompatActivity() {
 
     private lateinit var coordinatorLayout: CoordinatorLayout
 
-    private lateinit var circleImageView: CircleImageView
+    private lateinit var circleImageView: PersonCircleImageView
     private var bitmap: Bitmap? = null
 
     private lateinit var forenameInput: EditText
     private lateinit var surnameInput: EditText
     private lateinit var maleRadioBtn: RadioButton
-    private lateinit var femaleRadioBtn: RadioButton
 
     private lateinit var dateOfBirthHelper: DateSelectorHelper
     private lateinit var placeOfBirthInput: EditText
@@ -169,7 +170,11 @@ class EditPersonActivity : AppCompatActivity() {
         surnameInput = findViewById(R.id.editText_surname)
 
         maleRadioBtn = findViewById(R.id.rBtn_male)
-        femaleRadioBtn = findViewById(R.id.rBtn_female)
+        maleRadioBtn.setOnCheckedChangeListener { _, isChecked ->
+            val newGender = if (isChecked) Gender.MALE else Gender.FEMALE
+            circleImageView.borderColor = ContextCompat.getColor(this, newGender.getColorRes())
+        }
+        // No need to use the female radio button - it will respond accordingly
 
         dateOfBirthHelper = DateSelectorHelper(this, findViewById(R.id.editText_dateOfBirth))
         placeOfBirthInput = findViewById(R.id.editText_placeOfBirth)
@@ -211,7 +216,7 @@ class EditPersonActivity : AppCompatActivity() {
      * Starts an [Intent] for result to pick an image from the gallery app.
      * The result will be sent to [onActivityResult].
      */
-    private fun selectPersonImage() {
+    private fun selectPersonImage() { // TODO too many similarities between this and CreatePersonActivity
         val getContentIntent = Intent(Intent.ACTION_GET_CONTENT).setType(MIME_IMAGE_TYPE)
         val pickIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI).setType(MIME_IMAGE_TYPE)
 
@@ -239,11 +244,12 @@ class EditPersonActivity : AppCompatActivity() {
         }
 
         person?.let {
+            circleImageView.person = it
+
             forenameInput.setText(it.forename)
             surnameInput.setText(it.surname)
 
             maleRadioBtn.isChecked = it.gender.isMale()
-            femaleRadioBtn.isChecked = it.gender.isFemale()
 
             setPersonAlive(it.isAlive())
 
@@ -626,10 +632,18 @@ class EditPersonActivity : AppCompatActivity() {
             }
 
             REQUEST_PICK_IMAGE -> {
-                val imageUri = data!!.data
-                bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imageUri)
-                hasModifiedBitmap = true
-                circleImageView.setImageBitmap(bitmap)
+                if (data == null) {
+                    Snackbar.make(
+                            coordinatorLayout,
+                            R.string.error_couldntChangeImage,
+                            Snackbar.LENGTH_SHORT
+                    ).show()
+                } else {
+                    val imageUri = data.data
+                    bitmap = MediaStore.Images.Media.getBitmap(contentResolver, imageUri)
+                    hasModifiedBitmap = true
+                    circleImageView.setImageBitmap(bitmap)
+                }
             }
         }
     }
