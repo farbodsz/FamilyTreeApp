@@ -52,7 +52,7 @@ dependencies {
 }
 
 dokka {
-    outputFormat = 'markdown'
+    outputFormat = 'html'
     outputDirectory = "$buildDir/docs"
 
     // Do not create index pages for empty packages
