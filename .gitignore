@@ -5,11 +5,6 @@ build
 # Local configuration file (sdk path, etc)
 local.properties
 
-# Other project files
-projectFilesBackup/
-projectFilesBackup1/
-projectFilesBackup2/
-
 # IntelliJ
 *.iml
 /.idea/
