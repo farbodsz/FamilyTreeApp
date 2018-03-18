@@ -77,6 +77,23 @@ dokka {
     // Include private members
     includeNonPublic = true
 
+    // Specifies the location of the project source code on the web (source links)
+    linkMapping {
+        // Source directory
+        dir = "src/main/kotlin"
+
+        // URL showing where the source code can be accessed through the web browser
+        url = "https://github.com/FarbodSalamat-Zadeh/FamilyTreeApp/tree/master/app/src/main/kotlin"
+
+        // Suffix which is used to append the line number to the URL (#L for GitHub)
+        suffix = "#L"
+    }
+
+    externalDocumentationLink {
+        // Root URL of the generated documentation to link with
+        url = new URL("https://developer.android.com/reference/")
+    }
+
     // Don't generate docs for other libraries
     packageOptions {
         prefix = "kotlin"
