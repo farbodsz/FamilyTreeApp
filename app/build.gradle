@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'org.jetbrains.dokka'
 
 android {
     compileSdkVersion 26
@@ -48,4 +49,33 @@ dependencies {
 
     // Other libraries
     implementation 'de.hdodenhof:circleimageview:2.2.0'
+}
+
+dokka {
+    outputFormat = 'html'
+    outputDirectory = "$buildDir/docs"
+
+    // Do not create index pages for empty packages
+    skipEmptyPackages = true
+
+    // Include private members
+    includeNonPublic = true
+
+    // Don't generate docs for other libraries
+    packageOptions {
+        prefix = "kotlin"
+        suppress = true
+    }
+    packageOptions {
+        prefix = "android"
+        suppress = true
+    }
+    packageOptions {
+        prefix = "com.jakewharton"
+        suppress = true
+    }
+    packageOptions {
+        prefix = "de.hdodenhof"
+        suppress = true
+    }
 }
