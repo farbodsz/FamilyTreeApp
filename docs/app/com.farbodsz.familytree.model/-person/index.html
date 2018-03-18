@@ -1,0 +1,182 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Person - app</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.farbodsz.familytree.model</a>&nbsp;/&nbsp;<a href="./index.html">Person</a><br/>
+<br/>
+<h1>Person</h1>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">Person</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-standard-data.html"><span class="identifier">StandardData</span></a><span class="symbol">, </span><a href="../-with-event/index.html"><span class="identifier">WithEvent</span></a><span class="symbol">, </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-comparable/index.html"><span class="identifier">Comparable</span></a><span class="symbol">&lt;</span><a href="./index.html"><span class="identifier">Person</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="https://developer.android.com/reference/android/os/Parcelable.html"><span class="identifier">Parcelable</span></a></code>
+<p>Represents a member of the family.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">Person</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.model.Person$<init>(android.os.Parcel)/source">source</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/os/Parcel.html"><span class="identifier">Parcel</span></a><span class="symbol">)</span></code><code><span class="identifier">Person</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.model.Person$<init>(kotlin.Int, kotlin.String, kotlin.String, com.farbodsz.familytree.model.Gender, org.threeten.bp.LocalDate, kotlin.String, org.threeten.bp.LocalDate, kotlin.String)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.model.Person$<init>(kotlin.Int, kotlin.String, kotlin.String, com.farbodsz.familytree.model.Gender, org.threeten.bp.LocalDate, kotlin.String, org.threeten.bp.LocalDate, kotlin.String)/forename">forename</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.model.Person$<init>(kotlin.Int, kotlin.String, kotlin.String, com.farbodsz.familytree.model.Gender, org.threeten.bp.LocalDate, kotlin.String, org.threeten.bp.LocalDate, kotlin.String)/surname">surname</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.model.Person$<init>(kotlin.Int, kotlin.String, kotlin.String, com.farbodsz.familytree.model.Gender, org.threeten.bp.LocalDate, kotlin.String, org.threeten.bp.LocalDate, kotlin.String)/gender">gender</span><span class="symbol">:</span>&nbsp;<a href="../-gender/index.html"><span class="identifier">Gender</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.model.Person$<init>(kotlin.Int, kotlin.String, kotlin.String, com.farbodsz.familytree.model.Gender, org.threeten.bp.LocalDate, kotlin.String, org.threeten.bp.LocalDate, kotlin.String)/dateOfBirth">dateOfBirth</span><span class="symbol">:</span>&nbsp;<span class="identifier">LocalDate</span><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.model.Person$<init>(kotlin.Int, kotlin.String, kotlin.String, com.farbodsz.familytree.model.Gender, org.threeten.bp.LocalDate, kotlin.String, org.threeten.bp.LocalDate, kotlin.String)/placeOfBirth">placeOfBirth</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.model.Person$<init>(kotlin.Int, kotlin.String, kotlin.String, com.farbodsz.familytree.model.Gender, org.threeten.bp.LocalDate, kotlin.String, org.threeten.bp.LocalDate, kotlin.String)/dateOfDeath">dateOfDeath</span><span class="symbol">:</span>&nbsp;<span class="identifier">LocalDate</span><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.model.Person$<init>(kotlin.Int, kotlin.String, kotlin.String, com.farbodsz.familytree.model.Gender, org.threeten.bp.LocalDate, kotlin.String, org.threeten.bp.LocalDate, kotlin.String)/placeOfDeath">placeOfDeath</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span></code>
+<p>Represents a member of the family.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="date-of-birth.html">dateOfBirth</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">dateOfBirth</span><span class="symbol">: </span><span class="identifier">LocalDate</span></code>
+<p>date when the person was born</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="date-of-death.html">dateOfDeath</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">dateOfDeath</span><span class="symbol">: </span><span class="identifier">LocalDate</span><span class="symbol">?</span></code>
+<p>date when the person died. If the person is currently alive, this should
+    be null.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="forename.html">forename</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">forename</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>first name / forename. This cannot be blank.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="full-name.html">fullName</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">fullName</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="gender.html">gender</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">gender</span><span class="symbol">: </span><a href="../-gender/index.html"><span class="identifier">Gender</span></a></code>
+<p>male or female</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="id.html">id</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">id</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>a unique integer identifier of the person</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="place-of-birth.html">placeOfBirth</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">placeOfBirth</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>place where the person was born. This is optional and can be left blank.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="place-of-death.html">placeOfDeath</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">placeOfDeath</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>place where the person died. This is optional and can be left blank (for
+    example, if the person is currently alive).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="surname.html">surname</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">surname</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>last name / surname. This cannot be blank.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="compare-to.html">compareTo</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">compareTo</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.model.Person$compareTo(com.farbodsz.familytree.model.Person)/other">other</span><span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">Person</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="describe-contents.html">describeContents</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">describeContents</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="get-related-event.html">getRelatedEvent</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getRelatedEvent</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-birthday/index.html"><span class="identifier">Birthday</span></a></code>
+<p>Returns the <a href="../-event/index.html">Event</a> associated with the subclass.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="is-alive.html">isAlive</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">isAlive</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="write-to-parcel.html">writeToParcel</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">writeToParcel</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.model.Person$writeToParcel(android.os.Parcel, kotlin.Int)/dest">dest</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/os/Parcel.html"><span class="identifier">Parcel</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.model.Person$writeToParcel(android.os.Parcel, kotlin.Int)/flags">flags</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-c-r-e-a-t-o-r.html">CREATOR</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">CREATOR</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/os/Parcelable/Creator.html"><span class="identifier">Creator</span></a><span class="symbol">&lt;</span><a href="./index.html"><span class="identifier">Person</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="from.html">from</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">from</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.model.Person.Companion$from(android.database.Cursor)/cursor">cursor</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/database/Cursor.html"><span class="identifier">Cursor</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">Person</span></a></code>
+<p>Instantiates a <a href="./index.html">Person</a> by getting values in columns from a <a href="from.html#com.farbodsz.familytree.model.Person.Companion$from(android.database.Cursor)/cursor">cursor</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,112 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>com.farbodsz.familytree.model - app</title>
+<link rel="stylesheet" href="..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">app</a>&nbsp;/&nbsp;<a href="./index.html">com.farbodsz.familytree.model</a><br/>
+<br/>
+<h2>Package com.farbodsz.familytree.model</h2>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-anniversary/index.html">Anniversary</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">Anniversary</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-event/index.html"><span class="identifier">Event</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-birthday/index.html">Birthday</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">Birthday</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-event/index.html"><span class="identifier">Event</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-child-relationship/index.html">ChildRelationship</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">ChildRelationship</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-data-relationship/index.html"><span class="identifier">DataRelationship</span></a></code>
+<p>Represents a single relationship between a parent and its child.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-data-model.html">DataModel</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">DataModel</span></code>
+<p>Base interface for data models.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-data-relationship/index.html">DataRelationship</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">DataRelationship</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-data-model.html"><span class="identifier">DataModel</span></a></code>
+<p>Interface that "relationship" model classes should implement.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-event/index.html">Event</a></p>
+</td>
+<td>
+<code><span class="keyword">sealed</span> <span class="keyword">class </span><span class="identifier">Event</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-comparable/index.html"><span class="identifier">Comparable</span></a><span class="symbol">&lt;</span><a href="-event/index.html"><span class="identifier">Event</span></a><span class="symbol">&gt;</span></code>
+<p>Represents an annual recurring event related to a person, such as a birthday or anniversary.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-gender/index.html">Gender</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">Gender</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/os/Parcelable.html"><span class="identifier">Parcelable</span></a></code>
+<p>Represents a gender.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-marriage/index.html">Marriage</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">Marriage</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-data-relationship/index.html"><span class="identifier">DataRelationship</span></a><span class="symbol">, </span><a href="-with-event/index.html"><span class="identifier">WithEvent</span></a><span class="symbol">, </span><a href="https://developer.android.com/reference/android/os/Parcelable.html"><span class="identifier">Parcelable</span></a></code>
+<p>Represents a marriage between two people.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-person/index.html">Person</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">Person</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-standard-data.html"><span class="identifier">StandardData</span></a><span class="symbol">, </span><a href="-with-event/index.html"><span class="identifier">WithEvent</span></a><span class="symbol">, </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-comparable/index.html"><span class="identifier">Comparable</span></a><span class="symbol">&lt;</span><a href="-person/index.html"><span class="identifier">Person</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><a href="https://developer.android.com/reference/android/os/Parcelable.html"><span class="identifier">Parcelable</span></a></code>
+<p>Represents a member of the family.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-standard-data.html">StandardData</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">StandardData</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-data-model.html"><span class="identifier">DataModel</span></a></code>
+<p>Interface that "standard" data model classes should implement.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-with-event/index.html">WithEvent</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">WithEvent</span></code>
+<p>Represents data items that have related events.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

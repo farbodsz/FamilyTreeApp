@@ -1,0 +1,115 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>DynamicPagerAdapter - app</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.farbodsz.familytree.ui</a>&nbsp;/&nbsp;<a href="./index.html">DynamicPagerAdapter</a><br/>
+<br/>
+<h1>DynamicPagerAdapter</h1>
+<code><span class="keyword">class </span><span class="identifier">DynamicPagerAdapter</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">PagerAdapter</span></code>
+<p>Class to dynamically populate pages inside of <a href="#">ViewPager</a>.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">DynamicPagerAdapter</span><span class="symbol">(</span><span class="symbol">)</span></code>
+<p>Class to dynamically populate pages inside of <a href="#">ViewPager</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="titles.html">titles</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">titles</span><span class="symbol">: </span><a href="https://developer.android.com/reference/java/util/ArrayList.html"><span class="identifier">ArrayList</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="views.html">views</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">views</span><span class="symbol">: </span><a href="https://developer.android.com/reference/java/util/ArrayList.html"><span class="identifier">ArrayList</span></a><span class="symbol">&lt;</span><a href="https://developer.android.com/reference/android/view/View.html"><span class="identifier">View</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="add-view.html">addView</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">addView</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.DynamicPagerAdapter$addView(android.view.View, kotlin.Int)/view">view</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/View.html"><span class="identifier">View</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.DynamicPagerAdapter$addView(android.view.View, kotlin.Int)/position">position</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a>&nbsp;<span class="symbol">=</span>&nbsp;views.size<span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="add-view-with-title.html">addViewWithTitle</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">addViewWithTitle</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.DynamicPagerAdapter$addViewWithTitle(android.view.View, kotlin.Int, kotlin.String)/view">view</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/View.html"><span class="identifier">View</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.DynamicPagerAdapter$addViewWithTitle(android.view.View, kotlin.Int, kotlin.String)/position">position</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a>&nbsp;<span class="symbol">=</span>&nbsp;views.size<span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.DynamicPagerAdapter$addViewWithTitle(android.view.View, kotlin.Int, kotlin.String)/title">title</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="destroy-item.html">destroyItem</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">destroyItem</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.DynamicPagerAdapter$destroyItem(android.view.ViewGroup, kotlin.Int, kotlin.Any)/container">container</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/ViewGroup.html"><span class="identifier">ViewGroup</span></a><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.DynamicPagerAdapter$destroyItem(android.view.ViewGroup, kotlin.Int, kotlin.Any)/position">position</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.DynamicPagerAdapter$destroyItem(android.view.ViewGroup, kotlin.Int, kotlin.Any)/object">object</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="get-count.html">getCount</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getCount</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="get-item-position.html">getItemPosition</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getItemPosition</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.DynamicPagerAdapter$getItemPosition(kotlin.Any)/obj">obj</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="get-page-title.html">getPageTitle</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getPageTitle</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.DynamicPagerAdapter$getPageTitle(kotlin.Int)/position">position</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-char-sequence/index.html"><span class="identifier">CharSequence</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="instantiate-item.html">instantiateItem</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">instantiateItem</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.DynamicPagerAdapter$instantiateItem(android.view.ViewGroup, kotlin.Int)/container">container</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/ViewGroup.html"><span class="identifier">ViewGroup</span></a><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.DynamicPagerAdapter$instantiateItem(android.view.ViewGroup, kotlin.Int)/position">position</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="is-view-from-object.html">isViewFromObject</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">isViewFromObject</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.DynamicPagerAdapter$isViewFromObject(android.view.View, kotlin.Any)/view">view</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/View.html"><span class="identifier">View</span></a><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.DynamicPagerAdapter$isViewFromObject(android.view.View, kotlin.Any)/obj">obj</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-any/index.html"><span class="identifier">Any</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="remove-view.html">removeView</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">removeView</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.DynamicPagerAdapter$removeView(android.support.v4.view.ViewPager, kotlin.Int)/pager">pager</span><span class="symbol">:</span>&nbsp;<span class="identifier">ViewPager</span><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.DynamicPagerAdapter$removeView(android.support.v4.view.ViewPager, kotlin.Int)/position">position</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

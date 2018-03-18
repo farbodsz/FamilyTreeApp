@@ -1,0 +1,73 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>com.farbodsz.familytree.database.manager - app</title>
+<link rel="stylesheet" href="..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">app</a>&nbsp;/&nbsp;<a href="./index.html">com.farbodsz.familytree.database.manager</a><br/>
+<br/>
+<h2>Package com.farbodsz.familytree.database.manager</h2>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-children-manager/index.html">ChildrenManager</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">ChildrenManager</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-relationship-manager/index.html"><span class="identifier">RelationshipManager</span></a><span class="symbol">&lt;</span><a href="../com.farbodsz.familytree.model/-child-relationship/index.html"><span class="identifier">ChildRelationship</span></a><span class="symbol">&gt;</span></code>
+<p>Responsible for performing CRUD operations for the "children" table.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-data-manager/index.html">DataManager</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">DataManager</span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../com.farbodsz.familytree.model/-data-model.html"><span class="identifier">DataModel</span></a><span class="symbol">&gt;</span></code>
+<p>The base data manager class, defining/implementing methods that <em>all</em> data managers should
+inherit or implement.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-marriages-manager/index.html">MarriagesManager</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">MarriagesManager</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-relationship-manager/index.html"><span class="identifier">RelationshipManager</span></a><span class="symbol">&lt;</span><a href="../com.farbodsz.familytree.model/-marriage/index.html"><span class="identifier">Marriage</span></a><span class="symbol">&gt;</span></code>
+<p>Responsible for performing CRUD operations for the "marriages" table.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-person-manager/index.html">PersonManager</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">PersonManager</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-standard-data-manager/index.html"><span class="identifier">StandardDataManager</span></a><span class="symbol">&lt;</span><a href="../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">&gt;</span></code>
+<p>Contains some methods to perform CRUD operations for the <em>persons</em> table.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-relationship-manager/index.html">RelationshipManager</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">RelationshipManager</span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../com.farbodsz.familytree.model/-data-relationship/index.html"><span class="identifier">DataRelationship</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-data-manager/index.html"><span class="identifier">DataManager</span></a><span class="symbol">&lt;</span><a href="-relationship-manager/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>An abstract data manager class, containing methods which "relationship" data managers should use.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-standard-data-manager/index.html">StandardDataManager</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">StandardDataManager</span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../com.farbodsz.familytree.model/-standard-data.html"><span class="identifier">StandardData</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-data-manager/index.html"><span class="identifier">DataManager</span></a><span class="symbol">&lt;</span><a href="-standard-data-manager/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>An abstract data manager class which includes methods that all "standard" data managers should
+inherit/implement.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

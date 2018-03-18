@@ -1,0 +1,140 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>PersonChildrenCreator - app</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.farbodsz.familytree.ui.person</a>&nbsp;/&nbsp;<a href="./index.html">PersonChildrenCreator</a><br/>
+<br/>
+<h1>PersonChildrenCreator</h1>
+<code><span class="keyword">class </span><span class="identifier">PersonChildrenCreator</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-person-creator-section/index.html"><span class="identifier">PersonCreatorSection</span></a></code>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">PersonChildrenCreator</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.person.PersonChildrenCreator$<init>(android.content.Context, com.farbodsz.familytree.model.Person, kotlin.Function2((android.content.DialogInterface, kotlin.Int, kotlin.Unit)))/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.person.PersonChildrenCreator$<init>(android.content.Context, com.farbodsz.familytree.model.Person, kotlin.Function2((android.content.DialogInterface, kotlin.Int, kotlin.Unit)))/parent">parent</span><span class="symbol">:</span>&nbsp;<a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.person.PersonChildrenCreator$<init>(android.content.Context, com.farbodsz.familytree.model.Person, kotlin.Function2((android.content.DialogInterface, kotlin.Int, kotlin.Unit)))/onCreateNewChild">onCreateNewChild</span><span class="symbol">:</span>&nbsp;<a href="../-on-create-new.html"><span class="identifier">OnCreateNew</span></a><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="children.html">children</a></p>
+</td>
+<td>
+<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">children</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-array-list/index.html"><span class="identifier">ArrayList</span></a><span class="symbol">&lt;</span><a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="children-recycler-view.html">childrenRecyclerView</a></p>
+</td>
+<td>
+<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">childrenRecyclerView</span><span class="symbol">: </span><span class="identifier">RecyclerView</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="children-text.html">childrenText</a></p>
+</td>
+<td>
+<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">childrenText</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/widget/TextView.html"><span class="identifier">TextView</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="context.html">context</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">context</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="on-create-new-child.html">onCreateNewChild</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">onCreateNewChild</span><span class="symbol">: </span><a href="../-on-create-new.html"><span class="identifier">OnCreateNew</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="parent.html">parent</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">parent</span><span class="symbol">: </span><a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="add-child.html">addChild</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">addChild</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.person.PersonChildrenCreator$addChild(com.farbodsz.familytree.model.Person)/child">child</span><span class="symbol">:</span>&nbsp;<a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Updates the UI to add a <a href="add-child.html#com.farbodsz.familytree.ui.person.PersonChildrenCreator$addChild(com.farbodsz.familytree.model.Person)/child">child</a> to the <a href="../../com.farbodsz.familytree.model/-person/index.html">Person</a> being edited.
+This function does not add anything to the database.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="choose-child-dialog.html">chooseChildDialog</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">chooseChildDialog</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.person.PersonChildrenCreator$chooseChildDialog(android.view.LayoutInflater)/layoutInflater">layoutInflater</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/LayoutInflater.html"><span class="identifier">LayoutInflater</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="get-potential-children.html">getPotentialChildren</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getPotentialChildren</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">&gt;</span></code>
+<p>Returns a list of people that could be the child of this <a href="parent.html">parent</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="remove-child.html">removeChild</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">removeChild</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.person.PersonChildrenCreator$removeChild(com.farbodsz.familytree.model.Person)/child">child</span><span class="symbol">:</span>&nbsp;<a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Updates the UI to remove a <a href="remove-child.html#com.farbodsz.familytree.ui.person.PersonChildrenCreator$removeChild(com.farbodsz.familytree.model.Person)/child">child</a> from the <a href="../../com.farbodsz.familytree.model/-person/index.html">Person</a> being edited.
+This function does not delete anything from the database.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="setup-children-list.html">setupChildrenList</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setupChildrenList</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Sets up <a href="children-recycler-view.html">childrenRecyclerView</a> to display the children of the <a href="../../com.farbodsz.familytree.model/-person/index.html">Person</a> being edited.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="setup-page-layout.html">setupPageLayout</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setupPageLayout</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.person.PersonChildrenCreator$setupPageLayout(android.view.LayoutInflater, android.support.v4.view.ViewPager)/layoutInflater">layoutInflater</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/LayoutInflater.html"><span class="identifier">LayoutInflater</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.person.PersonChildrenCreator$setupPageLayout(android.view.LayoutInflater, android.support.v4.view.ViewPager)/viewPager">viewPager</span><span class="symbol">:</span>&nbsp;<span class="identifier">ViewPager</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/view/View.html"><span class="identifier">View</span></a></code>
+<p>Sets up the layout for this page of the activity.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="write-data.html">writeData</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">writeData</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Writes data to the database, validating if necessary.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,312 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>EditMarriageActivity - app</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.farbodsz.familytree.ui.marriage</a>&nbsp;/&nbsp;<a href="./index.html">EditMarriageActivity</a><br/>
+<br/>
+<h1>EditMarriageActivity</h1>
+<code><span class="keyword">class </span><span class="identifier">EditMarriageActivity</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">AppCompatActivity</span></code>
+<p>Activity to edit a <a href="../../com.farbodsz.familytree.model/-marriage/index.html">Marriage</a>.</p>
+<p>Any changes made in this activity to the <a href="marriage.html">marriage</a> (including creating one) will be written to
+the database unless a <a href="-e-x-t-r-a_-w-r-i-t-e_-d-a-t-a.html">EXTRA_WRITE_DATA</a> is explicitly specified.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">EditMarriageActivity</span><span class="symbol">(</span><span class="symbol">)</span></code>
+<p>Activity to edit a <a href="../../com.farbodsz.familytree.model/-marriage/index.html">Marriage</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="dates-selector-helper.html">datesSelectorHelper</a></p>
+</td>
+<td>
+<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">datesSelectorHelper</span><span class="symbol">: </span><a href="../../com.farbodsz.familytree.ui/-date-range-selector-helper/index.html"><span class="identifier">DateRangeSelectorHelper</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="existing-person.html">existingPerson</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">existingPerson</span><span class="symbol">: </span><a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">?</span></code>
+<p>Essential data that can be used to set the first person of this marriage. It can be null if
+it has not been specified as an intent extra.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="is-ongoing-check-box.html">isOngoingCheckBox</a></p>
+</td>
+<td>
+<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">isOngoingCheckBox</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/widget/CheckBox.html"><span class="identifier">CheckBox</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="marriage.html">marriage</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">marriage</span><span class="symbol">: </span><a href="../../com.farbodsz.familytree.model/-marriage/index.html"><span class="identifier">Marriage</span></a><span class="symbol">?</span></code>
+<p>The <a href="../../com.farbodsz.familytree.model/-marriage/index.html">Marriage</a> received via intent extra from the previous activity. If a new marriage is
+being created (hence no intent extra), then this will be null.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="person1-selector.html">person1Selector</a></p>
+</td>
+<td>
+<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">person1Selector</span><span class="symbol">: </span><a href="../../com.farbodsz.familytree.ui/-person-selector-helper/index.html"><span class="identifier">PersonSelectorHelper</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="person2-selector.html">person2Selector</a></p>
+</td>
+<td>
+<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">person2Selector</span><span class="symbol">: </span><a href="../../com.farbodsz.familytree.ui/-person-selector-helper/index.html"><span class="identifier">PersonSelectorHelper</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="place-input.html">placeInput</a></p>
+</td>
+<td>
+<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">placeInput</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/widget/EditText.html"><span class="identifier">EditText</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="assign-ui-components.html">assignUiComponents</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">assignUiComponents</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Assigns the variables for our UI components in the layout.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="check-intent-extras.html">checkIntentExtras</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">checkIntentExtras</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="init-date-pickers.html">initDatePickers</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">initDatePickers</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="on-activity-result.html">onActivityResult</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onActivityResult</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.marriage.EditMarriageActivity$onActivityResult(kotlin.Int, kotlin.Int, android.content.Intent)/requestCode">requestCode</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.marriage.EditMarriageActivity$onActivityResult(kotlin.Int, kotlin.Int, android.content.Intent)/resultCode">resultCode</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.marriage.EditMarriageActivity$onActivityResult(kotlin.Int, kotlin.Int, android.content.Intent)/data">data</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Intent.html"><span class="identifier">Intent</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="on-back-pressed.html">onBackPressed</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onBackPressed</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="on-create.html">onCreate</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onCreate</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.marriage.EditMarriageActivity$onCreate(android.os.Bundle)/savedInstanceState">savedInstanceState</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/os/Bundle.html"><span class="identifier">Bundle</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="on-create-options-menu.html">onCreateOptionsMenu</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onCreateOptionsMenu</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.marriage.EditMarriageActivity$onCreateOptionsMenu(android.view.Menu)/menu">menu</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/Menu.html"><span class="identifier">Menu</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="on-options-item-selected.html">onOptionsItemSelected</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onOptionsItemSelected</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.marriage.EditMarriageActivity$onOptionsItemSelected(android.view.MenuItem)/item">item</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/MenuItem.html"><span class="identifier">MenuItem</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="save-data.html">saveData</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">saveData</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Validates the user input and writes it to the database.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="send-cancelled-result.html">sendCancelledResult</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">sendCancelledResult</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Sends a "cancelled" result back to where this activity was invoked from.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="send-successful-result.html">sendSuccessfulResult</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">sendSuccessfulResult</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.marriage.EditMarriageActivity$sendSuccessfulResult(com.farbodsz.familytree.model.Marriage)/result">result</span><span class="symbol">:</span>&nbsp;<a href="../../com.farbodsz.familytree.model/-marriage/index.html"><span class="identifier">Marriage</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Sends an "ok" result back to where this activity was invoked from.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="set-marriage-ongoing.html">setMarriageOngoing</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setMarriageOngoing</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.marriage.EditMarriageActivity$setMarriageOngoing(kotlin.Boolean)/isOngoing">isOngoing</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Toggles the checkbox and other UI components for whether or not a marriage <a href="set-marriage-ongoing.html#com.farbodsz.familytree.ui.marriage.EditMarriageActivity$setMarriageOngoing(kotlin.Boolean)/isOngoing">isOngoing</a>.
+This should be used instead of toggling the checkbox manually.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="setup-default-layout.html">setupDefaultLayout</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setupDefaultLayout</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="setup-layout.html">setupLayout</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setupLayout</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="validate-marriage.html">validateMarriage</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">validateMarriage</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.farbodsz.familytree.model/-marriage/index.html"><span class="identifier">Marriage</span></a><span class="symbol">?</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-d-e-f-a-u-l-t_-w-r-i-t-e_-d-a-t-a.html">DEFAULT_WRITE_DATA</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">DEFAULT_WRITE_DATA</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-e-x-t-r-a_-e-x-i-s-t-i-n-g_-p-e-r-s-o-n.html">EXTRA_EXISTING_PERSON</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">EXTRA_EXISTING_PERSON</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>Intent extra key for supplying a <a href="../../com.farbodsz.familytree.model/-person/index.html">Person</a> to this activity. The details of this person
+will be used as the first person of the marriage.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-e-x-t-r-a_-m-a-r-r-i-a-g-e.html">EXTRA_MARRIAGE</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">EXTRA_MARRIAGE</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>Intent extra key for supplying a <a href="../../com.farbodsz.familytree.model/-marriage/index.html">Marriage</a> to this activity.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-e-x-t-r-a_-w-r-i-t-e_-d-a-t-a.html">EXTRA_WRITE_DATA</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">EXTRA_WRITE_DATA</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>Intent extra key for a boolean indicating whether database writes should be made in this
+activity. This is useful if we want to make database writes in the calling activity.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-l-o-g_-t-a-g.html">LOG_TAG</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">LOG_TAG</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-r-e-q-u-e-s-t_-c-r-e-a-t-e_-p-e-r-s-o-n_1.html">REQUEST_CREATE_PERSON_1</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">REQUEST_CREATE_PERSON_1</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Request code for starting <a href="../../com.farbodsz.familytree.ui.person/-edit-person-activity/index.html">EditPersonActivity</a> for result, to create a new <a href="../../com.farbodsz.familytree.model/-person/index.html">Person</a> to be
+used as the first person of the marriage.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-r-e-q-u-e-s-t_-c-r-e-a-t-e_-p-e-r-s-o-n_2.html">REQUEST_CREATE_PERSON_2</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">REQUEST_CREATE_PERSON_2</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Request code for starting <a href="../../com.farbodsz.familytree.ui.person/-edit-person-activity/index.html">EditPersonActivity</a> for result, to create a new <a href="../../com.farbodsz.familytree.model/-person/index.html">Person</a> to be
+used as the second person of the marriage.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Extension Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../com.farbodsz.familytree.util/android.content.-context/dp-to-px.html">dpToPx</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">.</span><span class="identifier">dpToPx</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.util$dpToPx(android.content.Context, kotlin.Int)/dp">dp</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Converts a dip value into pixels.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../com.farbodsz.familytree.util/android.app.-activity/standard-navigation-params.html">standardNavigationParams</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="https://developer.android.com/reference/android/app/Activity.html"><span class="identifier">Activity</span></a><span class="symbol">.</span><span class="identifier">standardNavigationParams</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.util$standardNavigationParams(android.app.Activity, kotlin.Int, android.support.v7.widget.Toolbar)/navigationItem">navigationItem</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.util$standardNavigationParams(android.app.Activity, kotlin.Int, android.support.v7.widget.Toolbar)/toolbar">toolbar</span><span class="symbol">:</span>&nbsp;<span class="identifier">Toolbar</span><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.farbodsz.familytree.ui/-navigation-parameters/index.html"><span class="identifier">NavigationParameters</span></a><span class="symbol">?</span></code>
+<p>Helper function for returning a <a href="../../com.farbodsz.familytree.ui/-navigation-parameters/index.html">NavigationParameters</a> using values from the default navigation
+layout (from template <code>activity_navigation.xml</code>).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../com.farbodsz.familytree.util/android.content.-context/with-navigation.html">withNavigation</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">.</span><span class="identifier">withNavigation</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.util$withNavigation(android.content.Context, kotlin.Int)/layoutRes">layoutRes</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/view/View.html"><span class="identifier">View</span></a></code>
+<p>Returns a layout with an added navigation drawer (using the template <code>activity_navigation.xml</code>).</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

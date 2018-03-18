@@ -1,0 +1,27 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>DataManager.<init> - app</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.farbodsz.familytree.database.manager</a>&nbsp;/&nbsp;<a href="index.html">DataManager</a>&nbsp;/&nbsp;<a href="./-init-.html">&lt;init&gt;</a><br/>
+<br/>
+<h1>&lt;init&gt;</h1>
+<a name="com.farbodsz.familytree.database.manager.DataManager$&lt;init&gt;(android.content.Context)"></a>
+<code><span class="identifier">DataManager</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.database.manager.DataManager$<init>(android.content.Context)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">)</span></code>
+<p>The base data manager class, defining/implementing methods that <em>all</em> data managers should
+inherit or implement.</p>
+<p>There are two main types of data managers in this app: "standard" and "relationship".</p>
+<ul><li>Standard data managers manage tables with a unique (primary key) integer ID column and extra
+    columns of any type to store additional details of that object.</li>
+<li>Relationship data managers manage tables with two integer ID columns that are not necessarily
+    unique. These two columns each represent the unique ID of an object (with its details stored
+    in a "standard" table); so overall, a row stores the relationship between two objects.</li>
+</ul>
+<p><strong>See Also</strong><br/>
+<p><a href="../-standard-data-manager/index.html">StandardDataManager</a></p>
+<p><a href="../-relationship-manager/index.html">RelationshipManager</a></p>
+</p>
+</BODY>
+</HTML>

@@ -1,0 +1,89 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>PersonActivityCommons - app</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.farbodsz.familytree.ui.person</a>&nbsp;/&nbsp;<a href="./index.html">PersonActivityCommons</a><br/>
+<br/>
+<h1>PersonActivityCommons</h1>
+<code><span class="keyword">object </span><span class="identifier">PersonActivityCommons</span></code>
+<p>Provides functionality common between "Person" creating/editing activities.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-m-i-m-e_-i-m-a-g-e_-t-y-p-e.html">MIME_IMAGE_TYPE</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">MIME_IMAGE_TYPE</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>Represents an explicit MIME image type for use with <a href="https://developer.android.com/reference/android/content/Intent.html#setType(java.lang.String)">Intent.setType</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-r-e-q-u-e-s-t_-c-r-e-a-t-e_-c-h-i-l-d.html">REQUEST_CREATE_CHILD</a></p>
+</td>
+<td>
+<code><span class="keyword">internal</span> <span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">REQUEST_CREATE_CHILD</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Request code for starting <a href="../-create-person-activity/index.html">CreatePersonActivity</a> for result, to create a new <a href="../../com.farbodsz.familytree.model/-person/index.html">Person</a>
+which would be the child of the <a href="../../com.farbodsz.familytree.model/-person/index.html">Person</a> (parent).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-r-e-q-u-e-s-t_-c-r-e-a-t-e_-m-a-r-r-i-a-g-e.html">REQUEST_CREATE_MARRIAGE</a></p>
+</td>
+<td>
+<code><span class="keyword">internal</span> <span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">REQUEST_CREATE_MARRIAGE</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Request code for starting <a href="../../com.farbodsz.familytree.ui.marriage/-edit-marriage-activity/index.html">EditMarriageActivity</a> for result, to create a new <a href="../../com.farbodsz.familytree.model/-marriage/index.html">Marriage</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-r-e-q-u-e-s-t_-p-i-c-k_-i-m-a-g-e.html">REQUEST_PICK_IMAGE</a></p>
+</td>
+<td>
+<code><span class="keyword">internal</span> <span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">REQUEST_PICK_IMAGE</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Request code for selecting a person image from a "gallery" app on the device.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="get-image-from-result.html">getImageFromResult</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getImageFromResult</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.person.PersonActivityCommons$getImageFromResult(android.content.Intent, kotlin.Int, android.view.View, android.content.ContentResolver)/data">data</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Intent.html"><span class="identifier">Intent</span></a><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.person.PersonActivityCommons$getImageFromResult(android.content.Intent, kotlin.Int, android.view.View, android.content.ContentResolver)/resultCode">resultCode</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.person.PersonActivityCommons$getImageFromResult(android.content.Intent, kotlin.Int, android.view.View, android.content.ContentResolver)/rootView">rootView</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/View.html"><span class="identifier">View</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.person.PersonActivityCommons$getImageFromResult(android.content.Intent, kotlin.Int, android.view.View, android.content.ContentResolver)/contentResolver">contentResolver</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/ContentResolver.html"><span class="identifier">ContentResolver</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/graphics/Bitmap.html"><span class="identifier">Bitmap</span></a><span class="symbol">?</span></code>
+<p>Returns a <a href="https://developer.android.com/reference/android/graphics/Bitmap.html">Bitmap</a> received from an <a href="https://developer.android.com/reference/android/content/Intent.html">Intent</a>, or returns null and displays a <a href="#">Snackbar</a>
+message if it could not be received.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="get-image-picker-intent.html">getImagePickerIntent</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getImagePickerIntent</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.person.PersonActivityCommons$getImagePickerIntent(android.content.Context)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/content/Intent.html"><span class="identifier">Intent</span></a></code>
+<p>Returns an <a href="https://developer.android.com/reference/android/content/Intent.html">Intent</a> for picking an image from the gallery app.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="setup-name-input-error.html">setupNameInputError</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setupNameInputError</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.person.PersonActivityCommons$setupNameInputError(android.content.Context, android.support.design.widget.TextInputLayout, android.widget.EditText)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.person.PersonActivityCommons$setupNameInputError(android.content.Context, android.support.design.widget.TextInputLayout, android.widget.EditText)/textInputLayout">textInputLayout</span><span class="symbol">:</span>&nbsp;<span class="identifier">TextInputLayout</span><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.person.PersonActivityCommons$setupNameInputError(android.content.Context, android.support.design.widget.TextInputLayout, android.widget.EditText)/editText">editText</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/widget/EditText.html"><span class="identifier">EditText</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Configures the input error which is displayed when the name has not been entered correctly.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

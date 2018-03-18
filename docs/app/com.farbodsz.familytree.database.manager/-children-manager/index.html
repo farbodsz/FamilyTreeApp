@@ -1,0 +1,191 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ChildrenManager - app</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.farbodsz.familytree.database.manager</a>&nbsp;/&nbsp;<a href="./index.html">ChildrenManager</a><br/>
+<br/>
+<h1>ChildrenManager</h1>
+<code><span class="keyword">class </span><span class="identifier">ChildrenManager</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-relationship-manager/index.html"><span class="identifier">RelationshipManager</span></a><span class="symbol">&lt;</span><a href="../../com.farbodsz.familytree.model/-child-relationship/index.html"><span class="identifier">ChildRelationship</span></a><span class="symbol">&gt;</span></code>
+<p>Responsible for performing CRUD operations for the "children" table.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">ChildrenManager</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.database.manager.ChildrenManager$<init>(android.content.Context)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">)</span></code>
+<p>Responsible for performing CRUD operations for the "children" table.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="context.html">context</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">context</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="id-column-names.html">idColumnNames</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">idColumnNames</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html"><span class="identifier">Pair</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span></code>
+<p>The names of the ID columns that defines the relationship of the table the subclass is
+managing.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="table-name.html">tableName</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">tableName</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>The name of the table the subclass is managing.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="add-children.html">addChildren</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">addChildren</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.database.manager.ChildrenManager$addChildren(kotlin.Int, kotlin.collections.List((com.farbodsz.familytree.model.Person)))/parentId">parentId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.database.manager.ChildrenManager$addChildren(kotlin.Int, kotlin.collections.List((com.farbodsz.familytree.model.Person)))/children">children</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Adds a list of children to the parent.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="create-from-cursor.html">createFromCursor</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">createFromCursor</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.database.manager.ChildrenManager$createFromCursor(android.database.Cursor)/cursor">cursor</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/database/Cursor.html"><span class="identifier">Cursor</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.farbodsz.familytree.model/-child-relationship/index.html"><span class="identifier">ChildRelationship</span></a></code>
+<p>Constructs the data model class of type <a href="#">T</a> using column values from the <a href="create-from-cursor.html#com.farbodsz.familytree.database.manager.ChildrenManager$createFromCursor(android.database.Cursor)/cursor">cursor</a> provided.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="get-children.html">getChildren</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getChildren</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.database.manager.ChildrenManager$getChildren(kotlin.Int)/parentId">parentId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">&gt;</span></code>
+<p>Returns the list of children of a parent with the given <a href="get-children.html#com.farbodsz.familytree.database.manager.ChildrenManager$getChildren(kotlin.Int)/parentId">parentId</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="get-parents.html">getParents</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getParents</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.database.manager.ChildrenManager$getParents(kotlin.Int)/childId">childId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">&gt;</span></code>
+<p>Returns the list of parents of a child with the given <a href="get-parents.html#com.farbodsz.familytree.database.manager.ChildrenManager$getParents(kotlin.Int)/childId">childId</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="get-root-parent.html">getRootParent</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getRootParent</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.database.manager.ChildrenManager$getRootParent(kotlin.Int)/personId">personId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a></code>
+<p>Returns the root <a href="../../com.farbodsz.familytree.model/-person/index.html">Person</a> of a tree containing a person with <a href="get-root-parent.html#com.farbodsz.familytree.database.manager.ChildrenManager$getRootParent(kotlin.Int)/personId">personId</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="get-tree.html">getTree</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getTree</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.database.manager.ChildrenManager$getTree(kotlin.Int)/rootId">rootId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.farbodsz.familytree.model.tree/-tree-node/index.html"><span class="identifier">TreeNode</span></a><span class="symbol">&lt;</span><a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">&gt;</span></code>
+<p>Returns the tree of the root <a href="../../com.farbodsz.familytree.model/-person/index.html">Person</a> and its children recursively.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="properties-as-content-values.html">propertiesAsContentValues</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">propertiesAsContentValues</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.database.manager.ChildrenManager$propertiesAsContentValues(com.farbodsz.familytree.model.ChildRelationship)/item">item</span><span class="symbol">:</span>&nbsp;<a href="../../com.farbodsz.familytree.model/-child-relationship/index.html"><span class="identifier">ChildRelationship</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/content/ContentValues.html"><span class="identifier">ContentValues</span></a></code>
+<p>Puts properties of the data model type into <a href="https://developer.android.com/reference/android/content/ContentValues.html">ContentValues</a>, returning this.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="update-children.html">updateChildren</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">updateChildren</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.database.manager.ChildrenManager$updateChildren(kotlin.Int, kotlin.collections.List((com.farbodsz.familytree.model.Person)))/parentId">parentId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.database.manager.ChildrenManager$updateChildren(kotlin.Int, kotlin.collections.List((com.farbodsz.familytree.model.Person)))/children">children</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Updates the list of the parent's children.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-relationship-manager/delete.html">delete</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">delete</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.database.manager.RelationshipManager$delete(kotlin.Pair((kotlin.Int, )))/idPair">idPair</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html"><span class="identifier">Pair</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Deletes relationships (<a href="../-relationship-manager/index.html#T">T</a>) with specified <a href="../-relationship-manager/delete.html#com.farbodsz.familytree.database.manager.RelationshipManager$delete(kotlin.Pair((kotlin.Int, )))/idPair">idPair</a> from the table named <a href="../-data-manager/table-name.html">tableName</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-relationship-manager/delete-with-references.html">deleteWithReferences</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">deleteWithReferences</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.database.manager.RelationshipManager$deleteWithReferences(kotlin.Pair((kotlin.Int, )))/idPair">idPair</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html"><span class="identifier">Pair</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Deletes an item of type <a href="../-relationship-manager/index.html#T">T</a> with specified <a href="../-relationship-manager/delete-with-references.html#com.farbodsz.familytree.database.manager.RelationshipManager$deleteWithReferences(kotlin.Pair((kotlin.Int, )))/idPair">idPair</a> and any other references to it, if any.
+This function should be overridden by subclasses of <a href="../-relationship-manager/index.html">RelationshipManager</a> to specify which
+references should be deleted.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-relationship-manager/get.html">get</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">get</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.database.manager.RelationshipManager$get(kotlin.Pair((kotlin.Int, )))/idPair">idPair</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html"><span class="identifier">Pair</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-relationship-manager/index.html#T"><span class="identifier">T</span></a></code>
+<p>Returns the item of type <a href="../-relationship-manager/index.html#T">T</a> with the specified <a href="../-relationship-manager/get.html#com.farbodsz.familytree.database.manager.RelationshipManager$get(kotlin.Pair((kotlin.Int, )))/idPair">idPair</a> from the table named <a href="../-data-manager/table-name.html">tableName</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-relationship-manager/update.html">update</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">update</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.database.manager.RelationshipManager$update(kotlin.Pair((kotlin.Int, )), com.farbodsz.familytree.database.manager.RelationshipManager.T)/oldItemIdPair">oldItemIdPair</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html"><span class="identifier">Pair</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.database.manager.RelationshipManager$update(kotlin.Pair((kotlin.Int, )), com.farbodsz.familytree.database.manager.RelationshipManager.T)/item">item</span><span class="symbol">:</span>&nbsp;<a href="../-relationship-manager/index.html#T"><span class="identifier">T</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Updates an item of type <a href="../-relationship-manager/index.html#T">T</a> with <a href="../-relationship-manager/update.html#com.farbodsz.familytree.database.manager.RelationshipManager$update(kotlin.Pair((kotlin.Int, )), com.farbodsz.familytree.database.manager.RelationshipManager.T)/oldItemIdPair">oldItemIdPair</a>, replacing it with the new <a href="../-relationship-manager/update.html#com.farbodsz.familytree.database.manager.RelationshipManager$update(kotlin.Pair((kotlin.Int, )), com.farbodsz.familytree.database.manager.RelationshipManager.T)/item">item</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-l-o-g_-t-a-g.html">LOG_TAG</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">LOG_TAG</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

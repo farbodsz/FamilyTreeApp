@@ -1,0 +1,102 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>PersonSelectorHelper - app</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.farbodsz.familytree.ui</a>&nbsp;/&nbsp;<a href="./index.html">PersonSelectorHelper</a><br/>
+<br/>
+<h1>PersonSelectorHelper</h1>
+<code><span class="keyword">class </span><span class="identifier">PersonSelectorHelper</span></code>
+<p>A helper class to display a <a href="../../com.farbodsz.familytree.model/-person/index.html">Person</a> on a <a href="#">TextInputEditText</a>, and allowing it to be changed
+through click then dialog.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">PersonSelectorHelper</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.PersonSelectorHelper$<init>(android.content.Context, android.support.design.widget.TextInputEditText)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.PersonSelectorHelper$<init>(android.content.Context, android.support.design.widget.TextInputEditText)/textInputEditText">textInputEditText</span><span class="symbol">:</span>&nbsp;<span class="identifier">TextInputEditText</span><span class="symbol">)</span></code>
+<p>A helper class to display a <a href="../../com.farbodsz.familytree.model/-person/index.html">Person</a> on a <a href="#">TextInputEditText</a>, and allowing it to be changed
+through click then dialog.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="context.html">context</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">context</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a></code>
+<p>context from the activity/fragment</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="on-click-enabled.html">onClickEnabled</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">onClickEnabled</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Disables a reaction to the selector (<a href="text-input-edit-text.html">textInputEditText</a>) being clicked.
+This prevents the <a href="person.html">person</a> selector dialog being shown (so a <a href="person.html">person</a> cannot be changed).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="on-create-new-person.html">onCreateNewPerson</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">onCreateNewPerson</span><span class="symbol">: </span><span class="symbol">(</span><span class="identifier">dialog</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/DialogInterface.html"><span class="identifier">DialogInterface</span></a><span class="symbol">,</span>&nbsp;<span class="identifier">which</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Function to be invoked when the user clicks the "Create new" button in the dialog.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="person.html">person</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">person</span><span class="symbol">: </span><a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">?</span></code>
+<p>The <a href="../../com.farbodsz.familytree.model/-person/index.html">Person</a> being displayed. This is null if no person has been selected.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="text-input-edit-text.html">textInputEditText</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">textInputEditText</span><span class="symbol">: </span><span class="identifier">TextInputEditText</span></code>
+<p>the <a href="#">TextInputEditText</a> being used for the person picker</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="create-person-selector.html">createPersonSelector</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">createPersonSelector</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.PersonSelectorHelper$createPersonSelector(android.support.v7.app.AlertDialog)/dialog">dialog</span><span class="symbol">:</span>&nbsp;<span class="identifier">AlertDialog</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">RecyclerView</span></code>
+<p>Returns the <a href="https://developer.android.com/reference/android/view/View.html">View</a> used for the displaying a list of all <a href="../../com.farbodsz.familytree.model/-person/index.html">people</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="setup-on-click-listener.html">setupOnClickListener</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setupOnClickListener</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

@@ -1,0 +1,99 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Event - app</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.farbodsz.familytree.model</a>&nbsp;/&nbsp;<a href="./index.html">Event</a><br/>
+<br/>
+<h1>Event</h1>
+<code><span class="keyword">sealed</span> <span class="keyword">class </span><span class="identifier">Event</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-comparable/index.html"><span class="identifier">Comparable</span></a><span class="symbol">&lt;</span><a href="./index.html"><span class="identifier">Event</span></a><span class="symbol">&gt;</span></code>
+<p>Represents an annual recurring event related to a person, such as a birthday or anniversary.</p>
+<p>Events in a collection are, by default, sorted by date.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">Event</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.model.Event$<init>(kotlin.Int, org.threeten.bp.Month, kotlin.String)/dayOfMonth">dayOfMonth</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.model.Event$<init>(kotlin.Int, org.threeten.bp.Month, kotlin.String)/month">month</span><span class="symbol">:</span>&nbsp;<span class="identifier">Month</span><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.model.Event$<init>(kotlin.Int, org.threeten.bp.Month, kotlin.String)/location">location</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span></code>
+<p>Represents an annual recurring event related to a person, such as a birthday or anniversary.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="day-of-month.html">dayOfMonth</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">dayOfMonth</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>day of the month when the event first took place (e.g. 25)</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="location.html">location</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">location</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>name of the location where the event took place</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="month.html">month</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">month</span><span class="symbol">: </span><span class="identifier">Month</span></code>
+<p><a href="#">Month</a> of the event when the event first took place (e.g. February)</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="compare-to.html">compareTo</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">compareTo</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.model.Event$compareTo(com.farbodsz.familytree.model.Event)/other">other</span><span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">Event</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="get-date-text.html">getDateText</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getDateText</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-anniversary/index.html">Anniversary</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">Anniversary</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">Event</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../-birthday/index.html">Birthday</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">Birthday</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">Event</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

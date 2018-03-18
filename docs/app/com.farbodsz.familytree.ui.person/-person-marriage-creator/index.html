@@ -1,0 +1,124 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>PersonMarriageCreator - app</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.farbodsz.familytree.ui.person</a>&nbsp;/&nbsp;<a href="./index.html">PersonMarriageCreator</a><br/>
+<br/>
+<h1>PersonMarriageCreator</h1>
+<code><span class="keyword">class </span><span class="identifier">PersonMarriageCreator</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-person-creator-section/index.html"><span class="identifier">PersonCreatorSection</span></a></code>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">PersonMarriageCreator</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.person.PersonMarriageCreator$<init>(android.content.Context, com.farbodsz.familytree.model.Person, kotlin.Function2((android.content.DialogInterface, kotlin.Int, kotlin.Unit)))/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.person.PersonMarriageCreator$<init>(android.content.Context, com.farbodsz.familytree.model.Person, kotlin.Function2((android.content.DialogInterface, kotlin.Int, kotlin.Unit)))/person">person</span><span class="symbol">:</span>&nbsp;<a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.person.PersonMarriageCreator$<init>(android.content.Context, com.farbodsz.familytree.model.Person, kotlin.Function2((android.content.DialogInterface, kotlin.Int, kotlin.Unit)))/onCreateNewMarriage">onCreateNewMarriage</span><span class="symbol">:</span>&nbsp;<a href="../-on-create-new.html"><span class="identifier">OnCreateNew</span></a><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="context.html">context</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">context</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="marriage-recycler-view.html">marriageRecyclerView</a></p>
+</td>
+<td>
+<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">marriageRecyclerView</span><span class="symbol">: </span><span class="identifier">RecyclerView</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="marriages.html">marriages</a></p>
+</td>
+<td>
+<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">marriages</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-array-list/index.html"><span class="identifier">ArrayList</span></a><span class="symbol">&lt;</span><a href="../../com.farbodsz.familytree.model/-marriage/index.html"><span class="identifier">Marriage</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="on-create-new-marriage.html">onCreateNewMarriage</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">onCreateNewMarriage</span><span class="symbol">: </span><a href="../-on-create-new.html"><span class="identifier">OnCreateNew</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="person.html">person</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">person</span><span class="symbol">: </span><a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="add-marriage.html">addMarriage</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">addMarriage</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.person.PersonMarriageCreator$addMarriage(com.farbodsz.familytree.model.Marriage)/marriage">marriage</span><span class="symbol">:</span>&nbsp;<a href="../../com.farbodsz.familytree.model/-marriage/index.html"><span class="identifier">Marriage</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Updates the UI to add a <a href="add-marriage.html#com.farbodsz.familytree.ui.person.PersonMarriageCreator$addMarriage(com.farbodsz.familytree.model.Marriage)/marriage">marriage</a> to the <a href="../../com.farbodsz.familytree.model/-person/index.html">Person</a> being edited.
+This function does not write anything to the database.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="choose-marriage-dialog.html">chooseMarriageDialog</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">chooseMarriageDialog</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="remove-marriage.html">removeMarriage</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">removeMarriage</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.person.PersonMarriageCreator$removeMarriage(com.farbodsz.familytree.model.Marriage)/marriage">marriage</span><span class="symbol">:</span>&nbsp;<a href="../../com.farbodsz.familytree.model/-marriage/index.html"><span class="identifier">Marriage</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Updates the UI to remove a <a href="remove-marriage.html#com.farbodsz.familytree.ui.person.PersonMarriageCreator$removeMarriage(com.farbodsz.familytree.model.Marriage)/marriage">marriage</a> from the <a href="../../com.farbodsz.familytree.model/-person/index.html">Person</a> being edited.
+This function does not delete anything from the database.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="setup-marriage-list.html">setupMarriageList</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setupMarriageList</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Sets up <a href="marriage-recycler-view.html">marriageRecyclerView</a> to display the marriages of the <a href="../../com.farbodsz.familytree.model/-person/index.html">Person</a> being edited.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="setup-page-layout.html">setupPageLayout</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setupPageLayout</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.person.PersonMarriageCreator$setupPageLayout(android.view.LayoutInflater, android.support.v4.view.ViewPager)/layoutInflater">layoutInflater</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/LayoutInflater.html"><span class="identifier">LayoutInflater</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.person.PersonMarriageCreator$setupPageLayout(android.view.LayoutInflater, android.support.v4.view.ViewPager)/viewPager">viewPager</span><span class="symbol">:</span>&nbsp;<span class="identifier">ViewPager</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/view/View.html"><span class="identifier">View</span></a></code>
+<p>Sets up the layout for this page of the activity.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="write-data.html">writeData</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">writeData</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Writes data to the database, validating if necessary.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

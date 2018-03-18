@@ -1,0 +1,106 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>MarriagesSchema - app</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.farbodsz.familytree.database.schemas</a>&nbsp;/&nbsp;<a href="./index.html">MarriagesSchema</a><br/>
+<br/>
+<h1>MarriagesSchema</h1>
+<code><span class="keyword">object </span><span class="identifier">MarriagesSchema</span></code>
+<p>Schema for the 'marriages' table.
+It contains constants for the column names of the table, and SQLite statement for creation.</p>
+<p>This table does <strong>not</strong> contain a primary key: a composite primary key from the two ID columns
+would not work if the same two people re-married; and a separate ID referring to the marriage
+would have no purpose. Hence, there is no primary key and the correct row can be identified by
+using the two ID columns present.</p>
+<p><strong>See Also</strong><br/>
+<p><a href="../../com.farbodsz.familytree.model/-marriage/index.html">Marriage</a></p>
+</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-c-o-l_-e-n-d_-d-a-t-e_-d-a-y.html">COL_END_DATE_DAY</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">COL_END_DATE_DAY</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-c-o-l_-e-n-d_-d-a-t-e_-m-o-n-t-h.html">COL_END_DATE_MONTH</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">COL_END_DATE_MONTH</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-c-o-l_-e-n-d_-d-a-t-e_-y-e-a-r.html">COL_END_DATE_YEAR</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">COL_END_DATE_YEAR</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-c-o-l_-i-d_1.html">COL_ID_1</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">COL_ID_1</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-c-o-l_-i-d_2.html">COL_ID_2</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">COL_ID_2</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-c-o-l_-p-l-a-c-e_-o-f_-m-a-r-r-i-a-g-e.html">COL_PLACE_OF_MARRIAGE</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">COL_PLACE_OF_MARRIAGE</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-c-o-l_-s-t-a-r-t_-d-a-t-e_-d-a-y.html">COL_START_DATE_DAY</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">COL_START_DATE_DAY</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-c-o-l_-s-t-a-r-t_-d-a-t-e_-m-o-n-t-h.html">COL_START_DATE_MONTH</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">COL_START_DATE_MONTH</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-c-o-l_-s-t-a-r-t_-d-a-t-e_-y-e-a-r.html">COL_START_DATE_YEAR</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">COL_START_DATE_YEAR</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-s-q-l_-c-r-e-a-t-e.html">SQL_CREATE</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">SQL_CREATE</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>SQLite statement which creates the "marriages" table upon execution.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-t-a-b-l-e_-n-a-m-e.html">TABLE_NAME</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">TABLE_NAME</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

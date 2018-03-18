@@ -1,0 +1,261 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>NavigationDrawerActivity - app</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.farbodsz.familytree.ui</a>&nbsp;/&nbsp;<a href="./index.html">NavigationDrawerActivity</a><br/>
+<br/>
+<h1>NavigationDrawerActivity</h1>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">NavigationDrawerActivity</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">AppCompatActivity</span></code>
+<p>An abstract activity used for implementing navigation drawer behaviour.
+This should be implemented by activities which contain a navigation drawer.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">NavigationDrawerActivity</span><span class="symbol">(</span><span class="symbol">)</span></code>
+<p>An abstract activity used for implementing navigation drawer behaviour.
+This should be implemented by activities which contain a navigation drawer.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="drawer-toggle.html">drawerToggle</a></p>
+</td>
+<td>
+<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">drawerToggle</span><span class="symbol">: </span><span class="identifier">ActionBarDrawerToggle</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="nav-params.html">navParams</a></p>
+</td>
+<td>
+<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">navParams</span><span class="symbol">: </span><a href="../-navigation-parameters/index.html"><span class="identifier">NavigationParameters</span></a></code>
+<p>Holds details about navigation behaviour in a subclass of this activity.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="using-nav-drawer.html">usingNavDrawer</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">usingNavDrawer</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Whether the navigation drawer is being used in the subclass of this activity.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="get-self-navigation-params.html">getSelfNavigationParams</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getSelfNavigationParams</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-navigation-parameters/index.html"><span class="identifier">NavigationParameters</span></a><span class="symbol">?</span></code>
+<p>This method should be overridden in subclasses of <a href="./index.html">NavigationDrawerActivity</a> to supply
+details about the navigation behaviour.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="go-to-nav-drawer-item.html">goToNavDrawerItem</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">goToNavDrawerItem</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.NavigationDrawerActivity$goToNavDrawerItem(kotlin.Int)/menuItem">menuItem</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="handle-navigation-selection.html">handleNavigationSelection</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">handleNavigationSelection</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.NavigationDrawerActivity$handleNavigationSelection(android.view.MenuItem)/menuItem">menuItem</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/MenuItem.html"><span class="identifier">MenuItem</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="on-back-pressed.html">onBackPressed</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onBackPressed</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="on-configuration-changed.html">onConfigurationChanged</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onConfigurationChanged</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.NavigationDrawerActivity$onConfigurationChanged(android.content.res.Configuration)/newConfig">newConfig</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/res/Configuration.html"><span class="identifier">Configuration</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="on-options-item-selected.html">onOptionsItemSelected</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onOptionsItemSelected</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.NavigationDrawerActivity$onOptionsItemSelected(android.view.MenuItem)/item">item</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/MenuItem.html"><span class="identifier">MenuItem</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="on-post-create.html">onPostCreate</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onPostCreate</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.NavigationDrawerActivity$onPostCreate(android.os.Bundle)/savedInstanceState">savedInstanceState</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/os/Bundle.html"><span class="identifier">Bundle</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="setup-layout.html">setupLayout</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setupLayout</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-l-o-g_-t-a-g.html">LOG_TAG</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">LOG_TAG</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-n-a-v-d-r-a-w-e-r_-i-t-e-m_-e-v-e-n-t-s.html">NAVDRAWER_ITEM_EVENTS</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">NAVDRAWER_ITEM_EVENTS</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-n-a-v-d-r-a-w-e-r_-i-t-e-m_-m-a-i-n.html">NAVDRAWER_ITEM_MAIN</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">NAVDRAWER_ITEM_MAIN</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-n-a-v-d-r-a-w-e-r_-i-t-e-m_-p-e-r-s-o-n_-l-i-s-t.html">NAVDRAWER_ITEM_PERSON_LIST</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">NAVDRAWER_ITEM_PERSON_LIST</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-n-a-v-d-r-a-w-e-r_-i-t-e-m_-t-r-e-e.html">NAVDRAWER_ITEM_TREE</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">NAVDRAWER_ITEM_TREE</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-n-a-v-d-r-a-w-e-r_-i-t-e-m_-t-r-e-e_-l-i-s-t.html">NAVDRAWER_ITEM_TREE_LIST</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">NAVDRAWER_ITEM_TREE_LIST</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-n-a-v-d-r-a-w-e-r_-l-a-u-n-c-h_-d-e-l-a-y.html">NAVDRAWER_LAUNCH_DELAY</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">NAVDRAWER_LAUNCH_DELAY</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-long/index.html"><span class="identifier">Long</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Extension Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../com.farbodsz.familytree.util/android.content.-context/dp-to-px.html">dpToPx</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">.</span><span class="identifier">dpToPx</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.util$dpToPx(android.content.Context, kotlin.Int)/dp">dp</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Converts a dip value into pixels.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../com.farbodsz.familytree.util/android.app.-activity/standard-navigation-params.html">standardNavigationParams</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="https://developer.android.com/reference/android/app/Activity.html"><span class="identifier">Activity</span></a><span class="symbol">.</span><span class="identifier">standardNavigationParams</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.util$standardNavigationParams(android.app.Activity, kotlin.Int, android.support.v7.widget.Toolbar)/navigationItem">navigationItem</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.util$standardNavigationParams(android.app.Activity, kotlin.Int, android.support.v7.widget.Toolbar)/toolbar">toolbar</span><span class="symbol">:</span>&nbsp;<span class="identifier">Toolbar</span><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="../-navigation-parameters/index.html"><span class="identifier">NavigationParameters</span></a><span class="symbol">?</span></code>
+<p>Helper function for returning a <a href="../-navigation-parameters/index.html">NavigationParameters</a> using values from the default navigation
+layout (from template <code>activity_navigation.xml</code>).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../com.farbodsz.familytree.util/android.content.-context/with-navigation.html">withNavigation</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">.</span><span class="identifier">withNavigation</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.util$withNavigation(android.content.Context, kotlin.Int)/layoutRes">layoutRes</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/view/View.html"><span class="identifier">View</span></a></code>
+<p>Returns a layout with an added navigation drawer (using the template <code>activity_navigation.xml</code>).</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../com.farbodsz.familytree.ui.event/-events-activity/index.html">EventsActivity</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">EventsActivity</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">NavigationDrawerActivity</span></a></code>
+<p>Activity for displaying a list of birthdays and anniversaries.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../com.farbodsz.familytree.ui.home/-main-activity/index.html">MainActivity</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">MainActivity</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">NavigationDrawerActivity</span></a></code>
+<p>The main screen of the app.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../com.farbodsz.familytree.ui.person/-person-list-activity/index.html">PersonListActivity</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">PersonListActivity</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">NavigationDrawerActivity</span></a></code>
+<p>Activity for displaying a list of people.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../com.farbodsz.familytree.ui.tree/-tree-activity/index.html">TreeActivity</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">TreeActivity</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">NavigationDrawerActivity</span></a><span class="symbol">, </span><a href="../../com.farbodsz.familytree.ui.tree/-person-view-dialog-fragment/-on-dialog-action-chosen-listener/index.html"><span class="identifier">OnDialogActionChosenListener</span></a></code>
+<p>Activity to display a <a href="../../com.farbodsz.familytree.ui.widget/-tree-view/index.html">TreeView</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../com.farbodsz.familytree.ui.tree/-tree-list-activity/index.html">TreeListActivity</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">TreeListActivity</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">NavigationDrawerActivity</span></a></code>
+<p>Activity for displaying the tree as an indented list (a "vertical tree").</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

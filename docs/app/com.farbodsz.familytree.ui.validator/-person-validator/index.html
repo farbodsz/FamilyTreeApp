@@ -1,0 +1,156 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>PersonValidator - app</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.farbodsz.familytree.ui.validator</a>&nbsp;/&nbsp;<a href="./index.html">PersonValidator</a><br/>
+<br/>
+<h1>PersonValidator</h1>
+<code><span class="keyword">class </span><span class="identifier">PersonValidator</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-validator/index.html"><span class="identifier">Validator</span></a><span class="symbol">&lt;</span><a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">&gt;</span></code>
+<p>Responsible for validating a <a href="../../com.farbodsz.familytree.model/-person/index.html">Person</a>.</p>
+<p><strong>See Also</strong><br/>
+<p><a href="../../com.farbodsz.familytree.model/-person/index.html">Person</a></p>
+<p><a href="../-validator/index.html">Validator</a></p>
+</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">PersonValidator</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.validator.PersonValidator$<init>(android.view.View, kotlin.Int, kotlin.String, kotlin.String, com.farbodsz.familytree.model.Gender, org.threeten.bp.LocalDate, kotlin.String, org.threeten.bp.LocalDate, kotlin.String)/rootView">rootView</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/View.html"><span class="identifier">View</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.validator.PersonValidator$<init>(android.view.View, kotlin.Int, kotlin.String, kotlin.String, com.farbodsz.familytree.model.Gender, org.threeten.bp.LocalDate, kotlin.String, org.threeten.bp.LocalDate, kotlin.String)/personId">personId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.validator.PersonValidator$<init>(android.view.View, kotlin.Int, kotlin.String, kotlin.String, com.farbodsz.familytree.model.Gender, org.threeten.bp.LocalDate, kotlin.String, org.threeten.bp.LocalDate, kotlin.String)/forename">forename</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.validator.PersonValidator$<init>(android.view.View, kotlin.Int, kotlin.String, kotlin.String, com.farbodsz.familytree.model.Gender, org.threeten.bp.LocalDate, kotlin.String, org.threeten.bp.LocalDate, kotlin.String)/surname">surname</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.validator.PersonValidator$<init>(android.view.View, kotlin.Int, kotlin.String, kotlin.String, com.farbodsz.familytree.model.Gender, org.threeten.bp.LocalDate, kotlin.String, org.threeten.bp.LocalDate, kotlin.String)/gender">gender</span><span class="symbol">:</span>&nbsp;<a href="../../com.farbodsz.familytree.model/-gender/index.html"><span class="identifier">Gender</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.validator.PersonValidator$<init>(android.view.View, kotlin.Int, kotlin.String, kotlin.String, com.farbodsz.familytree.model.Gender, org.threeten.bp.LocalDate, kotlin.String, org.threeten.bp.LocalDate, kotlin.String)/dateOfBirth">dateOfBirth</span><span class="symbol">:</span>&nbsp;<span class="identifier">LocalDate</span><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.validator.PersonValidator$<init>(android.view.View, kotlin.Int, kotlin.String, kotlin.String, com.farbodsz.familytree.model.Gender, org.threeten.bp.LocalDate, kotlin.String, org.threeten.bp.LocalDate, kotlin.String)/placeOfBirth">placeOfBirth</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.validator.PersonValidator$<init>(android.view.View, kotlin.Int, kotlin.String, kotlin.String, com.farbodsz.familytree.model.Gender, org.threeten.bp.LocalDate, kotlin.String, org.threeten.bp.LocalDate, kotlin.String)/dateOfDeath">dateOfDeath</span><span class="symbol">:</span>&nbsp;<span class="identifier">LocalDate</span><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.validator.PersonValidator$<init>(android.view.View, kotlin.Int, kotlin.String, kotlin.String, com.farbodsz.familytree.model.Gender, org.threeten.bp.LocalDate, kotlin.String, org.threeten.bp.LocalDate, kotlin.String)/placeOfDeath">placeOfDeath</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span></code>
+<p>Responsible for validating a <a href="../../com.farbodsz.familytree.model/-person/index.html">Person</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="date-of-birth.html">dateOfBirth</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">dateOfBirth</span><span class="symbol">: </span><span class="identifier">LocalDate</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="date-of-death.html">dateOfDeath</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">dateOfDeath</span><span class="symbol">: </span><span class="identifier">LocalDate</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="forename.html">forename</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">forename</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="gender.html">gender</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">gender</span><span class="symbol">: </span><a href="../../com.farbodsz.familytree.model/-gender/index.html"><span class="identifier">Gender</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="person-id.html">personId</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">personId</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="place-of-birth.html">placeOfBirth</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">placeOfBirth</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="place-of-death.html">placeOfDeath</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">placeOfDeath</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="surname.html">surname</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">surname</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-validator/root-view.html">rootView</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">rootView</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/view/View.html"><span class="identifier">View</span></a></code>
+<p>the view used as the root for displaying a <a href="#">Snackbar</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="check-dates.html">checkDates</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">checkDates</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.validator.PersonValidator$checkDates(org.threeten.bp.LocalDate, org.threeten.bp.LocalDate)/dateOfBirth">dateOfBirth</span><span class="symbol">:</span>&nbsp;<span class="identifier">LocalDate</span><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.validator.PersonValidator$checkDates(org.threeten.bp.LocalDate, org.threeten.bp.LocalDate)/dateOfDeath">dateOfDeath</span><span class="symbol">:</span>&nbsp;<span class="identifier">LocalDate</span><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Checks that the date of birth is not null, not in the future, and is before the date of death
+if applicable.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="check-names.html">checkNames</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">checkNames</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.validator.PersonValidator$checkNames(kotlin.String, kotlin.String)/forename">forename</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.validator.PersonValidator$checkNames(kotlin.String, kotlin.String)/surname">surname</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Checks that the forename and surname of the person are not blank, showing a message in the UI
+if so.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="validate.html">validate</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">validate</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">?</span></code>
+<p>Validates the user inputs and instantiates a class of type <a href="#">T</a> from it.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-validator/show-message.html">showMessage</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">showMessage</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.validator.Validator$showMessage(kotlin.Int)/stringRes">stringRes</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Displays a <a href="#">Snackbar</a> message using the string resource (<a href="../-validator/show-message.html#com.farbodsz.familytree.ui.validator.Validator$showMessage(kotlin.Int)/stringRes">stringRes</a>) for the short duration
+of time.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

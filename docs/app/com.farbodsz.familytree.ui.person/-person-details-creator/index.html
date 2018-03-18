@@ -1,0 +1,205 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>PersonDetailsCreator - app</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.farbodsz.familytree.ui.person</a>&nbsp;/&nbsp;<a href="./index.html">PersonDetailsCreator</a><br/>
+<br/>
+<h1>PersonDetailsCreator</h1>
+<code><span class="keyword">class </span><span class="identifier">PersonDetailsCreator</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-person-creator-section/index.html"><span class="identifier">PersonCreatorSection</span></a></code>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">PersonDetailsCreator</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.person.PersonDetailsCreator$<init>(android.content.Context, kotlin.Int, android.view.View, kotlin.Function1((com.farbodsz.familytree.model.Person, kotlin.Unit)), kotlin.Function1((android.view.View, kotlin.Unit)), kotlin.Function1((kotlin.String, kotlin.Unit)))/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.person.PersonDetailsCreator$<init>(android.content.Context, kotlin.Int, android.view.View, kotlin.Function1((com.farbodsz.familytree.model.Person, kotlin.Unit)), kotlin.Function1((android.view.View, kotlin.Unit)), kotlin.Function1((kotlin.String, kotlin.Unit)))/personId">personId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.person.PersonDetailsCreator$<init>(android.content.Context, kotlin.Int, android.view.View, kotlin.Function1((com.farbodsz.familytree.model.Person, kotlin.Unit)), kotlin.Function1((android.view.View, kotlin.Unit)), kotlin.Function1((kotlin.String, kotlin.Unit)))/rootView">rootView</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/View.html"><span class="identifier">View</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.person.PersonDetailsCreator$<init>(android.content.Context, kotlin.Int, android.view.View, kotlin.Function1((com.farbodsz.familytree.model.Person, kotlin.Unit)), kotlin.Function1((android.view.View, kotlin.Unit)), kotlin.Function1((kotlin.String, kotlin.Unit)))/onPostWriteData">onPostWriteData</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="identifier">newPerson</span><span class="symbol">:</span>&nbsp;<a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.person.PersonDetailsCreator$<init>(android.content.Context, kotlin.Int, android.view.View, kotlin.Function1((com.farbodsz.familytree.model.Person, kotlin.Unit)), kotlin.Function1((android.view.View, kotlin.Unit)), kotlin.Function1((kotlin.String, kotlin.Unit)))/onSelectPersonImage">onSelectPersonImage</span><span class="symbol">:</span>&nbsp;<a href="../../com.farbodsz.familytree.util/-on-click.html"><span class="identifier">OnClick</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.person.PersonDetailsCreator$<init>(android.content.Context, kotlin.Int, android.view.View, kotlin.Function1((com.farbodsz.familytree.model.Person, kotlin.Unit)), kotlin.Function1((android.view.View, kotlin.Unit)), kotlin.Function1((kotlin.String, kotlin.Unit)))/onNameChange">onNameChange</span><span class="symbol">:</span>&nbsp;<span class="symbol">(</span><span class="identifier">newFullName</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a><span class="symbol">)</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="bitmap.html">bitmap</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">bitmap</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/graphics/Bitmap.html"><span class="identifier">Bitmap</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="context.html">context</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">context</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="dates-selector-helper.html">datesSelectorHelper</a></p>
+</td>
+<td>
+<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">datesSelectorHelper</span><span class="symbol">: </span><a href="../../com.farbodsz.familytree.ui/-date-range-selector-helper/index.html"><span class="identifier">DateRangeSelectorHelper</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="forename-input.html">forenameInput</a></p>
+</td>
+<td>
+<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">forenameInput</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/widget/EditText.html"><span class="identifier">EditText</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="gender-radio-buttons.html">genderRadioButtons</a></p>
+</td>
+<td>
+<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">genderRadioButtons</span><span class="symbol">: </span><a href="../../com.farbodsz.familytree.ui/-gender-radio-buttons/index.html"><span class="identifier">GenderRadioButtons</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="is-alive-check-box.html">isAliveCheckBox</a></p>
+</td>
+<td>
+<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">isAliveCheckBox</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/widget/CheckBox.html"><span class="identifier">CheckBox</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="on-name-change.html">onNameChange</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">onNameChange</span><span class="symbol">: </span><span class="symbol">(</span><span class="identifier">newFullName</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="on-post-write-data.html">onPostWriteData</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">onPostWriteData</span><span class="symbol">: </span><span class="symbol">(</span><span class="identifier">newPerson</span><span class="symbol">:</span>&nbsp;<a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="on-select-person-image.html">onSelectPersonImage</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">onSelectPersonImage</span><span class="symbol">: </span><a href="../../com.farbodsz.familytree.util/-on-click.html"><span class="identifier">OnClick</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="person-id.html">personId</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">personId</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="person-image-view.html">personImageView</a></p>
+</td>
+<td>
+<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">personImageView</span><span class="symbol">: </span><a href="../../com.farbodsz.familytree.ui.widget/-person-circle-image-view/index.html"><span class="identifier">PersonCircleImageView</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="place-of-birth-input.html">placeOfBirthInput</a></p>
+</td>
+<td>
+<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">placeOfBirthInput</span><span class="symbol">: </span><span class="identifier">TextInputEditText</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="place-of-death-input.html">placeOfDeathInput</a></p>
+</td>
+<td>
+<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">placeOfDeathInput</span><span class="symbol">: </span><span class="identifier">TextInputEditText</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="root-view.html">rootView</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">rootView</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/view/View.html"><span class="identifier">View</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="surname-input.html">surnameInput</a></p>
+</td>
+<td>
+<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">surnameInput</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/widget/EditText.html"><span class="identifier">EditText</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="create-dates-card.html">createDatesCard</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">createDatesCard</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.person.PersonDetailsCreator$createDatesCard(android.view.LayoutInflater, android.view.ViewGroup)/layoutInflater">layoutInflater</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/LayoutInflater.html"><span class="identifier">LayoutInflater</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.person.PersonDetailsCreator$createDatesCard(android.view.LayoutInflater, android.view.ViewGroup)/container">container</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/ViewGroup.html"><span class="identifier">ViewGroup</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/view/View.html"><span class="identifier">View</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="create-person-details-card.html">createPersonDetailsCard</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">createPersonDetailsCard</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.person.PersonDetailsCreator$createPersonDetailsCard(android.view.LayoutInflater, android.view.ViewGroup)/layoutInflater">layoutInflater</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/LayoutInflater.html"><span class="identifier">LayoutInflater</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.person.PersonDetailsCreator$createPersonDetailsCard(android.view.LayoutInflater, android.view.ViewGroup)/container">container</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/ViewGroup.html"><span class="identifier">ViewGroup</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/view/View.html"><span class="identifier">View</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="set-on-name-text-changed.html">setOnNameTextChanged</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setOnNameTextChanged</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.person.PersonDetailsCreator$setOnNameTextChanged(android.widget.EditText)/editText">editText</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/widget/EditText.html"><span class="identifier">EditText</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="set-person-alive.html">setPersonAlive</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setPersonAlive</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.person.PersonDetailsCreator$setPersonAlive(android.view.View, kotlin.Boolean)/card">card</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/View.html"><span class="identifier">View</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.person.PersonDetailsCreator$setPersonAlive(android.view.View, kotlin.Boolean)/isAlive">isAlive</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Toggles the checkbox and other UI components for whether or not a person <a href="set-person-alive.html#com.farbodsz.familytree.ui.person.PersonDetailsCreator$setPersonAlive(android.view.View, kotlin.Boolean)/isAlive">isAlive</a>.
+This should be used instead of toggling the checkbox manually.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="set-person-image.html">setPersonImage</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setPersonImage</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.person.PersonDetailsCreator$setPersonImage(android.graphics.Bitmap)/bitmap">bitmap</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/graphics/Bitmap.html"><span class="identifier">Bitmap</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Sets the <a href="set-person-image.html#com.farbodsz.familytree.ui.person.PersonDetailsCreator$setPersonImage(android.graphics.Bitmap)/bitmap">bitmap</a> image to use for the person, providing it is not null.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="setup-page-layout.html">setupPageLayout</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setupPageLayout</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.person.PersonDetailsCreator$setupPageLayout(android.view.LayoutInflater, android.support.v4.view.ViewPager)/layoutInflater">layoutInflater</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/LayoutInflater.html"><span class="identifier">LayoutInflater</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.person.PersonDetailsCreator$setupPageLayout(android.view.LayoutInflater, android.support.v4.view.ViewPager)/viewPager">viewPager</span><span class="symbol">:</span>&nbsp;<span class="identifier">ViewPager</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/view/View.html"><span class="identifier">View</span></a></code>
+<p>Sets up the layout for this page of the activity.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="validate-person.html">validatePerson</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">validatePerson</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="write-data.html">writeData</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">writeData</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Writes data to the database, validating if necessary.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

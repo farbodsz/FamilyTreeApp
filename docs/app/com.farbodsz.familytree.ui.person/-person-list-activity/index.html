@@ -1,0 +1,264 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>PersonListActivity - app</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.farbodsz.familytree.ui.person</a>&nbsp;/&nbsp;<a href="./index.html">PersonListActivity</a><br/>
+<br/>
+<h1>PersonListActivity</h1>
+<code><span class="keyword">class </span><span class="identifier">PersonListActivity</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../com.farbodsz.familytree.ui/-navigation-drawer-activity/index.html"><span class="identifier">NavigationDrawerActivity</span></a></code>
+<p>Activity for displaying a list of people.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">PersonListActivity</span><span class="symbol">(</span><span class="symbol">)</span></code>
+<p>Activity for displaying a list of people.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="people.html">people</a></p>
+</td>
+<td>
+<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">people</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-array-list/index.html"><span class="identifier">ArrayList</span></a><span class="symbol">&lt;</span><a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="person-adapter.html">personAdapter</a></p>
+</td>
+<td>
+<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">personAdapter</span><span class="symbol">: </span><a href="../-person-adapter/index.html"><span class="identifier">PersonAdapter</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="person-manager.html">personManager</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">personManager</span><span class="symbol">: </span><a href="../../com.farbodsz.familytree.database.manager/-person-manager/index.html"><span class="identifier">PersonManager</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../com.farbodsz.familytree.ui/-navigation-drawer-activity/drawer-toggle.html">drawerToggle</a></p>
+</td>
+<td>
+<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">drawerToggle</span><span class="symbol">: </span><span class="identifier">ActionBarDrawerToggle</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../com.farbodsz.familytree.ui/-navigation-drawer-activity/nav-params.html">navParams</a></p>
+</td>
+<td>
+<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">navParams</span><span class="symbol">: </span><a href="../../com.farbodsz.familytree.ui/-navigation-parameters/index.html"><span class="identifier">NavigationParameters</span></a></code>
+<p>Holds details about navigation behaviour in a subclass of this activity.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../com.farbodsz.familytree.ui/-navigation-drawer-activity/using-nav-drawer.html">usingNavDrawer</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">usingNavDrawer</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Whether the navigation drawer is being used in the subclass of this activity.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="add-person.html">addPerson</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">addPerson</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Starts <a href="../-edit-person-activity/index.html">EditPersonActivity</a> to create a <a href="../../com.farbodsz.familytree.model/-person/index.html">Person</a>, for result.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="get-self-navigation-params.html">getSelfNavigationParams</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getSelfNavigationParams</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.farbodsz.familytree.ui/-navigation-parameters/index.html"><span class="identifier">NavigationParameters</span></a><span class="symbol">?</span></code>
+<p>This method should be overridden in subclasses of <a href="../../com.farbodsz.familytree.ui/-navigation-drawer-activity/index.html">NavigationDrawerActivity</a> to supply
+details about the navigation behaviour.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="on-activity-result.html">onActivityResult</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onActivityResult</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.person.PersonListActivity$onActivityResult(kotlin.Int, kotlin.Int, android.content.Intent)/requestCode">requestCode</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.person.PersonListActivity$onActivityResult(kotlin.Int, kotlin.Int, android.content.Intent)/resultCode">resultCode</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.person.PersonListActivity$onActivityResult(kotlin.Int, kotlin.Int, android.content.Intent)/data">data</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Intent.html"><span class="identifier">Intent</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="on-create.html">onCreate</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onCreate</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.person.PersonListActivity$onCreate(android.os.Bundle)/savedInstanceState">savedInstanceState</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/os/Bundle.html"><span class="identifier">Bundle</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="populate-list.html">populateList</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">populateList</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="refresh-list.html">refreshList</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">refreshList</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Refreshes the list by fetching the data (list) from the database and displaying it in the UI</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="setup-fab.html">setupFab</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setupFab</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="view-person.html">viewPerson</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">viewPerson</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.person.PersonListActivity$viewPerson(com.farbodsz.familytree.model.Person)/person">person</span><span class="symbol">:</span>&nbsp;<a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Starts <a href="../-view-person-activity/index.html">ViewPersonActivity</a> to view a <a href="../../com.farbodsz.familytree.model/-person/index.html">Person</a>, for result.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../com.farbodsz.familytree.ui/-navigation-drawer-activity/go-to-nav-drawer-item.html">goToNavDrawerItem</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">goToNavDrawerItem</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.NavigationDrawerActivity$goToNavDrawerItem(kotlin.Int)/menuItem">menuItem</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../com.farbodsz.familytree.ui/-navigation-drawer-activity/handle-navigation-selection.html">handleNavigationSelection</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">handleNavigationSelection</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.NavigationDrawerActivity$handleNavigationSelection(android.view.MenuItem)/menuItem">menuItem</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/MenuItem.html"><span class="identifier">MenuItem</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../com.farbodsz.familytree.ui/-navigation-drawer-activity/on-back-pressed.html">onBackPressed</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onBackPressed</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../com.farbodsz.familytree.ui/-navigation-drawer-activity/on-configuration-changed.html">onConfigurationChanged</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onConfigurationChanged</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.NavigationDrawerActivity$onConfigurationChanged(android.content.res.Configuration)/newConfig">newConfig</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/res/Configuration.html"><span class="identifier">Configuration</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../com.farbodsz.familytree.ui/-navigation-drawer-activity/on-options-item-selected.html">onOptionsItemSelected</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onOptionsItemSelected</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.NavigationDrawerActivity$onOptionsItemSelected(android.view.MenuItem)/item">item</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/MenuItem.html"><span class="identifier">MenuItem</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../com.farbodsz.familytree.ui/-navigation-drawer-activity/on-post-create.html">onPostCreate</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onPostCreate</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.NavigationDrawerActivity$onPostCreate(android.os.Bundle)/savedInstanceState">savedInstanceState</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/os/Bundle.html"><span class="identifier">Bundle</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../../com.farbodsz.familytree.ui/-navigation-drawer-activity/setup-layout.html">setupLayout</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setupLayout</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-r-e-q-u-e-s-t_-p-e-r-s-o-n_-e-d-i-t.html">REQUEST_PERSON_EDIT</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">REQUEST_PERSON_EDIT</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Request code for starting <a href="../-create-person-activity/index.html">CreatePersonActivity</a> for result.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-r-e-q-u-e-s-t_-p-e-r-s-o-n_-v-i-e-w.html">REQUEST_PERSON_VIEW</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">REQUEST_PERSON_VIEW</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Request code for starting <a href="../-view-person-activity/index.html">ViewPersonActivity</a> for result.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Extension Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../com.farbodsz.familytree.util/android.content.-context/dp-to-px.html">dpToPx</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">.</span><span class="identifier">dpToPx</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.util$dpToPx(android.content.Context, kotlin.Int)/dp">dp</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Converts a dip value into pixels.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../com.farbodsz.familytree.util/android.app.-activity/standard-navigation-params.html">standardNavigationParams</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="https://developer.android.com/reference/android/app/Activity.html"><span class="identifier">Activity</span></a><span class="symbol">.</span><span class="identifier">standardNavigationParams</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.util$standardNavigationParams(android.app.Activity, kotlin.Int, android.support.v7.widget.Toolbar)/navigationItem">navigationItem</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.util$standardNavigationParams(android.app.Activity, kotlin.Int, android.support.v7.widget.Toolbar)/toolbar">toolbar</span><span class="symbol">:</span>&nbsp;<span class="identifier">Toolbar</span><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.farbodsz.familytree.ui/-navigation-parameters/index.html"><span class="identifier">NavigationParameters</span></a><span class="symbol">?</span></code>
+<p>Helper function for returning a <a href="../../com.farbodsz.familytree.ui/-navigation-parameters/index.html">NavigationParameters</a> using values from the default navigation
+layout (from template <code>activity_navigation.xml</code>).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../com.farbodsz.familytree.util/android.content.-context/with-navigation.html">withNavigation</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">.</span><span class="identifier">withNavigation</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.util$withNavigation(android.content.Context, kotlin.Int)/layoutRes">layoutRes</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/view/View.html"><span class="identifier">View</span></a></code>
+<p>Returns a layout with an added navigation drawer (using the template <code>activity_navigation.xml</code>).</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

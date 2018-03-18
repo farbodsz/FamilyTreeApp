@@ -1,0 +1,54 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>DataRelationship - app</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.farbodsz.familytree.model</a>&nbsp;/&nbsp;<a href="./index.html">DataRelationship</a><br/>
+<br/>
+<h1>DataRelationship</h1>
+<code><span class="keyword">interface </span><span class="identifier">DataRelationship</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-data-model.html"><span class="identifier">DataModel</span></a></code>
+<p>Interface that "relationship" model classes should implement.</p>
+<p><strong>See Also</strong><br/>
+<p><a href="../../com.farbodsz.familytree.database.manager/-relationship-manager/index.html">com.farbodsz.familytree.database.manager.RelationshipManager</a></p>
+</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="get-ids.html">getIds</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">getIds</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html"><span class="identifier">Pair</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">&gt;</span></code>
+<p>Returns the pair of the IDs used to define the relationship.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-child-relationship/index.html">ChildRelationship</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">ChildRelationship</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">DataRelationship</span></a></code>
+<p>Represents a single relationship between a parent and its child.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-marriage/index.html">Marriage</a></p>
+</td>
+<td>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">Marriage</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">DataRelationship</span></a><span class="symbol">, </span><a href="../-with-event/index.html"><span class="identifier">WithEvent</span></a><span class="symbol">, </span><a href="https://developer.android.com/reference/android/os/Parcelable.html"><span class="identifier">Parcelable</span></a></code>
+<p>Represents a marriage between two people.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

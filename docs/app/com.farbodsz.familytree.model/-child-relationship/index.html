@@ -1,0 +1,79 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ChildRelationship - app</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.farbodsz.familytree.model</a>&nbsp;/&nbsp;<a href="./index.html">ChildRelationship</a><br/>
+<br/>
+<h1>ChildRelationship</h1>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">ChildRelationship</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-data-relationship/index.html"><span class="identifier">DataRelationship</span></a></code>
+<p>Represents a single relationship between a parent and its child.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">ChildRelationship</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.model.ChildRelationship$<init>(kotlin.Int, kotlin.Int)/parentId">parentId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.model.ChildRelationship$<init>(kotlin.Int, kotlin.Int)/childId">childId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span></code>
+<p>Represents a single relationship between a parent and its child.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="child-id.html">childId</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">childId</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>the person ID of the child</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="parent-id.html">parentId</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">parentId</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>the person ID of the parent</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="get-ids.html">getIds</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getIds</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html"><span class="identifier">Pair</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">&gt;</span></code>
+<p>Returns the pair of the IDs used to define the relationship.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="from.html">from</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">from</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.model.ChildRelationship.Companion$from(android.database.Cursor)/cursor">cursor</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/database/Cursor.html"><span class="identifier">Cursor</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">ChildRelationship</span></a></code>
+<p>Instantiates a <a href="./index.html">ChildRelationship</a> object by getting values in columns from a <a href="from.html#com.farbodsz.familytree.model.ChildRelationship.Companion$from(android.database.Cursor)/cursor">cursor</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

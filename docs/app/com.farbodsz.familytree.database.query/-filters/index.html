@@ -1,0 +1,72 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Filters - app</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.farbodsz.familytree.database.query</a>&nbsp;/&nbsp;<a href="./index.html">Filters</a><br/>
+<br/>
+<h1>Filters</h1>
+<code><span class="keyword">object </span><span class="identifier">Filters</span></code>
+<p>A collection of static helper functions for creating or combining filters.</p>
+<p><strong>See Also</strong><br/>
+<p><a href="../-filter/index.html">Filter</a></p>
+<p><a href="../-query/index.html">Query</a></p>
+</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-join-type/index.html">JoinType</a></p>
+</td>
+<td>
+<code><span class="keyword">enum</span> <span class="keyword">class </span><span class="identifier">JoinType</span></code>
+<p>Keywords that can be used to specify how filters can be combined together.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="and.html">and</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">and</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.database.query.Filters$and(com.farbodsz.familytree.database.query.Filter, com.farbodsz.familytree.database.query.Filter, kotlin.Array((com.farbodsz.familytree.database.query.Filter)))/filter1">filter1</span><span class="symbol">:</span>&nbsp;<a href="../-filter/index.html"><span class="identifier">Filter</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.database.query.Filters$and(com.farbodsz.familytree.database.query.Filter, com.farbodsz.familytree.database.query.Filter, kotlin.Array((com.farbodsz.familytree.database.query.Filter)))/filter2">filter2</span><span class="symbol">:</span>&nbsp;<a href="../-filter/index.html"><span class="identifier">Filter</span></a><span class="symbol">, </span><span class="keyword">vararg</span> <span class="identifier" id="com.farbodsz.familytree.database.query.Filters$and(com.farbodsz.familytree.database.query.Filter, com.farbodsz.familytree.database.query.Filter, kotlin.Array((com.farbodsz.familytree.database.query.Filter)))/moreFilters">moreFilters</span><span class="symbol">:</span>&nbsp;<a href="../-filter/index.html"><span class="identifier">Filter</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-filter/index.html"><span class="identifier">Filter</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="equal.html">equal</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">equal</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.database.query.Filters$equal(kotlin.String, kotlin.String)/property">property</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.database.query.Filters$equal(kotlin.String, kotlin.String)/value">value</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-filter/index.html"><span class="identifier">Filter</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="join-filters.html">joinFilters</a></p>
+</td>
+<td>
+<code><span class="keyword">internal</span> <span class="keyword">fun </span><span class="identifier">joinFilters</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.database.query.Filters$joinFilters(kotlin.String, com.farbodsz.familytree.database.query.Filter, com.farbodsz.familytree.database.query.Filter, kotlin.Array((com.farbodsz.familytree.database.query.Filter)))/sqlKeyword">sqlKeyword</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.database.query.Filters$joinFilters(kotlin.String, com.farbodsz.familytree.database.query.Filter, com.farbodsz.familytree.database.query.Filter, kotlin.Array((com.farbodsz.familytree.database.query.Filter)))/filter1">filter1</span><span class="symbol">:</span>&nbsp;<a href="../-filter/index.html"><span class="identifier">Filter</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.database.query.Filters$joinFilters(kotlin.String, com.farbodsz.familytree.database.query.Filter, com.farbodsz.familytree.database.query.Filter, kotlin.Array((com.farbodsz.familytree.database.query.Filter)))/filter2">filter2</span><span class="symbol">:</span>&nbsp;<a href="../-filter/index.html"><span class="identifier">Filter</span></a><span class="symbol">, </span><span class="keyword">vararg</span> <span class="identifier" id="com.farbodsz.familytree.database.query.Filters$joinFilters(kotlin.String, com.farbodsz.familytree.database.query.Filter, com.farbodsz.familytree.database.query.Filter, kotlin.Array((com.farbodsz.familytree.database.query.Filter)))/moreFilters">moreFilters</span><span class="symbol">:</span>&nbsp;<a href="../-filter/index.html"><span class="identifier">Filter</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-filter/index.html"><span class="identifier">Filter</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="not-equal.html">notEqual</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">notEqual</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.database.query.Filters$notEqual(kotlin.String, kotlin.String)/property">property</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.database.query.Filters$notEqual(kotlin.String, kotlin.String)/value">value</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-filter/index.html"><span class="identifier">Filter</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="or.html">or</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">or</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.database.query.Filters$or(com.farbodsz.familytree.database.query.Filter, com.farbodsz.familytree.database.query.Filter, kotlin.Array((com.farbodsz.familytree.database.query.Filter)))/filter1">filter1</span><span class="symbol">:</span>&nbsp;<a href="../-filter/index.html"><span class="identifier">Filter</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.database.query.Filters$or(com.farbodsz.familytree.database.query.Filter, com.farbodsz.familytree.database.query.Filter, kotlin.Array((com.farbodsz.familytree.database.query.Filter)))/filter2">filter2</span><span class="symbol">:</span>&nbsp;<a href="../-filter/index.html"><span class="identifier">Filter</span></a><span class="symbol">, </span><span class="keyword">vararg</span> <span class="identifier" id="com.farbodsz.familytree.database.query.Filters$or(com.farbodsz.familytree.database.query.Filter, com.farbodsz.familytree.database.query.Filter, kotlin.Array((com.farbodsz.familytree.database.query.Filter)))/moreFilters">moreFilters</span><span class="symbol">:</span>&nbsp;<a href="../-filter/index.html"><span class="identifier">Filter</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-filter/index.html"><span class="identifier">Filter</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

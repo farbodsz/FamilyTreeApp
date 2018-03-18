@@ -1,0 +1,109 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>FamilyTreeAdapter - app</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.farbodsz.familytree.ui.tree</a>&nbsp;/&nbsp;<a href="./index.html">FamilyTreeAdapter</a><br/>
+<br/>
+<h1>FamilyTreeAdapter</h1>
+<code><span class="keyword">class </span><span class="identifier">FamilyTreeAdapter</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Adapter</span><span class="symbol">&lt;</span><a href="-view-holder/index.html"><span class="identifier">ViewHolder</span></a><span class="symbol">&gt;</span></code>
+<p>A <a href="#">RecyclerView</a> adapter for displaying <a href="../../com.farbodsz.familytree.model/-person/index.html">Person</a>s in a vertical tree.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-view-holder/index.html">ViewHolder</a></p>
+</td>
+<td>
+<code><span class="keyword">inner</span> <span class="keyword">class </span><span class="identifier">ViewHolder</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ViewHolder</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">FamilyTreeAdapter</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.tree.FamilyTreeAdapter$<init>(android.content.Context, kotlin.collections.List((com.farbodsz.familytree.model.tree.TreeListItem((com.farbodsz.familytree.model.Person)))))/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.tree.FamilyTreeAdapter$<init>(android.content.Context, kotlin.collections.List((com.farbodsz.familytree.model.tree.TreeListItem((com.farbodsz.familytree.model.Person)))))/treeItems">treeItems</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../com.farbodsz.familytree.model.tree/-tree-list-item/index.html"><span class="identifier">TreeListItem</span></a><span class="symbol">&lt;</span><a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">)</span></code>
+<p>A <a href="#">RecyclerView</a> adapter for displaying <a href="../../com.farbodsz.familytree.model/-person/index.html">Person</a>s in a vertical tree.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="context.html">context</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">context</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="on-item-click-action.html">onItemClickAction</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">onItemClickAction</span><span class="symbol">: </span><a href="../../com.farbodsz.familytree.util/-on-data-click.html"><span class="identifier">OnDataClick</span></a><span class="symbol">&lt;</span><a href="../../com.farbodsz.familytree.model.tree/-tree-list-item/index.html"><span class="identifier">TreeListItem</span></a><span class="symbol">&lt;</span><a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="tree-items.html">treeItems</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">treeItems</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../com.farbodsz.familytree.model.tree/-tree-list-item/index.html"><span class="identifier">TreeListItem</span></a><span class="symbol">&lt;</span><a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="calculate-item-layout-params.html">calculateItemLayoutParams</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">calculateItemLayoutParams</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.tree.FamilyTreeAdapter$calculateItemLayoutParams(kotlin.Int)/depth">depth</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/widget/FrameLayout/LayoutParams.html"><span class="identifier">LayoutParams</span></a></code>
+<p>Calculates an appropriate left margin for an item in the vertical tree, depending on its
+depth in the tree.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="get-item-count.html">getItemCount</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getItemCount</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="on-bind-view-holder.html">onBindViewHolder</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onBindViewHolder</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.tree.FamilyTreeAdapter$onBindViewHolder(com.farbodsz.familytree.ui.tree.FamilyTreeAdapter.ViewHolder, kotlin.Int)/holder">holder</span><span class="symbol">:</span>&nbsp;<a href="-view-holder/index.html"><span class="identifier">ViewHolder</span></a><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.tree.FamilyTreeAdapter$onBindViewHolder(com.farbodsz.familytree.ui.tree.FamilyTreeAdapter.ViewHolder, kotlin.Int)/position">position</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="on-create-view-holder.html">onCreateViewHolder</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onCreateViewHolder</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.tree.FamilyTreeAdapter$onCreateViewHolder(android.view.ViewGroup, kotlin.Int)/parent">parent</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/ViewGroup.html"><span class="identifier">ViewGroup</span></a><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.tree.FamilyTreeAdapter$onCreateViewHolder(android.view.ViewGroup, kotlin.Int)/viewType">viewType</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="-view-holder/index.html"><span class="identifier">ViewHolder</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="on-item-click.html">onItemClick</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onItemClick</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.tree.FamilyTreeAdapter$onItemClick(kotlin.Function2((android.view.View, com.farbodsz.familytree.model.tree.TreeListItem((com.farbodsz.familytree.model.Person)), kotlin.Unit)))/action">action</span><span class="symbol">:</span>&nbsp;<a href="../../com.farbodsz.familytree.util/-on-data-click.html"><span class="identifier">OnDataClick</span></a><span class="symbol">&lt;</span><a href="../../com.farbodsz.familytree.model.tree/-tree-list-item/index.html"><span class="identifier">TreeListItem</span></a><span class="symbol">&lt;</span><a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">&gt;</span><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

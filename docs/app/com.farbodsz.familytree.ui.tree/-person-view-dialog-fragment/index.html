@@ -1,0 +1,162 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>PersonViewDialogFragment - app</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.farbodsz.familytree.ui.tree</a>&nbsp;/&nbsp;<a href="./index.html">PersonViewDialogFragment</a><br/>
+<br/>
+<h1>PersonViewDialogFragment</h1>
+<code><span class="keyword">class </span><span class="identifier">PersonViewDialogFragment</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">DialogFragment</span></code>
+<p>Displays a dialog providing brief details and action options for a <a href="../../com.farbodsz.familytree.model/-person/index.html">Person</a> that has been clicked
+from a <a href="../../com.farbodsz.familytree.ui.widget/-tree-view/index.html">com.farbodsz.familytree.ui.widget.TreeView</a>.</p>
+<p><strong>See Also</strong><br/>
+<p><a href="../-tree-activity/index.html">TreeActivity</a></p>
+</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-on-dialog-action-chosen-listener/index.html">OnDialogActionChosenListener</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">OnDialogActionChosenListener</span></code>
+<p>Functional interface used to allow the creator of this dialog fragment to run code after an
+option in the dialog has been selected.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">PersonViewDialogFragment</span><span class="symbol">(</span><span class="symbol">)</span></code>
+<p>Displays a dialog providing brief details and action options for a <a href="../../com.farbodsz.familytree.model/-person/index.html">Person</a> that has been clicked
+from a <a href="../../com.farbodsz.familytree.ui.widget/-tree-view/index.html">com.farbodsz.familytree.ui.widget.TreeView</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="action-chosen-listener.html">actionChosenListener</a></p>
+</td>
+<td>
+<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">actionChosenListener</span><span class="symbol">: </span><a href="-on-dialog-action-chosen-listener/index.html"><span class="identifier">OnDialogActionChosenListener</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="person.html">person</a></p>
+</td>
+<td>
+<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">person</span><span class="symbol">: </span><a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="spouses.html">spouses</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">spouses</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">&gt;</span></code>
+<p>The spouses of <a href="person.html">person</a>.
+This is initialised lazily and cached to avoid processing data on each access.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="switch-tree-options.html">switchTreeOptions</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">switchTreeOptions</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-array-list/index.html"><span class="identifier">ArrayList</span></a><span class="symbol">&lt;</span><a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">&gt;</span></code>
+<p>For providing a list of <a href="../../com.farbodsz.familytree.model/-person/index.html">people</a> who's tree the user can choose to switch to and
+view.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="get-dialog-options.html">getDialogOptions</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getDialogOptions</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html"><span class="identifier">Array</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span></code>
+<p>Returns a list of options for the actions that can be invoked on the dialog.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="get-title-view.html">getTitleView</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getTitleView</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/view/View.html"><span class="identifier">View</span></a></code>
+<p>Returns a <a href="https://developer.android.com/reference/android/view/View.html">View</a> displaying brief details of a <a href="../../com.farbodsz.familytree.model/-person/index.html">Person</a> that is used as the title of the
+dialog.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="invoke-dialog-action.html">invokeDialogAction</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">invokeDialogAction</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.tree.PersonViewDialogFragment$invokeDialogAction(kotlin.Int)/which">which</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Invokes a particular action depending on the dialog option selected.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="on-create-dialog.html">onCreateDialog</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onCreateDialog</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.tree.PersonViewDialogFragment$onCreateDialog(android.os.Bundle)/savedInstanceState">savedInstanceState</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/os/Bundle.html"><span class="identifier">Bundle</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/app/Dialog.html"><span class="identifier">Dialog</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-a-r-g-u-m-e-n-t_-p-e-r-s-o-n.html">ARGUMENT_PERSON</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">ARGUMENT_PERSON</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-s-t-a-n-d-a-r-d_-o-p-t-i-o-n-s_-t-e-x-t_-r-e-s.html">STANDARD_OPTIONS_TEXT_RES</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">STANDARD_OPTIONS_TEXT_RES</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-array/index.html"><span class="identifier">Array</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">&gt;</span></code>
+<p>An array of dialog actions that will be displayed in addition to some others.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="new-instance.html">newInstance</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">newInstance</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.tree.PersonViewDialogFragment.Companion$newInstance(com.farbodsz.familytree.model.Person, com.farbodsz.familytree.ui.tree.PersonViewDialogFragment.OnDialogActionChosenListener)/person">person</span><span class="symbol">:</span>&nbsp;<a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.tree.PersonViewDialogFragment.Companion$newInstance(com.farbodsz.familytree.model.Person, com.farbodsz.familytree.ui.tree.PersonViewDialogFragment.OnDialogActionChosenListener)/actionChangedListener">actionChangedListener</span><span class="symbol">:</span>&nbsp;<a href="-on-dialog-action-chosen-listener/index.html"><span class="identifier">OnDialogActionChosenListener</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">PersonViewDialogFragment</span></a></code>
+<p>Instantiates this dialog fragment with a <a href="new-instance.html#com.farbodsz.familytree.ui.tree.PersonViewDialogFragment.Companion$newInstance(com.farbodsz.familytree.model.Person, com.farbodsz.familytree.ui.tree.PersonViewDialogFragment.OnDialogActionChosenListener)/person">person</a> as an argument to the fragment.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

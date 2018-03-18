@@ -1,0 +1,113 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>EventAdapter - app</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.farbodsz.familytree.ui.event</a>&nbsp;/&nbsp;<a href="./index.html">EventAdapter</a><br/>
+<br/>
+<h1>EventAdapter</h1>
+<code><span class="keyword">class </span><span class="identifier">EventAdapter</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Adapter</span><span class="symbol">&lt;</span><a href="-view-holder/index.html"><span class="identifier">ViewHolder</span></a><span class="symbol">&gt;</span></code>
+<p>A <a href="#">RecyclerView</a> adapter for displaying <a href="events.html">events</a> in a standard list layout.</p>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-view-holder/index.html">ViewHolder</a></p>
+</td>
+<td>
+<code><span class="keyword">inner</span> <span class="keyword">class </span><span class="identifier">ViewHolder</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">ViewHolder</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">EventAdapter</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.event.EventAdapter$<init>(android.content.Context, kotlin.collections.List((com.farbodsz.familytree.model.Event)))/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.event.EventAdapter$<init>(android.content.Context, kotlin.collections.List((com.farbodsz.familytree.model.Event)))/events">events</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../com.farbodsz.familytree.model/-event/index.html"><span class="identifier">Event</span></a><span class="symbol">&gt;</span><span class="symbol">)</span></code>
+<p>A <a href="#">RecyclerView</a> adapter for displaying <a href="-init-.html#com.farbodsz.familytree.ui.event.EventAdapter$<init>(android.content.Context, kotlin.collections.List((com.farbodsz.familytree.model.Event)))/events">events</a> in a standard list layout.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="context.html">context</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">context</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="events.html">events</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">events</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../../com.farbodsz.familytree.model/-event/index.html"><span class="identifier">Event</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="on-item-click-action.html">onItemClickAction</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">onItemClickAction</span><span class="symbol">: </span><a href="../../com.farbodsz.familytree.util/-on-data-click.html"><span class="identifier">OnDataClick</span></a><span class="symbol">&lt;</span><a href="../../com.farbodsz.familytree.model/-event/index.html"><span class="identifier">Event</span></a><span class="symbol">&gt;</span><span class="symbol">?</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="get-item-count.html">getItemCount</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getItemCount</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="on-bind-view-holder.html">onBindViewHolder</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onBindViewHolder</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.event.EventAdapter$onBindViewHolder(com.farbodsz.familytree.ui.event.EventAdapter.ViewHolder, kotlin.Int)/holder">holder</span><span class="symbol">:</span>&nbsp;<a href="-view-holder/index.html"><span class="identifier">ViewHolder</span></a><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.event.EventAdapter$onBindViewHolder(com.farbodsz.familytree.ui.event.EventAdapter.ViewHolder, kotlin.Int)/position">position</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="on-create-view-holder.html">onCreateViewHolder</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onCreateViewHolder</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.event.EventAdapter$onCreateViewHolder(android.view.ViewGroup, kotlin.Int)/parent">parent</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/ViewGroup.html"><span class="identifier">ViewGroup</span></a><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.event.EventAdapter$onCreateViewHolder(android.view.ViewGroup, kotlin.Int)/viewType">viewType</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="-view-holder/index.html"><span class="identifier">ViewHolder</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="on-item-click.html">onItemClick</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onItemClick</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.event.EventAdapter$onItemClick(kotlin.Function2((android.view.View, com.farbodsz.familytree.model.Event, kotlin.Unit)))/action">action</span><span class="symbol">:</span>&nbsp;<a href="../../com.farbodsz.familytree.util/-on-data-click.html"><span class="identifier">OnDataClick</span></a><span class="symbol">&lt;</span><a href="../../com.farbodsz.familytree.model/-event/index.html"><span class="identifier">Event</span></a><span class="symbol">&gt;</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="setup-anniversary-layout.html">setupAnniversaryLayout</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setupAnniversaryLayout</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.event.EventAdapter$setupAnniversaryLayout(com.farbodsz.familytree.ui.event.EventAdapter.ViewHolder, com.farbodsz.familytree.model.Anniversary)/holder">holder</span><span class="symbol">:</span>&nbsp;<a href="-view-holder/index.html"><span class="identifier">ViewHolder</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.event.EventAdapter$setupAnniversaryLayout(com.farbodsz.familytree.ui.event.EventAdapter.ViewHolder, com.farbodsz.familytree.model.Anniversary)/anniversary">anniversary</span><span class="symbol">:</span>&nbsp;<a href="../../com.farbodsz.familytree.model/-anniversary/index.html"><span class="identifier">Anniversary</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="setup-birthday-layout.html">setupBirthdayLayout</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setupBirthdayLayout</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.event.EventAdapter$setupBirthdayLayout(com.farbodsz.familytree.ui.event.EventAdapter.ViewHolder, com.farbodsz.familytree.model.Birthday)/holder">holder</span><span class="symbol">:</span>&nbsp;<a href="-view-holder/index.html"><span class="identifier">ViewHolder</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.event.EventAdapter$setupBirthdayLayout(com.farbodsz.familytree.ui.event.EventAdapter.ViewHolder, com.farbodsz.familytree.model.Birthday)/birthday">birthday</span><span class="symbol">:</span>&nbsp;<a href="../../com.farbodsz.familytree.model/-birthday/index.html"><span class="identifier">Birthday</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

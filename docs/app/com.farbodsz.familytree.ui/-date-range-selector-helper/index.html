@@ -1,0 +1,94 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>DateRangeSelectorHelper - app</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.farbodsz.familytree.ui</a>&nbsp;/&nbsp;<a href="./index.html">DateRangeSelectorHelper</a><br/>
+<br/>
+<h1>DateRangeSelectorHelper</h1>
+<code><span class="keyword">class </span><span class="identifier">DateRangeSelectorHelper</span></code>
+<p>A helper class to manage user inputs for a start date and end date.
+The user can each of these dates through a click then dialog, and the other date
+will update accordingly.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">DateRangeSelectorHelper</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.DateRangeSelectorHelper$<init>(com.farbodsz.familytree.ui.DateSelectorHelper, com.farbodsz.familytree.ui.DateSelectorHelper)/startDateHelper">startDateHelper</span><span class="symbol">:</span>&nbsp;<a href="../-date-selector-helper/index.html"><span class="identifier">DateSelectorHelper</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.DateRangeSelectorHelper$<init>(com.farbodsz.familytree.ui.DateSelectorHelper, com.farbodsz.familytree.ui.DateSelectorHelper)/endDateHelper">endDateHelper</span><span class="symbol">:</span>&nbsp;<a href="../-date-selector-helper/index.html"><span class="identifier">DateSelectorHelper</span></a><span class="symbol">)</span></code>
+<p>A helper class to manage user inputs for a start date and end date.
+The user can each of these dates through a click then dialog, and the other date
+will update accordingly.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="end-date-helper.html">endDateHelper</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">endDateHelper</span><span class="symbol">: </span><a href="../-date-selector-helper/index.html"><span class="identifier">DateSelectorHelper</span></a></code>
+<p>the <a href="../-date-selector-helper/index.html">DateSelectorHelper</a> to manage inputs for the end date</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="start-date-helper.html">startDateHelper</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">startDateHelper</span><span class="symbol">: </span><a href="../-date-selector-helper/index.html"><span class="identifier">DateSelectorHelper</span></a></code>
+<p>the <a href="../-date-selector-helper/index.html">DateSelectorHelper</a> to manage inputs for the start date</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="get-end-date.html">getEndDate</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getEndDate</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">LocalDate</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="get-start-date.html">getStartDate</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getStartDate</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><span class="identifier">LocalDate</span><span class="symbol">?</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="set-date-range-picker-constraints.html">setDateRangePickerConstraints</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setDateRangePickerConstraints</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Sets the default minimum and maximum dates for two date pickers (for start and end dates).
+This is based on the current person, and selections made in other date pickers.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="set-dates.html">setDates</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setDates</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.DateRangeSelectorHelper$setDates(org.threeten.bp.LocalDate, org.threeten.bp.LocalDate)/startDate">startDate</span><span class="symbol">:</span>&nbsp;<span class="identifier">LocalDate</span><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.DateRangeSelectorHelper$setDates(org.threeten.bp.LocalDate, org.threeten.bp.LocalDate)/endDate">endDate</span><span class="symbol">:</span>&nbsp;<span class="identifier">LocalDate</span><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Sets the dates to be displayed on the date pickers, and updates the selectable date ranges of
+each of these accordingly (i.e. their "minimum" and "maximum" dates)</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

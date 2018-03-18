@@ -1,0 +1,110 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>Gender - app</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.farbodsz.familytree.model</a>&nbsp;/&nbsp;<a href="./index.html">Gender</a><br/>
+<br/>
+<h1>Gender</h1>
+<code><span class="keyword">data</span> <span class="keyword">class </span><span class="identifier">Gender</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/os/Parcelable.html"><span class="identifier">Parcelable</span></a></code>
+<p>Represents a gender.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">Gender</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.model.Gender$<init>(android.os.Parcel)/source">source</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/os/Parcel.html"><span class="identifier">Parcel</span></a><span class="symbol">)</span></code><code><span class="identifier">Gender</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.model.Gender$<init>(kotlin.Int)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span></code>
+<p>Represents a gender.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="id.html">id</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">id</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>an integer identifier corresponding to a gender. 0 = male; 1 = female.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="describe-contents.html">describeContents</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">describeContents</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="get-color-res.html">getColorRes</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getColorRes</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Returns a color resource to use in the UI to represent with this gender.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="is-female.html">isFemale</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">isFemale</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="is-male.html">isMale</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">isMale</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="write-to-parcel.html">writeToParcel</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">writeToParcel</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.model.Gender$writeToParcel(android.os.Parcel, kotlin.Int)/dest">dest</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/os/Parcel.html"><span class="identifier">Parcel</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.model.Gender$writeToParcel(android.os.Parcel, kotlin.Int)/flags">flags</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-c-r-e-a-t-o-r.html">CREATOR</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">CREATOR</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/os/Parcelable/Creator.html"><span class="identifier">Creator</span></a><span class="symbol">&lt;</span><a href="./index.html"><span class="identifier">Gender</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-f-e-m-a-l-e.html">FEMALE</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">FEMALE</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">Gender</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-m-a-l-e.html">MALE</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">MALE</span><span class="symbol">: </span><a href="./index.html"><span class="identifier">Gender</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

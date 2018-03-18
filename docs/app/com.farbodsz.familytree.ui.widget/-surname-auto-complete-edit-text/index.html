@@ -1,0 +1,78 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>SurnameAutoCompleteEditText - app</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.farbodsz.familytree.ui.widget</a>&nbsp;/&nbsp;<a href="./index.html">SurnameAutoCompleteEditText</a><br/>
+<br/>
+<h1>SurnameAutoCompleteEditText</h1>
+<code><span class="keyword">class </span><span class="identifier">SurnameAutoCompleteEditText</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-text-input-auto-complete-edit-text/index.html"><span class="identifier">TextInputAutoCompleteEditText</span></a></code>
+<p>A <a href="../-text-input-auto-complete-edit-text/index.html">TextInputAutoCompleteEditText</a> which provides a list of surname suggestions.</p>
+<p><strong>See Also</strong><br/>
+<p><a href="../../com.farbodsz.familytree.model/-person/index.html">com.farbodsz.familytree.model.Person</a></p>
+</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">SurnameAutoCompleteEditText</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.widget.SurnameAutoCompleteEditText$<init>(android.content.Context, android.util.AttributeSet, kotlin.Int)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.widget.SurnameAutoCompleteEditText$<init>(android.content.Context, android.util.AttributeSet, kotlin.Int)/attrs">attrs</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/util/AttributeSet.html"><span class="identifier">AttributeSet</span></a><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.widget.SurnameAutoCompleteEditText$<init>(android.content.Context, android.util.AttributeSet, kotlin.Int)/defStyle">defStyle</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a>&nbsp;<span class="symbol">=</span>&nbsp;0<span class="symbol">)</span></code>
+<p>A <a href="../-text-input-auto-complete-edit-text/index.html">TextInputAutoCompleteEditText</a> which provides a list of surname suggestions.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="get-surnames.html">getSurnames</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getSurnames</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span></code>
+<p>Returns a list of surnames that can be used as suggestions.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="make-adapter.html">makeAdapter</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">makeAdapter</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/widget/ArrayAdapter.html"><span class="identifier">ArrayAdapter</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">&gt;</span></code>
+<p>Returns an <a href="https://developer.android.com/reference/android/widget/ArrayAdapter.html">ArrayAdapter</a> that can be used to provide the list and layout of suggestions.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-text-input-auto-complete-edit-text/on-create-input-connection.html">onCreateInputConnection</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">onCreateInputConnection</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.widget.TextInputAutoCompleteEditText$onCreateInputConnection(android.view.inputmethod.EditorInfo)/outAttrs">outAttrs</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/inputmethod/EditorInfo.html"><span class="identifier">EditorInfo</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/view/inputmethod/InputConnection.html"><span class="identifier">InputConnection</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Extension Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../com.farbodsz.familytree.util/android.view.-view/dp-to-px.html">dpToPx</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="https://developer.android.com/reference/android/view/View.html"><span class="identifier">View</span></a><span class="symbol">.</span><span class="identifier">dpToPx</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.util$dpToPx(android.view.View, kotlin.Int)/dp">dp</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

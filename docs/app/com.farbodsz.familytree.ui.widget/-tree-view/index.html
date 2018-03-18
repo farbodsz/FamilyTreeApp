@@ -1,0 +1,200 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>TreeView - app</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.farbodsz.familytree.ui.widget</a>&nbsp;/&nbsp;<a href="./index.html">TreeView</a><br/>
+<br/>
+<h1>TreeView</h1>
+<code><span class="keyword">class </span><span class="identifier">TreeView</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/widget/FrameLayout.html"><span class="identifier">FrameLayout</span></a></code>
+<p>A custom view responsible for displaying a tree with <a href="../../com.farbodsz.familytree.model/-person/index.html">Person</a> data, horizontally.</p>
+<p>In layouts, it should be placed inside a <a href="https://developer.android.com/reference/android/widget/ScrollView.html">vertical <code>ScrollView</code></a> and a
+<a href="https://developer.android.com/reference/android/widget/HorizontalScrollView.html">HorizontalScrollView</a> to enable scrolling in both directions.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">TreeView</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.widget.TreeView$<init>(android.content.Context, android.util.AttributeSet, kotlin.Int)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.widget.TreeView$<init>(android.content.Context, android.util.AttributeSet, kotlin.Int)/attrs">attrs</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/util/AttributeSet.html"><span class="identifier">AttributeSet</span></a><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.widget.TreeView$<init>(android.content.Context, android.util.AttributeSet, kotlin.Int)/defStyle">defStyle</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a>&nbsp;<span class="symbol">=</span>&nbsp;0<span class="symbol">)</span></code>
+<p>A custom view responsible for displaying a tree with <a href="../../com.farbodsz.familytree.model/-person/index.html">Person</a> data, horizontally.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-l-e-v-e-l_-m-a-x_-h-e-i-g-h-t.html">LEVEL_MAX_HEIGHT</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">LEVEL_MAX_HEIGHT</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Height (in pixels) allocated for drawing one level of the tree.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-n-o-d-e_-h-e-i-g-h-t.html">NODE_HEIGHT</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">NODE_HEIGHT</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Height (in pixels) allocated per node for drawing.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-n-o-d-e_-l-a-t-e-r-a-l_-s-p-a-c-i-n-g.html">NODE_LATERAL_SPACING</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">NODE_LATERAL_SPACING</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>The default lateral spacing (in pixels) on <em>each</em> side of the space allocated per node.
+I.e. half of the total spacing between adjacent nodes.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-n-o-d-e_-t-o-t-a-l_-w-i-d-t-h.html">NODE_TOTAL_WIDTH</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">NODE_TOTAL_WIDTH</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Total width (in pixels) allocated per node - the sum of its displayed width and spacing.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-n-o-d-e_-w-i-d-t-h.html">NODE_WIDTH</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">NODE_WIDTH</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Width (in pixels) allocated per node for drawing.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="displayed-height.html">displayedHeight</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">displayedHeight</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>The height of the portion of the tree being drawn.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="node-line-paint.html">nodeLinePaint</a></p>
+</td>
+<td>
+<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">nodeLinePaint</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/graphics/Paint.html"><span class="identifier">Paint</span></a></code>
+<p>The paint to be used when drawing connections (lines) between nodes.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="node-paint.html">nodePaint</a></p>
+</td>
+<td>
+<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">nodePaint</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/graphics/Paint.html"><span class="identifier">Paint</span></a></code>
+<p>The paint to be used when drawing the box representing the node.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="number-of-leaf-nodes.html">numberOfLeafNodes</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">numberOfLeafNodes</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>The total number of leaf nodes of the part of the tree being drawn.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="on-person-view-click.html">onPersonViewClick</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">onPersonViewClick</span><span class="symbol">: </span><a href="../../com.farbodsz.familytree.util/-on-data-click.html"><span class="identifier">OnDataClick</span></a><span class="symbol">&lt;</span><a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">&gt;</span><span class="symbol">?</span></code>
+<p>Function to be invoked when a <a href="../-person-view/index.html">PersonView</a> has been clicked.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="root-node.html">rootNode</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">rootNode</span><span class="symbol">: </span><a href="../../com.farbodsz.familytree.model.tree/-tree-node/index.html"><span class="identifier">TreeNode</span></a><span class="symbol">&lt;</span><a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">&gt;</span><span class="symbol">?</span></code>
+<p>The root node of the tree being displayed, initially null until set in <a href="set-tree-source.html">setTreeSource</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="draw-node-and-children.html">drawNodeAndChildren</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">drawNodeAndChildren</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.widget.TreeView$drawNodeAndChildren(android.graphics.Canvas, com.farbodsz.familytree.model.tree.TreeNode((com.farbodsz.familytree.model.Person)), kotlin.Int, kotlin.Int, kotlin.Pair((kotlin.Float, )), kotlin.Int)/canvas">canvas</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/graphics/Canvas.html"><span class="identifier">Canvas</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.widget.TreeView$drawNodeAndChildren(android.graphics.Canvas, com.farbodsz.familytree.model.tree.TreeNode((com.farbodsz.familytree.model.Person)), kotlin.Int, kotlin.Int, kotlin.Pair((kotlin.Float, )), kotlin.Int)/node">node</span><span class="symbol">:</span>&nbsp;<a href="../../com.farbodsz.familytree.model.tree/-tree-node/index.html"><span class="identifier">TreeNode</span></a><span class="symbol">&lt;</span><a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.widget.TreeView$drawNodeAndChildren(android.graphics.Canvas, com.farbodsz.familytree.model.tree.TreeNode((com.farbodsz.familytree.model.Person)), kotlin.Int, kotlin.Int, kotlin.Pair((kotlin.Float, )), kotlin.Int)/depth">depth</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a>&nbsp;<span class="symbol">=</span>&nbsp;0<span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.widget.TreeView$drawNodeAndChildren(android.graphics.Canvas, com.farbodsz.familytree.model.tree.TreeNode((com.farbodsz.familytree.model.Person)), kotlin.Int, kotlin.Int, kotlin.Pair((kotlin.Float, )), kotlin.Int)/parentXLeft">parentXLeft</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a>&nbsp;<span class="symbol">=</span>&nbsp;0<span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.widget.TreeView$drawNodeAndChildren(android.graphics.Canvas, com.farbodsz.familytree.model.tree.TreeNode((com.farbodsz.familytree.model.Person)), kotlin.Int, kotlin.Int, kotlin.Pair((kotlin.Float, )), kotlin.Int)/parentCentre">parentCentre</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html"><span class="identifier">Pair</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.widget.TreeView$drawNodeAndChildren(android.graphics.Canvas, com.farbodsz.familytree.model.tree.TreeNode((com.farbodsz.familytree.model.Person)), kotlin.Int, kotlin.Int, kotlin.Pair((kotlin.Float, )), kotlin.Int)/childPos">childPos</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a>&nbsp;<span class="symbol">=</span>&nbsp;0<span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Draws a representation of a node and its children onto the canvas.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="initialise-drawing.html">initialiseDrawing</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">initialiseDrawing</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="is-same-source.html">isSameSource</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">isSameSource</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.widget.TreeView$isSameSource(com.farbodsz.familytree.model.tree.TreeNode((com.farbodsz.familytree.model.Person)), kotlin.Int)/node">node</span><span class="symbol">:</span>&nbsp;<a href="../../com.farbodsz.familytree.model.tree/-tree-node/index.html"><span class="identifier">TreeNode</span></a><span class="symbol">&lt;</span><a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.widget.TreeView$isSameSource(com.farbodsz.familytree.model.tree.TreeNode((com.farbodsz.familytree.model.Person)), kotlin.Int)/height">height</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Returns whether the node and height are the same as before.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="on-draw.html">onDraw</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onDraw</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.widget.TreeView$onDraw(android.graphics.Canvas)/canvas">canvas</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/graphics/Canvas.html"><span class="identifier">Canvas</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="on-measure.html">onMeasure</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onMeasure</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.widget.TreeView$onMeasure(kotlin.Int, kotlin.Int)/widthMeasureSpec">widthMeasureSpec</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.widget.TreeView$onMeasure(kotlin.Int, kotlin.Int)/heightMeasureSpec">heightMeasureSpec</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="set-tree-source.html">setTreeSource</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setTreeSource</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.widget.TreeView$setTreeSource(com.farbodsz.familytree.model.tree.TreeNode((com.farbodsz.familytree.model.Person)), kotlin.Int)/node">node</span><span class="symbol">:</span>&nbsp;<a href="../../com.farbodsz.familytree.model.tree/-tree-node/index.html"><span class="identifier">TreeNode</span></a><span class="symbol">&lt;</span><a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.widget.TreeView$setTreeSource(com.farbodsz.familytree.model.tree.TreeNode((com.farbodsz.familytree.model.Person)), kotlin.Int)/displayedHeight">displayedHeight</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Specifies the source data to use for displaying the tree.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Extension Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../com.farbodsz.familytree.util/android.view.-view/dp-to-px.html">dpToPx</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="https://developer.android.com/reference/android/view/View.html"><span class="identifier">View</span></a><span class="symbol">.</span><span class="identifier">dpToPx</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.util$dpToPx(android.view.View, kotlin.Int)/dp">dp</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

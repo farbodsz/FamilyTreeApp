@@ -1,0 +1,23 @@
+$dokka.format:html
+$dokka.linkExtension:html
+$dokka.location:com.farbodsz.familytree.util$dpToPx(android.content.Context, kotlin.Int)com.farbodsz.familytree.util/android.content.-context/dp-to-px.html
+$dokka.location:com.farbodsz.familytree.util$dpToPx(android.view.View, kotlin.Int)com.farbodsz.familytree.util/android.view.-view/dp-to-px.html
+$dokka.location:com.farbodsz.familytree.util$standardNavigationParams(android.app.Activity, kotlin.Int, android.support.v7.widget.Toolbar)com.farbodsz.familytree.util/android.app.-activity/standard-navigation-params.html
+$dokka.location:com.farbodsz.familytree.util$toTitleCase(kotlin.String, kotlin.CharArray)com.farbodsz.familytree.util/kotlin.-string/to-title-case.html
+$dokka.location:com.farbodsz.familytree.util$withNavigation(android.content.Context, kotlin.Int)com.farbodsz.familytree.util/android.content.-context/with-navigation.html
+com.farbodsz.familytree
+com.farbodsz.familytree.database
+com.farbodsz.familytree.database.manager
+com.farbodsz.familytree.database.query
+com.farbodsz.familytree.database.schemas
+com.farbodsz.familytree.model
+com.farbodsz.familytree.model.tree
+com.farbodsz.familytree.ui
+com.farbodsz.familytree.ui.event
+com.farbodsz.familytree.ui.home
+com.farbodsz.familytree.ui.marriage
+com.farbodsz.familytree.ui.person
+com.farbodsz.familytree.ui.tree
+com.farbodsz.familytree.ui.validator
+com.farbodsz.familytree.ui.widget
+com.farbodsz.familytree.util

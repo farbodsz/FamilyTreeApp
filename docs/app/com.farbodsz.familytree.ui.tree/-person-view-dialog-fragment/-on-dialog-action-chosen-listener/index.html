@@ -1,0 +1,79 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>PersonViewDialogFragment.OnDialogActionChosenListener - app</title>
+<link rel="stylesheet" href="..\..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../../index.html">app</a>&nbsp;/&nbsp;<a href="../../index.html">com.farbodsz.familytree.ui.tree</a>&nbsp;/&nbsp;<a href="../index.html">PersonViewDialogFragment</a>&nbsp;/&nbsp;<a href="./index.html">OnDialogActionChosenListener</a><br/>
+<br/>
+<h1>OnDialogActionChosenListener</h1>
+<code><span class="keyword">interface </span><span class="identifier">OnDialogActionChosenListener</span></code>
+<p>Functional interface used to allow the creator of this dialog fragment to run code after an
+option in the dialog has been selected.</p>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="on-add-child.html">onAddChild</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">onAddChild</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.tree.PersonViewDialogFragment.OnDialogActionChosenListener$onAddChild(com.farbodsz.familytree.model.Person)/person">person</span><span class="symbol">:</span>&nbsp;<a href="../../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Invoked when the user has chosen to add a child to the given <a href="on-add-child.html#com.farbodsz.familytree.ui.tree.PersonViewDialogFragment.OnDialogActionChosenListener$onAddChild(com.farbodsz.familytree.model.Person)/person">person</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="on-add-marriage.html">onAddMarriage</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">onAddMarriage</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.tree.PersonViewDialogFragment.OnDialogActionChosenListener$onAddMarriage(com.farbodsz.familytree.model.Person)/person">person</span><span class="symbol">:</span>&nbsp;<a href="../../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Invoked when the user has chosen to add a marriage involving the given <a href="on-add-marriage.html#com.farbodsz.familytree.ui.tree.PersonViewDialogFragment.OnDialogActionChosenListener$onAddMarriage(com.farbodsz.familytree.model.Person)/person">person</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="on-add-parent.html">onAddParent</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">onAddParent</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.tree.PersonViewDialogFragment.OnDialogActionChosenListener$onAddParent(com.farbodsz.familytree.model.Person)/person">person</span><span class="symbol">:</span>&nbsp;<a href="../../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Invoked when the user has chosen to add a parent to the given <a href="on-add-parent.html#com.farbodsz.familytree.ui.tree.PersonViewDialogFragment.OnDialogActionChosenListener$onAddParent(com.farbodsz.familytree.model.Person)/person">person</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="on-switch-tree.html">onSwitchTree</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">onSwitchTree</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.tree.PersonViewDialogFragment.OnDialogActionChosenListener$onSwitchTree(com.farbodsz.familytree.model.Person)/person">person</span><span class="symbol">:</span>&nbsp;<a href="../../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Invoked when the user has chosen to view the given <a href="on-switch-tree.html#com.farbodsz.familytree.ui.tree.PersonViewDialogFragment.OnDialogActionChosenListener$onSwitchTree(com.farbodsz.familytree.model.Person)/person">person</a>'s tree.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="on-view-person.html">onViewPerson</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">onViewPerson</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.tree.PersonViewDialogFragment.OnDialogActionChosenListener$onViewPerson(com.farbodsz.familytree.model.Person)/person">person</span><span class="symbol">:</span>&nbsp;<a href="../../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Invoked when the user has chosen to view the details of the given <a href="on-view-person.html#com.farbodsz.familytree.ui.tree.PersonViewDialogFragment.OnDialogActionChosenListener$onViewPerson(com.farbodsz.familytree.model.Person)/person">person</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../-tree-activity/index.html">TreeActivity</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">TreeActivity</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../../com.farbodsz.familytree.ui/-navigation-drawer-activity/index.html"><span class="identifier">NavigationDrawerActivity</span></a><span class="symbol">, </span><a href="./index.html"><span class="identifier">OnDialogActionChosenListener</span></a></code>
+<p>Activity to display a <a href="../../../com.farbodsz.familytree.ui.widget/-tree-view/index.html">TreeView</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

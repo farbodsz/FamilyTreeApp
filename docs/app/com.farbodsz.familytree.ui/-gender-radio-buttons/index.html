@@ -1,0 +1,94 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>GenderRadioButtons - app</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.farbodsz.familytree.ui</a>&nbsp;/&nbsp;<a href="./index.html">GenderRadioButtons</a><br/>
+<br/>
+<h1>GenderRadioButtons</h1>
+<code><span class="keyword">class </span><span class="identifier">GenderRadioButtons</span></code>
+<p>Encapsulates functionality relating to male and female <a href="https://developer.android.com/reference/android/widget/RadioButton.html">RadioButton</a>s.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">GenderRadioButtons</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.GenderRadioButtons$<init>(android.content.Context, android.widget.RadioButton, android.widget.RadioButton, de.hdodenhof.circleimageview.CircleImageView)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.GenderRadioButtons$<init>(android.content.Context, android.widget.RadioButton, android.widget.RadioButton, de.hdodenhof.circleimageview.CircleImageView)/maleRadioButton">maleRadioButton</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/widget/RadioButton.html"><span class="identifier">RadioButton</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.GenderRadioButtons$<init>(android.content.Context, android.widget.RadioButton, android.widget.RadioButton, de.hdodenhof.circleimageview.CircleImageView)/femaleRadioButton">femaleRadioButton</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/widget/RadioButton.html"><span class="identifier">RadioButton</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.GenderRadioButtons$<init>(android.content.Context, android.widget.RadioButton, android.widget.RadioButton, de.hdodenhof.circleimageview.CircleImageView)/circleImageView">circleImageView</span><span class="symbol">:</span>&nbsp;<span class="identifier">CircleImageView</span><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">)</span></code>
+<p>Encapsulates functionality relating to male and female <a href="https://developer.android.com/reference/android/widget/RadioButton.html">RadioButton</a>s.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="circle-image-view.html">circleImageView</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">circleImageView</span><span class="symbol">: </span><span class="identifier">CircleImageView</span><span class="symbol">?</span></code>
+<p>optional reference to a <a href="#">CircleImageView</a> so that it can be updated
+    with the changes to the state of the radio buttons accordingly</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="context.html">context</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">context</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a></code>
+<p>activity context</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="female-radio-button.html">femaleRadioButton</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">femaleRadioButton</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/widget/RadioButton.html"><span class="identifier">RadioButton</span></a></code>
+<p>the <a href="https://developer.android.com/reference/android/widget/RadioButton.html">RadioButton</a> corresponding to a <a href="../../com.farbodsz.familytree.model/-gender/-f-e-m-a-l-e.html">Gender.FEMALE</a> selection</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="male-radio-button.html">maleRadioButton</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">maleRadioButton</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/widget/RadioButton.html"><span class="identifier">RadioButton</span></a></code>
+<p>the <a href="https://developer.android.com/reference/android/widget/RadioButton.html">RadioButton</a> corresponding to a <a href="../../com.farbodsz.familytree.model/-gender/-m-a-l-e.html">Gender.MALE</a> selection</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="get-gender.html">getGender</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getGender</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.farbodsz.familytree.model/-gender/index.html"><span class="identifier">Gender</span></a></code>
+<p>Returns the <a href="../../com.farbodsz.familytree.model/-gender/index.html">Gender</a> associated with the state of the male and female <a href="https://developer.android.com/reference/android/widget/RadioButton.html">RadioButton</a>s.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="set-gender.html">setGender</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setGender</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.GenderRadioButtons$setGender(com.farbodsz.familytree.model.Gender)/gender">gender</span><span class="symbol">:</span>&nbsp;<a href="../../com.farbodsz.familytree.model/-gender/index.html"><span class="identifier">Gender</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Checks the <a href="https://developer.android.com/reference/android/widget/RadioButton.html">RadioButton</a> corresponding to the <a href="set-gender.html#com.farbodsz.familytree.ui.GenderRadioButtons$setGender(com.farbodsz.familytree.model.Gender)/gender">gender</a>, and updates the linked
+<a href="circle-image-view.html">circleImageView</a> if set.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

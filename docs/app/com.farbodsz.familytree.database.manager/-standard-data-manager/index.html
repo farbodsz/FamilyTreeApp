@@ -1,0 +1,192 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>StandardDataManager - app</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.farbodsz.familytree.database.manager</a>&nbsp;/&nbsp;<a href="./index.html">StandardDataManager</a><br/>
+<br/>
+<h1>StandardDataManager</h1>
+<code><span class="keyword">abstract</span> <span class="keyword">class </span><span class="identifier">StandardDataManager</span><span class="symbol">&lt;</span><span class="identifier">T</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../../com.farbodsz.familytree.model/-standard-data.html"><span class="identifier">StandardData</span></a><span class="symbol">&gt;</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../-data-manager/index.html"><span class="identifier">DataManager</span></a><span class="symbol">&lt;</span><a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>An abstract data manager class which includes methods that all "standard" data managers should
+inherit/implement.</p>
+<p><strong>See Also</strong><br/>
+<p><a href="../-data-manager/index.html">DataManager</a></p>
+</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">StandardDataManager</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.database.manager.StandardDataManager$<init>(android.content.Context)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">)</span></code>
+<p>An abstract data manager class which includes methods that all "standard" data managers should
+inherit/implement.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="id-column.html">idColumn</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">idColumn</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>The name of the unique (primary key) ID column of the table the subclass is managing.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-data-manager/context.html">context</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">context</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../-data-manager/table-name.html">tableName</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">val </span><span class="identifier">tableName</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>The name of the table the subclass is managing.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="delete.html">delete</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">delete</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.database.manager.StandardDataManager$delete(kotlin.Int)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Deletes an item of type <a href="index.html#T">T</a> with specified <a href="delete.html#com.farbodsz.familytree.database.manager.StandardDataManager$delete(kotlin.Int)/id">id</a> from the table named <a href="../-data-manager/table-name.html">tableName</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="delete-with-references.html">deleteWithReferences</a></p>
+</td>
+<td>
+<code><span class="keyword">open</span> <span class="keyword">fun </span><span class="identifier">deleteWithReferences</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.database.manager.StandardDataManager$deleteWithReferences(kotlin.Int)/id">id</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Deletes an item of type <a href="index.html#T">T</a> with specified <a href="delete-with-references.html#com.farbodsz.familytree.database.manager.StandardDataManager$deleteWithReferences(kotlin.Int)/id">id</a> and any other references to it, if any.
+This function should be overridden by subclasses of <a href="./index.html">StandardDataManager</a> to specify which
+references should be deleted.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="update.html">update</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">update</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.database.manager.StandardDataManager$update(kotlin.Int, com.farbodsz.familytree.database.manager.StandardDataManager.T)/oldItemId">oldItemId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.database.manager.StandardDataManager$update(kotlin.Int, com.farbodsz.familytree.database.manager.StandardDataManager.T)/item">item</span><span class="symbol">:</span>&nbsp;<a href="index.html#T"><span class="identifier">T</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Updates an item of type <a href="index.html#T">T</a> with <a href="update.html#com.farbodsz.familytree.database.manager.StandardDataManager$update(kotlin.Int, com.farbodsz.familytree.database.manager.StandardDataManager.T)/oldItemId">oldItemId</a>, replacing it with the new <a href="update.html#com.farbodsz.familytree.database.manager.StandardDataManager$update(kotlin.Int, com.farbodsz.familytree.database.manager.StandardDataManager.T)/item">item</a>.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Inherited Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-data-manager/add.html">add</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">add</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.database.manager.DataManager$add(com.farbodsz.familytree.database.manager.DataManager.T)/item">item</span><span class="symbol">:</span>&nbsp;<a href="../-data-manager/index.html#T"><span class="identifier">T</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Adds an item of type <a href="../-data-manager/index.html#T">T</a> to the table named <a href="../-data-manager/table-name.html">tableName</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-data-manager/count.html">count</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">count</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../-data-manager/create-from-cursor.html">createFromCursor</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">createFromCursor</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.database.manager.DataManager$createFromCursor(android.database.Cursor)/cursor">cursor</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/database/Cursor.html"><span class="identifier">Cursor</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-data-manager/index.html#T"><span class="identifier">T</span></a></code>
+<p>Constructs the data model class of type <a href="../-data-manager/index.html#T">T</a> using column values from the <a href="../-data-manager/create-from-cursor.html#com.farbodsz.familytree.database.manager.DataManager$createFromCursor(android.database.Cursor)/cursor">cursor</a> provided.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-data-manager/delete.html">delete</a></p>
+</td>
+<td>
+<code><span class="keyword">internal</span> <span class="keyword">fun </span><span class="identifier">delete</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.database.manager.DataManager$delete(com.farbodsz.familytree.database.query.Query)/query">query</span><span class="symbol">:</span>&nbsp;<a href="../../com.farbodsz.familytree.database.query/-query/index.html"><span class="identifier">Query</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Deletes items returned by the <a href="../-data-manager/delete.html#com.farbodsz.familytree.database.manager.DataManager$delete(com.farbodsz.familytree.database.query.Query)/query">query</a> from the table named <a href="../-data-manager/table-name.html">tableName</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-data-manager/get-all.html">getAll</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getAll</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../-data-manager/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="../-data-manager/properties-as-content-values.html">propertiesAsContentValues</a></p>
+</td>
+<td>
+<code><span class="keyword">abstract</span> <span class="keyword">fun </span><span class="identifier">propertiesAsContentValues</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.database.manager.DataManager$propertiesAsContentValues(com.farbodsz.familytree.database.manager.DataManager.T)/item">item</span><span class="symbol">:</span>&nbsp;<a href="../-data-manager/index.html#T"><span class="identifier">T</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/content/ContentValues.html"><span class="identifier">ContentValues</span></a></code>
+<p>Puts properties of the data model type into <a href="https://developer.android.com/reference/android/content/ContentValues.html">ContentValues</a>, returning this.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../-data-manager/query.html">query</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">query</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.database.manager.DataManager$query(com.farbodsz.familytree.database.query.Query)/query">query</span><span class="symbol">:</span>&nbsp;<a href="../../com.farbodsz.familytree.database.query/-query/index.html"><span class="identifier">Query</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin.collections/-list/index.html"><span class="identifier">List</span></a><span class="symbol">&lt;</span><a href="../-data-manager/index.html#T"><span class="identifier">T</span></a><span class="symbol">&gt;</span></code>
+<p>Query the table corresponding to the data manager subclass.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-l-o-g_-t-a-g.html">LOG_TAG</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">LOG_TAG</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Inheritors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../-person-manager/index.html">PersonManager</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">PersonManager</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="./index.html"><span class="identifier">StandardDataManager</span></a><span class="symbol">&lt;</span><a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">&gt;</span></code>
+<p>Contains some methods to perform CRUD operations for the <em>persons</em> table.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

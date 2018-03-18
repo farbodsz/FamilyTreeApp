@@ -1,0 +1,273 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>CreatePersonActivity - app</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.farbodsz.familytree.ui.person</a>&nbsp;/&nbsp;<a href="./index.html">CreatePersonActivity</a><br/>
+<br/>
+<h1>CreatePersonActivity</h1>
+<code><span class="keyword">class </span><span class="identifier">CreatePersonActivity</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">AppCompatActivity</span></code>
+<p>This activity provides the UI for adding a new person from the database, with a guided format.</p>
+<p><strong>To edit an existing person, <a href="../-edit-person-activity/index.html">EditPersonActivity</a> should be used, not this.</strong></p>
+<p>When the user adds all the information and confirms, the data for the new person will be written
+to the database, and the newly created <a href="../../com.farbodsz.familytree.model/-person/index.html">Person</a> will be sent back to the activity from which this
+was started as a result.</p>
+<p><strong>See Also</strong><br/>
+<p><a href="../-edit-person-activity/index.html">EditPersonActivity</a></p>
+</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">CreatePersonActivity</span><span class="symbol">(</span><span class="symbol">)</span></code>
+<p>This activity provides the UI for adding a new person from the database, with a guided format.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="children-creator.html">childrenCreator</a></p>
+</td>
+<td>
+<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">childrenCreator</span><span class="symbol">: </span><a href="../-person-children-creator/index.html"><span class="identifier">PersonChildrenCreator</span></a></code>
+<p>The creator class for adding children to the person.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="coordinator-layout.html">coordinatorLayout</a></p>
+</td>
+<td>
+<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">coordinatorLayout</span><span class="symbol">: </span><span class="identifier">CoordinatorLayout</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="marriage-creator.html">marriageCreator</a></p>
+</td>
+<td>
+<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">marriageCreator</span><span class="symbol">: </span><a href="../-person-marriage-creator/index.html"><span class="identifier">PersonMarriageCreator</span></a></code>
+<p>The creator class for adding marriages to the person.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="next-button.html">nextButton</a></p>
+</td>
+<td>
+<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">nextButton</span><span class="symbol">: </span><span class="identifier">FloatingActionButton</span></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="pager-adapter.html">pagerAdapter</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">pagerAdapter</span><span class="symbol">: </span><a href="../../com.farbodsz.familytree.ui/-dynamic-pager-adapter/index.html"><span class="identifier">DynamicPagerAdapter</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="person.html">person</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">person</span><span class="symbol">: </span><a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">?</span></code>
+<p>The newly created <a href="../../com.farbodsz.familytree.model/-person/index.html">Person</a> (already written to the database).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="person-details-creator.html">personDetailsCreator</a></p>
+</td>
+<td>
+<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">personDetailsCreator</span><span class="symbol">: </span><a href="../-person-details-creator/index.html"><span class="identifier">PersonDetailsCreator</span></a></code>
+<p>The creator class for adding the name, image, and gender for a the person.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="person-id.html">personId</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">personId</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>The ID assigned to this new <a href="../../com.farbodsz.familytree.model/-person/index.html">Person</a> being created.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="person-manager.html">personManager</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">personManager</span><span class="symbol">: </span><a href="../../com.farbodsz.familytree.database.manager/-person-manager/index.html"><span class="identifier">PersonManager</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="view-pager.html">viewPager</a></p>
+</td>
+<td>
+<code><span class="keyword">lateinit</span> <span class="keyword">var </span><span class="identifier">viewPager</span><span class="symbol">: </span><span class="identifier">ViewPager</span></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="complete-person-creation.html">completePersonCreation</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">completePersonCreation</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="get-creator-class.html">getCreatorClass</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getCreatorClass</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.person.CreatePersonActivity$getCreatorClass(kotlin.Int)/index">index</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../-person-creator-section/index.html"><span class="identifier">PersonCreatorSection</span></a></code>
+<p>Returns the creator class responsible for displaying the page with <a href="get-creator-class.html#com.farbodsz.familytree.ui.person.CreatePersonActivity$getCreatorClass(kotlin.Int)/index">index</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="on-activity-result.html">onActivityResult</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onActivityResult</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.person.CreatePersonActivity$onActivityResult(kotlin.Int, kotlin.Int, android.content.Intent)/requestCode">requestCode</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.person.CreatePersonActivity$onActivityResult(kotlin.Int, kotlin.Int, android.content.Intent)/resultCode">resultCode</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.person.CreatePersonActivity$onActivityResult(kotlin.Int, kotlin.Int, android.content.Intent)/data">data</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Intent.html"><span class="identifier">Intent</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="on-back-pressed.html">onBackPressed</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onBackPressed</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="on-create.html">onCreate</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">onCreate</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.person.CreatePersonActivity$onCreate(android.os.Bundle)/savedInstanceState">savedInstanceState</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/os/Bundle.html"><span class="identifier">Bundle</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="person-has-created.html">personHasCreated</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">personHasCreated</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="send-cancelled-result.html">sendCancelledResult</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">sendCancelledResult</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Sends a "cancelled" result back to where this activity was invoked from.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="send-successful-result.html">sendSuccessfulResult</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">sendSuccessfulResult</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.person.CreatePersonActivity$sendSuccessfulResult(com.farbodsz.familytree.model.Person)/result">result</span><span class="symbol">:</span>&nbsp;<a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Sends an "ok" result back to where this activity was invoked from.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="setup-layout.html">setupLayout</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setupLayout</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="setup-person-creator-page.html">setupPersonCreatorPage</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">setupPersonCreatorPage</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.person.CreatePersonActivity$setupPersonCreatorPage(kotlin.Int)/pageIndex">pageIndex</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Sets up a page of the layout, determined by the <a href="setup-person-creator-page.html#com.farbodsz.familytree.ui.person.CreatePersonActivity$setupPersonCreatorPage(kotlin.Int)/pageIndex">pageIndex</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="update-title.html">updateTitle</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">updateTitle</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.person.CreatePersonActivity$updateTitle(kotlin.String)/fullName">fullName</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-e-x-t-r-a_-p-e-r-s-o-n.html">EXTRA_PERSON</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">EXTRA_PERSON</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>Intent extra key for <em>returning</em> a <a href="../../com.farbodsz.familytree.model/-person/index.html">Person</a> from the calling activity.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-l-o-g_-t-a-g.html">LOG_TAG</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">LOG_TAG</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-n-u-m_-p-a-g-e-s.html">NUM_PAGES</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">NUM_PAGES</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>The number of pages to be displayed in this activity.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Extension Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="../../com.farbodsz.familytree.util/android.content.-context/dp-to-px.html">dpToPx</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">.</span><span class="identifier">dpToPx</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.util$dpToPx(android.content.Context, kotlin.Int)/dp">dp</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code>
+<p>Converts a dip value into pixels.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../com.farbodsz.familytree.util/android.app.-activity/standard-navigation-params.html">standardNavigationParams</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="https://developer.android.com/reference/android/app/Activity.html"><span class="identifier">Activity</span></a><span class="symbol">.</span><span class="identifier">standardNavigationParams</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.util$standardNavigationParams(android.app.Activity, kotlin.Int, android.support.v7.widget.Toolbar)/navigationItem">navigationItem</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.util$standardNavigationParams(android.app.Activity, kotlin.Int, android.support.v7.widget.Toolbar)/toolbar">toolbar</span><span class="symbol">:</span>&nbsp;<span class="identifier">Toolbar</span><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.farbodsz.familytree.ui/-navigation-parameters/index.html"><span class="identifier">NavigationParameters</span></a><span class="symbol">?</span></code>
+<p>Helper function for returning a <a href="../../com.farbodsz.familytree.ui/-navigation-parameters/index.html">NavigationParameters</a> using values from the default navigation
+layout (from template <code>activity_navigation.xml</code>).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="../../com.farbodsz.familytree.util/android.content.-context/with-navigation.html">withNavigation</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">.</span><span class="identifier">withNavigation</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.util$withNavigation(android.content.Context, kotlin.Int)/layoutRes">layoutRes</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/view/View.html"><span class="identifier">View</span></a></code>
+<p>Returns a layout with an added navigation drawer (using the template <code>activity_navigation.xml</code>).</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

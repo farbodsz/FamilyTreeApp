@@ -1,0 +1,162 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>TreeHandler - app</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.farbodsz.familytree.ui.tree</a>&nbsp;/&nbsp;<a href="./index.html">TreeHandler</a><br/>
+<br/>
+<h1>TreeHandler</h1>
+<code><span class="keyword">class </span><span class="identifier">TreeHandler</span></code>
+<p>Manages setting up tree data and displaying it in the UI.</p>
+<h3>Constructors</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-init-.html">&lt;init&gt;</a></p>
+</td>
+<td>
+<code><span class="identifier">TreeHandler</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.tree.TreeHandler$<init>(android.content.Context, android.view.ViewGroup, kotlin.Function2((android.view.View, com.farbodsz.familytree.model.Person, kotlin.Unit)))/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.tree.TreeHandler$<init>(android.content.Context, android.view.ViewGroup, kotlin.Function2((android.view.View, com.farbodsz.familytree.model.Person, kotlin.Unit)))/treeContainer">treeContainer</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/view/ViewGroup.html"><span class="identifier">ViewGroup</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.tree.TreeHandler$<init>(android.content.Context, android.view.ViewGroup, kotlin.Function2((android.view.View, com.farbodsz.familytree.model.Person, kotlin.Unit)))/onPersonClick">onPersonClick</span><span class="symbol">:</span>&nbsp;<a href="../../com.farbodsz.familytree.util/-on-data-click.html"><span class="identifier">OnDataClick</span></a><span class="symbol">&lt;</span><a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">&gt;</span><span class="symbol">)</span></code>
+<p>Manages setting up tree data and displaying it in the UI.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="context.html">context</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">context</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a></code>
+<p>activity <a href="https://developer.android.com/reference/android/content/Context.html">Context</a></p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="current-displayed-height.html">currentDisplayedHeight</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">currentDisplayedHeight</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">?</span></code>
+<p>The number of layers of the tree currently being displayed.
+This is null if no tree is being displayed, or if the whole tree is being displayed (i.e not
+restricted to a particular displayed height).</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="current-root-node.html">currentRootNode</a></p>
+</td>
+<td>
+<code><span class="keyword">var </span><span class="identifier">currentRootNode</span><span class="symbol">: </span><a href="../../com.farbodsz.familytree.model.tree/-tree-node/index.html"><span class="identifier">TreeNode</span></a><span class="symbol">&lt;</span><a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">&gt;</span><span class="symbol">?</span></code>
+<p>The root node of the tree currently being displayed.
+This is null if no tree is being displayed.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="on-person-click.html">onPersonClick</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">onPersonClick</span><span class="symbol">: </span><a href="../../com.farbodsz.familytree.util/-on-data-click.html"><span class="identifier">OnDataClick</span></a><span class="symbol">&lt;</span><a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">&gt;</span></code>
+<p>actions that will be invoked when a <a href="../../com.farbodsz.familytree.ui.widget/-person-view/index.html">PersonView</a> in the tree has been
+    clicked.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="tree-container.html">treeContainer</a></p>
+</td>
+<td>
+<code><span class="keyword">val </span><span class="identifier">treeContainer</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/view/ViewGroup.html"><span class="identifier">ViewGroup</span></a></code>
+<p>the <a href="https://developer.android.com/reference/android/view/ViewGroup.html">ViewGroup</a> that will contain the <a href="../../com.farbodsz.familytree.ui.widget/-tree-view/index.html">TreeView</a></p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="display-tree.html">displayTree</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">displayTree</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Displays a tree in the UI using the <a href="current-root-node.html">currentRootNode</a> and <a href="current-displayed-height.html">currentDisplayedHeight</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="get-displayed-tree.html">getDisplayedTree</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getDisplayedTree</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.tree.TreeHandler$getDisplayedTree(com.farbodsz.familytree.model.Person)/person">person</span><span class="symbol">:</span>&nbsp;<a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.farbodsz.familytree.model.tree/-tree-node/index.html"><span class="identifier">TreeNode</span></a><span class="symbol">&lt;</span><a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">&gt;</span><span class="symbol">?</span></code>
+<p>Returns a tree to be displayed in the UI.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="update-root-node.html">updateRootNode</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">updateRootNode</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.farbodsz.familytree.model.tree/-tree-node/index.html"><span class="identifier">TreeNode</span></a><span class="symbol">&lt;</span><a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">&gt;</span><span class="symbol">?</span></code>
+<p>Updates the <a href="current-root-node.html">currentRootNode</a> reflecting any changes made in the database.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="update-tree.html">updateTree</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">updateTree</span><span class="symbol">(</span><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Updates and displays the tree in the UI, reflecting any changes made in the database.</p>
+<code><span class="keyword">fun </span><span class="identifier">updateTree</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.tree.TreeHandler$updateTree(com.farbodsz.familytree.model.tree.TreeNode((com.farbodsz.familytree.model.Person)), kotlin.Int)/rootNode">rootNode</span><span class="symbol">:</span>&nbsp;<a href="../../com.farbodsz.familytree.model.tree/-tree-node/index.html"><span class="identifier">TreeNode</span></a><span class="symbol">&lt;</span><a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">&gt;</span><span class="symbol">?</span><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.tree.TreeHandler$updateTree(com.farbodsz.familytree.model.tree.TreeNode((com.farbodsz.familytree.model.Person)), kotlin.Int)/displayedHeight">displayedHeight</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Updates and displays a tree in the UI, using the given <a href="update-tree.html#com.farbodsz.familytree.ui.tree.TreeHandler$updateTree(com.farbodsz.familytree.model.tree.TreeNode((com.farbodsz.familytree.model.Person)), kotlin.Int)/rootNode">rootNode</a> with <a href="update-tree.html#com.farbodsz.familytree.ui.tree.TreeHandler$updateTree(com.farbodsz.familytree.model.tree.TreeNode((com.farbodsz.familytree.model.Person)), kotlin.Int)/displayedHeight">displayedHeight</a>
+number of layers (from the root) being shown.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-l-o-g_-t-a-g.html">LOG_TAG</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">LOG_TAG</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Companion Object Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="get-displayed-tree.html">getDisplayedTree</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getDisplayedTree</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.tree.TreeHandler.Companion$getDisplayedTree(android.content.Context, com.farbodsz.familytree.model.Person)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.tree.TreeHandler.Companion$getDisplayedTree(android.content.Context, com.farbodsz.familytree.model.Person)/person">person</span><span class="symbol">:</span>&nbsp;<a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">?</span><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.farbodsz.familytree.model.tree/-tree-node/index.html"><span class="identifier">TreeNode</span></a><span class="symbol">&lt;</span><a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">&gt;</span><span class="symbol">?</span></code>
+<p>Returns a tree to be displayed in the UI.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="get-full-tree.html">getFullTree</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getFullTree</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.tree.TreeHandler.Companion$getFullTree(android.content.Context)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="../../com.farbodsz.familytree.model.tree/-tree-node/index.html"><span class="identifier">TreeNode</span></a><span class="symbol">&lt;</span><a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">&gt;</span><span class="symbol">?</span></code>
+<p>Returns a tree consisting of all people added in the database.
+The root of the tree is taken as the node with greatest height.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

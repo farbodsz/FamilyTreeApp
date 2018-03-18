@@ -1,0 +1,113 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>com.farbodsz.familytree.ui.person - app</title>
+<link rel="stylesheet" href="..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../index.html">app</a>&nbsp;/&nbsp;<a href="./index.html">com.farbodsz.familytree.ui.person</a><br/>
+<br/>
+<h2>Package com.farbodsz.familytree.ui.person</h2>
+<h3>Types</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-create-person-activity/index.html">CreatePersonActivity</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">CreatePersonActivity</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">AppCompatActivity</span></code>
+<p>This activity provides the UI for adding a new person from the database, with a guided format.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-edit-person-activity/index.html">EditPersonActivity</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">EditPersonActivity</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">AppCompatActivity</span></code>
+<p>This activity provides the UI for adding or editing a new person from the database.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-person-activity-commons/index.html">PersonActivityCommons</a></p>
+</td>
+<td>
+<code><span class="keyword">object </span><span class="identifier">PersonActivityCommons</span></code>
+<p>Provides functionality common between "Person" creating/editing activities.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-person-adapter/index.html">PersonAdapter</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">PersonAdapter</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">Adapter</span><span class="symbol">&lt;</span><a href="-person-adapter/-view-holder/index.html"><span class="identifier">ViewHolder</span></a><span class="symbol">&gt;</span></code>
+<p>A <a href="#">RecyclerView</a> adapter for displaying <a href="-person-adapter/people.html">people</a> in a standard list layout.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-person-children-creator/index.html">PersonChildrenCreator</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">PersonChildrenCreator</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-person-creator-section/index.html"><span class="identifier">PersonCreatorSection</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-person-creator-section/index.html">PersonCreatorSection</a></p>
+</td>
+<td>
+<code><span class="keyword">interface </span><span class="identifier">PersonCreatorSection</span></code>
+<p>Defines functions that all "person creator" classes must implement.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-person-details-creator/index.html">PersonDetailsCreator</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">PersonDetailsCreator</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-person-creator-section/index.html"><span class="identifier">PersonCreatorSection</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-person-list-activity/index.html">PersonListActivity</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">PersonListActivity</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="../com.farbodsz.familytree.ui/-navigation-drawer-activity/index.html"><span class="identifier">NavigationDrawerActivity</span></a></code>
+<p>Activity for displaying a list of people.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-person-marriage-creator/index.html">PersonMarriageCreator</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">PersonMarriageCreator</span>&nbsp;<span class="symbol">:</span>&nbsp;<a href="-person-creator-section/index.html"><span class="identifier">PersonCreatorSection</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-view-person-activity/index.html">ViewPersonActivity</a></p>
+</td>
+<td>
+<code><span class="keyword">class </span><span class="identifier">ViewPersonActivity</span>&nbsp;<span class="symbol">:</span>&nbsp;<span class="identifier">AppCompatActivity</span></code>
+<p>Activity for displaying the details of a person.</p>
+</td>
+</tr>
+</tbody>
+</table>
+<h3>Type Aliases</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-on-create-new.html">OnCreateNew</a></p>
+</td>
+<td>
+<code><span class="keyword">typealias </span><span class="identifier">OnCreateNew</span>&nbsp;<span class="symbol">=</span>&nbsp;<span class="symbol">(</span><span class="identifier">dialogInterface</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/DialogInterface.html"><span class="identifier">DialogInterface</span></a><span class="symbol">,</span>&nbsp;<span class="identifier">which</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span>&nbsp;<span class="symbol">-&gt;</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

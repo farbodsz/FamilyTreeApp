@@ -1,0 +1,56 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>ChildrenSchema - app</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.farbodsz.familytree.database.schemas</a>&nbsp;/&nbsp;<a href="./index.html">ChildrenSchema</a><br/>
+<br/>
+<h1>ChildrenSchema</h1>
+<code><span class="keyword">object </span><span class="identifier">ChildrenSchema</span></code>
+<p>Schema for the 'children' table. The table stores the parent-child relationships between people.</p>
+<p>This class contains constants for column names of the table, and SQLite statement for creation.
+Neither of the two columns of this table are unique identifiers (see documentation), but they are
+both non-null columns.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-c-o-l_-c-h-i-l-d_-i-d.html">COL_CHILD_ID</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">COL_CHILD_ID</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>The person ID of a child.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-c-o-l_-p-a-r-e-n-t_-i-d.html">COL_PARENT_ID</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">COL_PARENT_ID</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>The person ID of the parent.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-s-q-l_-c-r-e-a-t-e.html">SQL_CREATE</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">SQL_CREATE</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>SQLite statement which creates the "children" table upon execution.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="-t-a-b-l-e_-n-a-m-e.html">TABLE_NAME</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">TABLE_NAME</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

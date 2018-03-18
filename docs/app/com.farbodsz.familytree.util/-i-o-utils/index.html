@@ -1,0 +1,113 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>IOUtils - app</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.farbodsz.familytree.util</a>&nbsp;/&nbsp;<a href="./index.html">IOUtils</a><br/>
+<br/>
+<h1>IOUtils</h1>
+<code><span class="keyword">object </span><span class="identifier">IOUtils</span></code>
+<p>Provides convenience methods for I/O - reading and writing to the internal storage of the device.</p>
+<h3>Properties</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="-d-e-f-a-u-l-t_-i-m-a-g-e_-c-o-l-o-r_-r-e-s.html">DEFAULT_IMAGE_COLOR_RES</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">DEFAULT_IMAGE_COLOR_RES</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="-l-o-g_-t-a-g.html">LOG_TAG</a></p>
+</td>
+<td>
+<code><span class="keyword">const</span> <span class="keyword">val </span><span class="identifier">LOG_TAG</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code></td>
+</tr>
+</tbody>
+</table>
+<h3>Functions</h3>
+<table>
+<tbody>
+<tr>
+<td>
+<p><a href="delete-person-image.html">deletePersonImage</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">deletePersonImage</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.util.IOUtils$deletePersonImage(kotlin.Int, android.content.Context)/personId">personId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.util.IOUtils$deletePersonImage(kotlin.Int, android.content.Context)/applicationContext">applicationContext</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-boolean/index.html"><span class="identifier">Boolean</span></a></code>
+<p>Deletes an image on the internal storage associated with <a href="../../com.farbodsz.familytree.model/-person/index.html">Person</a> with the given <a href="delete-person-image.html#com.farbodsz.familytree.util.IOUtils$deletePersonImage(kotlin.Int, android.content.Context)/personId">personId</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="get-default-image.html">getDefaultImage</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getDefaultImage</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.util.IOUtils$getDefaultImage(android.content.Context)/context">context</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/graphics/drawable/Drawable.html"><span class="identifier">Drawable</span></a></code></td>
+</tr>
+<tr>
+<td>
+<p><a href="get-image-file-path.html">getImageFilePath</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getImageFilePath</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.util.IOUtils$getImageFilePath(android.content.Context, kotlin.String)/applicationContext">applicationContext</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.util.IOUtils$getImageFilePath(android.content.Context, kotlin.String)/fileName">fileName</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://developer.android.com/reference/java/io/File.html"><span class="identifier">File</span></a><span class="symbol">?</span></code>
+<p>Returns the complete file path (including the file name) to the internal storage where the
+image with given <a href="get-image-file-path.html#com.farbodsz.familytree.util.IOUtils$getImageFilePath(android.content.Context, kotlin.String)/fileName">fileName</a> is stored, or null if not found.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="get-person-image-file-path.html">getPersonImageFilePath</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getPersonImageFilePath</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.util.IOUtils$getPersonImageFilePath(android.content.Context, kotlin.Int)/applicationContext">applicationContext</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.util.IOUtils$getPersonImageFilePath(android.content.Context, kotlin.Int)/personId">personId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://developer.android.com/reference/java/io/File.html"><span class="identifier">File</span></a><span class="symbol">?</span></code>
+<p>Returns the complete file path (including the file name) to the internal storage where the
+image representing <a href="../../com.farbodsz.familytree.model/-person/index.html">Person</a> with <a href="get-person-image-file-path.html#com.farbodsz.familytree.util.IOUtils$getPersonImageFilePath(android.content.Context, kotlin.Int)/personId">personId</a> is stored, or null if not found.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="get-person-image-filename.html">getPersonImageFilename</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">getPersonImageFilename</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.util.IOUtils$getPersonImageFilename(kotlin.Int)/personId">personId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-string/index.html"><span class="identifier">String</span></a></code>
+<p>Returns the filename (including the file extension) of the image associated with <a href="../../com.farbodsz.familytree.model/-person/index.html">Person</a>
+with given <a href="get-person-image-filename.html#com.farbodsz.familytree.util.IOUtils$getPersonImageFilename(kotlin.Int)/personId">personId</a>.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="read-person-image.html">readPersonImage</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">readPersonImage</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.util.IOUtils$readPersonImage(kotlin.Int, android.content.Context)/personId">personId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.util.IOUtils$readPersonImage(kotlin.Int, android.content.Context)/applicationContext">applicationContext</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/graphics/drawable/Drawable.html"><span class="identifier">Drawable</span></a><span class="symbol">?</span></code>
+<p>Returns the <a href="https://developer.android.com/reference/android/graphics/drawable/Drawable.html">Drawable</a> image associated with the <a href="../../com.farbodsz.familytree.model/-person/index.html">Person</a> with <a href="read-person-image.html#com.farbodsz.familytree.util.IOUtils$readPersonImage(kotlin.Int, android.content.Context)/personId">personId</a>, or null if no
+associated image could be found on the internal storage.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="read-person-image-with-default.html">readPersonImageWithDefault</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">readPersonImageWithDefault</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.util.IOUtils$readPersonImageWithDefault(kotlin.Int, android.content.Context)/personId">personId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.util.IOUtils$readPersonImageWithDefault(kotlin.Int, android.content.Context)/applicationContext">applicationContext</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://developer.android.com/reference/android/graphics/drawable/Drawable.html"><span class="identifier">Drawable</span></a></code>
+<p>Returns the <a href="https://developer.android.com/reference/android/graphics/drawable/Drawable.html">Drawable</a> image associated with the <a href="../../com.farbodsz.familytree.model/-person/index.html">Person</a> with <a href="read-person-image-with-default.html#com.farbodsz.familytree.util.IOUtils$readPersonImageWithDefault(kotlin.Int, android.content.Context)/personId">personId</a>, or a default
+<a href="https://developer.android.com/reference/android/graphics/drawable/Drawable.html">Drawable</a> to use if the person's image could not be found on the internal storage.</p>
+</td>
+</tr>
+<tr>
+<td>
+<p><a href="write-person-image.html">writePersonImage</a></p>
+</td>
+<td>
+<code><span class="keyword">fun </span><span class="identifier">writePersonImage</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.util.IOUtils$writePersonImage(android.graphics.Bitmap, kotlin.Int, android.content.Context)/bitmap">bitmap</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/graphics/Bitmap.html"><span class="identifier">Bitmap</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.util.IOUtils$writePersonImage(android.graphics.Bitmap, kotlin.Int, android.content.Context)/personId">personId</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.util.IOUtils$writePersonImage(android.graphics.Bitmap, kotlin.Int, android.content.Context)/applicationContext">applicationContext</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/content/Context.html"><span class="identifier">Context</span></a><span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Saves a person's image to the internal storage.</p>
+</td>
+</tr>
+</tbody>
+</table>
+</BODY>
+</HTML>

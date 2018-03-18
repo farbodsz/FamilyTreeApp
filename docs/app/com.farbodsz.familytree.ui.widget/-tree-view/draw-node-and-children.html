@@ -1,0 +1,32 @@
+<HTML>
+<HEAD>
+<meta charset="UTF-8">
+<title>TreeView.drawNodeAndChildren - app</title>
+<link rel="stylesheet" href="..\..\..\style.css">
+</HEAD>
+<BODY>
+<a href="../../index.html">app</a>&nbsp;/&nbsp;<a href="../index.html">com.farbodsz.familytree.ui.widget</a>&nbsp;/&nbsp;<a href="index.html">TreeView</a>&nbsp;/&nbsp;<a href="./draw-node-and-children.html">drawNodeAndChildren</a><br/>
+<br/>
+<h1>drawNodeAndChildren</h1>
+<a name="com.farbodsz.familytree.ui.widget.TreeView$drawNodeAndChildren(android.graphics.Canvas, com.farbodsz.familytree.model.tree.TreeNode((com.farbodsz.familytree.model.Person)), kotlin.Int, kotlin.Int, kotlin.Pair((kotlin.Float, )), kotlin.Int)"></a>
+<code><span class="keyword">private</span> <span class="keyword">fun </span><span class="identifier">drawNodeAndChildren</span><span class="symbol">(</span><span class="identifier" id="com.farbodsz.familytree.ui.widget.TreeView$drawNodeAndChildren(android.graphics.Canvas, com.farbodsz.familytree.model.tree.TreeNode((com.farbodsz.familytree.model.Person)), kotlin.Int, kotlin.Int, kotlin.Pair((kotlin.Float, )), kotlin.Int)/canvas">canvas</span><span class="symbol">:</span>&nbsp;<a href="https://developer.android.com/reference/android/graphics/Canvas.html"><span class="identifier">Canvas</span></a><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.widget.TreeView$drawNodeAndChildren(android.graphics.Canvas, com.farbodsz.familytree.model.tree.TreeNode((com.farbodsz.familytree.model.Person)), kotlin.Int, kotlin.Int, kotlin.Pair((kotlin.Float, )), kotlin.Int)/node">node</span><span class="symbol">:</span>&nbsp;<a href="../../com.farbodsz.familytree.model.tree/-tree-node/index.html"><span class="identifier">TreeNode</span></a><span class="symbol">&lt;</span><a href="../../com.farbodsz.familytree.model/-person/index.html"><span class="identifier">Person</span></a><span class="symbol">&gt;</span><span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.widget.TreeView$drawNodeAndChildren(android.graphics.Canvas, com.farbodsz.familytree.model.tree.TreeNode((com.farbodsz.familytree.model.Person)), kotlin.Int, kotlin.Int, kotlin.Pair((kotlin.Float, )), kotlin.Int)/depth">depth</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a>&nbsp;<span class="symbol">=</span>&nbsp;0<span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.widget.TreeView$drawNodeAndChildren(android.graphics.Canvas, com.farbodsz.familytree.model.tree.TreeNode((com.farbodsz.familytree.model.Person)), kotlin.Int, kotlin.Int, kotlin.Pair((kotlin.Float, )), kotlin.Int)/parentXLeft">parentXLeft</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a>&nbsp;<span class="symbol">=</span>&nbsp;0<span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.widget.TreeView$drawNodeAndChildren(android.graphics.Canvas, com.farbodsz.familytree.model.tree.TreeNode((com.farbodsz.familytree.model.Person)), kotlin.Int, kotlin.Int, kotlin.Pair((kotlin.Float, )), kotlin.Int)/parentCentre">parentCentre</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-pair/index.html"><span class="identifier">Pair</span></a><span class="symbol">&lt;</span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">,</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-float/index.html"><span class="identifier">Float</span></a><span class="symbol">&gt;</span><span class="symbol">?</span>&nbsp;<span class="symbol">=</span>&nbsp;null<span class="symbol">, </span><span class="identifier" id="com.farbodsz.familytree.ui.widget.TreeView$drawNodeAndChildren(android.graphics.Canvas, com.farbodsz.familytree.model.tree.TreeNode((com.farbodsz.familytree.model.Person)), kotlin.Int, kotlin.Int, kotlin.Pair((kotlin.Float, )), kotlin.Int)/childPos">childPos</span><span class="symbol">:</span>&nbsp;<a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-int/index.html"><span class="identifier">Int</span></a>&nbsp;<span class="symbol">=</span>&nbsp;0<span class="symbol">)</span><span class="symbol">: </span><a href="https://kotlinlang.org/api/latest/jvm/stdlib/kotlin/-unit/index.html"><span class="identifier">Unit</span></a></code>
+<p>Draws a representation of a node and its children onto the canvas.</p>
+<h3>Parameters</h3>
+<p><a name="canvas"></a>
+<code>canvas</code> - the canvas to draw to (parameter from <a href="https://developer.android.com/reference/android/view/View.html#onDraw(android.graphics.Canvas)">View.onDraw</a>)</p>
+<p><a name="node"></a>
+<code>node</code> - the node to be drawn</p>
+<p><a name="depth"></a>
+<code>depth</code> - the depth of the node being drawn (0 by default)</p>
+<p><a name="parentXLeft"></a>
+<code>parentXLeft</code> - X coordinate of the left of the space <em>allocated</em> for drawing this
+    node's parent (0 by default, indicating this node has no parent)</p>
+<p><a name="parentCentre"></a>
+<code>parentCentre</code> - pair of float coordinates (X then Y) of the bottom centre of this node's
+    parent's drawn area. It can be null, indicating no parent.</p>
+<p><a name="childPos"></a>
+<code>childPos</code> - a number representing this (child) node's position in relation to its
+    siblings <em>starting from 0</em>. (0 is also used by default to indicate this
+    node has no parent, i.e. is the root).</p>
+</BODY>
+</HTML>
